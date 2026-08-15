@@ -1,0 +1,209 @@
+//
+// AUTO-GENERATED FILE, DO NOT MODIFY!
+//
+// @dart=2.18
+
+// ignore_for_file: unused_element, unused_import
+// ignore_for_file: always_put_required_named_parameters_first
+// ignore_for_file: constant_identifier_names
+// ignore_for_file: lines_longer_than_80_chars
+
+part of hanzoai.cloud;
+
+class Benchmark {
+  /// Returns a new [Benchmark] instance.
+  Benchmark({
+    this.axis,
+    this.id,
+    this.items,
+    this.native_,
+    this.source_,
+    this.title,
+  });
+
+  /// what capability it measures
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? axis;
+
+  /// the id every other op on this surface takes
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? id;
+
+  /// how many items it holds, when the set is fixed
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  int? items;
+
+  /// whether the standardized harness runs it today
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  bool? native_;
+
+  /// where the items come from
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? source_;
+
+  /// the benchmark's published name
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? title;
+
+  @override
+  bool operator ==(Object other) => identical(this, other) || other is Benchmark &&
+    other.axis == axis &&
+    other.id == id &&
+    other.items == items &&
+    other.native_ == native_ &&
+    other.source_ == source_ &&
+    other.title == title;
+
+  @override
+  int get hashCode =>
+    // ignore: unnecessary_parenthesis
+    (axis == null ? 0 : axis!.hashCode) +
+    (id == null ? 0 : id!.hashCode) +
+    (items == null ? 0 : items!.hashCode) +
+    (native_ == null ? 0 : native_!.hashCode) +
+    (source_ == null ? 0 : source_!.hashCode) +
+    (title == null ? 0 : title!.hashCode);
+
+  @override
+  String toString() => 'Benchmark[axis=$axis, id=$id, items=$items, native_=$native_, source_=$source_, title=$title]';
+
+  Map<String, dynamic> toJson() {
+    final json = <String, dynamic>{};
+    if (this.axis != null) {
+      json[r'axis'] = this.axis;
+    } else {
+      json[r'axis'] = null;
+    }
+    if (this.id != null) {
+      json[r'id'] = this.id;
+    } else {
+      json[r'id'] = null;
+    }
+    if (this.items != null) {
+      json[r'items'] = this.items;
+    } else {
+      json[r'items'] = null;
+    }
+    if (this.native_ != null) {
+      json[r'native'] = this.native_;
+    } else {
+      json[r'native'] = null;
+    }
+    if (this.source_ != null) {
+      json[r'source'] = this.source_;
+    } else {
+      json[r'source'] = null;
+    }
+    if (this.title != null) {
+      json[r'title'] = this.title;
+    } else {
+      json[r'title'] = null;
+    }
+    return json;
+  }
+
+  /// Returns a new [Benchmark] instance and imports its values from
+  /// [value] if it's a [Map], null otherwise.
+  // ignore: prefer_constructors_over_static_methods
+  static Benchmark? fromJson(dynamic value) {
+    if (value is Map) {
+      final json = value.cast<String, dynamic>();
+
+      // Ensure that the map contains the required keys.
+      // Note 1: the values aren't checked for validity beyond being non-null.
+      // Note 2: this code is stripped in release mode!
+      assert(() {
+        requiredKeys.forEach((key) {
+          assert(json.containsKey(key), 'Required key "Benchmark[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "Benchmark[$key]" has a null value in JSON.');
+        });
+        return true;
+      }());
+
+      return Benchmark(
+        axis: mapValueOfType<String>(json, r'axis'),
+        id: mapValueOfType<String>(json, r'id'),
+        items: mapValueOfType<int>(json, r'items'),
+        native_: mapValueOfType<bool>(json, r'native'),
+        source_: mapValueOfType<String>(json, r'source'),
+        title: mapValueOfType<String>(json, r'title'),
+      );
+    }
+    return null;
+  }
+
+  static List<Benchmark> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <Benchmark>[];
+    if (json is List && json.isNotEmpty) {
+      for (final row in json) {
+        final value = Benchmark.fromJson(row);
+        if (value != null) {
+          result.add(value);
+        }
+      }
+    }
+    return result.toList(growable: growable);
+  }
+
+  static Map<String, Benchmark> mapFromJson(dynamic json) {
+    final map = <String, Benchmark>{};
+    if (json is Map && json.isNotEmpty) {
+      json = json.cast<String, dynamic>(); // ignore: parameter_assignments
+      for (final entry in json.entries) {
+        final value = Benchmark.fromJson(entry.value);
+        if (value != null) {
+          map[entry.key] = value;
+        }
+      }
+    }
+    return map;
+  }
+
+  // maps a json object with a list of Benchmark-objects as value to a dart map
+  static Map<String, List<Benchmark>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<Benchmark>>{};
+    if (json is Map && json.isNotEmpty) {
+      // ignore: parameter_assignments
+      json = json.cast<String, dynamic>();
+      for (final entry in json.entries) {
+        map[entry.key] = Benchmark.listFromJson(entry.value, growable: growable,);
+      }
+    }
+    return map;
+  }
+
+  /// The list of required keys that must be present in a JSON.
+  static const requiredKeys = <String>{
+  };
+}
+

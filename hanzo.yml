@@ -1,0 +1,29 @@
+# Hanzo CI — the ONE way this repo is gated, read by hanzoai/ci.
+#
+# No `images:` and no `deploy:`: this is a client library. Nothing is on pub.dev
+# yet, so until a tag publishes it, a consumer resolves it from this git URL.
+
+test:
+  - name: analyze
+    # The whole package: 192 API classes, 2461 models, the seam and the
+    # examples. `dart analyze` treats warnings as fatal, so this is what says
+    # the projection of the document still compiles.
+    run: dart pub get && dart analyze
+
+  - name: test
+    # The seam: origin, credential, and one typed decode. Everything else in
+    # this repo is projection and `analyze` covers it.
+    run: dart test
+
+# THE CLIENT LANE — this repo is a PROJECTION of one API document at one version.
+#
+# hanzoai/cloud's release sends `repository_dispatch: spec-update` carrying
+# (version, sha, spec_sha256); hanzoai/ci fetches openapi.yaml AT THAT SHA,
+# REFUSES if the bytes hash to anything else, runs `generate:`, writes
+# `.spec-lock` beside the code, and — only after the `test:` block above has
+# passed over exactly those bytes — commits and cuts a patch.
+client:
+  generate: ./scripts/generate.sh
+  # NO version: — this client has not had a first release, so there is no patch
+  # for the lane to derive. Its projection still lands and is still gated; the
+  # cut waits for a human.

@@ -1,0 +1,22 @@
+# The gate. `dart analyze` is what hanzo.yml runs and what a contributor runs,
+# and it treats warnings as fatal, so this file is what 2662 generated files and
+# the handful of hand-written ones are both held to.
+#
+# `recommended`, and not the strict-* analyzer options the two hand-written
+# hanzo-dart packages carry: strict-casts, strict-raw-types and strict-inference
+# together report 7513 issues here, nearly all of them the generator's own
+# `json[r'key'] as List` idiom, which nothing in a row or a template can
+# restate. A standard a generated tree cannot meet is a standard nobody runs.
+include: package:lints/recommended.yaml
+
+linter:
+  rules:
+    # Four style rules the generator's Dart trips wholesale — 28408 of the
+    # 28411 findings, none of them in a file written by hand. The output has to
+    # stay byte-identical to what the generator emits or the client lane's
+    # `--check` fails, so these can only ever be noise here, and noise at this
+    # volume hides the three findings that are not.
+    unnecessary_this: false # 23123: `this.x` in every toJson
+    use_string_in_part_of_directives: false # 2660: `part of hanzoai.cloud;`, one per model
+    avoid_function_literals_in_foreach_calls: false # 2460: the required-key assert
+    unintended_html_in_doc_comment: false # 165: `<name>` inside a doc comment carried from the API document
