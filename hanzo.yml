@@ -5,14 +5,14 @@
 
 test:
   - name: analyze
-    # The whole package: 192 API classes, 2461 models, the seam and the
+    # The whole package: 192 API classes, 2460 models, the front door and the
     # examples. `dart analyze` treats warnings as fatal, so this is what says
     # the projection of the document still compiles.
     run: dart pub get && dart analyze
 
   - name: test
-    # The seam: origin, credential, and one typed decode. Everything else in
-    # this repo is projection and `analyze` covers it.
+    # The front door: origin, credential, and one typed decode. Everything else
+    # in this repo is projection and `analyze` covers it.
     run: dart test
 
 # THE CLIENT LANE — this repo is a PROJECTION of one API document at one version.

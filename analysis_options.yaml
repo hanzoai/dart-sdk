@@ -3,8 +3,9 @@
 # the handful of hand-written ones are both held to.
 #
 # `recommended`, and not the strict-* analyzer options the two hand-written
-# hanzo-dart packages carry: strict-casts, strict-raw-types and strict-inference
-# together report 7513 issues here, nearly all of them the generator's own
+# hanzo-dart packages carry: the three together report 4947 issues here, and
+# strict-casts alone reports all 4944 errors among them — strict-raw-types and
+# strict-inference each add none. Every one is the generator's own
 # `json[r'key'] as List` idiom, which nothing in a row or a template can
 # restate. A standard a generated tree cannot meet is a standard nobody runs.
 include: package:lints/recommended.yaml

@@ -72,9 +72,10 @@ final keys = await KeysApi(client).getKeys();                  // typed
 final res = await ModelsApi(client).getModelsWithHttpInfo();   // raw Response
 ```
 
-The typed method is what you want. But 716 of the 2479 operations publish no
-response schema — the platform emits an address it can prove and declines to
-invent a shape for it — so their typed method returns `void` and the
+The typed method is what you want. But 834 of the 2479 operations publish no
+response body to type — 716 declare no response at all, another 118 declare a
+2xx carrying no content — because the platform emits an address it can prove and
+declines to invent a shape for it. Their typed method returns `void`, and the
 `WithHttpInfo` variant is how you read the body. `example/models.dart` shows
 that path; `example/keys.dart` shows the typed one.
 
@@ -106,8 +107,11 @@ regenerate.
 ## The other two Dart packages
 
 - [`hanzo-dart/hanzoai`](https://github.com/hanzo-dart/hanzoai) — a hand-written
-  client for agents, sessions and machines. This package covers those routes and
-  every other one, from the document rather than by hand.
+  client for agents, sessions and machines. Its agent and session routes are all
+  in the document, so they are all in here too, from the document rather than by
+  hand. Its five `/v1/cloud/*-machine` calls are not: the document declares no
+  path containing `machine`, so no projection of it reaches them and that client
+  is still how you call them.
 - [`hanzo-dart/base`](https://github.com/hanzo-dart/base) — a different API:
   [Hanzo Base](https://github.com/hanzoai/base), the reactive backend. Unrelated
   to this client and unaffected by it.

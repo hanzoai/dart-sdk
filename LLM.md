@@ -77,6 +77,10 @@ switched off in `analysis_options.yaml` with the counts that justify each.
 
 ## Sibling packages
 
-`hanzo-dart/hanzoai` is a hand-written client for agents, sessions and machines,
-and every route it covers is in here too, from the document. `hanzo-dart/base`
-is a different API — Hanzo Base, the reactive backend — and is unaffected.
+`hanzo-dart/hanzoai` is a hand-written client for agents, sessions and machines.
+Its agent and session routes are all in the document, so they are all in here.
+Its machine service is not: it calls `/v1/cloud/add-machine`, `/v1/cloud/get-machine`,
+`/v1/cloud/get-machines`, `/v1/cloud/update-machine` and `/v1/cloud/delete-machine`,
+and the document declares no path containing `machine`, so no projection of it
+reaches them. That client is still how you call them. `hanzo-dart/base` is a
+different API — Hanzo Base, the reactive backend — and is unaffected.
