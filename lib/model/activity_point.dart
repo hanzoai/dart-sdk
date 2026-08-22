@@ -18,7 +18,6 @@ class ActivityPoint {
     this.requests,
     this.tokens,
   });
-
   /// CostCents is the day's spend in whole US cents. A series is only ever returned for a subject the caller is authorized to see, so this is never withheld: 0 means no spend that day.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

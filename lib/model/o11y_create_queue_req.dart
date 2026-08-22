@@ -17,7 +17,6 @@ class O11yCreateQueueReq {
     this.name,
     this.scoreConfigIds = const [],
   });
-
   /// Description is optional free text, up to 512 characters.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class O11yAggregateAttributeResponse {
   O11yAggregateAttributeResponse({
     this.attributeKeys = const [],
   });
-
   List<O11yAttributeKey> attributeKeys;
 
   @override

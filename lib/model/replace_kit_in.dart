@@ -25,7 +25,6 @@ class ReplaceKitIn {
     this.useCase,
     this.variants = const [],
   });
-
   /// Category groups the kit in the gallery browser.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

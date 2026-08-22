@@ -17,7 +17,6 @@ class ConnectionOut {
     this.provider,
     this.status,
   });
-
   /// Account names the connected external account, when the provider reports one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

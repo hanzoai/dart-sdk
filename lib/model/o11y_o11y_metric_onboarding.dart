@@ -15,7 +15,6 @@ class O11yO11yMetricOnboarding {
   O11yO11yMetricOnboarding({
     this.hasMetrics,
   });
-
   /// HasMetrics is true once any non-O11y metric has been ingested.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

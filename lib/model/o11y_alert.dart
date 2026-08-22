@@ -19,7 +19,6 @@ class O11yAlert {
     this.labels = const {},
     this.startsAt,
   });
-
   Map<String, String> annotations;
 
   ///

@@ -16,7 +16,6 @@ class O11yO11yStatefulSetListOut {
     this.data,
     this.status,
   });
-
   /// Data holds the statefulset records.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -20,7 +20,6 @@ class RoundInput {
     this.shareClassId,
     this.targetAmount,
   });
-
   /// Name is the round's name on the cap table, e.g. \"Seed\". Required.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

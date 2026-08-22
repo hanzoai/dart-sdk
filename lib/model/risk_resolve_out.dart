@@ -19,7 +19,6 @@ class RiskResolveOut {
     this.unlabelled,
     this.unmatured,
   });
-
   /// Horizon is the maturity horizon this answer was computed under, IN DAYS — the caller's, or 120 when it stated none. Each event's as-of is its own `at` plus this many days, and that as-of is what decides which assertions were visible to it; an event whose as-of falls after Now is not resolved at all and is counted in Unmatured instead.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

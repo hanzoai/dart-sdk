@@ -17,7 +17,6 @@ class Upstream {
     this.id,
     this.passHostHeader,
   });
-
   /// Backends are the upstream servers to balance across: 1..32 of them.
   List<Backend> backends;
 

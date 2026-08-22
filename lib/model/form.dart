@@ -13,44 +13,21 @@ part of hanzoai.cloud;
 class Form {
   /// Returns a new [Form] instance.
   Form({
-    this.category,
-    this.createdTime,
-    this.displayName,
-    this.formItems = const [],
+    this.code,
     this.name,
-    this.owner,
-    this.position,
-    this.tag,
-    this.type,
-    this.url,
+    this.signed,
+    this.why,
   });
-
+  /// Code is the IRS designation, e.g. \"SS-4\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? category;
+  String? code;
 
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? createdTime;
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? displayName;
-
-  List<FormItem> formItems;
-
+  /// Name is the form's own title, so a reader need not already know the code.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -59,123 +36,63 @@ class Form {
   ///
   String? name;
 
+  /// Signed reports whether we hold the signature.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? owner;
+  bool? signed;
 
+  /// Why states what this form is for in this application — the same form is owed for different reasons on different paths.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? position;
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? tag;
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? type;
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? url;
+  String? why;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is Form &&
-    other.category == category &&
-    other.createdTime == createdTime &&
-    other.displayName == displayName &&
-    _deepEquality.equals(other.formItems, formItems) &&
+    other.code == code &&
     other.name == name &&
-    other.owner == owner &&
-    other.position == position &&
-    other.tag == tag &&
-    other.type == type &&
-    other.url == url;
+    other.signed == signed &&
+    other.why == why;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (category == null ? 0 : category!.hashCode) +
-    (createdTime == null ? 0 : createdTime!.hashCode) +
-    (displayName == null ? 0 : displayName!.hashCode) +
-    (formItems.hashCode) +
+    (code == null ? 0 : code!.hashCode) +
     (name == null ? 0 : name!.hashCode) +
-    (owner == null ? 0 : owner!.hashCode) +
-    (position == null ? 0 : position!.hashCode) +
-    (tag == null ? 0 : tag!.hashCode) +
-    (type == null ? 0 : type!.hashCode) +
-    (url == null ? 0 : url!.hashCode);
+    (signed == null ? 0 : signed!.hashCode) +
+    (why == null ? 0 : why!.hashCode);
 
   @override
-  String toString() => 'Form[category=$category, createdTime=$createdTime, displayName=$displayName, formItems=$formItems, name=$name, owner=$owner, position=$position, tag=$tag, type=$type, url=$url]';
+  String toString() => 'Form[code=$code, name=$name, signed=$signed, why=$why]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.category != null) {
-      json[r'category'] = this.category;
+    if (this.code != null) {
+      json[r'code'] = this.code;
     } else {
-      json[r'category'] = null;
+      json[r'code'] = null;
     }
-    if (this.createdTime != null) {
-      json[r'createdTime'] = this.createdTime;
-    } else {
-      json[r'createdTime'] = null;
-    }
-    if (this.displayName != null) {
-      json[r'displayName'] = this.displayName;
-    } else {
-      json[r'displayName'] = null;
-    }
-      json[r'formItems'] = this.formItems;
     if (this.name != null) {
       json[r'name'] = this.name;
     } else {
       json[r'name'] = null;
     }
-    if (this.owner != null) {
-      json[r'owner'] = this.owner;
+    if (this.signed != null) {
+      json[r'signed'] = this.signed;
     } else {
-      json[r'owner'] = null;
+      json[r'signed'] = null;
     }
-    if (this.position != null) {
-      json[r'position'] = this.position;
+    if (this.why != null) {
+      json[r'why'] = this.why;
     } else {
-      json[r'position'] = null;
-    }
-    if (this.tag != null) {
-      json[r'tag'] = this.tag;
-    } else {
-      json[r'tag'] = null;
-    }
-    if (this.type != null) {
-      json[r'type'] = this.type;
-    } else {
-      json[r'type'] = null;
-    }
-    if (this.url != null) {
-      json[r'url'] = this.url;
-    } else {
-      json[r'url'] = null;
+      json[r'why'] = null;
     }
     return json;
   }
@@ -199,16 +116,10 @@ class Form {
       }());
 
       return Form(
-        category: mapValueOfType<String>(json, r'category'),
-        createdTime: mapValueOfType<String>(json, r'createdTime'),
-        displayName: mapValueOfType<String>(json, r'displayName'),
-        formItems: FormItem.listFromJson(json[r'formItems']),
+        code: mapValueOfType<String>(json, r'code'),
         name: mapValueOfType<String>(json, r'name'),
-        owner: mapValueOfType<String>(json, r'owner'),
-        position: mapValueOfType<String>(json, r'position'),
-        tag: mapValueOfType<String>(json, r'tag'),
-        type: mapValueOfType<String>(json, r'type'),
-        url: mapValueOfType<String>(json, r'url'),
+        signed: mapValueOfType<bool>(json, r'signed'),
+        why: mapValueOfType<String>(json, r'why'),
       );
     }
     return null;

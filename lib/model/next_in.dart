@@ -19,7 +19,6 @@ class NextIn {
     this.noWait,
     this.stream,
   });
-
   /// Batch is how many messages to pull (1–1000, default 1).
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

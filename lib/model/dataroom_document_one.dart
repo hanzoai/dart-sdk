@@ -15,7 +15,6 @@ class DataroomDocumentOne {
   DataroomDocumentOne({
     this.document,
   });
-
   /// Document is the document itself.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

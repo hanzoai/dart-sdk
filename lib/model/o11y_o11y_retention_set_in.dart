@@ -19,7 +19,6 @@ class O11yO11yRetentionSetIn {
     this.ttlConditions = const [],
     this.type,
   });
-
   /// ColdStorageDurationDays is how old data must be before it moves, in days.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

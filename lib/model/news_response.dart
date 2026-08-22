@@ -15,7 +15,6 @@ class NewsResponse {
   NewsResponse({
     this.items = const [],
   });
-
   /// Items is the merged, filtered, deduped feed, freshest first and capped at 50. A source that failed is skipped rather than failing the read, so this can be shorter than the pipeline's reach — it is never an error.
   List<NewsItem> items;
 

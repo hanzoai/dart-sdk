@@ -15,7 +15,6 @@ class ScoreList {
   ScoreList({
     this.data = const [],
   });
-
   /// Data is the caller org's score events matching the filters, bounded by limit.
   List<ScoreView> data;
 

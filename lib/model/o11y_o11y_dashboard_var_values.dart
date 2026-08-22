@@ -15,7 +15,6 @@ class O11yO11yDashboardVarValues {
   O11yO11yDashboardVarValues({
     this.variableValues = const [],
   });
-
   /// VariableValues are the values, in the order the query produced them.
   List<Object> variableValues;
 

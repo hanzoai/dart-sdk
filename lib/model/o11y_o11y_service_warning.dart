@@ -15,7 +15,6 @@ class O11yO11yServiceWarning {
   O11yO11yServiceWarning({
     this.topLevelOps = const [],
   });
-
   /// TopLevelOps are the entry-point operations the profile was computed over.
   List<String> topLevelOps;
 

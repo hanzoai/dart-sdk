@@ -19,7 +19,6 @@ class Assignment {
     this.subject,
     this.variant,
   });
-
   /// Trial is the experiment that was evaluated.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

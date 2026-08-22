@@ -15,7 +15,6 @@ class ReadOut {
   ReadOut({
     this.messages = const [],
   });
-
   /// Messages is what was read, stream-ordered.
   List<Delivery> messages;
 

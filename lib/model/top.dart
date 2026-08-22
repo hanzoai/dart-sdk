@@ -23,7 +23,6 @@ class Top {
     this.topReferrers,
     this.topSources,
   });
-
   /// End is the window's exclusive upper bound, RFC3339 UTC.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

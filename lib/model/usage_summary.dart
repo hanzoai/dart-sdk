@@ -23,7 +23,6 @@ class UsageSummary {
     this.spend,
     this.start,
   });
-
   /// Accounts is the caller's own linked provider accounts beside the org's Hanzo-routed usage, labelled row by row and never summed together.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -18,7 +18,6 @@ class ClearReferenceOut {
     this.overrides,
     this.set_,
   });
-
   /// Cleared is false when your org held no such override — which is not an error, it is the honest answer to a removal that had nothing to remove.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

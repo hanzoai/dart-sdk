@@ -17,7 +17,6 @@ class Claim {
     this.org,
     this.repo,
   });
-
   /// Created reports whether this call recorded a new claim (201) or found an existing one (200).
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

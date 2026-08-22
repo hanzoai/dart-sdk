@@ -16,7 +16,7 @@ class GithubSearchOut {
     this.count,
     this.repos = const [],
   });
-
+  /// Count is how many hits Repos carries. It is that array's length, NOT GitHub's total_count, so it never exceeds limit and says nothing about how many more repositories matched.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -25,6 +25,7 @@ class GithubSearchOut {
   ///
   int? count;
 
+  /// Repos are the matching repositories in GitHub's own relevance order, capped at limit. Always an array, never null.
   List<GithubSearchHit> repos;
 
   @override

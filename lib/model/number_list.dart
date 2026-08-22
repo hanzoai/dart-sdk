@@ -15,7 +15,7 @@ class NumberList {
   NumberList({
     this.data = const [],
   });
-
+  /// Data is the numbers, and which numbers depends on the route: a search answers what the carrier has available, a list answers what this org already holds.
   List<Number> data;
 
   @override

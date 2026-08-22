@@ -16,7 +16,6 @@ class O11yO11yRuleHistoryOverallStatusOut {
     this.data = const [],
     this.status,
   });
-
   /// Data holds the windows.
   List<O11yGettableRuleStateWindow> data;
 

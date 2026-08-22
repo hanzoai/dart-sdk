@@ -15,7 +15,6 @@ class Deleted {
   Deleted({
     this.deleted,
   });
-
   /// Deleted is the id that no longer exists.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

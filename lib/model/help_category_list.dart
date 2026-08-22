@@ -15,7 +15,6 @@ class HelpCategoryList {
   HelpCategoryList({
     this.data = const [],
   });
-
   /// Data is the sections that front at least one public article. Empty when the center publishes none.
   List<HelpCategory> data;
 

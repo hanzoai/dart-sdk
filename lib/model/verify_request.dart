@@ -15,7 +15,6 @@ class VerifyRequest {
   VerifyRequest({
     this.repoUrl,
   });
-
   /// RepoURL is what to claim: a repository (github.com/owner/name) or a whole OWNER (github.com/owner, no repository segment). gitlab.com is accepted too.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

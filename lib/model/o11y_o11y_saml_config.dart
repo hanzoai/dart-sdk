@@ -19,7 +19,6 @@ class O11yO11ySAMLConfig {
     this.samlEntity,
     this.samlIdp,
   });
-
   /// AttributeMapping names the assertion attributes to read identity from.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

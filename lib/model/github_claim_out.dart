@@ -16,7 +16,6 @@ class GithubClaimOut {
     this.already = const [],
     this.claimed = const [],
   });
-
   /// Already were bound before the call and are unchanged by it.
   List<String> already;
 

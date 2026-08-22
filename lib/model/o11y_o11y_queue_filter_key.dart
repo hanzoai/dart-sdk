@@ -19,7 +19,6 @@ class O11yO11yQueueFilterKey {
     this.key,
     this.type,
   });
-
   /// DataType is the attribute's type: string, int64, float64 or bool.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class O11yO11yLogAggregateOut {
   O11yO11yLogAggregateOut({
     this.items = const {},
   });
-
   /// Items are the buckets, keyed by bucket timestamp.
   Map<String, O11yO11yLogAggregateBucket> items;
 

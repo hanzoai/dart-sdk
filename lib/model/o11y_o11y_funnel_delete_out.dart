@@ -15,7 +15,6 @@ class O11yO11yFunnelDeleteOut {
   O11yO11yFunnelDeleteOut({
     this.status,
   });
-
   /// Status is \"success\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

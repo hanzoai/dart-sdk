@@ -22,7 +22,6 @@ class ItemView {
     this.status,
     this.updatedAt,
   });
-
   /// CreatedAt is when the example was first written.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

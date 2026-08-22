@@ -15,7 +15,6 @@ class O11yAWSLogsCollectionStrategy {
   O11yAWSLogsCollectionStrategy({
     this.subscriptions = const [],
   });
-
   List<O11yAWSCloudWatchLogsSubscription> subscriptions;
 
   @override

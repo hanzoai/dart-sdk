@@ -18,7 +18,6 @@ class CaptableCompanyUpdate {
     this.incorporationType,
     this.name,
   });
-
   Object? incorporationCountry;
 
   Object? incorporationState;

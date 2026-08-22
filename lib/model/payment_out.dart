@@ -19,7 +19,6 @@ class PaymentOut {
     this.status,
     this.test,
   });
-
   /// BalanceCents is the org's balance AFTER this payment, read back from the same key just credited so it matches what the balance endpoint reports.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

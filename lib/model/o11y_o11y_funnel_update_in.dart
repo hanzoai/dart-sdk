@@ -17,7 +17,6 @@ class O11yO11yFunnelUpdateIn {
     this.funnelName,
     this.timestamp,
   });
-
   /// Description replaces the funnel's description. Empty leaves it as it was.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

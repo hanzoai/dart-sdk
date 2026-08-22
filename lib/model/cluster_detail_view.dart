@@ -27,7 +27,6 @@ class ClusterDetailView {
     this.region,
     this.status,
   });
-
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -94,6 +93,7 @@ class ClusterDetailView {
   ///
   String? nodeSize;
 
+  /// Nodes is every worker node in the cluster, each in the same shape the machines surface uses — a node IS a machine, addressable by its own id. This is the individual hardware behind the pool counts above.
   List<MachineView> nodes;
 
   ///

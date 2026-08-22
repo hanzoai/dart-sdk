@@ -15,7 +15,6 @@ class O11yO11yQueryRangeData {
   O11yO11yQueryRangeData({
     this.results = const [],
   });
-
   /// Results are the per-query results, each a set of aggregated series.
   List<O11yO11yReductionSeriesResult> results;
 

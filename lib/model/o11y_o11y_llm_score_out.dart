@@ -16,7 +16,6 @@ class O11yO11yLLMScoreOut {
     this.data,
     this.status,
   });
-
   /// Data is the score.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

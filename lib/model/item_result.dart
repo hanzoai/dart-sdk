@@ -19,7 +19,6 @@ class ItemResult {
     this.score,
     this.traceId,
   });
-
   /// Error is why this example produced no score — the model, the judge, or the run's deadline. A result carrying one is not counted in Scored.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

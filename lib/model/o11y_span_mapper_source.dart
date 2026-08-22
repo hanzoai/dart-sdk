@@ -18,7 +18,6 @@ class O11ySpanMapperSource {
     this.operation,
     this.priority,
   });
-
   Object? context;
 
   ///

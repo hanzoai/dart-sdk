@@ -16,7 +16,6 @@ class UsageScope {
     this.org,
     this.user,
   });
-
   /// Org is the IAM org slug the rows were read under — the validated principal's, never a client header.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

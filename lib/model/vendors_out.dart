@@ -15,7 +15,6 @@ class VendorsOut {
   VendorsOut({
     this.vendors = const [],
   });
-
   /// Vendors is every vendor the org has recorded, canonical name ascending.
   List<VendorRow> vendors;
 

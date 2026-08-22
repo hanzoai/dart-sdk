@@ -18,7 +18,6 @@ class O11yO11yLLMPricingRulesPage {
     this.offset,
     this.total,
   });
-
   /// Items are the rules.
   List<O11yO11yLLMPricingRule> items;
 

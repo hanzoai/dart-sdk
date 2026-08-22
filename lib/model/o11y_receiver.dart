@@ -33,7 +33,6 @@ class O11yReceiver {
     this.webhookConfigs = const [],
     this.wechatConfigs = const [],
   });
-
   List<O11yDiscordConfig> discordConfigs;
 
   List<O11yEmailConfig> emailConfigs;

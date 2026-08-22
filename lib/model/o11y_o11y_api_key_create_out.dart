@@ -16,7 +16,6 @@ class O11yO11yAPIKeyCreateOut {
     this.data,
     this.status,
   });
-
   /// Data carries the key's id and secret.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

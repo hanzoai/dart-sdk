@@ -16,7 +16,6 @@ class SourceToolList {
     this.source_,
     this.tools = const [],
   });
-
   /// Source is the source these tools came from.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class PlanToolList {
   PlanToolList({
     this.tools = const [],
   });
-
   /// Tools are the metered tools, each an opaque object exactly as the catalog emits it — typically name, billing unit and price.
   List<Object> tools;
 

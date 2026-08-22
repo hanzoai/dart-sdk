@@ -23,7 +23,6 @@ class O11yO11yInvite {
     this.token,
     this.updatedAt,
   });
-
   /// CreatedAt is when it was created.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

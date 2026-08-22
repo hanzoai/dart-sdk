@@ -16,7 +16,6 @@ class VerificationDecision {
     this.id,
     this.status,
   });
-
   /// ID is the verification to decide, from the path.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

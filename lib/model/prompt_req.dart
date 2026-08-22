@@ -19,7 +19,6 @@ class PromptReq {
     this.tags = const [],
     this.type,
   });
-
   /// Labels is free-form taxonomy, each up to 64 characters, capped at 32 entries.
   List<String> labels;
 

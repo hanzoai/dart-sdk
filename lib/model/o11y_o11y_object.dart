@@ -16,7 +16,6 @@ class O11yO11yObject {
     this.resource,
     this.selector,
   });
-
   /// Resource is the resource's type and kind.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

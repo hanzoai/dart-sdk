@@ -15,7 +15,6 @@ class PullList {
   PullList({
     this.data = const [],
   });
-
   /// Data holds the repo's pull requests, newest number first.
   List<PullView> data;
 

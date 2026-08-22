@@ -17,7 +17,6 @@ class SetReferenceOut {
     this.set_,
     this.written,
   });
-
   /// Overrides is how many your org now holds in this set.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

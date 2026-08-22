@@ -17,7 +17,6 @@ class RevokeResp {
     this.revoked,
     this.sessionsStopped,
   });
-
   /// Links is each revoked row with its new status — retained, not deleted, so usage history and the audit trail survive the log-out.
   List<LinkView> links;
 

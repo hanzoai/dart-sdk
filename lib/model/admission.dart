@@ -19,7 +19,6 @@ class Admission {
     this.note,
     this.status,
   });
-
   /// Benchmarks are the catalog ids admitted.
   List<String> benchmarks;
 

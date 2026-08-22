@@ -17,8 +17,7 @@ class ValidatorClaim {
     this.signature,
     this.tokenId,
   });
-
-  /// Nonce is the value GET /v1/validators/challenge issued for this slot.
+  /// Nonce is the value GET /v1/validator/challenge issued for this slot.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

@@ -16,7 +16,6 @@ class Loss {
     this.exhausted,
     this.undecodable,
   });
-
   /// Exhausted counts facts the bus abandoned after maxDeliver failed inserts.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -16,7 +16,6 @@ class DeviceStartIn {
     this.label,
     this.provider,
   });
-
   /// Label names this connection so one user can hold several per provider (\"work\", \"personal\"). Empty means \"default\". 1-64 of [A-Za-z0-9._-].
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

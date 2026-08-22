@@ -16,7 +16,6 @@ class NotifyHealth {
     this.service,
     this.status,
   });
-
   /// Service names the subsystem answering — always \"notify\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

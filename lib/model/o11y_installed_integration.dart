@@ -19,7 +19,6 @@ class O11yInstalledIntegration {
     this.orgId,
     this.type,
   });
-
   Map<String, Object> config;
 
   Object? id;

@@ -19,7 +19,6 @@ class ClaimView {
     this.id,
     this.status,
   });
-
   /// Code is the referral code the referral was recorded against.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

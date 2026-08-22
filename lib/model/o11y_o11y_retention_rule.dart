@@ -16,7 +16,6 @@ class O11yO11yRetentionRule {
     this.conditions = const [],
     this.ttlDays,
   });
-
   /// Conditions all have to hold for the rule to match.
   List<O11yO11yRetentionMatch> conditions;
 

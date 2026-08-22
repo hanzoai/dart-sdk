@@ -19,7 +19,7 @@ class ArgoProject {
     this.spec,
     this.status,
   });
-
+  /// APIVersion is the constant \"argoproj.io/v1alpha1\". A project here is an IAM resource wearing that shape; no argoproj.io object is stored behind it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -28,6 +28,7 @@ class ArgoProject {
   ///
   String? apiVersion;
 
+  /// Kind is the constant \"AppProject\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -36,6 +37,7 @@ class ArgoProject {
   ///
   String? kind;
 
+  /// Metadata is the project's identity: its name is the key an application's spec.project matches, and is the same string an App CR carries in its app.kubernetes.io/part-of label.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -44,6 +46,7 @@ class ArgoProject {
   ///
   ArgoMeta? metadata;
 
+  /// Spec is the fence the SPA displays — repos, destinations, admitted kinds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -52,6 +55,7 @@ class ArgoProject {
   ///
   ArgoProjectSpec? spec;
 
+  /// Status is always the empty object. A project has no reconciled state here; the field exists because the SPA reads it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

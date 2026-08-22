@@ -15,7 +15,6 @@ class JobList {
   JobList({
     this.jobs = const [],
   });
-
   /// Jobs is the queue, most-recent-first. Every LIVE job is present; terminal history is capped, so a busy org's running work is never crowded out.
   List<GpuJob> jobs;
 

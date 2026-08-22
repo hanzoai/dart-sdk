@@ -17,7 +17,7 @@ class EndpointView {
     this.locator,
     this.provider,
   });
-
+  /// Connector names a connected account from the org's connector registry, when the endpoint reaches its provider through one. Absent means the locator stands on its own; the pair below is always sufficient either way.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -26,6 +26,7 @@ class EndpointView {
   ///
   String? connector;
 
+  /// Locator addresses the thing INSIDE that provider, in the provider's own terms — an https clone URL for a hosted forge, a bare repository name for hanzo-git. It never carries a credential.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -34,6 +35,7 @@ class EndpointView {
   ///
   String? locator;
 
+  /// Provider is the concrete integration: \"github\", \"gitlab\" or \"hanzo-git\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

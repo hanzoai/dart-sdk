@@ -21,7 +21,6 @@ class NewsItem {
     this.title,
     this.tone,
   });
-
   /// Image is a lead-image URL when the upstream carried one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

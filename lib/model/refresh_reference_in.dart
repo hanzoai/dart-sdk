@@ -17,7 +17,6 @@ class RefreshReferenceIn {
     this.receipts = const [],
     this.set_,
   });
-
   /// Force accepts a take whose size moved past the change bound. A publisher serving a tenth or ten times its previous list is refused by default and the previous version is left standing; this is the operator saying the change is real. It cannot make an empty, truncated or unparseable take land — those are errors, not magnitudes.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

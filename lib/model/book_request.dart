@@ -17,7 +17,6 @@ class BookRequest {
     this.scanId,
     this.voucher,
   });
-
   /// Override books this bill even when one of the SAME economic identity (vendor, total, issue date) already posted — the explicit human confirmation that a same-looking bill is a genuine second spend, not the same receipt re-scanned.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

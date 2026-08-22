@@ -16,7 +16,6 @@ class O11yO11yErrorItem {
     this.message,
     this.suggestions = const [],
   });
-
   /// Message is the detail.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

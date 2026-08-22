@@ -18,7 +18,6 @@ class RiskAggregates {
     this.saturated,
     this.subjects,
   });
-
   /// Bound is the most they can hold. It is a per-organisation bound: at it, this organisation degrades and no other one notices.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -22,7 +22,6 @@ class PaymentRecord {
     this.subject,
     this.test,
   });
-
   /// AmountCents is the credited amount in whole cents.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -16,7 +16,6 @@ class BenchmarkCatalog {
     this.data = const [],
     this.total,
   });
-
   /// Data is one row per benchmark, in the catalog's own order.
   List<Benchmark> data;
 

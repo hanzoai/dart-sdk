@@ -16,7 +16,6 @@ class O11yO11yReductionSeriesResult {
     this.aggregations = const [],
     this.queryName,
   });
-
   /// Aggregations are the query's aggregation buckets.
   List<O11yO11yAggregation> aggregations;
 

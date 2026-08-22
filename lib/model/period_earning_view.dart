@@ -17,7 +17,6 @@ class PeriodEarningView {
     this.marginCents,
     this.period,
   });
-
   /// CommissionCents is what the caller earned that period, in cents: the sum over each referred org and upline level of margin × that level's rate. Always ≤ marginCents, by construction.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

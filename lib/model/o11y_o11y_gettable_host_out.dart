@@ -16,7 +16,6 @@ class O11yO11yGettableHostOut {
     this.data,
     this.status,
   });
-
   /// Data holds the host info.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

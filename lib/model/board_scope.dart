@@ -17,7 +17,6 @@ class BoardScope {
     this.org,
     this.project,
   });
-
   /// true when a platform admin is seeing every org at once
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

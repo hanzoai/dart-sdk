@@ -15,7 +15,6 @@ class O11yO11yMetricAlerts {
   O11yO11yMetricAlerts({
     this.alerts = const [],
   });
-
   /// Alerts are the alert rules referencing the metric.
   List<O11yO11yMetricAlert> alerts;
 

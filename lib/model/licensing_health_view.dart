@@ -18,7 +18,6 @@ class LicensingHealthView {
     this.signer,
     this.status,
   });
-
   /// Env is the deployment environment (\"dev\" | \"staging\" | \"prod\").
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

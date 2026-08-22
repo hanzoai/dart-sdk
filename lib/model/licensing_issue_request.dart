@@ -20,7 +20,6 @@ class LicensingIssueRequest {
     this.signals,
     this.ttlSeconds,
   });
-
   /// Fingerprint is a previously-registered device binding value, as returned by POST /v1/licensing/fingerprint. Leave it empty and pass Signals to bind the device at issue time instead.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

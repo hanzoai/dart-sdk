@@ -16,7 +16,6 @@ class O11yO11yDeprecatedUsersOut {
     this.data = const [],
     this.status,
   });
-
   /// Data holds the members.
   List<O11yO11yDeprecatedUser> data;
 

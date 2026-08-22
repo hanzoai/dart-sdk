@@ -24,7 +24,6 @@ class RiskCause {
     this.unit,
     this.without,
   });
-
   /// Baseline is the number it was measured against — always this organisation's own history, never a fixed limit and never another organisation's.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

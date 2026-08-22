@@ -20,7 +20,6 @@ class O11yAnnQueueView {
     this.scoreConfigIds = const [],
     this.updatedAt,
   });
-
   /// CreatedAt is when it was created, RFC3339 in UTC.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

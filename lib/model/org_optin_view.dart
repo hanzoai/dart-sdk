@@ -17,7 +17,6 @@ class OrgOptinView {
     this.display,
     this.listed,
   });
-
   /// CanManage is true only for an admin of this org (or a platform SuperAdmin) — the callers whose write of the org preference will be accepted.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

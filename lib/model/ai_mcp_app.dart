@@ -16,7 +16,6 @@ class AiMCPApp {
     this.name,
     this.served,
   });
-
   /// Name is the subsystem, as the manifest names it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

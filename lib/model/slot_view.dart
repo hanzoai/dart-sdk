@@ -26,7 +26,6 @@ class SlotView {
     this.updatedAt,
     this.wallet,
   });
-
   /// BLSPubkey is the node's BLS public key, hex.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

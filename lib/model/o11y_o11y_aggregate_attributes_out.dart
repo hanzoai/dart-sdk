@@ -16,7 +16,6 @@ class O11yO11yAggregateAttributesOut {
     this.data,
     this.status,
   });
-
   /// Data holds the attribute keys.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

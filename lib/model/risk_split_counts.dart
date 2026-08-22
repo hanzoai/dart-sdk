@@ -22,7 +22,6 @@ class RiskSplitCounts {
     this.unproductive,
     this.val,
   });
-
   /// Judged is how many rows carry a disposition. It is zero until a label plane writes one, and reporting it plainly is what lets a model plane refuse to rank rather than name a winner it cannot justify.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -32,7 +31,7 @@ class RiskSplitCounts {
   ///
   int? judged;
 
-  /// Productive and Unproductive are the two judged classes, so the imbalance is visible before anyone trains on it.
+  /// Productive is how many judged rows carry the one disposition.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -41,6 +40,7 @@ class RiskSplitCounts {
   ///
   int? productive;
 
+  /// Rows is how many rows the version holds across every split. It is the size of the version, not of the source window — the horizon, the cuts and the row cap all bind before this number.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -58,6 +58,7 @@ class RiskSplitCounts {
   ///
   int? subjects;
 
+  /// Test is how many fall after the second cut — the LATEST slice, and the only one a score is honest about, since the split is temporal.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -66,6 +67,7 @@ class RiskSplitCounts {
   ///
   int? test;
 
+  /// Train is how many rows fall before the first cut — the EARLIEST slice of the window, which is what a model is fitted on.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -74,6 +76,7 @@ class RiskSplitCounts {
   ///
   int? train;
 
+  /// Unproductive is how many carry the other. With Productive it accounts for Judged, so the class imbalance is visible before anyone trains on it; both stay 0 while Judged is 0.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -82,6 +85,7 @@ class RiskSplitCounts {
   ///
   int? unproductive;
 
+  /// Val is how many fall between the two cuts, held out for tuning.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

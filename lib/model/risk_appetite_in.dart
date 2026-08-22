@@ -17,7 +17,6 @@ class RiskAppetiteIn {
     this.review,
     this.sample,
   });
-
   /// Live turns the model out of shadow. It defaults to FALSE on every call, so going live is always an explicit act and never a side effect of changing a number.  Setting it requires an ADMIN of this organisation. Arming decides whether the model may change an outcome at all — a payment frozen, a grant refused — for every customer this organisation has, which is a governance act rather than a tuning one. Stating the appetite and the sample needs no admin.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

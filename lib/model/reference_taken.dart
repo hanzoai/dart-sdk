@@ -21,7 +21,6 @@ class ReferenceTaken {
     this.version,
     this.wrote,
   });
-
   /// Keys is how many members it carries.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -18,7 +18,6 @@ class EnrollResult {
     this.enrollmentId,
     this.resolved,
   });
-
   /// AlreadyEnrolled is how many this sequence had already taken and were left alone.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

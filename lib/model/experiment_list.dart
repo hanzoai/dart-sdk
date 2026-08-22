@@ -16,7 +16,6 @@ class ExperimentList {
     this.data = const [],
     this.total,
   });
-
   /// Data is the org's experiments, ordered by project then id.
   List<Trial> data;
 

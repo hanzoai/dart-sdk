@@ -16,7 +16,6 @@ class CaptableUpdated {
     this.message,
     this.success,
   });
-
   /// Message is the human sentence the cap table wrote, e.g. \"Company updated\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

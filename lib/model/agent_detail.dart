@@ -29,7 +29,6 @@ class AgentDetail {
     this.tools = const [],
     this.updatedAt,
   });
-
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -70,6 +69,7 @@ class AgentDetail {
   ///
   String? id;
 
+  /// Instructions is the agent's system prompt, verbatim, up to 32 KiB. It is the one field the list read withholds, because it is the agent's whole behaviour and a page of them would be a page of prompts.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -94,6 +94,7 @@ class AgentDetail {
   ///
   String? name;
 
+  /// RecentRuns is the agent's 20 most recent executions, newest first. It is a window on the history, not the history: the count beside it is `runs`.
   List<AgentRunView> recentRuns;
 
   ///

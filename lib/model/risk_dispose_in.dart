@@ -15,7 +15,6 @@ class RiskDisposeIn {
   RiskDisposeIn({
     this.before,
   });
-
   /// Before disposes of assertions WRITTEN before this instant, RFC 3339. It is measured against the server clock at the write and not against the event or observation times, both of which the asserting caller supplies — a tenant that could back-date could delete a compliance record on demand.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

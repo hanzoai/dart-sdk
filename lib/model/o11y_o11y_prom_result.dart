@@ -17,7 +17,6 @@ class O11yO11yPromResult {
     this.resultType,
     this.stats,
   });
-
   Object? result;
 
   /// ResultType discriminates Result: matrix, vector, scalar or string.

@@ -15,7 +15,6 @@ class ConsoleSettingsDexConfig {
   ConsoleSettingsDexConfig({
     this.connectors = const [],
   });
-
   List<Object> connectors;
 
   @override

@@ -15,7 +15,6 @@ class PlanList {
   PlanList({
     this.plans = const [],
   });
-
   /// Plans are the plans in this section, each an opaque object exactly as the @hanzo/plans catalog emits it — typically id, name, description, priceMonthly, category, a feature list, a limits block and a price_ref.
   List<Object> plans;
 

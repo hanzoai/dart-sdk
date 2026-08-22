@@ -27,7 +27,6 @@ class ReferenceSet {
     this.version,
     this.what,
   });
-
   /// Age is how long ago that was.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

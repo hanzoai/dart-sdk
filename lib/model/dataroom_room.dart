@@ -20,7 +20,6 @@ class DataroomRoom {
     this.pId,
     this.updatedAt,
   });
-
   /// CreatedAt is when the room was created, in unix milliseconds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

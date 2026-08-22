@@ -22,7 +22,6 @@ class Promo {
     this.plans,
     this.teamSeatCap,
   });
-
   /// Active is false for a promo that is no longer offered; an inactive promo quotes as ineligible and refuses to redeem.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

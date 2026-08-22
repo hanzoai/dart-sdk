@@ -15,7 +15,6 @@ class O11yQuerybuildertypesv5CompositeQuery {
   O11yQuerybuildertypesv5CompositeQuery({
     this.queries = const [],
   });
-
   /// Queries is the queries to use for the request.
   List<O11yQueryEnvelope> queries;
 

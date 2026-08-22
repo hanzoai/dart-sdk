@@ -20,7 +20,6 @@ class AccountsTotal {
     this.requests,
     this.totalTokens,
   });
-
   /// Accounts is how many linked accounts the total folds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

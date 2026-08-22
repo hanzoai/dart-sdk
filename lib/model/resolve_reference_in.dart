@@ -16,7 +16,6 @@ class ResolveReferenceIn {
     this.keys = const [],
     this.sets = const [],
   });
-
   /// Keys are the values to look up, at most 100 per call: email addresses or domains, IP addresses, card prefixes, user-agent strings, autonomous system numbers, device digests.
   List<String> keys;
 

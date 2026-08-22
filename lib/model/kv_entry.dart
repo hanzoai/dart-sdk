@@ -19,7 +19,6 @@ class KvEntry {
     this.revision,
     this.value,
   });
-
   /// Created is when this revision was written, RFC3339.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

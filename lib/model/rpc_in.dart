@@ -19,7 +19,6 @@ class RpcIn {
     this.method,
     this.params,
   });
-
   /// Chain is the registry id, from the URL.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class DatabaseCreateIn {
   DatabaseCreateIn({
     this.name,
   });
-
   /// Name is the database name to create.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

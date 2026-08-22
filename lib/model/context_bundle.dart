@@ -19,7 +19,7 @@ class ContextBundle {
     this.spans = const [],
     this.usedTokens,
   });
-
+  /// BudgetTokens is the ceiling the caller asked for. Packing stops under it, so this is a bound and not a target.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -28,6 +28,7 @@ class ContextBundle {
   ///
   int? budgetTokens;
 
+  /// Query is the ask this bundle was packed for, echoed back so a cached or forwarded bundle still says what it answers.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -36,6 +37,7 @@ class ContextBundle {
   ///
   String? query;
 
+  /// Repo narrows the retrieval to one repository. Absent means every indexed repo was searched.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -44,8 +46,10 @@ class ContextBundle {
   ///
   String? repo;
 
+  /// Spans are the packed chunks, most relevant first, each expanded with the definitions it calls and its notable callers. The top match is always present even if it had to be truncated to fit, so a matched query never comes back with nothing.
   List<Span> spans;
 
+  /// UsedTokens is what the returned spans actually cost, by the same estimate the packer used (roughly one token per four characters — an estimate, not a tokenizer's count, so size a real window with headroom).
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

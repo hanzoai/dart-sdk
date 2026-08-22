@@ -23,7 +23,7 @@ class SyncView {
     this.trigger,
     this.updatedAt,
   });
-
+  /// Actor is the identity a reconcile writes AS. It is the loop guard: a change this identity made is one we already have, so it is not synced back.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -32,6 +32,7 @@ class SyncView {
   ///
   String? actor;
 
+  /// CreatedAt is when the link was first declared, RFC3339 in UTC.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -40,6 +41,7 @@ class SyncView {
   ///
   String? createdAt;
 
+  /// Direction is which way work flows: \"both\", \"pull\" (target ← source), \"push\" (source → target), or \"off\" — which keeps the link declared and moves nothing.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -48,6 +50,7 @@ class SyncView {
   ///
   String? direction;
 
+  /// ID is the link's handle, derived from its source and target — which is what makes re-declaring the same pair an update rather than a duplicate.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -56,6 +59,7 @@ class SyncView {
   ///
   String? id;
 
+  /// Kind is what is being synced. \"git\" today; the field exists so a storage or database link is a value here rather than a second route family.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -64,6 +68,7 @@ class SyncView {
   ///
   String? kind;
 
+  /// Source is the side read FROM on a pull.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -72,6 +77,7 @@ class SyncView {
   ///
   EndpointView? source_;
 
+  /// Target is the side written TO on a push.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -80,6 +86,7 @@ class SyncView {
   ///
   EndpointView? target;
 
+  /// Trigger is what starts a reconcile: \"webhook\" (the provider tells us), \"poll\" (we ask on a schedule), or \"manual\" (only an explicit call).
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -88,7 +95,7 @@ class SyncView {
   ///
   String? trigger;
 
-  /// bumped on every reconcile — the last-synced time
+  /// UpdatedAt is bumped by every reconcile, so it reads as the LAST-SYNCED time rather than the last edit. Absent until the first one runs.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

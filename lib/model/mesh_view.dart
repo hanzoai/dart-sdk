@@ -18,7 +18,6 @@ class MeshView {
     this.service,
     this.status,
   });
-
   /// ID is the ZT edge service's id.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

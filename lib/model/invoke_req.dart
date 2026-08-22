@@ -15,7 +15,6 @@ class InvokeReq {
   InvokeReq({
     this.input,
   });
-
   /// Input is what the function is given on stdin. It is opaque to this surface.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

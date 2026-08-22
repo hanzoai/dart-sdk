@@ -16,9 +16,10 @@ class RiskDatasetVersions {
     this.items = const [],
     this.name,
   });
-
+  /// Items is every version of it, newest first — including the disposed ones, whose record outlives their rows. Never null.
   List<RiskDataset> items;
 
+  /// Name is the dataset these versions belong to, as the register holds it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

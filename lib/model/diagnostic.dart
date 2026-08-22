@@ -19,7 +19,7 @@ class Diagnostic {
     this.severity,
     this.source_,
   });
-
+  /// Code is the checker's own identifier for the rule, a string or a number depending on the server. Absent when it published none.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -28,6 +28,7 @@ class Diagnostic {
   ///
   Object? code;
 
+  /// Message is the problem in the server's own words, meant to be shown.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -36,6 +37,7 @@ class Diagnostic {
   ///
   String? message;
 
+  /// Range is the span the problem is about.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -44,6 +46,7 @@ class Diagnostic {
   ///
   Range? range;
 
+  /// Severity is the LSP's: 1 error, 2 warning, 3 information, 4 hint. A file with only 3s and 4s still compiles.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -52,6 +55,7 @@ class Diagnostic {
   ///
   int? severity;
 
+  /// Source is which checker reported it (\"compiler\", \"go vet\", a linter's name), which is what separates a build error from a style opinion.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

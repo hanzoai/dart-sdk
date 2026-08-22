@@ -18,7 +18,6 @@ class BucketRecord {
     this.ttl,
     this.values,
   });
-
   /// Bucket is the bucket's name within the org.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

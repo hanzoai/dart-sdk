@@ -16,7 +16,6 @@ class CostLine {
     this.key,
     this.points = const [],
   });
-
   /// the function the line is about
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -22,7 +22,6 @@ class RiskOrgFeature {
     this.source_,
     this.unit,
   });
-
   /// Blind is true when the dimension is present in no bucket at all: this organisation's surface does not carry it, and saying so is the difference between no risk and no data.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -18,7 +18,6 @@ class O11yTelemetryFieldValues {
     this.relatedValues = const [],
     this.stringValues = const [],
   });
-
   List<bool> boolValues;
 
   List<num> numberValues;

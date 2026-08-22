@@ -17,7 +17,6 @@ class Figure {
     this.period,
     this.value,
   });
-
   /// Label names the metric, e.g. \"MRR\" or \"Runway\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

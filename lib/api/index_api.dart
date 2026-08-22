@@ -16,9 +16,9 @@ class IndexApi {
 
   final ApiClient apiClient;
 
-  /// Delete an index and everything in it
+  /// Deletes an index and everything in it.
   ///
-  /// Drops one index in the caller's org together with all of its documents. This is the only way to retire an index; without it a mistaken uid would be permanent. It is idempotent — dropping an index that is not there still succeeds. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the write is already applied when this answers, and the task it names is already complete. A client that polls waitForTask resolves immediately rather than waiting, and a client that does not poll has still had its write committed.
+  /// Deletes an index and everything in it.  Drops the index and every document in it from the caller's own org, and answers the dialect's EnqueuedTask. This is the only way to retire an index; without it a mistaken uid is permanent. Deleting an index that is not there succeeds, so a cleanup pass is safe to re-run.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the documents are already gone when this answers.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -51,23 +51,31 @@ class IndexApi {
     );
   }
 
-  /// Delete an index and everything in it
+  /// Deletes an index and everything in it.
   ///
-  /// Drops one index in the caller's org together with all of its documents. This is the only way to retire an index; without it a mistaken uid would be permanent. It is idempotent — dropping an index that is not there still succeeds. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the write is already applied when this answers, and the task it names is already complete. A client that polls waitForTask resolves immediately rather than waiting, and a client that does not poll has still had its write committed.
+  /// Deletes an index and everything in it.  Drops the index and every document in it from the caller's own org, and answers the dialect's EnqueuedTask. This is the only way to retire an index; without it a mistaken uid is permanent. Deleting an index that is not there succeeds, so a cleanup pass is safe to re-run.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the documents are already gone when this answers.
   ///
   /// Parameters:
   ///
   /// * [String] uid (required):
-  Future<void> deleteIndexIndexesByUid(String uid,) async {
+  Future<IndexEnqueued?> deleteIndexIndexesByUid(String uid,) async {
     final response = await deleteIndexIndexesByUidWithHttpInfo(uid,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IndexEnqueued',) as IndexEnqueued;
+    
+    }
+    return null;
   }
 
-  /// Delete one document by its primary key
+  /// Deletes one document by its primary key.
   ///
-  /// Removes one document from an index. It is IDEMPOTENT: deleting a key that is not there succeeds rather than 404, so a retry after a lost response is safe. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the write is already applied when this answers, and the task it names is already complete. A client that polls waitForTask resolves immediately rather than waiting, and a client that does not poll has still had its write committed.
+  /// Deletes one document by its primary key.  Removes the document from the caller's own org and answers the dialect's EnqueuedTask. Deleting a key that is not there succeeds, so a client reconciling its own corpus can delete without checking first.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the document is already gone when this answers.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -103,25 +111,33 @@ class IndexApi {
     );
   }
 
-  /// Delete one document by its primary key
+  /// Deletes one document by its primary key.
   ///
-  /// Removes one document from an index. It is IDEMPOTENT: deleting a key that is not there succeeds rather than 404, so a retry after a lost response is safe. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the write is already applied when this answers, and the task it names is already complete. A client that polls waitForTask resolves immediately rather than waiting, and a client that does not poll has still had its write committed.
+  /// Deletes one document by its primary key.  Removes the document from the caller's own org and answers the dialect's EnqueuedTask. Deleting a key that is not there succeeds, so a client reconciling its own corpus can delete without checking first.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the document is already gone when this answers.
   ///
   /// Parameters:
   ///
   /// * [String] uid (required):
   ///
   /// * [String] id (required):
-  Future<void> deleteIndexIndexesByUidDocumentsById(String uid, String id,) async {
+  Future<IndexEnqueued?> deleteIndexIndexesByUidDocumentsById(String uid, String id,) async {
     final response = await deleteIndexIndexesByUidDocumentsByIdWithHttpInfo(uid, id,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IndexEnqueued',) as IndexEnqueued;
+    
+    }
+    return null;
   }
 
-  /// Report whether the search plane can serve
+  /// Reports whether the search plane can serve.
   ///
-  /// Answers Meilisearch's `{\"status\":\"available\"}` when the index store is readable. It FAILS CLOSED — an unreadable store answers 503 and `unavailable` — so a replica whose volume has gone bad stops taking traffic instead of answering every search with nothing found. It touches no tenant data and needs no credential.
+  /// Reports whether the search plane can serve.  Answers the dialect's `{\"status\":\"available\"}` when the index store is readable. It FAILS CLOSED — an unreadable store answers 503 with `{\"status\":\"unavailable\"}` rather than an empty result set, because a Meilisearch client probes this before it will use a server at all and a cheerful 200 over a broken volume turns \"search is down\" into \"nothing matched\". It requires no principal and reads no tenant data.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getIndexHealthWithHttpInfo() async {
@@ -149,19 +165,27 @@ class IndexApi {
     );
   }
 
-  /// Report whether the search plane can serve
+  /// Reports whether the search plane can serve.
   ///
-  /// Answers Meilisearch's `{\"status\":\"available\"}` when the index store is readable. It FAILS CLOSED — an unreadable store answers 503 and `unavailable` — so a replica whose volume has gone bad stops taking traffic instead of answering every search with nothing found. It touches no tenant data and needs no credential.
-  Future<void> getIndexHealth() async {
+  /// Reports whether the search plane can serve.  Answers the dialect's `{\"status\":\"available\"}` when the index store is readable. It FAILS CLOSED — an unreadable store answers 503 with `{\"status\":\"unavailable\"}` rather than an empty result set, because a Meilisearch client probes this before it will use a server at all and a cheerful 200 over a broken volume turns \"search is down\" into \"nothing matched\". It requires no principal and reads no tenant data.
+  Future<IndexHealth?> getIndexHealth() async {
     final response = await getIndexHealthWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IndexHealth',) as IndexHealth;
+    
+    }
+    return null;
   }
 
-  /// List the indexes your org holds
+  /// Lists the indexes your org holds.
   ///
-  /// Answers every index in the caller's org with its primary key and timestamps. It is the only way to enumerate what an org holds — without it an index whose uid a caller has forgotten is unreachable. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
+  /// Lists the indexes your org holds.  Answers every index in the caller's own org with its primary key and timestamps. Without it an index whose uid a caller has forgotten is unreachable — there is no other way to enumerate what an org holds. The page is the whole set: an org's index count is small by construction, so `limit` and `total` both report it.  The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and two orgs may both hold an index named \"messages\" without either seeing the other. Without a validated principal the answer is 403 carrying the dialect's `invalid_api_key` body.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getIndexIndexesWithHttpInfo() async {
@@ -189,19 +213,27 @@ class IndexApi {
     );
   }
 
-  /// List the indexes your org holds
+  /// Lists the indexes your org holds.
   ///
-  /// Answers every index in the caller's org with its primary key and timestamps. It is the only way to enumerate what an org holds — without it an index whose uid a caller has forgotten is unreachable. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
-  Future<void> getIndexIndexes() async {
+  /// Lists the indexes your org holds.  Answers every index in the caller's own org with its primary key and timestamps. Without it an index whose uid a caller has forgotten is unreachable — there is no other way to enumerate what an org holds. The page is the whole set: an org's index count is small by construction, so `limit` and `total` both report it.  The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and two orgs may both hold an index named \"messages\" without either seeing the other. Without a validated principal the answer is 403 carrying the dialect's `invalid_api_key` body.
+  Future<IndexList?> getIndexIndexes() async {
     final response = await getIndexIndexesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IndexList',) as IndexList;
+    
+    }
+    return null;
   }
 
-  /// Read one index's definition
+  /// Reads one index's definition.
   ///
-  /// Answers a single index's uid, primary key and timestamps. An index the caller's org does not hold is 404 `index_not_found` — which is the same answer another org's index gives, since the org is a bound predicate on the read. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
+  /// Reads one index's definition.  Answers the index's uid, primary key and timestamps. An index this org does not hold answers 404 carrying the dialect's `index_not_found` — the code a Meilisearch client reads as permission to create it, which is why this is a refusal rather than an empty object.  The uid is scoped to the caller's own org, so another tenant's index is indistinguishable from one that never existed: this surface is not an existence oracle.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -234,30 +266,42 @@ class IndexApi {
     );
   }
 
-  /// Read one index's definition
+  /// Reads one index's definition.
   ///
-  /// Answers a single index's uid, primary key and timestamps. An index the caller's org does not hold is 404 `index_not_found` — which is the same answer another org's index gives, since the org is a bound predicate on the read. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
+  /// Reads one index's definition.  Answers the index's uid, primary key and timestamps. An index this org does not hold answers 404 carrying the dialect's `index_not_found` — the code a Meilisearch client reads as permission to create it, which is why this is a refusal rather than an empty object.  The uid is scoped to the caller's own org, so another tenant's index is indistinguishable from one that never existed: this surface is not an existence oracle.
   ///
   /// Parameters:
   ///
   /// * [String] uid (required):
-  Future<void> getIndexIndexesByUid(String uid,) async {
+  Future<IndexView?> getIndexIndexesByUid(String uid,) async {
     final response = await getIndexIndexesByUidWithHttpInfo(uid,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IndexView',) as IndexView;
+    
+    }
+    return null;
   }
 
-  /// Page through the documents in an index
+  /// Pages through the documents in an index.
   ///
-  /// Answers the documents in one index with a total count. `limit` defaults to 20 and is capped at 1000, `offset` pages, and the response echoes both back so a pager knows what it actually got. An index the caller's org does not hold is 404 `index_not_found`. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
+  /// Pages through the documents in an index.  Answers the org's stored documents in insertion order, whole, with the page's bounds and the index's total. It is the enumeration surface — search ranks by relevance and cannot walk a corpus — so a caller reconciling what it has written reads it here.  An index this org does not hold answers 404 carrying the dialect's `index_not_found`.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] uid (required):
-  Future<Response> getIndexIndexesByUidDocumentsWithHttpInfo(String uid,) async {
+  ///
+  /// * [String] limit:
+  ///
+  /// * [String] offset:
+  Future<Response> getIndexIndexesByUidDocumentsWithHttpInfo(String uid, { String? limit, String? offset, }) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/index/indexes/{uid}/documents'
       .replaceAll('{uid}', uid);
@@ -268,6 +312,13 @@ class IndexApi {
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
+
+    if (limit != null) {
+      queryParams.addAll(_queryParams('', 'limit', limit));
+    }
+    if (offset != null) {
+      queryParams.addAll(_queryParams('', 'offset', offset));
+    }
 
     const contentTypes = <String>[];
 
@@ -283,23 +334,35 @@ class IndexApi {
     );
   }
 
-  /// Page through the documents in an index
+  /// Pages through the documents in an index.
   ///
-  /// Answers the documents in one index with a total count. `limit` defaults to 20 and is capped at 1000, `offset` pages, and the response echoes both back so a pager knows what it actually got. An index the caller's org does not hold is 404 `index_not_found`. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
+  /// Pages through the documents in an index.  Answers the org's stored documents in insertion order, whole, with the page's bounds and the index's total. It is the enumeration surface — search ranks by relevance and cannot walk a corpus — so a caller reconciling what it has written reads it here.  An index this org does not hold answers 404 carrying the dialect's `index_not_found`.
   ///
   /// Parameters:
   ///
   /// * [String] uid (required):
-  Future<void> getIndexIndexesByUidDocuments(String uid,) async {
-    final response = await getIndexIndexesByUidDocumentsWithHttpInfo(uid,);
+  ///
+  /// * [String] limit:
+  ///
+  /// * [String] offset:
+  Future<IndexDocuments?> getIndexIndexesByUidDocuments(String uid, { String? limit, String? offset, }) async {
+    final response = await getIndexIndexesByUidDocumentsWithHttpInfo(uid,  limit: limit, offset: offset, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IndexDocuments',) as IndexDocuments;
+    
+    }
+    return null;
   }
 
-  /// Read one document by its primary key
+  /// Reads one document by its primary key.
   ///
-  /// Answers the stored document whose primary key matches, exactly as it was written. A missing document is 404 `document_not_found` and a missing index is 404 `index_not_found` — two different codes, because a client that branches on them treats the cases differently. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
+  /// Reads one document by its primary key.  Answers the stored document exactly as it was written — this surface keeps documents whole rather than projecting them, so what comes back is what went in. A primary key this index does not hold answers 404 carrying the dialect's `document_not_found`; an index this org does not hold answers `index_not_found`, and the two are different facts a client acts on differently.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -335,25 +398,33 @@ class IndexApi {
     );
   }
 
-  /// Read one document by its primary key
+  /// Reads one document by its primary key.
   ///
-  /// Answers the stored document whose primary key matches, exactly as it was written. A missing document is 404 `document_not_found` and a missing index is 404 `index_not_found` — two different codes, because a client that branches on them treats the cases differently. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
+  /// Reads one document by its primary key.  Answers the stored document exactly as it was written — this surface keeps documents whole rather than projecting them, so what comes back is what went in. A primary key this index does not hold answers 404 carrying the dialect's `document_not_found`; an index this org does not hold answers `index_not_found`, and the two are different facts a client acts on differently.
   ///
   /// Parameters:
   ///
   /// * [String] uid (required):
   ///
   /// * [String] id (required):
-  Future<void> getIndexIndexesByUidDocumentsById(String uid, String id,) async {
+  Future<Object?> getIndexIndexesByUidDocumentsById(String uid, String id,) async {
     final response = await getIndexIndexesByUidDocumentsByIdWithHttpInfo(uid, id,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Object',) as Object;
+    
+    }
+    return null;
   }
 
-  /// Read an index's filterable attributes
+  /// Reads an index's filterable attributes.
   ///
-  /// Answers the attributes an index allows filtering on. This dialect implements the filterable-attributes setting and no other, so that is the whole of what comes back. An index the caller's org does not hold is 404 `index_not_found`. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
+  /// Reads an index's filterable attributes.  Answers the settings subset this surface implements: the attributes a search `filter` may constrain. An index this org does not hold answers 404 carrying the dialect's `index_not_found`.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -386,23 +457,31 @@ class IndexApi {
     );
   }
 
-  /// Read an index's filterable attributes
+  /// Reads an index's filterable attributes.
   ///
-  /// Answers the attributes an index allows filtering on. This dialect implements the filterable-attributes setting and no other, so that is the whole of what comes back. An index the caller's org does not hold is 404 `index_not_found`. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
+  /// Reads an index's filterable attributes.  Answers the settings subset this surface implements: the attributes a search `filter` may constrain. An index this org does not hold answers 404 carrying the dialect's `index_not_found`.
   ///
   /// Parameters:
   ///
   /// * [String] uid (required):
-  Future<void> getIndexIndexesByUidSettings(String uid,) async {
+  Future<IndexSettings?> getIndexIndexesByUidSettings(String uid,) async {
     final response = await getIndexIndexesByUidSettingsWithHttpInfo(uid,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IndexSettings',) as IndexSettings;
+    
+    }
+    return null;
   }
 
-  /// Count the documents in each of your indexes
+  /// Counts the documents in each of your indexes.
   ///
-  /// Answers a document count per index for the caller's org, plus their sum. `isIndexing` is always false, which is the honest answer here rather than a stub: writes are applied before their response, so there is never a backlog in progress to report. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
+  /// Counts the documents in each of your indexes.  Reports every index the caller's own org holds with its document count, plus the org's total. `isIndexing` is always false because writes here are applied before their response — there is never a background pass to wait on.  The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, so this counts the caller's own documents and no other tenant's. Without a validated principal the answer is 403 carrying the dialect's `invalid_api_key` body.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getIndexStatsWithHttpInfo() async {
@@ -430,29 +509,37 @@ class IndexApi {
     );
   }
 
-  /// Count the documents in each of your indexes
+  /// Counts the documents in each of your indexes.
   ///
-  /// Answers a document count per index for the caller's org, plus their sum. `isIndexing` is always false, which is the honest answer here rather than a stub: writes are applied before their response, so there is never a backlog in progress to report. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
-  Future<void> getIndexStats() async {
+  /// Counts the documents in each of your indexes.  Reports every index the caller's own org holds with its document count, plus the org's total. `isIndexing` is always false because writes here are applied before their response — there is never a background pass to wait on.  The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, so this counts the caller's own documents and no other tenant's. Without a validated principal the answer is 403 carrying the dialect's `invalid_api_key` body.
+  Future<IndexStats?> getIndexStats() async {
     final response = await getIndexStatsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IndexStats',) as IndexStats;
+    
+    }
+    return null;
   }
 
-  /// Check a write task, which has already finished
+  /// Checks a write task, which has already finished.
   ///
-  /// Answers `succeeded` for the task id given. It ALWAYS answers succeeded, and that is honest rather than a stub: writes on this surface are applied before their response returns, so by the time any task id exists to ask about, its work is done. It exists so a Meilisearch client's waitForTask resolves at once instead of polling forever for a queue that was never there. It requires a validated principal but reads no tenant data.
+  /// Checks a write task, which has already finished.  Always reports `succeeded`. Writes here are applied to SQLite before their EnqueuedTask is returned, so a client polling waitForTask resolves on its first call rather than waiting for a queue that was never there. The three timestamps are the same instant for the same reason.  It requires a validated principal but reads no tenant data: the task id it echoes was minted by this process and names nothing about any org.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
-  /// * [String] uid (required):
-  Future<Response> getIndexTasksByUidWithHttpInfo(String uid,) async {
+  /// * [int] uid (required):
+  Future<Response> getIndexTasksByUidWithHttpInfo(int uid,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/index/tasks/{uid}'
-      .replaceAll('{uid}', uid);
+      .replaceAll('{uid}', uid.toString());
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -475,23 +562,31 @@ class IndexApi {
     );
   }
 
-  /// Check a write task, which has already finished
+  /// Checks a write task, which has already finished.
   ///
-  /// Answers `succeeded` for the task id given. It ALWAYS answers succeeded, and that is honest rather than a stub: writes on this surface are applied before their response returns, so by the time any task id exists to ask about, its work is done. It exists so a Meilisearch client's waitForTask resolves at once instead of polling forever for a queue that was never there. It requires a validated principal but reads no tenant data.
+  /// Checks a write task, which has already finished.  Always reports `succeeded`. Writes here are applied to SQLite before their EnqueuedTask is returned, so a client polling waitForTask resolves on its first call rather than waiting for a queue that was never there. The three timestamps are the same instant for the same reason.  It requires a validated principal but reads no tenant data: the task id it echoes was minted by this process and names nothing about any org.
   ///
   /// Parameters:
   ///
-  /// * [String] uid (required):
-  Future<void> getIndexTasksByUid(String uid,) async {
+  /// * [int] uid (required):
+  Future<IndexTask?> getIndexTasksByUid(int uid,) async {
     final response = await getIndexTasksByUidWithHttpInfo(uid,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IndexTask',) as IndexTask;
+    
+    }
+    return null;
   }
 
-  /// Identify the search implementation answering
+  /// Identifies the search implementation answering.
   ///
-  /// Answers the version shape a Meilisearch client expects. It names THIS implementation rather than a Meilisearch release — the commit field reads `hanzo-cloud` — so a client that logs it records which server actually answered instead of implying a Meilisearch build. Needs no credential.
+  /// Identifies the search implementation answering.  Reports the dialect's version shape with `commitSha` naming this implementation rather than a Meilisearch build, so a client that logs the version records which server answered instead of implying a release of software this is not. It requires no principal and reads no tenant data.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getIndexVersionWithHttpInfo() async {
@@ -519,38 +614,48 @@ class IndexApi {
     );
   }
 
-  /// Identify the search implementation answering
+  /// Identifies the search implementation answering.
   ///
-  /// Answers the version shape a Meilisearch client expects. It names THIS implementation rather than a Meilisearch release — the commit field reads `hanzo-cloud` — so a client that logs it records which server actually answered instead of implying a Meilisearch build. Needs no credential.
-  Future<void> getIndexVersion() async {
+  /// Identifies the search implementation answering.  Reports the dialect's version shape with `commitSha` naming this implementation rather than a Meilisearch build, so a client that logs the version records which server answered instead of implying a release of software this is not. It requires no principal and reads no tenant data.
+  Future<IndexVersion?> getIndexVersion() async {
     final response = await getIndexVersionWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IndexVersion',) as IndexVersion;
+    
+    }
+    return null;
   }
 
-  /// Set which attributes an index can be filtered on
+  /// Sets which attributes an index can be filtered on.
   ///
-  /// Replaces an index's filterable attributes with the list in `filterableAttributes`; omitting the field leaves them as they are. The index is CREATED ON DEMAND rather than 404'd, because a client that configures an index it has just asked for should not have to create it first — this is the one read-shaped path on the surface that writes. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the write is already applied when this answers, and the task it names is already complete. A client that polls waitForTask resolves immediately rather than waiting, and a client that does not poll has still had its write committed.
+  /// Sets which attributes an index can be filtered on.  Replaces the whole filterable set. An attribute not listed here cannot be used in a search `filter`, so this is what makes a per-user or per-tag narrowing possible at all.  It CREATES the index when it is missing rather than answering 404, because a Meilisearch client configures settings on an index it has just asked for and a refusal there leaves the client with no index at all.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the setting is already applied when this answers.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] uid (required):
-  Future<Response> patchIndexIndexesByUidSettingsWithHttpInfo(String uid,) async {
+  ///
+  /// * [IndexFilter] indexFilter (required):
+  Future<Response> patchIndexIndexesByUidSettingsWithHttpInfo(String uid, IndexFilter indexFilter,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/index/indexes/{uid}/settings'
       .replaceAll('{uid}', uid);
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = indexFilter;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -564,37 +669,51 @@ class IndexApi {
     );
   }
 
-  /// Set which attributes an index can be filtered on
+  /// Sets which attributes an index can be filtered on.
   ///
-  /// Replaces an index's filterable attributes with the list in `filterableAttributes`; omitting the field leaves them as they are. The index is CREATED ON DEMAND rather than 404'd, because a client that configures an index it has just asked for should not have to create it first — this is the one read-shaped path on the surface that writes. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the write is already applied when this answers, and the task it names is already complete. A client that polls waitForTask resolves immediately rather than waiting, and a client that does not poll has still had its write committed.
+  /// Sets which attributes an index can be filtered on.  Replaces the whole filterable set. An attribute not listed here cannot be used in a search `filter`, so this is what makes a per-user or per-tag narrowing possible at all.  It CREATES the index when it is missing rather than answering 404, because a Meilisearch client configures settings on an index it has just asked for and a refusal there leaves the client with no index at all.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the setting is already applied when this answers.
   ///
   /// Parameters:
   ///
   /// * [String] uid (required):
-  Future<void> patchIndexIndexesByUidSettings(String uid,) async {
-    final response = await patchIndexIndexesByUidSettingsWithHttpInfo(uid,);
+  ///
+  /// * [IndexFilter] indexFilter (required):
+  Future<IndexEnqueued?> patchIndexIndexesByUidSettings(String uid, IndexFilter indexFilter,) async {
+    final response = await patchIndexIndexesByUidSettingsWithHttpInfo(uid, indexFilter,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IndexEnqueued',) as IndexEnqueued;
+    
+    }
+    return null;
   }
 
-  /// Create an index
+  /// Creates an index.
   ///
-  /// Creates an index named by `uid` in the caller's org. `primaryKey` names the document field that identifies a document and defaults to `id`. Creating an index that already exists is not an error — it settles on the existing one, primary key included — so a client that creates before every write is safe to run repeatedly. A missing or over-long uid is 400 `invalid_index_uid`. A new index starts with `user` filterable, which is what lets a multi-user app narrow searches to one end user without configuring anything. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the write is already applied when this answers, and the task it names is already complete. A client that polls waitForTask resolves immediately rather than waiting, and a client that does not poll has still had its write committed.
+  /// Creates an index.  Registers a named index in the caller's own org and answers the dialect's EnqueuedTask. It is idempotent: creating an index that already exists returns the same receipt and changes nothing, which is what lets a client create on startup without checking first.  `primaryKey` is optional — the first write establishes one when it is omitted. An index is a ROW here rather than a table, so an unusual uid is stored verbatim instead of being sanitised into a schema name.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the write is already applied when this answers. A client that polls waitForTask resolves immediately.
   ///
   /// Note: This method returns the HTTP [Response].
-  Future<Response> postIndexIndexesWithHttpInfo() async {
+  ///
+  /// Parameters:
+  ///
+  /// * [IndexNew] indexNew (required):
+  Future<Response> postIndexIndexesWithHttpInfo(IndexNew indexNew,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/index/indexes';
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = indexNew;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -608,38 +727,52 @@ class IndexApi {
     );
   }
 
-  /// Create an index
+  /// Creates an index.
   ///
-  /// Creates an index named by `uid` in the caller's org. `primaryKey` names the document field that identifies a document and defaults to `id`. Creating an index that already exists is not an error — it settles on the existing one, primary key included — so a client that creates before every write is safe to run repeatedly. A missing or over-long uid is 400 `invalid_index_uid`. A new index starts with `user` filterable, which is what lets a multi-user app narrow searches to one end user without configuring anything. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the write is already applied when this answers, and the task it names is already complete. A client that polls waitForTask resolves immediately rather than waiting, and a client that does not poll has still had its write committed.
-  Future<void> postIndexIndexes() async {
-    final response = await postIndexIndexesWithHttpInfo();
+  /// Creates an index.  Registers a named index in the caller's own org and answers the dialect's EnqueuedTask. It is idempotent: creating an index that already exists returns the same receipt and changes nothing, which is what lets a client create on startup without checking first.  `primaryKey` is optional — the first write establishes one when it is omitted. An index is a ROW here rather than a table, so an unusual uid is stored verbatim instead of being sanitised into a schema name.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the write is already applied when this answers. A client that polls waitForTask resolves immediately.
+  ///
+  /// Parameters:
+  ///
+  /// * [IndexNew] indexNew (required):
+  Future<IndexEnqueued?> postIndexIndexes(IndexNew indexNew,) async {
+    final response = await postIndexIndexesWithHttpInfo(indexNew,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IndexEnqueued',) as IndexEnqueued;
+    
+    }
+    return null;
   }
 
   /// Add or replace documents in an index
   ///
-  /// Upserts documents into one index, keyed by the index's primary key: a document whose key is already present is REPLACED, one that is not is added, and it becomes searchable immediately. Send an array, or a single object — a hand-rolled caller sending one document is accepted rather than 400'd. The index is created on demand, so a first write needs no create call.  This and the PUT on the same path are the SAME operation: both are a whole document upsert, which is what a Meilisearch client's addDocuments and updateDocuments both reduce to here. A body that is neither an array nor an object is 400. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the write is already applied when this answers, and the task it names is already complete. A client that polls waitForTask resolves immediately rather than waiting, and a client that does not poll has still had its write committed.
+  /// Writes documents into the caller's own index, keyed by the index's primary key: a document whose key is already present is REPLACED whole. The body is the dialect's own — an array of documents, or a single document — and each is stored verbatim, so a read gives back exactly what was written.  The index is CREATED when it is missing rather than refused, because a Meilisearch client writes before it configures.  The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying the dialect's `invalid_api_key` body.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the documents are searchable when this answers, and a client that polls waitForTask resolves immediately.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] uid (required):
-  Future<Response> postIndexIndexesByUidDocumentsWithHttpInfo(String uid,) async {
+  ///
+  /// * [List<Object>] requestBody:
+  Future<Response> postIndexIndexesByUidDocumentsWithHttpInfo(String uid, { List<Object>? requestBody, }) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/index/indexes/{uid}/documents'
       .replaceAll('{uid}', uid);
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = requestBody;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -655,40 +788,52 @@ class IndexApi {
 
   /// Add or replace documents in an index
   ///
-  /// Upserts documents into one index, keyed by the index's primary key: a document whose key is already present is REPLACED, one that is not is added, and it becomes searchable immediately. Send an array, or a single object — a hand-rolled caller sending one document is accepted rather than 400'd. The index is created on demand, so a first write needs no create call.  This and the PUT on the same path are the SAME operation: both are a whole document upsert, which is what a Meilisearch client's addDocuments and updateDocuments both reduce to here. A body that is neither an array nor an object is 400. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the write is already applied when this answers, and the task it names is already complete. A client that polls waitForTask resolves immediately rather than waiting, and a client that does not poll has still had its write committed.
+  /// Writes documents into the caller's own index, keyed by the index's primary key: a document whose key is already present is REPLACED whole. The body is the dialect's own — an array of documents, or a single document — and each is stored verbatim, so a read gives back exactly what was written.  The index is CREATED when it is missing rather than refused, because a Meilisearch client writes before it configures.  The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying the dialect's `invalid_api_key` body.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the documents are searchable when this answers, and a client that polls waitForTask resolves immediately.
   ///
   /// Parameters:
   ///
   /// * [String] uid (required):
-  Future<void> postIndexIndexesByUidDocuments(String uid,) async {
-    final response = await postIndexIndexesByUidDocumentsWithHttpInfo(uid,);
+  ///
+  /// * [List<Object>] requestBody:
+  Future<IndexEnqueued?> postIndexIndexesByUidDocuments(String uid, { List<Object>? requestBody, }) async {
+    final response = await postIndexIndexesByUidDocumentsWithHttpInfo(uid,  requestBody: requestBody, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IndexEnqueued',) as IndexEnqueued;
+    
+    }
+    return null;
   }
 
   /// Delete many documents by primary key in one call
   ///
-  /// Removes every document named by an array of primary keys. Keys may be sent as strings or numbers — a number keeps its exact decimal form, so an integer key round-trips as `42` and never as scientific notation. Keys that are absent from the index are skipped rather than failing the batch, so this is idempotent. A body that is not an array is 400. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the write is already applied when this answers, and the task it names is already complete. A client that polls waitForTask resolves immediately rather than waiting, and a client that does not poll has still had its write committed.
+  /// Removes every named document from the caller's own index. The body is the dialect's own: a bare array of primary keys, which may be strings or numbers. A key that is not there is not an error, so a client reconciling its own corpus can send one list rather than checking each key first.  The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header. Without a validated principal the answer is 403 carrying the dialect's `invalid_api_key` body.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the documents are already gone when this answers.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] uid (required):
-  Future<Response> postIndexIndexesByUidDocumentsDeleteBatchWithHttpInfo(String uid,) async {
+  ///
+  /// * [PostIndexIndexesByUidDocumentsDeleteBatchRequest] postIndexIndexesByUidDocumentsDeleteBatchRequest:
+  Future<Response> postIndexIndexesByUidDocumentsDeleteBatchWithHttpInfo(String uid, { PostIndexIndexesByUidDocumentsDeleteBatchRequest? postIndexIndexesByUidDocumentsDeleteBatchRequest, }) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/index/indexes/{uid}/documents/delete-batch'
       .replaceAll('{uid}', uid);
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = postIndexIndexesByUidDocumentsDeleteBatchRequest;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -704,40 +849,52 @@ class IndexApi {
 
   /// Delete many documents by primary key in one call
   ///
-  /// Removes every document named by an array of primary keys. Keys may be sent as strings or numbers — a number keeps its exact decimal form, so an integer key round-trips as `42` and never as scientific notation. Keys that are absent from the index are skipped rather than failing the batch, so this is idempotent. A body that is not an array is 400. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the write is already applied when this answers, and the task it names is already complete. A client that polls waitForTask resolves immediately rather than waiting, and a client that does not poll has still had its write committed.
+  /// Removes every named document from the caller's own index. The body is the dialect's own: a bare array of primary keys, which may be strings or numbers. A key that is not there is not an error, so a client reconciling its own corpus can send one list rather than checking each key first.  The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header. Without a validated principal the answer is 403 carrying the dialect's `invalid_api_key` body.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the documents are already gone when this answers.
   ///
   /// Parameters:
   ///
   /// * [String] uid (required):
-  Future<void> postIndexIndexesByUidDocumentsDeleteBatch(String uid,) async {
-    final response = await postIndexIndexesByUidDocumentsDeleteBatchWithHttpInfo(uid,);
+  ///
+  /// * [PostIndexIndexesByUidDocumentsDeleteBatchRequest] postIndexIndexesByUidDocumentsDeleteBatchRequest:
+  Future<IndexEnqueued?> postIndexIndexesByUidDocumentsDeleteBatch(String uid, { PostIndexIndexesByUidDocumentsDeleteBatchRequest? postIndexIndexesByUidDocumentsDeleteBatchRequest, }) async {
+    final response = await postIndexIndexesByUidDocumentsDeleteBatchWithHttpInfo(uid,  postIndexIndexesByUidDocumentsDeleteBatchRequest: postIndexIndexesByUidDocumentsDeleteBatchRequest, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IndexEnqueued',) as IndexEnqueued;
+    
+    }
+    return null;
   }
 
-  /// Search an index, forgiving typos
+  /// Searches an index, forgiving typos.
   ///
-  /// Answers the documents in one index matching `q`, ranked by how many of the query's terms they match, with prefix matching so a partial word still finds its document. `limit` defaults to 20 and is capped at 1000, `offset` pages; a negative value falls back to the default rather than erroring.  `filter` takes a Meilisearch filter expression, or an array of them, and the `user = \"…\"` and `user IN […]` forms are honoured — that is how an app with many end users narrows results to one of them WITHIN the org. `estimatedTotalHits` is exact for the page returned, not an estimate, because every hit is materialised. An index the caller's org does not hold is 404 `index_not_found`. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
+  /// Searches an index, forgiving typos.  Ranks the org's documents in one index against `q` and answers the matching documents whole, most relevant first. A prefix matches, so a partial word finds the documents containing it, and `filter` narrows the result to documents whose filterable attributes match — which is how a caller scopes results to one end user within its own org.  `estimatedTotalHits` is the dialect's name for the count; every hit is materialised here, so for this page it is exact. An index this org does not hold answers 404 carrying the dialect's `index_not_found`.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] uid (required):
-  Future<Response> postIndexIndexesByUidSearchWithHttpInfo(String uid,) async {
+  ///
+  /// * [IndexQuery] indexQuery (required):
+  Future<Response> postIndexIndexesByUidSearchWithHttpInfo(String uid, IndexQuery indexQuery,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/index/indexes/{uid}/search'
       .replaceAll('{uid}', uid);
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = indexQuery;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -751,42 +908,54 @@ class IndexApi {
     );
   }
 
-  /// Search an index, forgiving typos
+  /// Searches an index, forgiving typos.
   ///
-  /// Answers the documents in one index matching `q`, ranked by how many of the query's terms they match, with prefix matching so a partial word still finds its document. `limit` defaults to 20 and is capped at 1000, `offset` pages; a negative value falls back to the default rather than erroring.  `filter` takes a Meilisearch filter expression, or an array of them, and the `user = \"…\"` and `user IN […]` forms are honoured — that is how an app with many end users narrows results to one of them WITHIN the org. `estimatedTotalHits` is exact for the page returned, not an estimate, because every hit is materialised. An index the caller's org does not hold is 404 `index_not_found`. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.
+  /// Searches an index, forgiving typos.  Ranks the org's documents in one index against `q` and answers the matching documents whole, most relevant first. A prefix matches, so a partial word finds the documents containing it, and `filter` narrows the result to documents whose filterable attributes match — which is how a caller scopes results to one end user within its own org.  `estimatedTotalHits` is the dialect's name for the count; every hit is materialised here, so for this page it is exact. An index this org does not hold answers 404 carrying the dialect's `index_not_found`.
   ///
   /// Parameters:
   ///
   /// * [String] uid (required):
-  Future<void> postIndexIndexesByUidSearch(String uid,) async {
-    final response = await postIndexIndexesByUidSearchWithHttpInfo(uid,);
+  ///
+  /// * [IndexQuery] indexQuery (required):
+  Future<IndexHits?> postIndexIndexesByUidSearch(String uid, IndexQuery indexQuery,) async {
+    final response = await postIndexIndexesByUidSearchWithHttpInfo(uid, indexQuery,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IndexHits',) as IndexHits;
+    
+    }
+    return null;
   }
 
   /// Add or update documents in an index
   ///
-  /// Upserts documents into one index, keyed by the index's primary key: a document whose key is already present is REPLACED, one that is not is added, and it becomes searchable immediately. Send an array, or a single object — a hand-rolled caller sending one document is accepted rather than 400'd. The index is created on demand, so a first write needs no create call.  This and the POST on the same path are the SAME operation, served by one handler. Both exist because the Meilisearch dialect has both verbs; there is no partial-update semantics on this one — a document is replaced whole either way. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the write is already applied when this answers, and the task it names is already complete. A client that polls waitForTask resolves immediately rather than waiting, and a client that does not poll has still had its write committed.
+  /// The dialect's update spelling of the write above, and the same act: an upsert keyed by the index's primary key. The JS client's addDocuments and updateDocuments both reduce to this for whole documents, so both spellings are served and both behave identically.  The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header. Without a validated principal the answer is 403 carrying the dialect's `invalid_api_key` body.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the write is already applied when this answers.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] uid (required):
-  Future<Response> putIndexIndexesByUidDocumentsWithHttpInfo(String uid,) async {
+  ///
+  /// * [List<Object>] requestBody:
+  Future<Response> putIndexIndexesByUidDocumentsWithHttpInfo(String uid, { List<Object>? requestBody, }) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/index/indexes/{uid}/documents'
       .replaceAll('{uid}', uid);
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = requestBody;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -802,15 +971,25 @@ class IndexApi {
 
   /// Add or update documents in an index
   ///
-  /// Upserts documents into one index, keyed by the index's primary key: a document whose key is already present is REPLACED, one that is not is added, and it becomes searchable immediately. Send an array, or a single object — a hand-rolled caller sending one document is accepted rather than 400'd. The index is created on demand, so a first write needs no create call.  This and the POST on the same path are the SAME operation, served by one handler. Both exist because the Meilisearch dialect has both verbs; there is no partial-update semantics on this one — a document is replaced whole either way. The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header, and every query filters on it, so two orgs may both hold an index named \"messages\" and neither can see the other's documents. Without a validated principal the answer is 403 carrying Meilisearch's `invalid_api_key` body. Errors use Meilisearch's {message, code, type, link} shape rather than cloud's, because that `code` is a wire contract a Meilisearch client branches on.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the write is already applied when this answers, and the task it names is already complete. A client that polls waitForTask resolves immediately rather than waiting, and a client that does not poll has still had its write committed.
+  /// The dialect's update spelling of the write above, and the same act: an upsert keyed by the index's primary key. The JS client's addDocuments and updateDocuments both reduce to this for whole documents, so both spellings are served and both behave identically.  The tenant is the org minted from the VALIDATED bearer's owner claim, never a client-supplied header. Without a validated principal the answer is 403 carrying the dialect's `invalid_api_key` body.  The 202 and its `enqueued` task are DIALECT COMPATIBILITY, not a promise of later work: the write is already applied when this answers.
   ///
   /// Parameters:
   ///
   /// * [String] uid (required):
-  Future<void> putIndexIndexesByUidDocuments(String uid,) async {
-    final response = await putIndexIndexesByUidDocumentsWithHttpInfo(uid,);
+  ///
+  /// * [List<Object>] requestBody:
+  Future<IndexEnqueued?> putIndexIndexesByUidDocuments(String uid, { List<Object>? requestBody, }) async {
+    final response = await putIndexIndexesByUidDocumentsWithHttpInfo(uid,  requestBody: requestBody, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IndexEnqueued',) as IndexEnqueued;
+    
+    }
+    return null;
   }
 }

@@ -18,7 +18,7 @@ class ProjectsBuildSite {
     this.name,
     this.slug,
   });
-
+  /// Brief is what the site should be, in plain language. It is the whole input the model gets and it is size-bounded.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -27,6 +27,7 @@ class ProjectsBuildSite {
   ///
   String? brief;
 
+  /// Model names which model writes the site. Absent takes the deployment's default — this route spends inference on the caller's org either way.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -35,6 +36,7 @@ class ProjectsBuildSite {
   ///
   String? model;
 
+  /// Name is the site's display name. Taken from what the model writes when omitted.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -43,6 +45,7 @@ class ProjectsBuildSite {
   ///
   String? name;
 
+  /// Slug is the handle and public host label to publish under. Derived from the name, or from the brief, when omitted.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

@@ -16,7 +16,6 @@ class O11yO11yLicenseActiveOut {
     this.data,
     this.status,
   });
-
   /// Data is the license.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

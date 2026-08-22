@@ -16,7 +16,6 @@ class Streams {
     this.streams = const [],
     this.total,
   });
-
   /// Streams is the page, ordered by name.
   List<MqStream> streams;
 

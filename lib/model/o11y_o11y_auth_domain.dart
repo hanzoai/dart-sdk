@@ -21,7 +21,6 @@ class O11yO11yAuthDomain {
     this.orgId,
     this.updatedAt,
   });
-
   /// AuthNProviderInfo is provider detail the console needs to finish setup.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

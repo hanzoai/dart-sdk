@@ -16,7 +16,6 @@ class IamProjectsListOutput {
     this.projects = const [],
     this.total,
   });
-
   List<IamProject> projects;
 
   ///

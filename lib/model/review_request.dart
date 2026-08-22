@@ -20,7 +20,6 @@ class ReviewRequest {
     this.text,
     this.tier,
   });
-
   /// Glossary is the terminology the entry was translated under. Its VERSION — the digest of the sorted terms — is part of the entry's identity, so editing a term yields a new entry rather than overwriting the old rendering.
   Map<String, String> glossary;
 

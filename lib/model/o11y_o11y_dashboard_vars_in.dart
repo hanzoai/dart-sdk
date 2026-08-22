@@ -16,7 +16,6 @@ class O11yO11yDashboardVarsIn {
     required this.query,
     this.variables = const {},
   });
-
   /// Query is the variable query to evaluate. Required.
   String query;
 

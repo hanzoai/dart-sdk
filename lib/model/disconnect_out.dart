@@ -15,7 +15,6 @@ class DisconnectOut {
   DisconnectOut({
     this.disconnected,
   });
-
   /// Disconnected is always true — the org's secrets and connection row are gone.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

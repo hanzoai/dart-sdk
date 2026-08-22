@@ -18,7 +18,6 @@ class RouterView {
     this.region,
     this.status,
   });
-
   /// ID is the ZT edge-router's id.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

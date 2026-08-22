@@ -25,7 +25,6 @@ class O11yPodRecord {
     this.podPhase,
     this.podUID,
   });
-
   Map<String, String> meta;
 
   ///

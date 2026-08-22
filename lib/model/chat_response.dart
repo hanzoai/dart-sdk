@@ -17,7 +17,6 @@ class ChatResponse {
     this.reply,
     this.suggestions = const [],
   });
-
   /// Funnel is the org's trailing-window traffic → signups → orders.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

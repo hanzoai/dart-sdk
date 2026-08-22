@@ -17,7 +17,6 @@ class KvWrite {
     this.key,
     this.value,
   });
-
   /// Bucket is the bucket, from the path.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

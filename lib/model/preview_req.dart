@@ -18,7 +18,6 @@ class PreviewReq {
     this.image,
     this.project,
   });
-
   /// App is the parent application's slug, from the path.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

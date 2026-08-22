@@ -15,7 +15,6 @@ class HandleSet {
   HandleSet({
     this.handle,
   });
-
   /// Handle is the display name as STORED, echoed back after trimming. Empty means the caller opted out: it keeps its rank and still sees its own row, it is just no longer listed to anyone else.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

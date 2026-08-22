@@ -15,7 +15,6 @@ class SkillDeleted {
   SkillDeleted({
     this.deleted,
   });
-
   /// Deleted is the skill id that is now gone.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

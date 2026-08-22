@@ -18,7 +18,6 @@ class PushReq {
     this.message,
     this.name,
   });
-
   /// Branch to advance; empty means \"main\". A fresh branch that is the repo's first also becomes HEAD.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

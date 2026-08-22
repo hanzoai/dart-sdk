@@ -17,7 +17,6 @@ class O11yConnectionArtifact {
     this.azure,
     this.gcp,
   });
-
   /// required till new providers are added
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

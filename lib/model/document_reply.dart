@@ -16,7 +16,6 @@ class DocumentReply {
     this.disclaimer,
     this.document,
   });
-
   /// Disclaimer is the boundary made visible on the wire.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

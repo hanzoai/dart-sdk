@@ -18,7 +18,6 @@ class O11yOpsGenieConfigResponder {
     this.type,
     this.username,
   });
-
   /// One of those 3 should be filled.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

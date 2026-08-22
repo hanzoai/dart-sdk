@@ -19,7 +19,7 @@ class GitOpsOperation {
     this.revision,
     this.startedAt,
   });
-
+  /// FinishedAt is when it ended, RFC 3339. Absent while the phase is Running.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -28,6 +28,7 @@ class GitOpsOperation {
   ///
   String? finishedAt;
 
+  /// Message is CD's account of the phase — \"successfully synced (all tasks run)\" for a Succeeded operation, the reason it stopped for a Failed one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -36,6 +37,7 @@ class GitOpsOperation {
   ///
   String? message;
 
+  /// Phase is how the last sync operation ended, in CD's own vocabulary: Running, Succeeded or Failed. It is never empty — an Application whose phase is empty has no operation at all and omits this whole object.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -44,6 +46,7 @@ class GitOpsOperation {
   ///
   String? phase;
 
+  /// Revision is the commit this operation ATTEMPTED (operationState.syncResult). It differs from the Application's own revision exactly when the attempt did not land: revision is the last commit CD got applied, this is the last one it tried.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -52,6 +55,7 @@ class GitOpsOperation {
   ///
   String? revision;
 
+  /// StartedAt is when the operation began, RFC 3339.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

@@ -17,7 +17,6 @@ class WebEngine {
     this.outcome,
     this.results,
   });
-
   /// Name is the engine, matching the `engine` stamped on each result.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

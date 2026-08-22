@@ -17,7 +17,6 @@ class ReadmeJSON {
     this.encoding,
     this.path,
   });
-
   /// Content is the file's text, verbatim and unrendered.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

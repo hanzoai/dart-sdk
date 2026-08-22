@@ -19,7 +19,6 @@ class O11yO11yErrorsCountIn {
     this.start,
     this.tags = const [],
   });
-
   /// End is the window end, as a nanosecond epoch spelled as a string.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

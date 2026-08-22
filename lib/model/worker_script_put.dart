@@ -19,7 +19,6 @@ class WorkerScriptPut {
     this.mainModule,
     this.script,
   });
-
   Object? bindings;
 
   ///

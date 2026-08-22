@@ -19,7 +19,6 @@ class OnboardResp {
     this.displayName,
     this.org,
   });
-
   /// AccessKey is the identifier of the org-scoped credential provisioning minted with the organization. Present on a first run that actually minted one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

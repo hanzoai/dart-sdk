@@ -16,7 +16,6 @@ class O11yO11yDashboardViewOut {
     this.data,
     this.status,
   });
-
   /// Data is the saved view.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

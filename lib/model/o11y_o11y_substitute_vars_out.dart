@@ -16,7 +16,6 @@ class O11yO11ySubstituteVarsOut {
     this.data,
     this.status,
   });
-
   Object? data;
 
   /// Status is \"success\".

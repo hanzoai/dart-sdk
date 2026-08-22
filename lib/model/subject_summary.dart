@@ -19,7 +19,6 @@ class SubjectSummary {
     this.kind,
     this.ref,
   });
-
   /// CreatedAt is the unix second the subject was recorded.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

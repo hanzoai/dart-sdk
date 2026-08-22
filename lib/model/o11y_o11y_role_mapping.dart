@@ -17,7 +17,6 @@ class O11yO11yRoleMapping {
     this.groupMappings = const {},
     this.useRoleAttribute,
   });
-
   /// DefaultRole is the role when no group mapping applies.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

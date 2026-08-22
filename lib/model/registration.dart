@@ -20,7 +20,6 @@ class Registration {
     this.structure,
     this.updatedAt,
   });
-
   /// CreatedAt is the unix second the formation was opened.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class MeshServiceList {
   MeshServiceList({
     this.services = const [],
   });
-
   /// Services is one row per ZT edge service tagged with the caller's org role.
   List<MeshView> services;
 

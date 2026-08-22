@@ -15,7 +15,6 @@ class BotRoster {
   BotRoster({
     this.bots = const [],
   });
-
   /// Bots is every agent of the caller's org, projected as a workspace member.
   List<BotMember> bots;
 

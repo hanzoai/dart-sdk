@@ -18,7 +18,6 @@ class WebResult {
     this.title,
     this.url,
   });
-
   /// Content is the ENGINE's snippet — the few lines shown under the title, not the page's text. Read the page itself with POST /v1/crawl.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -18,7 +18,6 @@ class O11yO11yDashboardViewData {
     this.sort,
     this.version,
   });
-
   /// Order is the captured sort direction.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

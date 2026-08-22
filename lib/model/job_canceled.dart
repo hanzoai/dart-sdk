@@ -16,7 +16,6 @@ class JobCanceled {
     this.canceled,
     this.run,
   });
-
   /// Canceled is the job id that was canceled.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

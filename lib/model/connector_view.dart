@@ -22,7 +22,6 @@ class ConnectorView {
     this.provider,
     this.status,
   });
-
   /// Account names the connected external account. Absent until the org connects.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

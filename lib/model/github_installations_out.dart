@@ -16,7 +16,6 @@ class GithubInstallationsOut {
     this.installUrl,
     this.installations = const [],
   });
-
   /// InstallURL is where to grant a new account, so a UI with an empty list has somewhere to send the reader instead of a dead end.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

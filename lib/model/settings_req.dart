@@ -17,7 +17,6 @@ class SettingsReq {
     this.product,
     this.secrets = const {},
   });
-
   /// Config is the product's non-secret configuration, stored verbatim. Bounded at 64 KiB once serialized. Omit it to store an empty object.
   Map<String, Object> config;
 

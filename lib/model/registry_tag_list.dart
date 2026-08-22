@@ -17,7 +17,6 @@ class RegistryTagList {
     this.image,
     this.ref,
   });
-
   /// Data is the tag names, as the registry reports them.
   List<String> data;
 

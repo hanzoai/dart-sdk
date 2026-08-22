@@ -16,7 +16,6 @@ class Signer {
     this.email,
     this.name,
   });
-
   /// Email is the address the signature request is sent to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

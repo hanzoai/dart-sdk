@@ -15,7 +15,6 @@ class RiskLearnIn {
   RiskLearnIn({
     this.events = const [],
   });
-
   /// Events are the things that happened, oldest first. An empty batch is refused: learning nothing is not an operation.
   List<RiskEvent> events;
 

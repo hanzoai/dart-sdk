@@ -22,8 +22,7 @@ class Extracted {
     this.taxCents,
     this.totalCents,
   });
-
-  /// proposed slug (software|cloud|office|…)
+  /// Category is the expense bucket the SCANNER guessed, as a slug — a hint only. Vendor rules override it whenever they know better, so this is the model's reading and not the account the entry will land on.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -32,6 +31,7 @@ class Extracted {
   ///
   String? category;
 
+  /// Currency is the ISO code the document is denominated in.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -40,7 +40,7 @@ class Extracted {
   ///
   String? currency;
 
-  /// YYYY-MM-DD
+  /// IssuedAt is the document's OWN date as YYYY-MM-DD — when the bill was issued, which is not when it was uploaded or when it will post.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -49,8 +49,10 @@ class Extracted {
   ///
   String? issuedAt;
 
+  /// LineItems are the individual lines read off the document, where it had any. They need not sum to totalCents: a document may carry lines the scanner could not read, and the total is taken from the total.
   List<LineItem> lineItems;
 
+  /// Merchant is the supplier as printed on the document.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -59,6 +61,7 @@ class Extracted {
   ///
   String? merchant;
 
+  /// Note is anything else worth carrying from the document that has no field of its own.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -67,6 +70,7 @@ class Extracted {
   ///
   String? note;
 
+  /// TaxCents is how much of that total is tax, in cents. It is part of totalCents, not additional to it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -75,6 +79,7 @@ class Extracted {
   ///
   int? taxCents;
 
+  /// TotalCents is the document total in whole cents, tax INCLUDED.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

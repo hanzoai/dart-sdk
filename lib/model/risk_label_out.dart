@@ -20,7 +20,6 @@ class RiskLabelOut {
     this.refused,
     this.results = const [],
   });
-
   /// Duplicate is how many members this tenant already held, byte for byte. The idempotency key is the assertion's CONTENT digest — kind, subject, at, seen, disposition, source, evidence, the asserting identity and confidence, folded in length-prefixed — so a webhook redelivering one chargeback is a duplicate and costs nothing, while an assertion differing in ANY of those fields is a DIFFERENT assertion and is recorded beside the first. Nothing was written and nothing was overwritten; it is an outcome, never an error. The asserting identity is in the digest, so the same claim filed by a second credential is two assertions and not a redelivery.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

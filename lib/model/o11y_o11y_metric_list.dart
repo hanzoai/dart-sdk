@@ -15,7 +15,6 @@ class O11yO11yMetricList {
   O11yO11yMetricList({
     this.metrics = const [],
   });
-
   /// Metrics are the metrics, with their metadata.
   List<O11yO11yMetricSummary> metrics;
 

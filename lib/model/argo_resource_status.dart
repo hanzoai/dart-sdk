@@ -21,7 +21,7 @@ class ArgoResourceStatus {
     this.status,
     this.version,
   });
-
+  /// Group is the object's API group: empty for the core group (Pod, Service, ConfigMap), otherwise apps, networking.k8s.io, autoscaling or policy — and hanzo.ai for the App CR itself.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -30,6 +30,7 @@ class ArgoResourceStatus {
   ///
   String? group;
 
+  /// Health is this object's own health, derived from its live state by the same rule the resource tree uses.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -38,6 +39,7 @@ class ArgoResourceStatus {
   ///
   ArgoHealth? health;
 
+  /// Kind is the object kind — App, Deployment, ReplicaSet, Pod, Service, Ingress, HorizontalPodAutoscaler, PodDisruptionBudget, ConfigMap. Never Secret: the walk that produces these does not visit them.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -46,6 +48,7 @@ class ArgoResourceStatus {
   ///
   String? kind;
 
+  /// Name is the object's metadata.name.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -54,6 +57,7 @@ class ArgoResourceStatus {
   ///
   String? name;
 
+  /// Namespace is the namespace the object was found in — the same one for every entry of an application, since the walk is confined to it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -62,6 +66,7 @@ class ArgoResourceStatus {
   ///
   String? namespace;
 
+  /// Status is the APPLICATION's sync verdict repeated on every row, not a per-object one. The operator owns these children, so no child has a desired state of its own to compare against.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -70,6 +75,7 @@ class ArgoResourceStatus {
   ///
   String? status;
 
+  /// Version is the object's API version as the live object reports it: v1 for every kind here except the HorizontalPodAutoscaler, which is autoscaling/v2.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

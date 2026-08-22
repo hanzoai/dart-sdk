@@ -17,7 +17,6 @@ class PlanVocab {
     this.keys = const {},
     this.namespaces = const [],
   });
-
   /// EngineFeatures are the inference-engine capabilities a license can grant: inference, embeddings, rerank, training, vision, audio, tools.
   List<String> engineFeatures;
 

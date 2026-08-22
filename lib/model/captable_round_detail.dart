@@ -16,7 +16,6 @@ class CaptableRoundDetail {
     this.investments = const [],
     this.round,
   });
-
   /// Investments is every investment into this round, oldest first.
   List<CaptableRoundInvestment> investments;
 

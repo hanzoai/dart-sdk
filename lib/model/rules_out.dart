@@ -15,7 +15,6 @@ class RulesOut {
   RulesOut({
     this.rules = const [],
   });
-
   /// Rules is every rule the org has set, highest priority first — the order they are matched in.
   List<Rule> rules;
 

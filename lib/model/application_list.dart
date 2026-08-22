@@ -15,7 +15,6 @@ class ApplicationList {
   ApplicationList({
     this.data = const [],
   });
-
   /// Data is the page of applications, newest first.
   List<ProgramApplication> data;
 

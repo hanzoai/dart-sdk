@@ -18,7 +18,6 @@ class Arm {
     this.payload,
     this.weight,
   });
-
   /// true on the baseline arm every other arm is compared to
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

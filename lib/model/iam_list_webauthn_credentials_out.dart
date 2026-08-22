@@ -15,7 +15,6 @@ class IamListWebauthnCredentialsOut {
   IamListWebauthnCredentialsOut({
     this.webauthnCredentials = const [],
   });
-
   List<IamWebauthnCredential> webauthnCredentials;
 
   @override

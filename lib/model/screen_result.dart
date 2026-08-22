@@ -23,7 +23,6 @@ class ScreenResult {
     this.summary,
     this.tier1Backed,
   });
-
   /// DraftReply is a suggested email reply for staff to edit and send.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

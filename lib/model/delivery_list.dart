@@ -15,7 +15,6 @@ class DeliveryList {
   DeliveryList({
     this.data = const [],
   });
-
   /// Data is the matching attempts, newest first.
   List<DeliveryRow> data;
 

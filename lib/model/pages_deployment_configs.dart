@@ -16,7 +16,7 @@ class PagesDeploymentConfigs {
     this.preview,
     this.production,
   });
-
+  /// Preview is the config every branch build other than the production branch runs under. It is a SEPARATE set of bindings and variables, which is what lets a preview point at test data.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -25,6 +25,7 @@ class PagesDeploymentConfigs {
   ///
   PagesDeploymentConfig? preview;
 
+  /// Production is the config the production branch builds under.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

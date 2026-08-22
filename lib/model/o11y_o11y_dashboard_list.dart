@@ -17,7 +17,6 @@ class O11yO11yDashboardList {
     this.tags = const [],
     this.total,
   });
-
   /// Dashboards are the rows for this page.
   List<O11yO11yDashboardListItem> dashboards;
 

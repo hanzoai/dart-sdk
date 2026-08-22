@@ -13,70 +13,137 @@ part of hanzoai.cloud;
 class Funnel {
   /// Returns a new [Funnel] instance.
   Funnel({
-    this.convertedOrgs,
-    this.ratePct,
-    this.referredOrgs,
+    this.available,
+    this.orders,
+    this.pageviews,
+    this.revenue,
+    this.signups,
+    this.visitors,
+    this.windowDays,
   });
-
-  /// ConvertedOrgs is how many distinct referred orgs have produced positive commission at least once — a referral that actually spent.
+  /// Available separates \"this org has no traffic\" from \"we could not ask\". False means the warehouse was unreachable or the org has emitted nothing at all, and every count below is then a placeholder zero rather than a measurement — a caller must read this before reading any of them.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  int? convertedOrgs;
+  bool? available;
 
-  /// RatePct is convertedOrgs over referredOrgs as a PERCENTAGE, 0–100, and the one non-integer figure on this board. It is 0 when nothing has been referred yet, not undefined.
+  /// Orders counts completed orders in the window — purchases, not carts started.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? ratePct;
+  int? orders;
 
-  /// ReferredOrgs is how many attribution edges exist fleet-wide — one per referred org, first-touch, so it is also the count of distinct referred orgs.
+  /// Pageviews counts page events in the window, one per view rather than per person, so a single visitor reading ten pages counts ten.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  int? referredOrgs;
+  int? pageviews;
+
+  /// Revenue is the sum of the amounts those orders reported, in whatever currency the beacon stamped on them (major units, e.g. 49.5 for $49.50) — NOT cents, and not converted to a single currency. Contrast revenueCents on the profile, which is the money of record.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  num? revenue;
+
+  /// Signups counts completed signups in the window, the step where an anonymous visitor becomes somebody with an account.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  int? signups;
+
+  /// Visitors is the number of DISTINCT people seen in the window, counted by the beacon's distinct id — so it is unique visitors, not sessions and not views.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  int? visitors;
+
+  /// WindowDays is the length of the trailing window every count covers, so a reader knows whether 40 signups is a month or a day.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  int? windowDays;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is Funnel &&
-    other.convertedOrgs == convertedOrgs &&
-    other.ratePct == ratePct &&
-    other.referredOrgs == referredOrgs;
+    other.available == available &&
+    other.orders == orders &&
+    other.pageviews == pageviews &&
+    other.revenue == revenue &&
+    other.signups == signups &&
+    other.visitors == visitors &&
+    other.windowDays == windowDays;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (convertedOrgs == null ? 0 : convertedOrgs!.hashCode) +
-    (ratePct == null ? 0 : ratePct!.hashCode) +
-    (referredOrgs == null ? 0 : referredOrgs!.hashCode);
+    (available == null ? 0 : available!.hashCode) +
+    (orders == null ? 0 : orders!.hashCode) +
+    (pageviews == null ? 0 : pageviews!.hashCode) +
+    (revenue == null ? 0 : revenue!.hashCode) +
+    (signups == null ? 0 : signups!.hashCode) +
+    (visitors == null ? 0 : visitors!.hashCode) +
+    (windowDays == null ? 0 : windowDays!.hashCode);
 
   @override
-  String toString() => 'Funnel[convertedOrgs=$convertedOrgs, ratePct=$ratePct, referredOrgs=$referredOrgs]';
+  String toString() => 'Funnel[available=$available, orders=$orders, pageviews=$pageviews, revenue=$revenue, signups=$signups, visitors=$visitors, windowDays=$windowDays]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.convertedOrgs != null) {
-      json[r'convertedOrgs'] = this.convertedOrgs;
+    if (this.available != null) {
+      json[r'available'] = this.available;
     } else {
-      json[r'convertedOrgs'] = null;
+      json[r'available'] = null;
     }
-    if (this.ratePct != null) {
-      json[r'ratePct'] = this.ratePct;
+    if (this.orders != null) {
+      json[r'orders'] = this.orders;
     } else {
-      json[r'ratePct'] = null;
+      json[r'orders'] = null;
     }
-    if (this.referredOrgs != null) {
-      json[r'referredOrgs'] = this.referredOrgs;
+    if (this.pageviews != null) {
+      json[r'pageviews'] = this.pageviews;
     } else {
-      json[r'referredOrgs'] = null;
+      json[r'pageviews'] = null;
+    }
+    if (this.revenue != null) {
+      json[r'revenue'] = this.revenue;
+    } else {
+      json[r'revenue'] = null;
+    }
+    if (this.signups != null) {
+      json[r'signups'] = this.signups;
+    } else {
+      json[r'signups'] = null;
+    }
+    if (this.visitors != null) {
+      json[r'visitors'] = this.visitors;
+    } else {
+      json[r'visitors'] = null;
+    }
+    if (this.windowDays != null) {
+      json[r'windowDays'] = this.windowDays;
+    } else {
+      json[r'windowDays'] = null;
     }
     return json;
   }
@@ -100,9 +167,13 @@ class Funnel {
       }());
 
       return Funnel(
-        convertedOrgs: mapValueOfType<int>(json, r'convertedOrgs'),
-        ratePct: num.parse('${json[r'ratePct']}'),
-        referredOrgs: mapValueOfType<int>(json, r'referredOrgs'),
+        available: mapValueOfType<bool>(json, r'available'),
+        orders: mapValueOfType<int>(json, r'orders'),
+        pageviews: mapValueOfType<int>(json, r'pageviews'),
+        revenue: num.parse('${json[r'revenue']}'),
+        signups: mapValueOfType<int>(json, r'signups'),
+        visitors: mapValueOfType<int>(json, r'visitors'),
+        windowDays: mapValueOfType<int>(json, r'windowDays'),
       );
     }
     return null;

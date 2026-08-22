@@ -31,7 +31,6 @@ class MetricsResponse {
     this.runwayMonths,
     this.to,
   });
-
   /// ARR is annualized recurring revenue in cents (MRR × 12).
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -17,7 +17,6 @@ class UsageRepo {
     this.project,
     this.sizeBytes,
   });
-
   /// Name is the repo's org-unique handle.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

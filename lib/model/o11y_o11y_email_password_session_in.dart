@@ -17,7 +17,6 @@ class O11yO11yEmailPasswordSessionIn {
     this.orgId,
     this.password,
   });
-
   /// Email is the account's address. Required.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

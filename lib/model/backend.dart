@@ -16,7 +16,6 @@ class Backend {
     this.url,
     this.weight,
   });
-
   /// URL is the upstream server, http(s)://host[:port].
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

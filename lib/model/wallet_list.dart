@@ -15,7 +15,6 @@ class WalletList {
   WalletList({
     this.wallets = const [],
   });
-
   /// Wallets are the matching wallets, newest first.
   List<Wallet> wallets;
 

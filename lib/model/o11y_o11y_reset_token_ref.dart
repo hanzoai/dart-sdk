@@ -15,7 +15,6 @@ class O11yO11yResetTokenRef {
   O11yO11yResetTokenRef({
     this.token,
   });
-
   /// Token is the reset-password token.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

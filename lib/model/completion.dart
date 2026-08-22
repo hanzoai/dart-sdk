@@ -17,7 +17,7 @@ class Completion {
     this.kind,
     this.label,
   });
-
+  /// Detail is the server's short elaboration, typically the type or signature.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -26,6 +26,7 @@ class Completion {
   ///
   String? detail;
 
+  /// Kind is the LSP CompletionItemKind number (2 method, 3 function, 5 field, 6 variable, …), passed through as the protocol spells it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -34,6 +35,7 @@ class Completion {
   ///
   int? kind;
 
+  /// Label is the text a client would insert, and what an editor lists.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

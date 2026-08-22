@@ -25,7 +25,6 @@ class LLMOverview {
     this.spendCents,
     this.tokens,
   });
-
   /// Available is true whenever the ledger answered — including with no usage in the window, which is honest zeros rather than a missing lens.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

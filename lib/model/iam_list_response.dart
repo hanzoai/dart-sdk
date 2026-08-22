@@ -19,7 +19,6 @@ class IamListResponse {
     this.startIndex,
     this.totalResults,
   });
-
   List<Object> resources;
 
   ///

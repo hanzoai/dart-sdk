@@ -16,7 +16,6 @@ class CheckList {
     this.data = const [],
     this.disclaimer,
   });
-
   /// Data is the org's verifications, newest first, without subject PII.
   List<CheckView> data;
 

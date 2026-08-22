@@ -15,7 +15,6 @@ class KitList {
   KitList({
     this.data = const [],
   });
-
   /// Data is the public catalog followed by the caller org's own kits.
   List<StarterKit> data;
 

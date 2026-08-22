@@ -17,7 +17,6 @@ class O11yGCPAccountConfig {
     this.deploymentRegion,
     this.projectIds = const [],
   });
-
   /// Project ID where central pub/sub for logs exist
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

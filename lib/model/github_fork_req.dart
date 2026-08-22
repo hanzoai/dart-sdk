@@ -16,7 +16,6 @@ class GithubForkReq {
     this.org,
     this.repo,
   });
-
   /// Org is the GitHub account to fork INTO; empty forks to the installation's own account, which is the common case.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

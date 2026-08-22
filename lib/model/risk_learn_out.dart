@@ -15,7 +15,6 @@ class RiskLearnOut {
   RiskLearnOut({
     this.learned,
   });
-
   /// Learned is how many of the events the model actually learned from, and is also what the call is metered at: one screen per event learned from. It is the batch minus the events already in this organisation's record, so a retried batch reports — and is charged — zero.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

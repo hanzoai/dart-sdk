@@ -19,7 +19,6 @@ class CurateReq {
     this.logo,
     this.official,
   });
-
   /// Featured puts the listing on the front of the shelf, or takes it off.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

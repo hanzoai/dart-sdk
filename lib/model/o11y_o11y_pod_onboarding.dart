@@ -26,7 +26,6 @@ class O11yO11yPodOnboarding {
     this.nodeName,
     this.podName,
   });
-
   /// ClusterName is the pod's cluster.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

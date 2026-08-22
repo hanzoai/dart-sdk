@@ -16,7 +16,6 @@ class Sources {
     this.commerce,
     this.warehouse,
   });
-
   /// Commerce is whether the billing ledger answered the spend block.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

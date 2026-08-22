@@ -15,7 +15,6 @@ class DatasetList {
   DatasetList({
     this.data = const [],
   });
-
   /// Data is the caller org's datasets, newest first, bounded by limit.
   List<DatasetView> data;
 

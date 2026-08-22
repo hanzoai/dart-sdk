@@ -23,7 +23,6 @@ class Enrollment {
     this.status,
     this.updatedAt,
   });
-
   /// Address is the normalized (lower-cased, trimmed) recipient.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -51,7 +50,7 @@ class Enrollment {
   ///
   int? currentStep;
 
-  /// EnrolledAt and UpdatedAt are unix seconds.
+  /// EnrolledAt is unix seconds when the contact joined the walk, and orders the enrollment list (newest first).
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -96,6 +95,7 @@ class Enrollment {
   ///
   String? status;
 
+  /// UpdatedAt is unix seconds of the last move: the drip engine writes it each time it advances the walk a step, completes it or cancels it. Together with Status it says when the walk last did anything, which is how a stalled enrollment is told from a finished one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

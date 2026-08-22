@@ -18,7 +18,6 @@ class AccountsUsage {
     this.source_,
     this.total,
   });
-
   /// Accounts is one row per linked account the gateway actually routed through.
   List<RoutedUsage> accounts;
 

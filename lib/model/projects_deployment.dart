@@ -29,7 +29,7 @@ class ProjectsDeployment {
     this.upload,
     this.version,
   });
-
+  /// Bucket is the object-store bucket its files were written to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -38,6 +38,7 @@ class ProjectsDeployment {
   ///
   String? bucket;
 
+  /// Bytes is their total size in bytes.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -46,6 +47,7 @@ class ProjectsDeployment {
   ///
   int? bytes;
 
+  /// Commit is the revision that was built, for a deployment that came from a repository. Absent for an uploaded artifact, which has no revision.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -54,6 +56,7 @@ class ProjectsDeployment {
   ///
   String? commit;
 
+  /// CreatedAt is when the deployment was queued, as Unix seconds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -62,6 +65,7 @@ class ProjectsDeployment {
   ///
   int? createdAt;
 
+  /// Files is how many objects the deployment published.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -70,6 +74,7 @@ class ProjectsDeployment {
   ///
   int? files;
 
+  /// ID identifies this one deployment attempt, and is what CI quotes back to complete it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -78,6 +83,7 @@ class ProjectsDeployment {
   ///
   String? id;
 
+  /// LiveURL is where this deployment serves, once it is live.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -86,6 +92,7 @@ class ProjectsDeployment {
   ///
   String? liveUrl;
 
+  /// Message is what happened, in words — the build's own note, or on a failure why it failed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -94,6 +101,7 @@ class ProjectsDeployment {
   ///
   String? message;
 
+  /// Prefix is the key prefix within that bucket holding EXACTLY this deployment's objects — the unit an upload grant is scoped to, so a grant for one deployment cannot write over another.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -102,6 +110,7 @@ class ProjectsDeployment {
   ///
   String? prefix;
 
+  /// ProjectID is the project this deployment belongs to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -110,6 +119,7 @@ class ProjectsDeployment {
   ///
   String? projectId;
 
+  /// Source is what caused the deployment — a git push, an uploaded artifact, a generated site.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -118,6 +128,7 @@ class ProjectsDeployment {
   ///
   String? source_;
 
+  /// Status is where the attempt got to — queued, live, or failed. A deployment that is live is not necessarily the one SERVING: the project's own currentDeploymentId says which is.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -126,6 +137,7 @@ class ProjectsDeployment {
   ///
   String? status;
 
+  /// UpdatedAt is when it last changed state, as Unix seconds — so the gap between the two is how long the build took.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -143,6 +155,7 @@ class ProjectsDeployment {
   ///
   ProjectsUploadGrant? upload;
 
+  /// Version counts deployments of this project from 1, so the history reads as an ordered sequence rather than by timestamp. It is per project, not global.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

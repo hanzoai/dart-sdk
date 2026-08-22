@@ -16,7 +16,7 @@ class SequenceView {
     this.sequence,
     this.steps = const [],
   });
-
+  /// Sequence is the definition itself — the same record create and the list return. Its status is the one that decides whether enroll is accepted.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

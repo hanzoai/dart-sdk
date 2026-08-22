@@ -23,7 +23,7 @@ class Quote {
     this.remaining,
     this.seats,
   });
-
+  /// ChargeCents is what month one costs after the discount, in USD cents, totalled over the seats quoted. On team that is a multiple of the seat count, so it is not ListCents minus DiscountCents.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -32,7 +32,7 @@ class Quote {
   ///
   int? chargeCents;
 
-  /// Code, Plan and Seats echo what was quoted.
+  /// Code is the promo that was priced, as stored.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -41,6 +41,7 @@ class Quote {
   ///
   String? code;
 
+  /// DiscountCents is what the promo takes off month one, in USD cents. The promo rate reaches at most TeamSeatCap seats; seats past the cap bill at full list and add nothing here. It is arithmetic only — quoting credits nothing, counts nothing and reserves nothing.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -58,7 +59,7 @@ class Quote {
   ///
   bool? eligible;
 
-  /// ListCents is the undiscounted month price, ChargeCents what would be charged, DiscountCents the difference — all in USD cents.
+  /// ListCents is the undiscounted month price in USD cents: PER SEAT on team, the whole month on pro and max, 0 for a plan with no list price.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -67,6 +68,7 @@ class Quote {
   ///
   int? listCents;
 
+  /// Plan is the tier priced, lower-cased and trimmed: pro, max or team. Unlike a redemption's plan this one comes from the REQUEST — quoting has no side effects, so it will happily price a plan the caller does not hold.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -75,6 +77,7 @@ class Quote {
   ///
   String? plan;
 
+  /// Reason is why Eligible is false, drawn from: \"promo redemption is closed\" (the subsystem is off, which is how it ships), \"promo redemption cap reached\", \"promo is not active\", \"plan is free or unknown; nothing to discount\", \"promo does not cover plan <plan>\". Absent when Eligible is true.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -92,6 +95,7 @@ class Quote {
   ///
   int? remaining;
 
+  /// Seats is the seat count priced; a request of 0 or less was read as 1. It only bites on team, the one per-seat plan — pro and max are single-seat and ignore it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

@@ -18,7 +18,6 @@ class MqStream {
     this.name,
     this.state,
   });
-
   /// Config is the stream's configuration.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

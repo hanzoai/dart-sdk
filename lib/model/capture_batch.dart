@@ -16,7 +16,6 @@ class CaptureBatch {
     this.batch = const [],
     this.events = const [],
   });
-
   List<CaptureEvent> batch;
 
   List<CaptureEvent> events;

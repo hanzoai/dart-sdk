@@ -20,7 +20,6 @@ class O11yCloudIntegrationService {
     this.type,
     this.updatedAt,
   });
-
   Object? cloudIntegrationId;
 
   ///

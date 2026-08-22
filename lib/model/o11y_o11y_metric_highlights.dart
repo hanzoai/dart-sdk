@@ -18,7 +18,6 @@ class O11yO11yMetricHighlights {
     this.lastReceived,
     this.totalTimeSeries,
   });
-
   /// ActiveTimeSeries is how many of them are active.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

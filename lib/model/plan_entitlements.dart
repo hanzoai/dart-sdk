@@ -17,7 +17,6 @@ class PlanEntitlements {
     this.id,
     this.licenseFeatures = const [],
   });
-
   Object? entitlements;
 
   /// ID is the plan id or slug that was resolved, as it was requested.

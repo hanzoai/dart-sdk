@@ -16,7 +16,6 @@ class FormationView {
     this.formation,
     this.nextStages = const [],
   });
-
   /// Formation is the org's one incorporation record.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -16,7 +16,6 @@ class OptinView {
     this.org,
     this.user,
   });
-
   /// Org is the caller's org's listing preference on the cross-org board, and whether this caller is allowed to change it. It is read for every caller — a member sees where their org stands even though only an admin may edit it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

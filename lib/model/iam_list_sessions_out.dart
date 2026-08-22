@@ -15,7 +15,6 @@ class IamListSessionsOut {
   IamListSessionsOut({
     this.sessions = const [],
   });
-
   List<IamSession> sessions;
 
   @override

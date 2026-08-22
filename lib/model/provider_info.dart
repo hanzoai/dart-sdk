@@ -16,7 +16,6 @@ class ProviderInfo {
     this.displayName,
     this.name,
   });
-
   /// DisplayName is the human label for the sign-in button; this deployment sends \"Hanzo\". Omitted from the body when empty.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class LicensingFingerprintRequest {
   LicensingFingerprintRequest({
     this.signals,
   });
-
   /// Signals is the host material the client agent collected. Which fields actually participate in the binding is deliberately unspecified — send everything available and let the server decide.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

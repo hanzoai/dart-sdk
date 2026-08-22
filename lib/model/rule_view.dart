@@ -18,7 +18,6 @@ class RuleView {
     this.name,
     this.severity,
   });
-
   /// what kind of secret this rule recognises
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

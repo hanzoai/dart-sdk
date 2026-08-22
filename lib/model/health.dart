@@ -16,7 +16,6 @@ class Health {
     this.ok,
     this.subsystem,
   });
-
   /// OK is true whenever this route answers at all: reaching the handler IS the proof that the routes are registered and dispatching.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

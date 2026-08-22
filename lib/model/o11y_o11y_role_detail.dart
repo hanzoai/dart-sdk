@@ -22,7 +22,6 @@ class O11yO11yRoleDetail {
     this.type,
     this.updatedAt,
   });
-
   /// CreatedAt is when the role was created.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

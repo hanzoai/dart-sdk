@@ -18,7 +18,6 @@ class O11yO11yWidgetQueryRange {
     this.type,
     this.warning,
   });
-
   Object? data;
 
   Object? meta;

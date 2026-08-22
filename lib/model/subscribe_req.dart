@@ -17,7 +17,6 @@ class SubscribeReq {
     this.events = const [],
     this.name,
   });
-
   /// Channel is the Slack channel the notifier posts to — an id (C…/G…), a #name, or a bare name. Required.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

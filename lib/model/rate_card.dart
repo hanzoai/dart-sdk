@@ -17,7 +17,6 @@ class RateCard {
     this.microUsdPerGbHour,
     this.microUsdPerVcpuHour,
   });
-
   /// Basis names where the rates come from, so a published price can be explained rather than merely asserted.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -16,7 +16,6 @@ class AccList {
     this.data = const [],
     this.disclaimer,
   });
-
   /// Data is the org's tracked accreditation records, newest first.
   List<AccView> data;
 

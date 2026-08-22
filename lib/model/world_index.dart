@@ -17,7 +17,6 @@ class WorldIndex {
     this.summary,
     this.wires = const [],
   });
-
   /// Product is the product's name as customers know it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

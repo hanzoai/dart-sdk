@@ -17,7 +17,6 @@ class O11yO11yPercentiles {
     this.p90,
     this.p99,
   });
-
   /// P50 is the median.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -28,7 +28,6 @@ class StarterKit {
     this.useCase,
     this.variants = const [],
   });
-
   /// groups the kit in the gallery browser (\"Portfolio\", \"SaaS\")
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

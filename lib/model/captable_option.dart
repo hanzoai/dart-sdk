@@ -28,7 +28,6 @@ class CaptableOption {
     this.type,
     this.vestingYears,
   });
-
   /// CliffYears is how many years before any of the grant vests.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

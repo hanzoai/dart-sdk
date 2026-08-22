@@ -17,7 +17,6 @@ class DnsRecord {
     this.type,
     this.value,
   });
-
   /// the record name the customer creates
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

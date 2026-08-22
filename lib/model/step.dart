@@ -21,7 +21,6 @@ class Step {
     this.sequenceId,
     this.subject,
   });
-
   /// Body is the message text. Required. The signed one-click unsubscribe link is appended to it at send time.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

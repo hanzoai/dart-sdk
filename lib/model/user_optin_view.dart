@@ -17,7 +17,6 @@ class UserOptinView {
     this.handle,
     this.listed,
   });
-
   /// CanSet is false when the caller's ledger identity cannot be resolved (no user name on the principal). Writing the preference would fail, so hide the control.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -16,7 +16,6 @@ class O11yO11yTransaction {
     this.object,
     this.relation,
   });
-
   /// Object is the resource the verb would act on.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

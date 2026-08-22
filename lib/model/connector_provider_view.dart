@@ -20,7 +20,6 @@ class ConnectorProviderView {
     this.name,
     this.scopes = const [],
   });
-
   /// Category groups the card.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

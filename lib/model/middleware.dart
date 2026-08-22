@@ -17,7 +17,6 @@ class Middleware {
     this.id,
     this.type,
   });
-
   /// Config is the transform's parameters: redirectScheme takes scheme (default https) and permanent (\"true\" ⇒ 301, else 302); stripPrefix REQUIRES prefixes (comma-separated, first match wins); addPrefix REQUIRES prefix; headers is a header→value map set on the response.
   Map<String, String> config;
 

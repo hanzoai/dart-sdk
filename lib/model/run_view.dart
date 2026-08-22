@@ -19,7 +19,6 @@ class RunView {
     this.status,
     this.url,
   });
-
   /// ID is the application id the run created or converged.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -21,7 +21,6 @@ class RiskDisposeOut {
     this.restored,
     this.total,
   });
-
   /// Before echoes the retention boundary that was applied, RFC 3339 in UTC, as this plane parsed it from the request. What was disposed of is every record WRITTEN strictly before it and not under litigation hold — written, measured against the server clock at the write, and not against the event or observation times the asserting caller supplies, because a tenant that could back-date could delete a compliance record on demand. A boundary younger than the platform floor of five years is refused before anything is removed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

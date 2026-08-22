@@ -16,7 +16,6 @@ class O11yO11yUsersOut {
     this.data = const [],
     this.status,
   });
-
   /// Data holds the members.
   List<O11yO11yUser> data;
 

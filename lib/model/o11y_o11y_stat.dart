@@ -16,7 +16,6 @@ class O11yO11yStat {
     this.time,
     this.value,
   });
-
   /// Time is the start of the bucket.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

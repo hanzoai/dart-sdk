@@ -15,7 +15,6 @@ class O11yO11yHealthOut {
   O11yO11yHealthOut({
     this.status,
   });
-
   /// Status is \"ok\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

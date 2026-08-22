@@ -16,7 +16,6 @@ class O11yO11yFunnelRowsOut {
     this.data = const [],
     this.status,
   });
-
   /// Data are the rows.
   List<O11yO11yFunnelRow> data;
 

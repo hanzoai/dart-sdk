@@ -16,7 +16,6 @@ class O11yO11yAuthNSupport {
     this.callback = const [],
     this.password = const [],
   });
-
   /// Callback are the SSO routes; each is begun by visiting its URL.
   List<O11yO11yCallbackAuthN> callback;
 

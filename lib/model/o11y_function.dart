@@ -17,7 +17,6 @@ class O11yFunction {
     this.name,
     this.namedArgs = const {},
   });
-
   List<Object> args;
 
   ///

@@ -17,7 +17,6 @@ class RefsJSON {
     this.default_,
     this.tags = const [],
   });
-
   /// Branches are the repo's heads; empty on a repo with no commits.
   List<RefJSON> branches;
 

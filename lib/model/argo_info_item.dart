@@ -16,7 +16,7 @@ class ArgoInfoItem {
     this.name,
     this.value,
   });
-
+  /// Name is the chip's label. The only one this projection produces is \"Image Tag\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -25,6 +25,7 @@ class ArgoInfoItem {
   ///
   String? name;
 
+  /// Value is the chip's value — for \"Image Tag\", the tag the node runs.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

@@ -15,7 +15,6 @@ class StatsSessions {
   StatsSessions({
     this.activeSessions = const {},
   });
-
   /// ActiveSessions maps a workspace uuid to its connected sessions. It carries only the token's OWN workspace, and is empty for a token that names none.
   Map<String, List<StatsUser>> activeSessions;
 

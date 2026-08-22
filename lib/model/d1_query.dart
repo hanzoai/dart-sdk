@@ -16,7 +16,6 @@ class D1Query {
     this.params = const [],
     this.sql,
   });
-
   List<Object> params;
 
   ///

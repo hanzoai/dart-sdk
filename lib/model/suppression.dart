@@ -18,7 +18,6 @@ class Suppression {
     this.createdAt,
     this.reason,
   });
-
   /// Address is the recipient, normalized (lower-cased, trimmed) so an opt-out cannot be slipped past on a case or whitespace difference. Required.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

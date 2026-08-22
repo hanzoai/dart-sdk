@@ -18,7 +18,6 @@ class O11yGettableHost {
     this.state,
     this.tier,
   });
-
   List<O11yHost> hosts;
 
   ///

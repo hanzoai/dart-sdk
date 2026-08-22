@@ -20,7 +20,6 @@ class AllowlistPutIn {
     this.group = const [],
     this.groupPolicy,
   });
-
   /// AccessGroups REPLACES the org's named access groups, as group name -> channel -> entries. Absent or null leaves them alone.
   Map<String, Map<String, List<String>>> accessGroups;
 

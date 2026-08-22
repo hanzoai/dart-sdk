@@ -18,7 +18,6 @@ class DestinationField {
     this.label,
     this.required_,
   });
-
   /// a sample value of the right shape (\"G-XXXXXXX\"), when one helps
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

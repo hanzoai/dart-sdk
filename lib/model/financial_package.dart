@@ -22,7 +22,7 @@ class FinancialPackage {
     this.to,
     this.trialBalance,
   });
-
+  /// BalanceSheet is struck as of the period END, not the start.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -31,6 +31,7 @@ class FinancialPackage {
   ///
   BalanceSheet? balanceSheet;
 
+  /// From opens the reporting period. Absent means from the beginning of the ledger.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -39,6 +40,7 @@ class FinancialPackage {
   ///
   String? from;
 
+  /// GeneratedAt is when the bundle was assembled — the moment the statements were struck, which is what makes two exports of the same period comparable.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -47,8 +49,10 @@ class FinancialPackage {
   ///
   String? generatedAt;
 
+  /// GL is the newest slice of ledger detail, as the audit trail behind the statements. It is CAPPED, so on a busy ledger it is a sample rather than the full support for the figures above.
   List<GLRow> gl;
 
+  /// Org is the organisation whose books these are — the validated caller's own, stamped so a downloaded bundle still says whose it is.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -57,6 +61,7 @@ class FinancialPackage {
   ///
   String? org;
 
+  /// PnL is the income statement for the period, on an accrual basis.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -65,6 +70,7 @@ class FinancialPackage {
   ///
   PnL? pnl;
 
+  /// To closes it. Absent means up to now.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -73,6 +79,7 @@ class FinancialPackage {
   ///
   String? to;
 
+  /// TrialBalance is the proof the ledger balances over the period.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

@@ -15,7 +15,6 @@ class ClaimRequest {
   ClaimRequest({
     this.code,
   });
-
   /// Code is the referrer's referral code, as it appeared in their ?ref= link. Case and surrounding whitespace do not matter.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

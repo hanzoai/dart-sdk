@@ -16,7 +16,6 @@ class O11yO11yDashboardDisplay {
     this.description,
     this.name,
   });
-
   /// Description says what the dashboard is for.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

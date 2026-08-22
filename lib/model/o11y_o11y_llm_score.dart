@@ -27,7 +27,6 @@ class O11yO11yLLMScore {
     this.updatedAt,
     this.value,
   });
-
   /// Comment is a free-text note.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

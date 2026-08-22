@@ -30,7 +30,6 @@ class O11yO11yLogPipelines {
     this.updatedBy,
     this.version,
   });
-
   /// Config is the rendered collector config the version deployed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

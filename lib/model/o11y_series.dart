@@ -13,100 +13,37 @@ part of hanzoai.cloud;
 class O11ySeries {
   /// Returns a new [O11ySeries] instance.
   O11ySeries({
-    this.costCents,
-    this.errors,
-    this.requests,
-    this.tokens,
-    this.ts,
+    this.labels = const {},
+    this.labelsArray = const [],
+    this.values = const [],
   });
+  Map<String, String> labels;
 
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  int? costCents;
+  List<Map<String, String>> labelsArray;
 
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  int? errors;
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  int? requests;
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  int? tokens;
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? ts;
+  List<Object> values;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is O11ySeries &&
-    other.costCents == costCents &&
-    other.errors == errors &&
-    other.requests == requests &&
-    other.tokens == tokens &&
-    other.ts == ts;
+    _deepEquality.equals(other.labels, labels) &&
+    _deepEquality.equals(other.labelsArray, labelsArray) &&
+    _deepEquality.equals(other.values, values);
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (costCents == null ? 0 : costCents!.hashCode) +
-    (errors == null ? 0 : errors!.hashCode) +
-    (requests == null ? 0 : requests!.hashCode) +
-    (tokens == null ? 0 : tokens!.hashCode) +
-    (ts == null ? 0 : ts!.hashCode);
+    (labels.hashCode) +
+    (labelsArray.hashCode) +
+    (values.hashCode);
 
   @override
-  String toString() => 'O11ySeries[costCents=$costCents, errors=$errors, requests=$requests, tokens=$tokens, ts=$ts]';
+  String toString() => 'O11ySeries[labels=$labels, labelsArray=$labelsArray, values=$values]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.costCents != null) {
-      json[r'costCents'] = this.costCents;
-    } else {
-      json[r'costCents'] = null;
-    }
-    if (this.errors != null) {
-      json[r'errors'] = this.errors;
-    } else {
-      json[r'errors'] = null;
-    }
-    if (this.requests != null) {
-      json[r'requests'] = this.requests;
-    } else {
-      json[r'requests'] = null;
-    }
-    if (this.tokens != null) {
-      json[r'tokens'] = this.tokens;
-    } else {
-      json[r'tokens'] = null;
-    }
-    if (this.ts != null) {
-      json[r'ts'] = this.ts;
-    } else {
-      json[r'ts'] = null;
-    }
+      json[r'labels'] = this.labels;
+      json[r'labelsArray'] = this.labelsArray;
+      json[r'values'] = this.values;
     return json;
   }
 
@@ -129,11 +66,13 @@ class O11ySeries {
       }());
 
       return O11ySeries(
-        costCents: mapValueOfType<int>(json, r'costCents'),
-        errors: mapValueOfType<int>(json, r'errors'),
-        requests: mapValueOfType<int>(json, r'requests'),
-        tokens: mapValueOfType<int>(json, r'tokens'),
-        ts: mapValueOfType<String>(json, r'ts'),
+        labels: mapCastOfType<String, String>(json, r'labels') ?? const {},
+        labelsArray: json[r'labelsArray'] is Iterable
+            ? (json[r'labelsArray'] as Iterable).map((e) => (e as Map).cast<String, String>()).toList(growable: false)
+            : const [],
+        values: json[r'values'] is Iterable
+            ? (json[r'values'] as Iterable).cast<Object>().toList(growable: false)
+            : const [],
       );
     }
     return null;

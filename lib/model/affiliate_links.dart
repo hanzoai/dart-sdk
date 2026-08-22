@@ -18,7 +18,6 @@ class AffiliateLinks {
     this.maxLinks,
     this.status,
   });
-
   /// IsAffiliate says whether the caller org has an affiliate record. On false only maxLinks comes back — there are no links, and there is no link to mint until the org applies and is approved.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

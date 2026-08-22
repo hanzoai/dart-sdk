@@ -17,7 +17,6 @@ class JudgeSpec {
     this.model,
     this.name,
   });
-
   /// Criteria is the standard the judge applies, defaulting to a correctness criterion.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

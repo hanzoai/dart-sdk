@@ -16,7 +16,6 @@ class ReportResp {
     this.accepted,
     this.stored,
   });
-
   /// Accepted is how many samples passed validation. Every one of them was accepted, or the whole report was refused — there is no partial success.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

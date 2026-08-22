@@ -21,7 +21,6 @@ class O11yO11yOrganization {
     this.name,
     this.updatedAt,
   });
-
   /// Alias is an alternate name the org also answers to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

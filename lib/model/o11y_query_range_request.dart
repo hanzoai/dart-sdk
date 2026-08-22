@@ -22,7 +22,6 @@ class O11yQueryRangeRequest {
     this.start,
     this.variables = const {},
   });
-
   /// CompositeQuery is the composite query to use for the request.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

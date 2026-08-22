@@ -22,7 +22,6 @@ class O11yO11yRetentionOut {
     this.ttlConditions = const [],
     this.version,
   });
-
   /// ColdStorageTTLDays is how old data must be before it moves, in days.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

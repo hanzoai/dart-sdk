@@ -17,7 +17,6 @@ class EnablementBoard {
     this.items = const [],
     this.org,
   });
-
   /// Betas are the subset of Items the caller's org may still opt into.
   List<UserEnablementItem> betas;
 

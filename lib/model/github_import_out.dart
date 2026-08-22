@@ -16,7 +16,6 @@ class GithubImportOut {
     this.queued,
     this.repos = const [],
   });
-
   /// Queued is how many repositories were handed to the background importer.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

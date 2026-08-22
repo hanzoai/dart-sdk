@@ -17,7 +17,7 @@ class PagesBuildConfig {
     this.destinationDir,
     this.rootDir,
   });
-
+  /// BuildCommand is what Cloudflare runs to build the site (\"npm run build\"). Omitted means no build step: the repository is published as it stands.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -26,6 +26,7 @@ class PagesBuildConfig {
   ///
   String? buildCommand;
 
+  /// DestinationDir is the directory the build leaves the site in (\"dist\"), relative to RootDir. It is what gets served.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -34,6 +35,7 @@ class PagesBuildConfig {
   ///
   String? destinationDir;
 
+  /// RootDir is where in the repository the build runs, for a project that is not at the repository root. Omitted means the root.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

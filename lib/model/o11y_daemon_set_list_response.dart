@@ -17,7 +17,6 @@ class O11yDaemonSetListResponse {
     this.total,
     this.type,
   });
-
   List<O11yDaemonSetListRecord> records;
 
   ///

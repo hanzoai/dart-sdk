@@ -19,7 +19,6 @@ class Report {
     this.model,
     this.sources = const [],
   });
-
   /// Answer is the grounded prose, with inline markdown citations. Every link in it points at a page in Sources: the citation check runs on the text before it leaves the engine, so a cited URL is one THIS call fetched.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

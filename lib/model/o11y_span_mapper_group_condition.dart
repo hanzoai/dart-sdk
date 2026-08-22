@@ -16,7 +16,6 @@ class O11ySpanMapperGroupCondition {
     this.attributes = const [],
     this.resource = const [],
   });
-
   List<String> attributes;
 
   List<String> resource;

@@ -16,7 +16,6 @@ class HealthView {
     this.provider,
     this.status,
   });
-
   /// Provider is the wired verification provider's name (\"manual\" by default).
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -21,7 +21,6 @@ class ScoreConfigView {
     this.name,
     this.updatedAt,
   });
-
   /// Categories is the closed set of labels a CATEGORICAL score may carry.
   List<String> categories;
 

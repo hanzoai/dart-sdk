@@ -17,7 +17,6 @@ class RiskPublishOut {
     this.tenant,
     this.value,
   });
-
   /// Minted is false when your model was ALREADY published under this name and nothing was written. Publication is idempotent on the value itself, which is what a content address is for — publishing at every boundary costs nothing rather than being the cheapest way to fill a disk.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -18,7 +18,6 @@ class SubjectReq {
     this.name,
     this.ref,
   });
-
   /// Email is the subject's contact email, sealed at rest.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class EvaluatorList {
   EvaluatorList({
     this.data = const [],
   });
-
   /// Data is the caller org's judges, bounded by limit.
   List<EvaluatorView> data;
 

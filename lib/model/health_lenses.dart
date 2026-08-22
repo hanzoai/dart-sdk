@@ -16,7 +16,6 @@ class HealthLenses {
     this.events,
     this.llm,
   });
-
   /// Events is the web/commerce lens (event.fact, signal='act'), honest-empty until the collector emits.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

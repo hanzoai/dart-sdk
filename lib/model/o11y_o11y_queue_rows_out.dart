@@ -16,7 +16,6 @@ class O11yO11yQueueRowsOut {
     this.data = const [],
     this.status,
   });
-
   /// Data holds one row per messaging destination.
   List<O11yO11yQueueRow> data;
 

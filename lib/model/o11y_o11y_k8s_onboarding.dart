@@ -19,7 +19,6 @@ class O11yO11yK8sOnboarding {
     this.isSendingOptionalPodMetrics,
     this.isSendingRequiredMetadata = const [],
   });
-
   /// DidSendClusterMetrics says whether cluster metrics have arrived.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

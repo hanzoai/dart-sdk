@@ -19,7 +19,6 @@ class ChannelResult {
     this.provider,
     this.status,
   });
-
   /// the social integration id targeted
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

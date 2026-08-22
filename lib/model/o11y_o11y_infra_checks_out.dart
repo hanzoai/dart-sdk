@@ -16,7 +16,6 @@ class O11yO11yInfraChecksOut {
     this.data,
     this.status,
   });
-
   /// Data holds what is present, what is missing and whether the section is ready.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

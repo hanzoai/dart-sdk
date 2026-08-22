@@ -30,7 +30,6 @@ class AffiliateSelf {
     this.schedule = const [],
     this.status,
   });
-
   /// AccruedCents is lifetime commission accrued, in cents. It only grows — a payout is recorded against paidCents and never reduces this.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

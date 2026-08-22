@@ -20,7 +20,6 @@ class AuthorRepo {
     this.verified,
     this.verifiedAt,
   });
-
   /// BadgeMarkdown is the ready-to-paste README snippet, DERIVED for each response from this deployment's badge host and never stored: a \"Deploy on Hanzo\" image linking to the one-click import of this repository. Re-hosting the builder changes every badge without touching a row.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

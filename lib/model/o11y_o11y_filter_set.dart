@@ -16,7 +16,6 @@ class O11yO11yFilterSet {
     this.items = const [],
     this.op,
   });
-
   /// Items are the conditions.
   List<O11yO11yFilterItem> items;
 

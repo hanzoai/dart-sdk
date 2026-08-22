@@ -17,7 +17,6 @@ class O11yO11yIdentN {
     this.impersonation,
     this.tokenizer,
   });
-
   /// APIKey is the API-key provider.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

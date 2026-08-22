@@ -23,7 +23,6 @@ class ProjectsCreate {
     this.upstream,
     this.visibility,
   });
-
   /// Analytics is the opt-OUT for the wired-by-default analytics beacon: absent (nil) ⇒ ON (the default); explicit false ⇒ off. A pointer so \"unset\" is distinguishable from \"false\" — the only way to turn the default off.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -33,6 +32,7 @@ class ProjectsCreate {
   ///
   bool? analytics;
 
+  /// Description is the one-line summary, copied onto anything forked from this project.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -41,6 +41,7 @@ class ProjectsCreate {
   ///
   String? description;
 
+  /// Framework is a BUILD HINT from a closed set, defaulting to static. It tells CI how to build a linked repo and never gates a deploy.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -49,6 +50,7 @@ class ProjectsCreate {
   ///
   String? framework;
 
+  /// License is the terms that upstream work carries.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -57,6 +59,7 @@ class ProjectsCreate {
   ///
   String? license;
 
+  /// Name is the project's display name and the only REQUIRED field. When slug is omitted it is also what the slug is derived from.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -73,6 +76,7 @@ class ProjectsCreate {
   ///
   ProjectsCreateRepo? repo;
 
+  /// Slug is the handle everything else addresses this project by: the public host `<slug>.hanzo.app`, the object-store key segment, and the path parameter of every later call. Derived from the name when omitted. It is a hostname label, so it is constrained and reserved labels such as `api` or `admin` are refused.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -81,7 +85,7 @@ class ProjectsCreate {
   ///
   String? slug;
 
-  /// Upstream/License credit the third-party work this project was published from. Taken from any caller: disclaiming authorship can only cost the publisher credit, so it needs no gate (see Project.Upstream).
+  /// Upstream credits the third-party work this project was published from. It is accepted from any caller: giving away credit can only cost the publisher, so it needs no gate.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

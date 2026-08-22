@@ -18,7 +18,7 @@ class ArgoAppList {
     this.kind,
     this.metadata,
   });
-
+  /// APIVersion is the constant \"argoproj.io/v1alpha1\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -27,8 +27,10 @@ class ArgoAppList {
   ///
   String? apiVersion;
 
+  /// Items is one entry per operator App CR the caller may see — its own org's, or every platform namespace's for a SuperAdmin — followed, for a SuperAdmin only, by every Hanzo CD Application in the cluster. Empty (never null) rather than absent when the caller owns nothing.
   List<ArgoApp> items;
 
+  /// Kind is the constant \"ApplicationList\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -37,6 +39,7 @@ class ArgoAppList {
   ///
   String? kind;
 
+  /// Metadata is the list envelope the SPA expects; it carries no resume point.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

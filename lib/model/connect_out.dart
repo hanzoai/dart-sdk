@@ -20,7 +20,6 @@ class ConnectOut {
     this.provider,
     this.scopes = const [],
   });
-
   /// Account is the account label the provider reported for the credential. apikey path only; a pointer because \"\" is a real answer the provider gave.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

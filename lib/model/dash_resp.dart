@@ -24,7 +24,6 @@ class DashResp {
     this.to,
     this.windows = const [],
   });
-
   /// Account is the linked account that was asked about, when one was named.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -17,7 +17,6 @@ class EndpointReq {
     this.locator,
     this.provider,
   });
-
   /// Connector names the stored credential to reach this endpoint with.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

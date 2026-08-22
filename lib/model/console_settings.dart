@@ -30,7 +30,6 @@ class ConsoleSettings {
     this.url,
     this.userLoginsDisabled,
   });
-
   /// AppsInAnyNamespaceEnabled is false: applications are projected from operator App CRs in the platform namespaces, never declared in an arbitrary one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -85,6 +84,7 @@ class ConsoleSettings {
   /// KustomizeVersions is always empty: an App CR is an image pin, not a kustomize build.
   List<String> kustomizeVersions;
 
+  /// OidcConfig is always null. The SPA's own OIDC flow is deliberately not configured — identity is owned by Hanzo IAM at the edge and minted for this host by GET /v1/deploy/login.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

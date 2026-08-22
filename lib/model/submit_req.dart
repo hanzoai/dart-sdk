@@ -16,7 +16,6 @@ class SubmitReq {
     this.files = const [],
     this.project,
   });
-
   /// Files is the batch to scan, at most 500 files and 8 MiB of content in total.
   List<Scan> files;
 

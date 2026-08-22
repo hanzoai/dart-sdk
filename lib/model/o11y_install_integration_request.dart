@@ -16,7 +16,6 @@ class O11yInstallIntegrationRequest {
     this.config = const {},
     this.integrationId,
   });
-
   Map<String, Object> config;
 
   ///

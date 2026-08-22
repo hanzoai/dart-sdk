@@ -24,7 +24,6 @@ class DocumentSummary {
     this.title,
     this.updatedAt,
   });
-
   /// Category is the template's category: formation, equity, ops or sales.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

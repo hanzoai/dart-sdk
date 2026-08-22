@@ -16,7 +16,6 @@ class O11yO11yTraceDetail {
     this.events = const [],
     this.traceId,
   });
-
   /// Events are the error events carrying the trace id.
   List<O11yO11yEvent> events;
 

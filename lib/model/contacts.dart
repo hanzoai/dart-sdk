@@ -18,7 +18,6 @@ class Contacts {
     this.registrant,
     this.tech,
   });
-
   /// who administers it
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

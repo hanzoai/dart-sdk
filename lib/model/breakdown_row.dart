@@ -18,7 +18,6 @@ class BreakdownRow {
     this.pct,
     this.visitors,
   });
-
   /// Key is the bucket: a requested path, a referrer domain (\"(direct)\" for none or a same-origin one), or a utm_source (\"(none)\" when absent).
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

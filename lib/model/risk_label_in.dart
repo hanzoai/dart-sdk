@@ -15,7 +15,6 @@ class RiskLabelIn {
   RiskLabelIn({
     this.labels = const [],
   });
-
   /// Labels is the batch. Each member is judged on its own: one refusal does not discard the rest, because a webhook redelivering five disputes must not lose four of them to one malformed fifth.
   List<RiskLabelFact> labels;
 

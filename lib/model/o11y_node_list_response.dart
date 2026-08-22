@@ -17,7 +17,6 @@ class O11yNodeListResponse {
     this.total,
     this.type,
   });
-
   List<O11yNodeListRecord> records;
 
   ///

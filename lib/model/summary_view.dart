@@ -16,7 +16,6 @@ class SummaryView {
     this.doctypes,
     this.documents,
   });
-
   /// DocTypes is how many DocTypes the org has defined.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

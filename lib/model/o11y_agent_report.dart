@@ -16,7 +16,6 @@ class O11yAgentReport {
     this.data = const {},
     this.timestampMillis,
   });
-
   Map<String, Object> data;
 
   ///

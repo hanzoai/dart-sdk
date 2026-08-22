@@ -20,7 +20,6 @@ class SbomIngest {
     this.imageRef,
     this.sourceRepo,
   });
-
   Object? document;
 
   /// Format names the document format; \"cyclonedx\" is the only one parsed.

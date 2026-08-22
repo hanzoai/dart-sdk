@@ -15,7 +15,6 @@ class RiskDatasetList {
   RiskDatasetList({
     this.items = const [],
   });
-
   /// Items is one entry per dataset, carrying its newest version. Never null: an org that has declared nothing gets an empty array.
   List<RiskDataset> items;
 

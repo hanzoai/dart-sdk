@@ -17,7 +17,6 @@ class CatalogPage {
     this.facets = const {},
     this.total,
   });
-
   /// Data is the page of matching entries, most recently updated first.
   List<Entry> data;
 

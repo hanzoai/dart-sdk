@@ -16,7 +16,6 @@ class DeployRequest {
     this.project,
     this.repoUrl,
   });
-
   /// Project is the deployed project's id. Required.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

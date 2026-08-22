@@ -16,7 +16,6 @@ class RegisterKeyReq {
     this.publicKey,
     this.title,
   });
-
   /// PublicKey is one OpenSSH authorized-key line (\"ssh-ed25519 AAAA… you@host\"). Required; a line that does not parse is refused and never stored.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

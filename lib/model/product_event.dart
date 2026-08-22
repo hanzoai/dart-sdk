@@ -24,7 +24,6 @@ class ProductEvent {
     this.type,
     this.url,
   });
-
   /// DistinctID is the person/visitor the event is attributed to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -90,7 +89,7 @@ class ProductEvent {
   ///
   String? timestamp;
 
-  /// Type is the row's kind — the plane's discriminator: page, track, identify or group. (Errors are not here at all: they land on event.error and are read at /v1/errors.)
+  /// Type is the row's kind — the plane's discriminator: page, track, identify or group. (Errors are not here at all: they land on event.error and are read at /v1/event/errors.)
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

@@ -19,7 +19,6 @@ class ShareView {
     this.token,
     this.url,
   });
-
   /// Backend is the local endpoint the share proxies to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

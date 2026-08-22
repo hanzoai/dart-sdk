@@ -15,7 +15,6 @@ class O11yO11yAuthNProviderInfo {
   O11yO11yAuthNProviderInfo({
     this.relayStatePath,
   });
-
   /// RelayStatePath is the relay-state path a SAML IdP must be configured with, when the provider needs one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

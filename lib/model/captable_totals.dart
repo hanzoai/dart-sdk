@@ -19,7 +19,6 @@ class CaptableTotals {
     this.shareClasses,
     this.stakeholders,
   });
-
   /// FullyDilutedShares is outstandingShares plus grantedOptions.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

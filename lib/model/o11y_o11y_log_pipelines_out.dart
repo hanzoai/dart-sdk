@@ -16,7 +16,6 @@ class O11yO11yLogPipelinesOut {
     this.data,
     this.status,
   });
-
   /// Data is the config version.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

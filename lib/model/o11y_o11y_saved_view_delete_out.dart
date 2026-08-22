@@ -15,7 +15,6 @@ class O11yO11ySavedViewDeleteOut {
   O11yO11ySavedViewDeleteOut({
     this.status,
   });
-
   /// Status is \"success\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

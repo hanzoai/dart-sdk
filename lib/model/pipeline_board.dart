@@ -15,7 +15,6 @@ class PipelineBoard {
   PipelineBoard({
     this.pipelines = const [],
   });
-
   /// Pipelines are one per application in the caller's org.
   List<PipelineRow> pipelines;
 

@@ -16,7 +16,6 @@ class IamRolesListOutput {
     this.roles = const [],
     this.total,
   });
-
   List<IamRole> roles;
 
   ///

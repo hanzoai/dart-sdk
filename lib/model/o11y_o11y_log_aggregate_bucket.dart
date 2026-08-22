@@ -17,7 +17,6 @@ class O11yO11yLogAggregateBucket {
     this.timestamp,
     this.value,
   });
-
   /// GroupBy carries the group's key values when the aggregate grouped.
   Map<String, Object> groupBy;
 

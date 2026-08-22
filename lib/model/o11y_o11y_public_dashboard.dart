@@ -17,7 +17,6 @@ class O11yO11yPublicDashboard {
     this.publicPath,
     this.timeRangeEnabled,
   });
-
   /// DefaultTimeRange is the fixed window when the range is not caller-chosen.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -292,68 +292,6 @@ class FlagsApi {
     return null;
   }
 
-  /// Reports whether ONE host is currently gated by the launch waitlist.
-  ///
-  /// Reports whether ONE host is currently gated by the launch waitlist. It resolves the host to the service that governs it and reads that service's waitlist switch, so a guard sitting in front of a hosted surface can decide in one call whether to show the waitlist or the product. It answers for the ONE host asked about and never enumerates the registry, which is why it needs no credential. It FAILS OPEN: an unregistered host, an unmounted registry and a store fault all answer known=false with mode=false, so a request is never gated pre-boot or on a registry fault.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [String] host:
-  ///   Host is the host to resolve, e.g. \"chat.hanzo.ai\". Defaults to the request's own Host header when omitted, which is what lets a guard running on the governed host ask about itself with no argument.
-  Future<Response> getFlagsWaitlistWithHttpInfo({ String? host, }) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/flags/waitlist';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    if (host != null) {
-      queryParams.addAll(_queryParams('', 'host', host));
-    }
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'GET',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Reports whether ONE host is currently gated by the launch waitlist.
-  ///
-  /// Reports whether ONE host is currently gated by the launch waitlist. It resolves the host to the service that governs it and reads that service's waitlist switch, so a guard sitting in front of a hosted surface can decide in one call whether to show the waitlist or the product. It answers for the ONE host asked about and never enumerates the registry, which is why it needs no credential. It FAILS OPEN: an unregistered host, an unmounted registry and a store fault all answer known=false with mode=false, so a request is never gated pre-boot or on a registry fault.
-  ///
-  /// Parameters:
-  ///
-  /// * [String] host:
-  ///   Host is the host to resolve, e.g. \"chat.hanzo.ai\". Defaults to the request's own Host header when omitted, which is what lets a guard running on the governed host ask about itself with no argument.
-  Future<WaitlistModeView?> getFlagsWaitlist({ String? host, }) async {
-    final response = await getFlagsWaitlistWithHttpInfo( host: host, );
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'WaitlistModeView',) as WaitlistModeView;
-    
-    }
-    return null;
-  }
-
   /// Evaluate runs the caller's flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute.
   ///
   /// Evaluate runs the caller's flag definitions for one identity and returns the flag verdict: which flags are on (or which variant), their payloads, and whether any definition failed to compute. Evaluation is in-process over the caller's own (org, project) definitions — no network hop, no shared KV — so a tenant can only ever evaluate its own flags.

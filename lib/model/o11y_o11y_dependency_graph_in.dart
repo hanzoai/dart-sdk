@@ -17,7 +17,6 @@ class O11yO11yDependencyGraphIn {
     required this.start,
     this.tags = const [],
   });
-
   /// End is the window end, as epoch nanoseconds. Required.
   String end;
 

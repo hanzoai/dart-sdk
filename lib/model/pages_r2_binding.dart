@@ -15,7 +15,7 @@ class PagesR2Binding {
   PagesR2Binding({
     this.name,
   });
-
+  /// Name is the R2 bucket this binding points at, by bucket name — R2 addresses buckets by name where KV and D1 use ids. The binding name the Worker code reads it as is the map key.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

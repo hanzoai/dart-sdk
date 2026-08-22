@@ -15,7 +15,6 @@ class KbConnectorsOut {
   KbConnectorsOut({
     this.connectors = const [],
   });
-
   /// Connectors is every supported provider with this org's connection state.
   List<ConnectorView> connectors;
 

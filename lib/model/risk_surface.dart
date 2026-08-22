@@ -20,7 +20,6 @@ class RiskSurface {
     this.rolled,
     this.window,
   });
-
   /// Folded is how many buckets of the tenant's own feature surface were folded into the model when it became resident.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

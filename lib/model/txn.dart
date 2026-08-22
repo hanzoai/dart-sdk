@@ -22,7 +22,7 @@ class Txn {
     this.vendor,
     this.voucherId,
   });
-
+  /// AmountCents is the voucher's total, in whole cents — its total debit, which equals its total credit because every voucher balances. It is the size of the entry and carries no direction; the category says which way it went.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -31,7 +31,7 @@ class Txn {
   ///
   int? amountCents;
 
-  /// COA account number of the P&L line
+  /// Category is the chart-of-accounts NUMBER of the income or expense account this voucher touched — where it lands on the P&L, not a free-text label.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -40,6 +40,7 @@ class Txn {
   ///
   String? category;
 
+  /// CategoryName is that account's human name, so a caller need not carry the chart to render the row.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -48,6 +49,7 @@ class Txn {
   ///
   String? categoryName;
 
+  /// Date is when the voucher POSTED — the accounting date the reports window on, which for an imported bank row is the bank's date and not the day it landed here.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -56,6 +58,7 @@ class Txn {
   ///
   String? date;
 
+  /// Description is the line a person reads: the memo carried in from the source.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -64,7 +67,7 @@ class Txn {
   ///
   String? description;
 
-  /// source_kind: bank_txn | scan | commerce_txn
+  /// Source is where the entry came from: bank_txn for an imported statement line, scan for a receipt or bill read by the scanner, commerce_txn for a sale booked by the store.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -73,6 +76,7 @@ class Txn {
   ///
   String? source_;
 
+  /// Vendor is the counterparty, resolved from whatever the source knew — a bank row's merchant, a scanned bill's supplier. Absent when the source named none.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -81,6 +85,7 @@ class Txn {
   ///
   String? vendor;
 
+  /// VoucherID identifies the underlying double-entry voucher, so a caller can open the full set of legs behind this single register line.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

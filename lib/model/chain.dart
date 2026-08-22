@@ -17,7 +17,6 @@ class Chain {
     this.id,
     this.name,
   });
-
   /// ChainID is the EIP-155 id, so a caller can check it matches the wallet they are about to sign with.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

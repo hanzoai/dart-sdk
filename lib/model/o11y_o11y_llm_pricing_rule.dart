@@ -29,7 +29,6 @@ class O11yO11yLLMPricingRule {
     this.updatedAt,
     this.updatedBy,
   });
-
   /// CreatedAt is when the rule was stored.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

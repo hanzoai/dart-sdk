@@ -16,7 +16,6 @@ class O11yO11yMetricSeries {
     this.labels = const [],
     this.values = const [],
   });
-
   /// Labels identify the series.
   List<O11yO11yMetricLabel> labels;
 

@@ -19,7 +19,7 @@ class FleetMetrics {
     this.memFree,
     this.memUsed,
   });
-
+  /// At is when this reading was MEASURED, RFC 3339 in UTC — not when the board was built. A console decides staleness by comparing it to now; the board deliberately does not decide that for it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -28,6 +28,7 @@ class FleetMetrics {
   ///
   String? at;
 
+  /// GPUUtil is aggregate accelerator utilization as a FRACTION of 1 — 0.42 is 42% busy, never 42. Across all of the unit's cards, not one of them.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -36,6 +37,7 @@ class FleetMetrics {
   ///
   num? gpuUtil;
 
+  /// Load1 is the host's 1-minute load average — runnable processes, not a percentage, so it is read against the unit's core count and can exceed 1.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -44,6 +46,7 @@ class FleetMetrics {
   ///
   num? load1;
 
+  /// MemFree is host memory still available, in BYTES. It is what the source reported, not fleetSpec.Memory minus MemUsed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -52,6 +55,7 @@ class FleetMetrics {
   ///
   int? memFree;
 
+  /// MemUsed is host memory in use, in BYTES.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

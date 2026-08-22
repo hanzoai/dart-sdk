@@ -26,7 +26,6 @@ class CapturedError {
     this.timestamp,
     this.url,
   });
-
   /// DistinctID is the person/visitor the error is attributed to. Omitted when the row carries none.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

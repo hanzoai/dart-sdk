@@ -16,7 +16,6 @@ class O11yO11yUpdatableQuickFilters {
     this.filters = const [],
     this.signal,
   });
-
   /// Filters are the attributes to offer, in the order to offer them.
   List<O11yO11yFilterKey> filters;
 

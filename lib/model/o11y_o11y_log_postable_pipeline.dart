@@ -22,7 +22,6 @@ class O11yO11yLogPostablePipeline {
     this.name,
     this.orderId,
   });
-
   /// Alias is the pipeline's short name.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

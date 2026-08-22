@@ -18,7 +18,6 @@ class BucketWrite {
     this.maxValue,
     this.ttl,
   });
-
   /// Bucket is the bucket's name within the org, from the path: 1–64 of [A-Za-z0-9_], no dash.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

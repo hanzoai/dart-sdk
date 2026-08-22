@@ -15,7 +15,6 @@ class TargetList {
   TargetList({
     this.targets = const [],
   });
-
   /// Targets is every target registered to the caller's org.
   List<TargetView> targets;
 

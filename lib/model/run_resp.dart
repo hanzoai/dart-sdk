@@ -17,7 +17,6 @@ class RunResp {
     this.ok,
     this.output,
   });
-
   /// Error is the connector-level failure message when not ok.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

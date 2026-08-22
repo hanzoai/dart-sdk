@@ -16,7 +16,6 @@ class RiskHoldIn {
     this.hold,
     this.ids = const [],
   });
-
   /// Hold is the state to put them in: true places the hold, false releases it. One op both ways, because a hold that can be placed and not released pins a compliance record past every retention boundary with nothing able to let it go — and an operator who cannot release a hold stops placing them.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

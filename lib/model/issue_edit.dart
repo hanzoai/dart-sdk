@@ -20,7 +20,6 @@ class IssueEdit {
     this.status,
     this.title,
   });
-
   /// Description rewrites the body.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

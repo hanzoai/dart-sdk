@@ -21,7 +21,6 @@ class LicensingIssueResponse {
     this.nonce,
     this.token,
   });
-
   /// AppID is the brand this token runs under (\"hanzo\" | \"lux\" | \"zoo\"). The engine refuses a token whose app_id is not the one it was built for.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

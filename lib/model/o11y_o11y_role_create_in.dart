@@ -17,7 +17,6 @@ class O11yO11yRoleCreateIn {
     this.name,
     this.transactionGroups = const [],
   });
-
   /// Description says what the role is for.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

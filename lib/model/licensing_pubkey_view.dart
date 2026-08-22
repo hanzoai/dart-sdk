@@ -20,7 +20,6 @@ class LicensingPubkeyView {
     this.schema,
     this.tokenFormat,
   });
-
   /// Alg is always \"Ed25519\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -17,7 +17,6 @@ class ConsoleSettingsHelp {
     this.chatText,
     this.chatUrl,
   });
-
   Map<String, String> binaryUrls;
 
   ///

@@ -15,7 +15,6 @@ class HelpArticleList {
   HelpArticleList({
     this.data = const [],
   });
-
   /// Data is the matching Published, public articles, newest write order last — the store's order, not a ranking. Empty when the center has none.
   List<HelpArticleCard> data;
 

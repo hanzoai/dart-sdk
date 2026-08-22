@@ -15,7 +15,6 @@ class CaptableOptions {
   CaptableOptions({
     this.data = const [],
   });
-
   /// Data is every option grant, newest first.
   List<CaptableOption> data;
 

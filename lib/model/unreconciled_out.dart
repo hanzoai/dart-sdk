@@ -16,7 +16,6 @@ class UnreconciledOut {
     this.questions = const [],
     this.transactions = const [],
   });
-
   /// Questions is the open clarifying question per unmatched inflow.
   List<BankQuestion> questions;
 

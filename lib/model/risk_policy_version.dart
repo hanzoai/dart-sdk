@@ -20,7 +20,6 @@ class RiskPolicyVersion {
     this.sample,
     this.version,
   });
-
   /// At is when it entered force, RFC 3339, from the server clock.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

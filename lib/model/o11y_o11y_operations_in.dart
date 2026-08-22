@@ -19,7 +19,6 @@ class O11yO11yOperationsIn {
     this.start,
     this.tags = const [],
   });
-
   /// End is the window's end, epoch nanoseconds as a string.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -16,7 +16,6 @@ class SeriesPoint {
     this.t,
     this.v,
   });
-
   /// bucket start, RFC3339 UTC
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

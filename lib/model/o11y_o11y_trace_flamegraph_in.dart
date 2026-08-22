@@ -16,7 +16,6 @@ class O11yO11yTraceFlamegraphIn {
     this.selectFields = const [],
     this.selectedSpanId,
   });
-
   List<O11yTelemetryFieldKey> selectFields;
 
   ///

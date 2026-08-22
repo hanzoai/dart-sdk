@@ -18,7 +18,6 @@ class BlueprintHealth {
     this.service,
     this.status,
   });
-
   /// Blueprints is how many blueprints this build has embedded and priced.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

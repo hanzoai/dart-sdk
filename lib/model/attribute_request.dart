@@ -15,7 +15,6 @@ class AttributeRequest {
   AttributeRequest({
     this.code,
   });
-
   /// Code is the affiliate code the referred org arrived with. Body-only: the URL cannot supply it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -21,7 +21,6 @@ class IndexerView {
     this.status,
     this.updatedAt,
   });
-
   /// Chain is the chain this indexer indexes, as the indexer names it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

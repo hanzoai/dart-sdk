@@ -15,7 +15,6 @@ class MirrorList {
   MirrorList({
     this.data = const [],
   });
-
   /// Data holds the repo's outbound mirror targets.
   List<MirrorTargetView> data;
 

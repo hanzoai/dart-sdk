@@ -19,7 +19,6 @@ class Capabilities {
     this.media,
     this.thread,
   });
-
   /// Actions is whether the transport renders an INTERACTIVE control natively, and it is the flag to read before composing one. The vocabulary is a closed kind-tagged union (envelope.go), exactly four kinds, each carrying only its own field plus an optional label:   command  — a bot command to run (`command`), rendered as a button that             invokes it.  url      — an external link (`url`), rendered as a link button.  select   — a menu (`options`, each a label and the value choosing it             returns), rendered as a picker.  approval — a reference to an approval request (`approval.id`), rendered as             approve/deny controls bound to that id.  False on all four transports this pass, and nothing refuses a send for it: actions are accepted, validated per kind, and flattened by renderText to one line each after the text — `[label] command`, `[label] url`, `[label] opt | opt`, `[label] approval requested: <id>`. So a caller that needs a real control must read this flag and degrade itself; a caller that only needs the choice communicated can send actions and take the text form.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

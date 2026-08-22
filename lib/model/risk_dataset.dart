@@ -27,8 +27,7 @@ class RiskDataset {
     this.truncated,
     this.version,
   });
-
-  /// At is when this version last changed state, and By who.
+  /// At is when this version last changed state, RFC 3339 UTC.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -37,6 +36,7 @@ class RiskDataset {
   ///
   String? at;
 
+  /// By is who moved it there: the validated user, or the org itself when the caller is a machine with no user behind it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -63,7 +63,7 @@ class RiskDataset {
   ///
   String? digest;
 
-  /// Name and Version identify the version.
+  /// Name identifies the dataset across all of its versions.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -135,6 +135,7 @@ class RiskDataset {
   ///
   bool? truncated;
 
+  /// Version is which version this is, from 1 and monotone within the dataset. A number is never reused — not even after a disposal, where the next declare continues the count — so \"signups v3\" means one thing forever, which is what makes a model's citation of it checkable.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

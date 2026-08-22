@@ -17,7 +17,6 @@ class O11yNamespaceListResponse {
     this.total,
     this.type,
   });
-
   List<O11yNamespaceListRecord> records;
 
   ///

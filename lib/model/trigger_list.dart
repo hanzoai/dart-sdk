@@ -15,7 +15,6 @@ class TriggerList {
   TriggerList({
     this.triggers = const [],
   });
-
   /// Triggers is one row per function, describing how it is reached.
   List<TriggerView> triggers;
 

@@ -17,7 +17,6 @@ class CategorySpend {
     this.cents,
     this.count,
   });
-
   /// Category is the bucket the ledger's own tag mapped to. An untagged or unrecognised line gets its own honest bucket rather than being folded away.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

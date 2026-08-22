@@ -16,7 +16,6 @@ class Ruleset {
     this.rules,
     this.status,
   });
-
   /// Rules is how many detection rules the engine holds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

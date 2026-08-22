@@ -17,7 +17,6 @@ class MirrorTargetReq {
     this.name,
     this.url,
   });
-
   /// Host is an optional assertion of the target's hostname. The authoritative host is the one in URL; a value that disagrees with it is refused.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -16,7 +16,6 @@ class GithubImportIn {
     this.all,
     this.repos = const [],
   });
-
   /// All imports every repository the installation grants, instead of naming them. Archived and disabled repositories are skipped either way — they cannot be fetched.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

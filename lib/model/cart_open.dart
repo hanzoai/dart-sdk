@@ -18,7 +18,6 @@ class CartOpen {
     this.store,
     this.user,
   });
-
   /// Currency is the ISO 4217 code the cart is priced in, lower-cased. Empty means usd.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

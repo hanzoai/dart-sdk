@@ -19,7 +19,6 @@ class ApiKey {
     this.prefix,
     this.type,
   });
-
   /// CreatedAt is when the key last changed, as IAM records it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

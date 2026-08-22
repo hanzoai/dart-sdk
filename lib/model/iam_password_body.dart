@@ -19,7 +19,6 @@ class IamPasswordBody {
     this.password,
     this.username,
   });
-
   /// Code is the one-time code delivered to the account's own address.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

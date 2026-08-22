@@ -19,7 +19,6 @@ class ScoreConfigReq {
     this.minValue,
     required this.name,
   });
-
   /// Categories is the closed set of labels a CATEGORICAL score may carry. A CATEGORICAL rubric with none is refused.
   List<String> categories;
 

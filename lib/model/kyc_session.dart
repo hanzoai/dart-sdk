@@ -18,7 +18,6 @@ class KycSession {
     this.status,
     this.verifyUrl,
   });
-
   /// Email is the founder the session belongs to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

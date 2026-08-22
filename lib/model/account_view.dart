@@ -16,7 +16,6 @@ class AccountView {
     this.address,
     this.balanceCents,
   });
-
   /// Address is the ledger account address (\"org:acme:wallet\", \"fund:reserve\", …).
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

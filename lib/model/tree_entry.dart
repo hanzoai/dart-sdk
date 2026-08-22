@@ -17,7 +17,7 @@ class TreeEntry {
     this.path,
     this.symbols,
   });
-
+  /// Lang is the language the indexer parsed the file as (\"go\", \"python\", …), or empty when it recognised none — in which case Symbols is 0 because nothing was extracted, not because the file declares nothing.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -26,6 +26,7 @@ class TreeEntry {
   ///
   String? lang;
 
+  /// Path is the file, relative to the repo root. The list is ordered by it, so a reader can see module layout without sorting.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -34,6 +35,7 @@ class TreeEntry {
   ///
   String? path;
 
+  /// Symbols is how many top-level declarations the file defines. A file with none is still listed: the file set is the authority here and the counts decorate it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

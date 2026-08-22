@@ -15,7 +15,6 @@ class DecideBody {
   DecideBody({
     required this.winner,
   });
-
   /// Winner is the variant to promote. It must name one of this experiment's own arms.
   String winner;
 

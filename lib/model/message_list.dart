@@ -15,7 +15,7 @@ class MessageList {
   MessageList({
     this.data = const [],
   });
-
+  /// Data is this org's own messages, newest first — from our store rather than the carrier's, so it is the set an audit or a bill has to agree with.
   List<SMS> data;
 
   @override

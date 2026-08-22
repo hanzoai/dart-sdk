@@ -22,7 +22,6 @@ class GithubRepoView {
     this.private,
     this.syncStatus,
   });
-
   /// DefaultBranch is the repo's default branch at GitHub.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

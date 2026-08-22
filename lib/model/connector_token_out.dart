@@ -18,7 +18,6 @@ class ConnectorTokenOut {
     this.provider,
     this.token,
   });
-
   /// ExpiresAt is when this token expires, RFC 3339 UTC; empty if non-expiring.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

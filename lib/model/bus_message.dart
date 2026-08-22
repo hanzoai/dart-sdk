@@ -19,7 +19,6 @@ class BusMessage {
     this.subject,
     this.time,
   });
-
   /// Data is the payload as UTF-8 text.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

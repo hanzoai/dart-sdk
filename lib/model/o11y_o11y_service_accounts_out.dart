@@ -16,7 +16,6 @@ class O11yO11yServiceAccountsOut {
     this.data = const [],
     this.status,
   });
-
   /// Data holds the service accounts.
   List<O11yO11yServiceAccount> data;
 

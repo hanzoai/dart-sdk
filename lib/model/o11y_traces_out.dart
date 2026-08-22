@@ -18,7 +18,6 @@ class O11yTracesOut {
     this.sinceSec,
     this.traces = const [],
   });
-
   /// Count is how many traces this page carries.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

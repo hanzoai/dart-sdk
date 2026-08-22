@@ -21,7 +21,6 @@ class O11yO11yDomainsIn {
     this.showIp,
     this.start,
   });
-
   /// Domain narrows the read to one external domain (the domain view requires it).
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

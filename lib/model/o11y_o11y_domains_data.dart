@@ -15,7 +15,6 @@ class O11yO11yDomainsData {
   O11yO11yDomainsData({
     this.results = const [],
   });
-
   /// Results is one entry per query. Each entry's shape follows the answer's type — time-series data, scalar data or raw rows — so the bytes pass through verbatim.
   List<Object> results;
 

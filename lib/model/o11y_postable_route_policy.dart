@@ -20,7 +20,6 @@ class O11yPostableRoutePolicy {
     this.name,
     this.tags = const [],
   });
-
   List<String> channels;
 
   ///

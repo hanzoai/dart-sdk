@@ -17,7 +17,6 @@ class O11yO11ySentryUpdateIssueIn {
     required this.id,
     this.status,
   });
-
   /// Assignee is who the issue is assigned to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

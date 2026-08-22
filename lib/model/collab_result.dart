@@ -16,7 +16,6 @@ class CollabResult {
     this.content = const {},
     this.error,
   });
-
   /// Content maps each document field to its value for the verb: the new blob ref after a createContent, the stored markup after a getContent.
   Map<String, String> content;
 

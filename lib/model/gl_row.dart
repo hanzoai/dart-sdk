@@ -23,7 +23,7 @@ class GLRow {
     this.sourceId,
     this.sourceKind,
   });
-
+  /// Account is the chart-of-accounts number this leg posts to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -32,6 +32,7 @@ class GLRow {
   ///
   String? account;
 
+  /// Against names the OTHER accounts in the same voucher — the contra side of this leg — so a single row reads as an entry rather than as half of one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -40,6 +41,7 @@ class GLRow {
   ///
   String? against;
 
+  /// Credit is the amount credited to that account, in whole cents.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -48,6 +50,7 @@ class GLRow {
   ///
   int? credit;
 
+  /// Debit is the amount debited to that account, in whole cents. Exactly one of debit and credit is non-zero on a leg; a negative amount is never used to mean the other side.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -56,6 +59,7 @@ class GLRow {
   ///
   int? debit;
 
+  /// ID is the entry's position in the ledger. The ledger is append-only, so ids ascend with posting order and a higher id is a later entry.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -64,6 +68,7 @@ class GLRow {
   ///
   int? id;
 
+  /// PostingAt is the accounting date this entry belongs to — what the reports window on, which need not be when the row was written.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -72,6 +77,7 @@ class GLRow {
   ///
   String? postingAt;
 
+  /// Remarks is the memo carried onto the entry, for a human reading the ledger.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -80,6 +86,7 @@ class GLRow {
   ///
   String? remarks;
 
+  /// SourceID identifies that originating record within its kind.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -88,6 +95,7 @@ class GLRow {
   ///
   String? sourceId;
 
+  /// SourceKind is what caused the posting: a bank line, a scanned document, a commerce sale. With sourceId it traces the entry back to the thing that produced it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

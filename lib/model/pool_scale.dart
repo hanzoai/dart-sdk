@@ -18,8 +18,7 @@ class PoolScale {
     this.poolId,
     this.provider,
   });
-
-  /// ClusterID and PoolID address the pool, from the URL path.
+  /// ClusterID is the cluster holding the pool, from the URL path.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -37,6 +36,7 @@ class PoolScale {
   ///
   int? count;
 
+  /// PoolID is the pool to resize, from the URL path — the `poolId` a cluster read reports for it. Required.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

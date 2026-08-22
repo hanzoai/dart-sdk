@@ -24,7 +24,6 @@ class RiskSearchReport {
     this.trials = const [],
     this.winner,
   });
-
   /// Done is false while the run is still going; the trials below are then the ones finished so far.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

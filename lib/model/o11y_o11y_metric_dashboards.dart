@@ -15,7 +15,6 @@ class O11yO11yMetricDashboards {
   O11yO11yMetricDashboards({
     this.dashboards = const [],
   });
-
   /// Dashboards are the panels referencing the metric.
   List<O11yO11yMetricPanel> dashboards;
 

@@ -15,7 +15,6 @@ class GithubBackfillIn {
   GithubBackfillIn({
     this.state,
   });
-
   /// State is the GitHub issue state to walk: \"open\" (the default), \"closed\" or \"all\". Anything else is a 400.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

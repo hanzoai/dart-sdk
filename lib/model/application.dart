@@ -20,7 +20,6 @@ class Application {
     this.requestedCode,
     this.status,
   });
-
   /// Code is the minted referral code. Empty on a first apply — applying does not mint a code, approval does; a re-apply echoes whatever the row already holds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

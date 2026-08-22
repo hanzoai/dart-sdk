@@ -16,7 +16,6 @@ class O11yO11ySignalFiltersOut {
     this.data,
     this.status,
   });
-
   /// Data is the signal's entry.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

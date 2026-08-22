@@ -31,7 +31,6 @@ class O11yO11yLLMObservation {
     this.type,
     this.userId,
   });
-
   /// CompletionTokens is the output token count.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

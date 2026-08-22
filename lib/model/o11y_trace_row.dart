@@ -19,7 +19,6 @@ class O11yTraceRow {
     this.start,
     this.traceId,
   });
-
   /// DurationMs is End minus Start in milliseconds: the trace's wall clock, not the sum of its spans, which double-counts everything concurrent.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -24,7 +24,6 @@ class O11yO11yErrorWithSpan {
     this.timestamp,
     this.traceID,
   });
-
   /// ErrorID is the exception instance id.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

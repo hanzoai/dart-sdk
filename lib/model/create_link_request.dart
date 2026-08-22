@@ -16,7 +16,6 @@ class CreateLinkRequest {
     this.code,
     this.label,
   });
-
   /// Code is an optional vanity code; it must be free across the whole directory, and omitting it mints a random one. Body-only.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

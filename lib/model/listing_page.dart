@@ -15,7 +15,6 @@ class ListingPage {
   ListingPage({
     this.listings = const [],
   });
-
   /// Listings is every listing this org has published, private ones included (Public says which are discoverable by others).
   List<Listing> listings;
 

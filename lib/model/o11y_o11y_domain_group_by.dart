@@ -20,7 +20,6 @@ class O11yO11yDomainGroupBy {
     this.signal,
     this.unit,
   });
-
   /// Description describes the field, when known.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -22,7 +22,7 @@ class BalanceSheet {
     this.totalEquity,
     this.totalLiabilities,
   });
-
+  /// AsOf is the posting time the statement is taken at, inclusive. A balance sheet is a snapshot, not a window, so there is no From. Absent means as of now.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -31,9 +31,10 @@ class BalanceSheet {
   ///
   String? asOf;
 
+  /// Assets are what the org OWNS at that instant, one line per account that has a balance. Cash, receivables, funds captured but not yet settled.
   List<BalanceLine> assets;
 
-  /// TotalAssets == TotalLiabilities + TotalEquity
+  /// Balanced is whether assets equal liabilities plus equity — the accounting equation, computed from the totals above rather than assumed. False means the ledger is broken, not that the statement is.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -42,10 +43,13 @@ class BalanceSheet {
   ///
   bool? balanced;
 
+  /// Equity is what is left over for the owners. It carries a DERIVED retained earnings line holding cumulative income minus expense, because this ledger has no period close that sweeps the P&L into equity — without that line the equation would not close.
   List<BalanceLine> equity;
 
+  /// Liabilities are what the org OWES — including customers' unspent prepaid credit, which is their money until it is consumed and so is carried here rather than counted as revenue.
   List<BalanceLine> liabilities;
 
+  /// TotalAssets is the sum of the asset lines, in cents.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -54,6 +58,7 @@ class BalanceSheet {
   ///
   int? totalAssets;
 
+  /// TotalEquity is the sum of the equity lines including retained earnings, in cents.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -62,6 +67,7 @@ class BalanceSheet {
   ///
   int? totalEquity;
 
+  /// TotalLiabilities is the sum of the liability lines, in cents.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

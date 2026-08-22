@@ -20,7 +20,6 @@ class GithubPagesUpdateReq {
     this.path,
     this.repo,
   });
-
   /// Branch switches the legacy source branch. Empty leaves the source alone.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

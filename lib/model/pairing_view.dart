@@ -19,7 +19,6 @@ class PairingView {
     this.lastSeen,
     this.sender,
   });
-
   /// Channel is the transport the request arrived on — discord, slack, teams or telegram — and half of what approval names. The cap of three unapproved requests applies per (org, channel); while it is full no further code is minted until one is approved or expires.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

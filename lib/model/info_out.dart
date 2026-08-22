@@ -20,7 +20,6 @@ class InfoOut {
     this.streams,
     this.version,
   });
-
   /// JetStream is true when durable streams are enabled.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

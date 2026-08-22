@@ -15,7 +15,6 @@ class FindingList {
   FindingList({
     this.data = const [],
   });
-
   /// Data is the caller org's findings, newest first.
   List<FindingView> data;
 

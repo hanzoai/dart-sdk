@@ -16,7 +16,6 @@ class O11yAddItemsIn {
     this.id,
     this.items = const [],
   });
-
   /// ID is the annotation queue to add to, from the path.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

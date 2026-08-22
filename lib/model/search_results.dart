@@ -18,7 +18,6 @@ class SearchResults {
     this.results = const [],
     this.type,
   });
-
   /// Degraded is true when retrieval failed and the empty result set is an outage rather than a real absence of matches. Absent on a healthy answer.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

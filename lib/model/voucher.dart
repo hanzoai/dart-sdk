@@ -19,7 +19,6 @@ class Voucher {
     this.sourceId,
     this.sourceKind,
   });
-
   /// Description is the human line for the event, e.g. the vendor a bill came from.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

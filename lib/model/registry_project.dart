@@ -17,7 +17,6 @@ class RegistryProject {
     this.packages,
     this.project,
   });
-
   /// Images is how many of the org's repositories the OCI catalog holds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

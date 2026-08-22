@@ -22,7 +22,6 @@ class PatchSessionIn {
     this.terminal,
     this.title,
   });
-
   /// Cwd is where the session is working NOW.  It was write-once — captured at register and never again — which is right for a run that starts in a directory and stays there, and wrong for a linked shell, which is a place a person moves around in. The console showed the directory `hanzo link` happened to be run from and kept showing it after the shell had walked away, so the field answered \"which work is this\" with an answer that was true once. A pointer, so an unchanged path is an omitted field rather than a repeated write.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -50,6 +49,7 @@ class PatchSessionIn {
   ///
   String? project;
 
+  /// Published opens the session's story to the public build route; false withdraws it, and withdrawing is always allowed. PUBLISHING is refused unless the session names a Project — the one set in this same request, or the one already stored — because that route is keyed on (org, project). It widens READ access to what is already there and grants nothing else.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -58,6 +58,7 @@ class PatchSessionIn {
   ///
   bool? published;
 
+  /// Status moves the session to running, paused, done or error. A session that has already finished refuses any change with 409 — done and error are monotonic — and moving INTO one stamps the end time. This is the surface REPORTING what happened; a control command never writes it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -84,6 +85,7 @@ class PatchSessionIn {
   ///
   String? terminal;
 
+  /// Title rewrites the human line, up to 512 characters — usually because the work turned out to be something other than what it was opened as.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

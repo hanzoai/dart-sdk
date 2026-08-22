@@ -16,7 +16,6 @@ class O11yO11yRuleStatsOut {
     this.data,
     this.status,
   });
-
   /// Data holds the statistics.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

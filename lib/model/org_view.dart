@@ -20,7 +20,6 @@ class OrgView {
     this.verified,
     this.verifiedAt,
   });
-
   /// BadgeMarkdown is the ready-to-paste README snippet, DERIVED for each response from this deployment's badge host and never stored — here it deep-links the OWNER's template import rather than one repository's.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

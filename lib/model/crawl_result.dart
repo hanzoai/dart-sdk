@@ -17,7 +17,6 @@ class CrawlResult {
     this.error,
     this.success,
   });
-
   /// Data is the page, present exactly when Success.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

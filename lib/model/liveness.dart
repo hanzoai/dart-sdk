@@ -16,7 +16,6 @@ class Liveness {
     this.service,
     this.status,
   });
-
   /// Service names the answering subsystem; it is always commerce.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

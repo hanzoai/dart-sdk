@@ -15,7 +15,6 @@ class MlResourceList {
   MlResourceList({
     this.items = const [],
   });
-
   /// Items is one entry per object, newest LAST (the Kubernetes list order).
   List<MlResource> items;
 

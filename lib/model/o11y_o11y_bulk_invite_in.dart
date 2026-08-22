@@ -15,7 +15,6 @@ class O11yO11yBulkInviteIn {
   O11yO11yBulkInviteIn({
     this.invites = const [],
   });
-
   /// Invites are the invitations to create; an email may appear only once.
   List<O11yO11yInviteIn> invites;
 

@@ -16,7 +16,6 @@ class O11yO11yResetTokenOut {
     this.data,
     this.status,
   });
-
   /// Data is the token.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

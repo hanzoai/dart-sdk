@@ -21,7 +21,6 @@ class CodeView {
     this.signups,
     this.url,
   });
-
   /// Clicks is how many pings this code has taken. The one STORED counter here and pure vanity: no accrual or payout reads it, pings are coalesced in memory and flushed in batches, and a dropped tally is accepted rather than contending with the money write path. Do not reconcile it against anything.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

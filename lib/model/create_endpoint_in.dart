@@ -18,7 +18,6 @@ class CreateEndpointIn {
     this.status,
     this.url,
   });
-
   /// Description is a free-text label for the console. Optional, clipped to 1024 bytes.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -31,7 +30,7 @@ class CreateEndpointIn {
   /// Events are NATS subject patterns to subscribe to (e.g. \"commerce.order.>\"). An empty or omitted list means EVERY event on the platform bus. Max 64 patterns, each max 256 bytes.
   List<String> events;
 
-  /// Status is \"active\" or \"disabled\". Empty defaults to active. A disabled endpoint receives no bus deliveries, but can still be exercised with POST /v1/webhooks/{id}/test.
+  /// Status is \"active\" or \"disabled\". Empty defaults to active. A disabled endpoint receives no bus deliveries, but can still be exercised with POST /v1/webhook/{id}/test.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

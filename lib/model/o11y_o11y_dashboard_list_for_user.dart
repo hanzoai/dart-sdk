@@ -17,7 +17,6 @@ class O11yO11yDashboardListForUser {
     this.tags = const [],
     this.total,
   });
-
   /// Dashboards are the rows for this page, each with the caller's pin state.
   List<O11yO11yDashboardListItemForUser> dashboards;
 

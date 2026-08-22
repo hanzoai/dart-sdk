@@ -23,7 +23,6 @@ class State {
     this.numDeleted,
     this.numSubjects,
   });
-
   /// Bytes is the total stored size.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class IngressMiddlewares {
   IngressMiddlewares({
     this.middlewares = const [],
   });
-
   /// Middlewares is the org's middlewares, ordered by id.
   List<Middleware> middlewares;
 

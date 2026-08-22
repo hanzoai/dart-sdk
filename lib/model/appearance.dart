@@ -17,7 +17,6 @@ class Appearance {
     this.density,
     this.type,
   });
-
   /// Accent is the one hue — a CSS colour token (a hex, or a bounded functional colour like rgb()/oklch()). Anything else is dropped rather than stored.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

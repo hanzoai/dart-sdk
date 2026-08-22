@@ -28,7 +28,7 @@ class RiskLineage {
     this.to,
     this.version,
   });
-
+  /// Dataset is the dataset traced.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -46,7 +46,7 @@ class RiskLineage {
   ///
   String? digest;
 
-  /// From and To are the window actually read — To is the window's end pulled back by the maturity horizon, which is usually earlier than the spec's.
+  /// From is where the window actually read opens, RFC 3339. Same as the spec's.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -73,6 +73,7 @@ class RiskLineage {
   ///
   int? oversize;
 
+  /// Refusal says which way it failed — the window expired, or the source now holds a different count. Absent when Reproducible is true.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -81,7 +82,7 @@ class RiskLineage {
   ///
   String? refusal;
 
-  /// Reproducible is true when the source still holds what this version was built from. Refusal says why not, when it is false.
+  /// Reproducible is true when the source still holds what this version was built from — measured by asking it again, not recalled. False is ordinary: the source is fed by a rollup that runs behind the events, so \"it holds more now\" is the common case and it means re-running the spec would not produce this version.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -99,7 +100,7 @@ class RiskLineage {
   ///
   String? retention;
 
-  /// Rows and Subjects are what the source held for that window at materialisation time.
+  /// Rows is how many rows the source held for that window at materialisation time. Holds is the same question asked now, and the difference between them is the whole of the reproducibility claim.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -126,6 +127,7 @@ class RiskLineage {
   ///
   String? source_;
 
+  /// Subjects is how many distinct subjects those rows belonged to. It is the real sample size — the row count flatters it whenever a subject is active.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -134,6 +136,7 @@ class RiskLineage {
   ///
   int? subjects;
 
+  /// To is where it ends: the spec's own end pulled BACK by the maturity horizon, so it is usually earlier than the spec says. This is the window a reproduction has to ask for — asking the spec's would not return these rows.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -142,6 +145,7 @@ class RiskLineage {
   ///
   String? to;
 
+  /// Version is the version traced — the one asked for, or the newest published one when the request named none.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

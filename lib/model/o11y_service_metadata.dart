@@ -18,7 +18,6 @@ class O11yServiceMetadata {
     this.id,
     this.title,
   });
-
   /// if the service is enabled for the account
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -18,7 +18,6 @@ class O11yO11yReductionRulePreviewIn {
     required this.matchType,
     required this.metricName,
   });
-
   /// Labels are the label names the rule would match. Required, at least one.
   List<String> labels;
 

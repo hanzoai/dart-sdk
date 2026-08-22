@@ -18,7 +18,6 @@ class O11yO11yAttributeMapping {
     this.name,
     this.role,
   });
-
   /// Email is the key carrying the email; defaults to \"email\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

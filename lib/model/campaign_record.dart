@@ -24,7 +24,6 @@ class CampaignRecord {
     this.status,
     this.updatedAt,
   });
-
   /// Audience is an opaque reference to the segment this campaign targets. It is stored and echoed but not yet handed to the executors — a channel targets through the provider account it runs under — so it is documentation for now. Absent when never set.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

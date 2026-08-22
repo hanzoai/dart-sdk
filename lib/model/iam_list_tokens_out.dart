@@ -15,7 +15,6 @@ class IamListTokensOut {
   IamListTokensOut({
     this.tokens = const [],
   });
-
   List<IamToken> tokens;
 
   @override

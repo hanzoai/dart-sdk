@@ -17,7 +17,7 @@ class RiskDatasetDisposal {
     this.rows,
     this.versions,
   });
-
+  /// Dataset is the dataset that was disposed of. The NAME survives: declaring it again continues the version count rather than starting over at 1.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -26,6 +26,7 @@ class RiskDatasetDisposal {
   ///
   String? dataset;
 
+  /// Rows is how many rows they held between them, as the REGISTER recorded them when each was materialised — not a count of what the drop deleted, which is gone by the time this answers.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -34,7 +35,7 @@ class RiskDatasetDisposal {
   ///
   int? rows;
 
-  /// Versions is how many versions went, and Rows how many rows they held between them, as the register recorded them.
+  /// Versions is how many versions went.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

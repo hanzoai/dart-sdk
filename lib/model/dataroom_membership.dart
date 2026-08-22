@@ -17,7 +17,6 @@ class DataroomMembership {
     this.dataroomId,
     this.documentId,
   });
-
   /// DataroomDocumentId is the new membership id.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

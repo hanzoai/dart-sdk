@@ -23,7 +23,6 @@ class DataroomLinkCreate {
     this.name,
     this.password,
   });
-
   Object? allowDownload;
 
   /// AllowList narrows which addresses pass the email gate. Optional; an entry may be a full address (\"ada@example.com\"), an \"@domain.com\" suffix, or a bare \"domain.com\". An omitted or EMPTY list admits everyone, so a link with no list enforces the email gate alone.

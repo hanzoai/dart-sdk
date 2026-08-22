@@ -19,7 +19,6 @@ class MirrorTargetView {
     this.repo,
     this.url,
   });
-
   /// CreatedAt is RFC 3339 UTC.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

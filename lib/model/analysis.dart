@@ -20,7 +20,6 @@ class Analysis {
     this.results = const [],
     this.winner,
   });
-
   /// the two-tailed threshold significance was judged at
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

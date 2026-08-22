@@ -20,7 +20,6 @@ class Benchmark {
     this.source_,
     this.title,
   });
-
   /// what capability it measures
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

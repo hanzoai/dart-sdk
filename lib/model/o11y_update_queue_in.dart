@@ -18,7 +18,6 @@ class O11yUpdateQueueIn {
     this.name,
     this.scoreConfigIds = const [],
   });
-
   /// Description replaces the free text when present, up to 512 characters.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

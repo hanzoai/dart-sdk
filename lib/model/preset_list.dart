@@ -15,7 +15,6 @@ class PresetList {
   PresetList({
     this.data = const [],
   });
-
   /// Data is the blends available to compose from.
   List<Preset> data;
 

@@ -21,7 +21,7 @@ class RiskDatasetRows {
     this.rows = const [],
     this.version,
   });
-
+  /// Dataset is the dataset the page was read from.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -42,6 +42,7 @@ class RiskDatasetRows {
   /// Dims names what each coordinate of Point means, in Point's own order.
   List<String> dims;
 
+  /// Limit is the page size actually served: the one asked for, clamped to the plane's own bound of 5000. Fewer rows than Limit means the version ended.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -50,7 +51,7 @@ class RiskDatasetRows {
   ///
   int? limit;
 
-  /// Offset and Limit are the page actually served, which may be smaller than the one asked for.
+  /// Offset is where this page starts in the version's own row order, which is by row id and therefore stable forever.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -62,6 +63,7 @@ class RiskDatasetRows {
   /// Rows is the page. Never null.
   List<RiskDatasetRow> rows;
 
+  /// Version is which published version it was read from — the one asked for, or the newest published one when the request named none.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

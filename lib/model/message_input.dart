@@ -18,7 +18,7 @@ class MessageInput {
     this.text,
     this.to,
   });
-
+  /// From is the number to send FROM, in E.164. It must be one this org holds and it must be sms-capable.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -27,8 +27,10 @@ class MessageInput {
   ///
   String? from;
 
+  /// Media are URLs to attach. A message with any is an MMS to the carrier — the distinction is the carrier's to make, not something the caller declares.
   List<String> media;
 
+  /// Text is the message body. It may be empty when Media carries the message.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -37,6 +39,7 @@ class MessageInput {
   ///
   String? text;
 
+  /// To is the number to send to, in E.164.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

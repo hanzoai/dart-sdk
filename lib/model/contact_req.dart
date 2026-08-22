@@ -24,7 +24,6 @@ class ContactReq {
     this.phone,
     this.xLink,
   });
-
   /// City is where the person is based.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

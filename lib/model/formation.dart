@@ -33,7 +33,6 @@ class Formation {
     this.structure,
     this.updatedAt,
   });
-
   /// AlreadyIncorporated declares an org that already has a legal entity, which takes the import path (structure → import → company) instead of forming one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

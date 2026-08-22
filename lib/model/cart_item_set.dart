@@ -18,7 +18,6 @@ class CartItemSet {
     this.quantity,
     this.variant,
   });
-
   /// ID is the cart to amend, from the path.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

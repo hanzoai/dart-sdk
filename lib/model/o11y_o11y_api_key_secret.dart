@@ -16,7 +16,6 @@ class O11yO11yAPIKeySecret {
     this.id,
     this.key,
   });
-
   /// ID is the key id.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

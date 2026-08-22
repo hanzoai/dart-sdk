@@ -24,7 +24,6 @@ class Consumer {
     this.numWaiting,
     this.streamName,
   });
-
   /// AckFloor is the highest contiguously acknowledged sequence pair.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

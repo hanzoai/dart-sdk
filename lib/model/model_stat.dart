@@ -28,7 +28,6 @@ class ModelStat {
     this.requests,
     this.totalTokens,
   });
-
   /// tokens it answered with
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

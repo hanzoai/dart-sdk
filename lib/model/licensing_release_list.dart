@@ -15,7 +15,6 @@ class LicensingReleaseList {
   LicensingReleaseList({
     this.releases = const [],
   });
-
   /// Releases is the published releases, always an array and never null.
   List<LicensingRelease> releases;
 

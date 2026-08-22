@@ -17,7 +17,6 @@ class O11yGettableRuleStateTimeline {
     this.nextCursor,
     this.total,
   });
-
   List<O11yGettableRuleStateHistory> items;
 
   ///

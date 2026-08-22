@@ -15,7 +15,6 @@ class FlowPage {
   FlowPage({
     this.data = const [],
   });
-
   /// Data is the page of flows, newest-updated first.
   List<Flow> data;
 

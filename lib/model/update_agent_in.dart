@@ -23,7 +23,7 @@ class UpdateAgentIn {
     this.serviceAccountId,
     this.tools = const [],
   });
-
+  /// ComputeRef re-binds (or, with \"\", unbinds) the visor machine. Opaque here.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -32,6 +32,7 @@ class UpdateAgentIn {
   ///
   String? computeRef;
 
+  /// Description replaces the line other agents read in the tool catalogue.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -40,6 +41,7 @@ class UpdateAgentIn {
   ///
   String? description;
 
+  /// ExecutionMode switches between one-shot and long-running. The RESULTING mode+schedule are validated together, so switching to long-running without a stored or supplied cron is refused rather than accepted into an agent the scheduler would skip forever. A switch INTO long-running counts against the per-org cap and can be a 409.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -48,6 +50,7 @@ class UpdateAgentIn {
   ///
   String? executionMode;
 
+  /// Instructions replaces the system prompt whole, up to 32 KiB. There is no append: a prompt is one text, and sending \"\" clears it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -56,6 +59,7 @@ class UpdateAgentIn {
   ///
   String? instructions;
 
+  /// Model re-points the agent at another model, checked against the gateway's served catalogue exactly as create checks it. Empty STRING is refused — say nothing to keep the current one. Past runs keep the model that served them.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -73,6 +77,7 @@ class UpdateAgentIn {
   ///
   String? ref;
 
+  /// Schedule replaces the cron. It is validated against the mode this update leaves behind, and dropped if that mode is one-shot.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -81,6 +86,7 @@ class UpdateAgentIn {
   ///
   String? schedule;
 
+  /// ServiceAccountID re-points (or, with \"\", clears) the IAM service account a scheduled run is billed as. Clearing it puts that spend back on the org.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -89,6 +95,7 @@ class UpdateAgentIn {
   ///
   String? serviceAccountId;
 
+  /// Tools replaces the whole allow-list, it does not add to it. Sending [] takes every tool away, which is the only way to say that.
   List<String> tools;
 
   @override

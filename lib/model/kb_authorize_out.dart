@@ -15,7 +15,6 @@ class KbAuthorizeOut {
   KbAuthorizeOut({
     this.authorizeUrl,
   });
-
   /// AuthorizeURL is the provider's authorize endpoint with an org-bound signed state.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -26,7 +26,7 @@ class AgentBinding {
     this.status,
     this.updatedTime,
   });
-
+  /// AgentName is the cloud Agent (/v1/agents) this machine runs — the agent a message to the bot is actually run against. It is the one field that decides what the bot DOES.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -35,6 +35,7 @@ class AgentBinding {
   ///
   String? agentName;
 
+  /// BotVersion pins the @hanzo/bot runtime version the machine runs. Empty means the machine took the default in force when it was bound.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -43,6 +44,7 @@ class AgentBinding {
   ///
   String? botVersion;
 
+  /// CreatedTime is when the binding was first made.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -51,6 +53,7 @@ class AgentBinding {
   ///
   String? createdTime;
 
+  /// MachineId is the bound machine as vm addresses it, owner-qualified (\"<org>/<machine>\"). The unqualified half is what this surface's :id routes take.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -59,6 +62,7 @@ class AgentBinding {
   ///
   String? machineId;
 
+  /// Message is vm's human-readable detail on Status (\"machine provisioning; @hanzo/bot runtime not yet confirmed\") — the reason behind the state, not a second state.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -67,6 +71,7 @@ class AgentBinding {
   ///
   String? message;
 
+  /// Name is the binding's own key, which is the machine's id: a machine hosts at most one agent, so the binding is named for it. This is the key a bots list joins bindings onto machines by.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -75,6 +80,7 @@ class AgentBinding {
   ///
   String? name;
 
+  /// Org is the Hanzo tenant the binding belongs to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -83,6 +89,7 @@ class AgentBinding {
   ///
   String? org;
 
+  /// Owner is the tenant vm filed the binding under, resolved from the ?owner it was called with — which is the caller's validated org and never a body field.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -91,6 +98,7 @@ class AgentBinding {
   ///
   String? owner;
 
+  /// Provider is the cloud the bound machine runs on, carried here so a bindings list says where each bot lives without a second read per machine.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -99,6 +107,7 @@ class AgentBinding {
   ///
   String? provider;
 
+  /// PublicIp is the bound machine's public address as vm recorded it on the binding. Empty while the machine has none yet.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -107,6 +116,7 @@ class AgentBinding {
   ///
   String? publicIp;
 
+  /// Status is the binding's lifecycle in VM's OWN words — \"Pending\" while the machine provisions and the runtime is unconfirmed, \"running\" once vm has confirmed it. The vocabulary is vm's and passes through unmapped, which is why its capitalization does not match the machine states beside it, and it is vm's reconciled reading rather than anything asserted here.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -115,6 +125,7 @@ class AgentBinding {
   ///
   String? status;
 
+  /// UpdatedTime is when vm last reconciled it — the age of Status.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

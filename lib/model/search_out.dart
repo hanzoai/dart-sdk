@@ -16,7 +16,6 @@ class SearchOut {
     this.degraded,
     this.hits = const [],
   });
-
   /// Degraded is true when the index was unreachable and this answer is honestly empty rather than wrong — a RAG caller continues with no context instead of failing the turn. Absent on a normal answer.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

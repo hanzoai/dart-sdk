@@ -15,7 +15,6 @@ class AuthoredPluginList {
   AuthoredPluginList({
     this.plugins = const [],
   });
-
   /// Plugins is every plugin this org built, newest first, each carrying the TypeScript as authored. The bundled artifact is never rendered.
   List<AuthoredPlugin> plugins;
 

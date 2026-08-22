@@ -22,7 +22,7 @@ class PatchTargetIn {
     this.spec,
     this.status,
   });
-
+  /// Capacity rewrites the human summary, up to 256 characters. \"\" clears it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -31,6 +31,7 @@ class PatchTargetIn {
   ///
   String? capacity;
 
+  /// Host re-points the hostname sessions are matched by. Moving it moves the load: the session counts follow the new name from the next read.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -48,6 +49,7 @@ class PatchTargetIn {
   ///
   String? id;
 
+  /// Kind re-files it under laptop | cloud | gpu | cluster | machine.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -56,6 +58,7 @@ class PatchTargetIn {
   ///
   String? kind;
 
+  /// Label renames the machine, up to 128 characters. Empty STRING is refused — a target with no name is a row nobody can pick out of a fleet.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -64,7 +67,7 @@ class PatchTargetIn {
   ///
   String? label;
 
-  /// present => a heartbeat; the server stamps its time
+  /// Metrics replaces the live sample, and sending one IS A HEARTBEAT: the server stamps the time and appends the point to the fleet series. Sending an all-zero sample CLEARS the heartbeat — the machine goes back to having no liveness fact at all, and its stored status is taken at face value again.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -73,6 +76,7 @@ class PatchTargetIn {
   ///
   Metrics? metrics;
 
+  /// Spec replaces the static capability whole, sanitized and clamped the same way a register's is.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -81,6 +85,7 @@ class PatchTargetIn {
   ///
   Spec? spec;
 
+  /// Status sets operator INTENT: online | offline | draining. Draining is how a machine is taken out of dispatch without ending what is already on it. What comes back may still read offline, because the heartbeat outranks the intent.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

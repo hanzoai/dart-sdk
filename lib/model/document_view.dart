@@ -26,7 +26,6 @@ class DocumentView {
     this.title,
     this.updatedAt,
   });
-
   /// Body is the rendered document. It is sealed at rest and returned only to the owning org. When the template is counsel-review it opens with the counsel notice, which the engine prepends and no caller can suppress.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

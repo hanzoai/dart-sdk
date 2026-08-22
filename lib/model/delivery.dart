@@ -21,7 +21,6 @@ class Delivery {
     this.subject,
     this.timestamp,
   });
-
   /// Data is the payload, base64-encoded.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

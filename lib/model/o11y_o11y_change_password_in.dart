@@ -16,7 +16,6 @@ class O11yO11yChangePasswordIn {
     this.newPassword,
     this.oldPassword,
   });
-
   /// NewPassword is the password to set.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

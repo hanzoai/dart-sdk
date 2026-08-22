@@ -16,7 +16,6 @@ class O11yO11yQueryFilterAnalysis {
     this.groups = const [],
     this.metricNames = const [],
   });
-
   /// Groups are the columns the query groups by.
   List<O11yO11yColumnInfo> groups;
 

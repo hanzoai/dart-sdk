@@ -15,7 +15,6 @@ class DeletedOut {
   DeletedOut({
     this.deleted,
   });
-
   /// Deleted is the key that no longer exists.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

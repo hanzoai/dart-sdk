@@ -21,7 +21,6 @@ class O11yO11yOIDCConfig {
     this.issuer,
     this.issuerAlias,
   });
-
   /// ClaimMapping names the token claims to read identity from.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

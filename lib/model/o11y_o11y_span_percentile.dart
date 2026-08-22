@@ -16,7 +16,6 @@ class O11yO11ySpanPercentile {
     this.percentiles,
     this.position,
   });
-
   /// Percentiles are the peer group's duration percentiles.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class SharesOut {
   SharesOut({
     this.shares = const [],
   });
-
   /// Shares is the org's active shares — empty rather than absent when there are none, or when the controller cannot be reached.
   List<ShareView> shares;
 

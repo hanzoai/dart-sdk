@@ -18,7 +18,7 @@ class CodeSymbol {
     this.name,
     this.range,
   });
-
+  /// Detail is the server's short elaboration, typically the signature. Absent when it offered none.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -27,6 +27,7 @@ class CodeSymbol {
   ///
   String? detail;
 
+  /// Kind is the LSP SymbolKind number (5 class, 6 method, 12 function, 23 struct, …), passed through rather than translated to a word — these callers already speak LSP, and inventing a second vocabulary is how the two drift.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -35,6 +36,7 @@ class CodeSymbol {
   ///
   int? kind;
 
+  /// Name is the declared identifier.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -43,6 +45,7 @@ class CodeSymbol {
   ///
   String? name;
 
+  /// Range is the declaration's span in the file.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

@@ -18,8 +18,7 @@ class CodeResult {
     this.stderr,
     this.stdout,
   });
-
-  /// Files are what this run CREATED OR CHANGED, decided by mtime against a marker taken before the program started — so it is the run's output, not a listing of the directory. Fetch each from GET /v1/download/{session}/{id}.
+  /// Files are what this run CREATED OR CHANGED, decided by mtime against a marker taken before the program started — so it is the run's output, not a listing of the directory. Fetch each from GET /v1/exec/download/{session}/{id}.
   List<CodeFile> files;
 
   /// SessionID is the sandbox this run used — the one that was passed in, or the fresh one that was leased. Pass it to the next run to keep the filesystem.

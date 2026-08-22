@@ -16,7 +16,6 @@ class FleetSummary {
     this.byDrift,
     this.total,
   });
-
   /// ByDrift counts those rows green, yellow and red.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

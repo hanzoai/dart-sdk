@@ -19,7 +19,6 @@ class O11yO11yTrace {
     this.message,
     this.traceId,
   });
-
   /// Count is how many captured errors carried it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

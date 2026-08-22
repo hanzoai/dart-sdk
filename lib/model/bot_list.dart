@@ -15,7 +15,6 @@ class BotList {
   BotList({
     this.bots = const [],
   });
-
   /// Bots is one row per kind=bot machine, each joined with its agent binding when it has one.
   List<BotView> bots;
 

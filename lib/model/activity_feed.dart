@@ -15,7 +15,6 @@ class ActivityFeed {
   ActivityFeed({
     this.activity = const [],
   });
-
   /// Activity is the merged run/create/update events, newest first, capped at 50.
   List<ActivityView> activity;
 

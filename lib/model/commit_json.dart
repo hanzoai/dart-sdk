@@ -20,7 +20,6 @@ class CommitJSON {
     this.sha,
     this.shortSha,
   });
-
   /// AuthorEmail is the commit author's email.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

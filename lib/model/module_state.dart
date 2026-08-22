@@ -17,7 +17,6 @@ class ModuleState {
     this.installed = const [],
     this.module,
   });
-
   List<String> doctypes;
 
   List<String> installed;

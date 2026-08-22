@@ -16,7 +16,6 @@ class PricingProviderList {
     this.providers = const {},
     this.updated,
   });
-
   /// Providers maps a provider name to its opaque info object. A provider hidden for the caller's org is absent entirely.
   Map<String, Object> providers;
 

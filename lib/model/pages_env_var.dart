@@ -16,7 +16,7 @@ class PagesEnvVar {
     this.type,
     this.value,
   });
-
+  /// Type is \"plain_text\" or \"secret_text\" and decides that: plain text is readable afterwards, secret text is write-only. Empty is Cloudflare's default, plain_text — so a secret with no type set is stored in the clear.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -25,6 +25,7 @@ class PagesEnvVar {
   ///
   String? type;
 
+  /// Value is the variable's value. Under type \"secret_text\" Cloudflare encrypts it on arrival and never reads it back, so a later read of the project shows the variable without this.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

@@ -15,7 +15,6 @@ class FnList {
   FnList({
     this.functions = const [],
   });
-
   /// Functions is one row per published function.
   List<FunctionView> functions;
 

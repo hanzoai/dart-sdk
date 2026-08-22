@@ -16,7 +16,6 @@ class O11yO11yLogPipelinePreviewIn {
     this.logs = const [],
     this.pipelines = const [],
   });
-
   /// Logs are the sample records to transform.
   List<O11yO11yLogRecord> logs;
 

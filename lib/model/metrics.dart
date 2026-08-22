@@ -21,7 +21,6 @@ class Metrics {
     this.memFree,
     this.memUsed,
   });
-
   /// unix seconds, server-stamped
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -40,6 +39,7 @@ class Metrics {
   ///
   num? gpuUtil;
 
+  /// Load1 is the machine's own one-minute load average — a count of runnable and uninterruptible tasks, NOT a percentage and NOT already divided by core count, so it is read against Spec.CPUs: 8.0 is idle on 16 cores and swamped on 4. Coerced finite and non-negative on write, so 0 means either genuinely idle or nothing reported.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -48,6 +48,7 @@ class Metrics {
   ///
   num? load1;
 
+  /// Load5 is the same figure averaged over five minutes.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -56,6 +57,7 @@ class Metrics {
   ///
   num? load5;
 
+  /// Load15 is the same figure over fifteen. The three together are what separate a machine that is busy right now from one that has been busy all along — which is the question a dispatcher is really asking.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

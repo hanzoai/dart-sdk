@@ -26,7 +26,6 @@ class CaptableSafe {
     this.type,
     this.valuationCap,
   });
-
   /// Capital is the cash the investor put in.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

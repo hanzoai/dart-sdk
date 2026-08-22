@@ -20,7 +20,6 @@ class RiskModelValue {
     this.shape,
     this.warmed,
   });
-
   /// Address names this value by its own content: the model's shape, the geometry seed, its position in the window, its threshold, its masses as IEEE-754 bits and the fold watermark behind them. Nothing else — no clock, no counter and deliberately NOT the organisation, so an identical model has one name and a name is never an authority. Holding another organisation's address resolves nothing.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

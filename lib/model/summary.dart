@@ -17,7 +17,7 @@ class Summary {
     this.messages,
     this.numbers,
   });
-
+  /// Calls is how many calls this org has placed or received, over its whole history — a running total, not a window.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -26,6 +26,7 @@ class Summary {
   ///
   int? calls;
 
+  /// Messages is the same running total for messages.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -34,6 +35,7 @@ class Summary {
   ///
   int? messages;
 
+  /// Numbers is how many numbers this org holds right now.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

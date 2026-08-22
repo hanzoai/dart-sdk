@@ -21,7 +21,6 @@ class O11yO11yReductionRulePreview {
     this.reductionPercent,
     this.retainedSeries,
   });
-
   /// AffectedAssets are the dashboards and alerts the rule would touch.
   List<O11yO11yAffectedAsset> affectedAssets;
 

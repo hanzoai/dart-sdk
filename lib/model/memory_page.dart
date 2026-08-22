@@ -15,7 +15,6 @@ class MemoryPage {
   MemoryPage({
     this.data = const [],
   });
-
   /// Data is the matching memory entries, newest first.
   List<MemoryEntry> data;
 

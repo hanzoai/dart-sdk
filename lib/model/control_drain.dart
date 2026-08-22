@@ -16,7 +16,6 @@ class ControlDrain {
     this.commands = const [],
     this.cursor,
   });
-
   /// Commands is the session's control commands newer than the cursor, oldest first.
   List<ControlCommandView> commands;
 

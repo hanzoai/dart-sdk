@@ -20,7 +20,6 @@ class BuildRow {
     this.startedAt,
     this.status,
   });
-
   /// Commit is the short git ref the build pinned.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

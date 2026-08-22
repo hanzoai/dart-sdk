@@ -16,7 +16,6 @@ class OrgEarningView {
     this.commissionCents,
     this.referredOrg,
   });
-
   /// CommissionCents is what the caller earned from that org across ALL periods, in cents. Deliberately the caller's own share and nothing else: that org's spend and the margin on it are not restated here.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

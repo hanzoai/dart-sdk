@@ -15,7 +15,6 @@ class CaptableInvestments {
   CaptableInvestments({
     this.data = const [],
   });
-
   /// Data is every investment across every round, newest first.
   List<CaptableInvestment> data;
 

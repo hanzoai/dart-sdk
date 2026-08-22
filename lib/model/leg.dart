@@ -17,7 +17,6 @@ class Leg {
     this.credit,
     this.debit,
   });
-
   /// Account is the chart-of-accounts number this side posts to, e.g. \"5300\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

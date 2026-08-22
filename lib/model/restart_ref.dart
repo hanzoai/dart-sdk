@@ -16,7 +16,6 @@ class RestartRef {
     this.app,
     this.env,
   });
-
   /// App is the service's CR name, from the path. It must be a DNS-1123 label.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

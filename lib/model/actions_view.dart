@@ -15,7 +15,6 @@ class ActionsView {
   ActionsView({
     this.data = const [],
   });
-
   /// Data is the most-recent actions first, capped at listActionsLimit.
   List<ActionRecord> data;
 

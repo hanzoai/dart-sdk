@@ -15,7 +15,6 @@ class ActivityOut {
   ActivityOut({
     this.data = const [],
   });
-
   /// Data is the change log newest-first: who created, updated or deleted which key, when.
   List<ActivityRow> data;
 

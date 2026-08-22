@@ -15,7 +15,6 @@ class AuthoredSkillList {
   AuthoredSkillList({
     this.skills = const [],
   });
-
   /// Skills is every skill this org authored, each with its SKILL.md content.
   List<Skill> skills;
 

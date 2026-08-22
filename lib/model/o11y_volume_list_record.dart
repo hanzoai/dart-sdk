@@ -22,7 +22,6 @@ class O11yVolumeListRecord {
     this.volumeInodesUsed,
     this.volumeUsage,
   });
-
   Map<String, String> meta;
 
   ///

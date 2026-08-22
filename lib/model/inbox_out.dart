@@ -15,7 +15,6 @@ class InboxOut {
   InboxOut({
     this.items = const [],
   });
-
   /// Items is every document still unsorted or in draft, newest first.
   List<InboxItem> items;
 

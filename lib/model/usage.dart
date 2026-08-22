@@ -17,7 +17,6 @@ class Usage {
     this.series = const [],
     this.status,
   });
-
   /// null — no per-invocation cost source
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

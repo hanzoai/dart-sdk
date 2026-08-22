@@ -21,7 +21,6 @@ class Category {
     this.summary,
     this.taxa = const [],
   });
-
   /// Brands are the brands whose console shows this category. Absent means every brand.
   List<String> brands;
 

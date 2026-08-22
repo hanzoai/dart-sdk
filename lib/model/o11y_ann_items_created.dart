@@ -15,7 +15,6 @@ class O11yAnnItemsCreated {
   O11yAnnItemsCreated({
     this.data = const [],
   });
-
   /// Data is every item created by this request, in request order.
   List<O11yAnnItemView> data;
 

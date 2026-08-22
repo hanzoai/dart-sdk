@@ -64,6 +64,104 @@ class BenchmarkApi {
     return null;
   }
 
+  /// Lists the effective published claims: what the leaderboard will use for each (benchmark, model) after the seed, the import and any stored correction are layered.
+  ///
+  /// Lists the effective published claims: what the leaderboard will use for each (benchmark, model) after the seed, the import and any stored correction are layered. It answers the operator's question — what does this arena currently believe someone else reported, and did we ship that or fix it.  Effective values only. The history of a key lives in the append-only file and is not what this op is for; a list that returned every superseded row would make the common question the hard one.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] benchmark:
+  ///   Benchmark filters to one benchmark id. Empty returns every benchmark.
+  ///
+  /// * [String] model:
+  ///   Model filters to one model. Empty returns every model.
+  ///
+  /// * [String] provider:
+  ///   Provider filters to one lab or leaderboard — the way to read what a single source claims across every model it covers.
+  ///
+  /// * [String] source_:
+  ///   Source filters to one citation, which is the finest grain there is: a source is what makes two claims about one model independent rather than a restatement of each other.
+  ///
+  /// * [String] protocol:
+  ///   Protocol filters by HOW a claim was scored, so provider cards can be read apart from third parties running their own harness.
+  Future<Response> getBenchmarkClaimsWithHttpInfo({ String? benchmark, String? model, String? provider, String? source_, String? protocol, }) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/benchmark/claims';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    if (benchmark != null) {
+      queryParams.addAll(_queryParams('', 'Benchmark', benchmark));
+    }
+    if (model != null) {
+      queryParams.addAll(_queryParams('', 'Model', model));
+    }
+    if (provider != null) {
+      queryParams.addAll(_queryParams('', 'Provider', provider));
+    }
+    if (source_ != null) {
+      queryParams.addAll(_queryParams('', 'Source', source_));
+    }
+    if (protocol != null) {
+      queryParams.addAll(_queryParams('', 'Protocol', protocol));
+    }
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Lists the effective published claims: what the leaderboard will use for each (benchmark, model) after the seed, the import and any stored correction are layered.
+  ///
+  /// Lists the effective published claims: what the leaderboard will use for each (benchmark, model) after the seed, the import and any stored correction are layered. It answers the operator's question — what does this arena currently believe someone else reported, and did we ship that or fix it.  Effective values only. The history of a key lives in the append-only file and is not what this op is for; a list that returned every superseded row would make the common question the hard one.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] benchmark:
+  ///   Benchmark filters to one benchmark id. Empty returns every benchmark.
+  ///
+  /// * [String] model:
+  ///   Model filters to one model. Empty returns every model.
+  ///
+  /// * [String] provider:
+  ///   Provider filters to one lab or leaderboard — the way to read what a single source claims across every model it covers.
+  ///
+  /// * [String] source_:
+  ///   Source filters to one citation, which is the finest grain there is: a source is what makes two claims about one model independent rather than a restatement of each other.
+  ///
+  /// * [String] protocol:
+  ///   Protocol filters by HOW a claim was scored, so provider cards can be read apart from third parties running their own harness.
+  Future<ClaimsOut?> getBenchmarkClaims({ String? benchmark, String? model, String? provider, String? source_, String? protocol, }) async {
+    final response = await getBenchmarkClaimsWithHttpInfo( benchmark: benchmark, model: model, provider: provider, source_: source_, protocol: protocol, );
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'ClaimsOut',) as ClaimsOut;
+    
+    }
+    return null;
+  }
+
   /// Is the ONLY valid arm-vs-arm test: it pairs the two models on the items BOTH completed, and answers rescue and damage counts with an exact-McNemar p.
   ///
   /// Is the ONLY valid arm-vs-arm test: it pairs the two models on the items BOTH completed, and answers rescue and damage counts with an exact-McNemar p.  Pairing is what prevents the subset artifact — comparing one model's easy subset against another's full run — so n_common, not either arm's own coverage, is the number to read this by.  Both a and b are required. The benchmark defaults to gpqa_diamond.
@@ -135,6 +233,77 @@ class BenchmarkApi {
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
       return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Pairing',) as Pairing;
+    
+    }
+    return null;
+  }
+
+  /// Returns each model's measured score per run over time, oldest first, with the change between runs.
+  ///
+  /// Returns each model's measured score per run over time, oldest first, with the change between runs.  This is the counterweight to a leaderboard: the board shows the latest run because that is what \"how good is it\" means, and a single latest number cannot distinguish a model that has always been strong from one that just improved, or from one that regressed after a provider changed something. Both matter for routing, and only one of them is visible on a board.  Runs with no id — attempts recorded before runs existed — group under the empty run, which is honestly what they are: one undated measurement.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] benchmark:
+  ///   Benchmark is the catalog id to read, defaulting to gpqa_diamond.
+  ///
+  /// * [String] model:
+  ///   Model filters to one model. Empty returns every model measured.
+  Future<Response> getBenchmarkHistoryWithHttpInfo({ String? benchmark, String? model, }) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/benchmark/history';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    if (benchmark != null) {
+      queryParams.addAll(_queryParams('', 'Benchmark', benchmark));
+    }
+    if (model != null) {
+      queryParams.addAll(_queryParams('', 'Model', model));
+    }
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Returns each model's measured score per run over time, oldest first, with the change between runs.
+  ///
+  /// Returns each model's measured score per run over time, oldest first, with the change between runs.  This is the counterweight to a leaderboard: the board shows the latest run because that is what \"how good is it\" means, and a single latest number cannot distinguish a model that has always been strong from one that just improved, or from one that regressed after a provider changed something. Both matter for routing, and only one of them is visible on a board.  Runs with no id — attempts recorded before runs existed — group under the empty run, which is honestly what they are: one undated measurement.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] benchmark:
+  ///   Benchmark is the catalog id to read, defaulting to gpqa_diamond.
+  ///
+  /// * [String] model:
+  ///   Model filters to one model. Empty returns every model measured.
+  Future<HistoryOut?> getBenchmarkHistory({ String? benchmark, String? model, }) async {
+    final response = await getBenchmarkHistoryWithHttpInfo( benchmark: benchmark, model: model, );
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'HistoryOut',) as HistoryOut;
     
     }
     return null;
@@ -245,6 +414,62 @@ class BenchmarkApi {
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
       return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PresetList',) as PresetList;
+    
+    }
+    return null;
+  }
+
+  /// Records published claims: one to correct a number, many to import a leaderboard.
+  ///
+  /// Records published claims: one to correct a number, many to import a leaderboard. Every row must carry a Source, because a claim without its citation is a number nobody can check — and an unattributed number in the published plane is indistinguishable from a measurement, which is the one confusion this whole surface is built to prevent.  Writes are append-only, so this never destroys the value it replaces. A vendor restating a score leaves both rows on disk, which is how the restating itself becomes visible.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [PutClaimsIn] putClaimsIn (required):
+  Future<Response> postBenchmarkClaimsWithHttpInfo(PutClaimsIn putClaimsIn,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/benchmark/claims';
+
+    // ignore: prefer_final_locals
+    Object? postBody = putClaimsIn;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Records published claims: one to correct a number, many to import a leaderboard.
+  ///
+  /// Records published claims: one to correct a number, many to import a leaderboard. Every row must carry a Source, because a claim without its citation is a number nobody can check — and an unattributed number in the published plane is indistinguishable from a measurement, which is the one confusion this whole surface is built to prevent.  Writes are append-only, so this never destroys the value it replaces. A vendor restating a score leaves both rows on disk, which is how the restating itself becomes visible.
+  ///
+  /// Parameters:
+  ///
+  /// * [PutClaimsIn] putClaimsIn (required):
+  Future<PutClaimsOut?> postBenchmarkClaims(PutClaimsIn putClaimsIn,) async {
+    final response = await postBenchmarkClaimsWithHttpInfo(putClaimsIn,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PutClaimsOut',) as PutClaimsOut;
     
     }
     return null;

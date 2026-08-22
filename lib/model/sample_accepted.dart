@@ -15,7 +15,6 @@ class SampleAccepted {
   SampleAccepted({
     this.recorded,
   });
-
   /// Recorded is always true: the response is an acknowledgement, and the warehouse write is detached, so it reports acceptance, not durability.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

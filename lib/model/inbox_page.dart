@@ -16,7 +16,6 @@ class InboxPage {
     this.cursor,
     this.messages = const [],
   });
-
   /// Cursor is the row id to pass back as `since` for the next page. It is the last message's id, or the requested cursor when the page is empty.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

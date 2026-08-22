@@ -15,7 +15,6 @@ class SequenceList {
   SequenceList({
     this.data = const [],
   });
-
   /// Data is the page; an empty array when the org has no sequence.
   List<Sequence> data;
 

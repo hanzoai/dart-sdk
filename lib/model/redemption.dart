@@ -19,7 +19,6 @@ class Redemption {
     this.redeemedAt,
     this.seats,
   });
-
   /// Code is the promo redeemed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -38,7 +37,7 @@ class Redemption {
   ///
   int? discountCents;
 
-  /// Plan and Seats are what was redeemed against. Both are DERIVED server-side — Plan from the org's live paid subscription, Seats from claimSeats — and neither is ever read from the request.
+  /// Plan is the tier redeemed against: pro, max or team. It is DERIVED from the org's live ACTIVE/TRIALING subscription, never read from the request, so it is what the org actually holds rather than what it claimed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -56,6 +55,7 @@ class Redemption {
   ///
   int? redeemedAt;
 
+  /// Seats is the seat count the claim was priced at, and it is ALWAYS 1. No server-side authority on this surface answers \"how many seats\", and the caller's own number is exactly the input that once inflated these claims, so a redemption records the single-seat floor and an admin resolves the real count against subscription data at grant time.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

@@ -15,7 +15,6 @@ class HandleRequest {
   HandleRequest({
     this.handle,
   });
-
   /// Handle is the public leaderboard display name; empty opts out. Body-only: the URL cannot supply it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

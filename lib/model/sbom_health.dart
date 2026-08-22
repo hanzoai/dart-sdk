@@ -18,7 +18,6 @@ class SbomHealth {
     this.status,
     this.table,
   });
-
   /// Datastore reports whether the shared datastore connection this subsystem reads and writes through is established. False means the data endpoints answer 503.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

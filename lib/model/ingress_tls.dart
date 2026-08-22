@@ -21,7 +21,6 @@ class IngressTLS {
     this.note,
     this.role,
   });
-
   /// ACMEDirectory is the ACME endpoint in use: the staging URL, or \"letsencrypt-production\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

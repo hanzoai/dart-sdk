@@ -16,7 +16,6 @@ class O11yO11yCallbackAuthN {
     this.provider,
     this.url,
   });
-
   /// Provider is the route's provider — google_auth, saml or oidc.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

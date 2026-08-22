@@ -24,7 +24,6 @@ class O11yFlamegraphSpan {
     this.spanId,
     this.timestamp,
   });
-
   Map<String, Object> attributes;
 
   ///

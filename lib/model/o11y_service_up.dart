@@ -16,7 +16,6 @@ class O11yServiceUp {
     this.name,
     this.up,
   });
-
   /// Name is the service as the fleet prober knows it (probes.go's target name, which is the `service` label on hanzo_service_up).
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

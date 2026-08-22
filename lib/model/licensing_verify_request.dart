@@ -16,7 +16,6 @@ class LicensingVerifyRequest {
     this.app,
     required this.token,
   });
-
   /// App overrides the app_id the token is expected to carry. Leave it empty and the token's own app_id is used — an online verify is informational, and it is the ENGINE that enforces the app at boot.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -20,7 +20,7 @@ class PagesDeploymentConfig {
     this.kvNamespaces = const {},
     this.r2Buckets = const {},
   });
-
+  /// CompatibilityDate pins which Workers runtime behaviour the functions run under, as a date (\"2024-01-01\"). It is a pin, not a version: the runtime keeps that date's semantics for code deployed against it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -29,14 +29,19 @@ class PagesDeploymentConfig {
   ///
   String? compatibilityDate;
 
+  /// CompatibilityFlags turn individual runtime behaviours on or off ahead of, or behind, the date above (\"nodejs_compat\").
   List<String> compatibilityFlags;
 
+  /// D1Databases binds D1 databases in, keyed by binding name.
   Map<String, PagesD1Binding> d1Databases;
 
+  /// EnvVars are the environment variables the functions see, KEYED BY VARIABLE NAME. The key is the name; the value carries the value and whether it is a secret.
   Map<String, PagesEnvVar> envVars;
 
+  /// KVNamespaces binds KV namespaces into the functions, KEYED BY THE BINDING NAME the code reads (`env.SESSIONS`). Same shape for the two below.
   Map<String, PagesKVBinding> kvNamespaces;
 
+  /// R2Buckets binds R2 buckets in, keyed by binding name.
   Map<String, PagesR2Binding> r2Buckets;
 
   @override

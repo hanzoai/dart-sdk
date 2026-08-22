@@ -23,7 +23,6 @@ class O11yNodeRecord {
     this.nodeName,
     this.podCountsByPhase,
   });
-
   Object? condition;
 
   Map<String, String> meta;

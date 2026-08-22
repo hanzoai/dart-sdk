@@ -15,7 +15,6 @@ class ApplyRequest {
   ApplyRequest({
     this.requestedCode,
   });
-
   /// RequestedCode is the vanity code the applicant asks for; approval may mint a different one if it is taken. Body-only: the URL cannot supply it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

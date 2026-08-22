@@ -20,7 +20,6 @@ class HelpArticle {
     this.title,
     this.updatedAt,
   });
-
   /// Body is the article's rich-text content as the author saved it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -16,7 +16,6 @@ class MCPRemote {
     this.transport,
     this.url,
   });
-
   /// Transport is \"streamable-http\" or \"sse\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

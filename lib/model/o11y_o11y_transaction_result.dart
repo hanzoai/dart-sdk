@@ -17,7 +17,6 @@ class O11yO11yTransactionResult {
     this.object,
     this.relation,
   });
-
   /// Authorized says whether the caller may do it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

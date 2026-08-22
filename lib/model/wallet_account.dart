@@ -18,7 +18,7 @@ class WalletAccount {
     this.name,
     this.org,
   });
-
+  /// CreatedAt is when the account was opened, Unix seconds. Listings order by it, newest first.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -27,6 +27,7 @@ class WalletAccount {
   ///
   int? createdAt;
 
+  /// ID is the account id, minted by the server as \"acct_\" + 24 hex. Wallets name it as their accountId, and it becomes a segment of each of their key refs — so it addresses key material and cannot be reassigned.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -35,6 +36,7 @@ class WalletAccount {
   ///
   String? id;
 
+  /// Name is the label given at creation, trimmed and required. It groups wallets: it is not a key, holds no balance, and is not unique in the org.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -43,6 +45,7 @@ class WalletAccount {
   ///
   String? name;
 
+  /// Org is the tenant that owns the account, stamped from the validated principal rather than taken from the request. Every read is physically scoped to it, so another tenant's accounts are not reachable at all.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

@@ -17,7 +17,6 @@ class VersionView {
     this.type,
     this.version,
   });
-
   /// CreatedAt is when this revision was appended, RFC 3339 UTC.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

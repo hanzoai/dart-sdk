@@ -16,7 +16,6 @@ class PickOut {
     this.consumers = const [],
     this.total,
   });
-
   /// Consumers is the page, ordered by name.
   List<Consumer> consumers;
 

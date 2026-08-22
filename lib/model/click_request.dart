@@ -15,7 +15,6 @@ class ClickRequest {
   ClickRequest({
     this.code,
   });
-
   /// Code is the share-link code that was clicked. Body-only: the URL cannot supply it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class StatsUser {
   StatsUser({
     this.userId,
   });
-
   /// UserID is the account the session is authenticated as.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

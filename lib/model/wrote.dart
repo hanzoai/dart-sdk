@@ -16,7 +16,7 @@ class Wrote {
     this.bytes,
     this.path,
   });
-
+  /// Bytes is how many bytes the file now holds. A write REPLACES the file, so this is its whole length and not an amount appended, and 0 is a legitimate answer: a WriteIn with no Data truncates the file to nothing.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -25,6 +25,7 @@ class Wrote {
   ///
   int? bytes;
 
+  /// Path is where the bytes actually landed: the caller's path resolved against the sandbox's working directory (Leased.Workdir), which is what a later read or a shell line inside the sandbox has to name.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

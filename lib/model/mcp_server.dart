@@ -23,7 +23,6 @@ class MCPServer {
     this.source_,
     this.url,
   });
-
   /// AuthHeader is the request header the KMS-held credential is injected into, e.g. \"Authorization\". Absent when the server needs no credential.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

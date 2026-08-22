@@ -17,7 +17,6 @@ class GcOut {
     this.repo,
     this.sizeBytes,
   });
-
   /// Maintained is always true; the call fails rather than reporting false.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

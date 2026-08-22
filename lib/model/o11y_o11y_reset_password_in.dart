@@ -16,7 +16,6 @@ class O11yO11yResetPasswordIn {
     this.password,
     this.token,
   });
-
   /// Password is the new password.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

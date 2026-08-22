@@ -20,7 +20,6 @@ class CommerceOverview {
     this.revenue,
     this.source_,
   });
-
   /// AOV is average order value — Revenue/Orders, rounded to two places. Zero when there were no orders.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

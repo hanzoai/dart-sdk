@@ -18,7 +18,6 @@ class O11yO11yResetToken {
     this.passwordId,
     this.token,
   });
-
   /// ExpiresAt is when it stops working.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

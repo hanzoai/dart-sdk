@@ -20,7 +20,6 @@ class O11yO11yDashboardView {
     this.orgId,
     this.updatedAt,
   });
-
   /// CreatedAt is when the view was created.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

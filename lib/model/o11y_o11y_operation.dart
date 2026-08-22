@@ -20,7 +20,6 @@ class O11yO11yOperation {
     this.p95,
     this.p99,
   });
-
   /// ErrorCount is how many of those runs errored.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

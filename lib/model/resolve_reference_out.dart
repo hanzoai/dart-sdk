@@ -18,7 +18,6 @@ class ResolveReferenceOut {
     this.refused = const [],
     this.stale = const [],
   });
-
   /// Answers is one entry per (set, key) consulted.
   List<ReferenceAnswer> answers;
 

@@ -26,7 +26,6 @@ class RiskResolved {
     this.source_,
     this.subject,
   });
-
   /// AsOf is the instant this answer was true at: the event time plus the horizon. Nothing seen after it was visible to this resolution.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

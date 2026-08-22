@@ -16,20 +16,20 @@ class AutoApi {
 
   final ApiClient apiClient;
 
-  /// Deletes one of the caller's flows.
+  /// Deletes one automation, its versions and its run history.
   ///
-  /// Deletes one of the caller's flows. A foreign id answers 404 and deletes nothing.
+  /// Deletes one automation, its versions and its run history. It answers no content, and a flow of another org answers not-found.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
-  /// * [String] flow (required):
-  ///   Flow is the flow's id, taken from the path.
-  Future<Response> deleteAutoFlowsByFlowWithHttpInfo(String flow,) async {
+  /// * [String] id (required):
+  ///   ID is the flow to act on, from the path.
+  Future<Response> deleteAutoFlowsByIdWithHttpInfo(String id,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/auto/flows/{flow}'
-      .replaceAll('{flow}', flow);
+    final path = r'/v1/auto/flows/{id}'
+      .replaceAll('{id}', id);
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -52,16 +52,56 @@ class AutoApi {
     );
   }
 
-  /// Deletes one of the caller's flows.
+  /// Deletes one automation, its versions and its run history.
   ///
-  /// Deletes one of the caller's flows. A foreign id answers 404 and deletes nothing.
+  /// Deletes one automation, its versions and its run history. It answers no content, and a flow of another org answers not-found.
   ///
   /// Parameters:
   ///
-  /// * [String] flow (required):
-  ///   Flow is the flow's id, taken from the path.
-  Future<Object?> deleteAutoFlowsByFlow(String flow,) async {
-    final response = await deleteAutoFlowsByFlowWithHttpInfo(flow,);
+  /// * [String] id (required):
+  ///   ID is the flow to act on, from the path.
+  Future<void> deleteAutoFlowsById(String id,) async {
+    final response = await deleteAutoFlowsByIdWithHttpInfo(id,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+  }
+
+  /// Connectors returns the connector catalogue.
+  ///
+  /// Connectors returns the connector catalogue. Each entry is an external service a flow step can invoke, carrying its auth descriptor and the input properties of its actions and triggers. The catalogue is the same for every tenant, so the gate is a validated principal rather than a per-org view.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> getAutoConnectorsWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/auto/connectors';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Connectors returns the connector catalogue.
+  ///
+  /// Connectors returns the connector catalogue. Each entry is an external service a flow step can invoke, carrying its auth descriptor and the input properties of its actions and triggers. The catalogue is the same for every tenant, so the gate is a validated principal rather than a per-org view.
+  Future<Catalog?> getAutoConnectors() async {
+    final response = await getAutoConnectorsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -69,18 +109,23 @@ class AutoApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Object',) as Object;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Catalog',) as Catalog;
     
     }
     return null;
   }
 
-  /// Flows lists the caller's flows, newest first.
+  /// Returns the caller org's automations, most-recently-updated first.
   ///
-  /// Flows lists the caller's flows, newest first. The list is scoped by the product to the caller's org — it can only ever hold the caller's own flows.
+  /// Returns the caller org's automations, most-recently-updated first. The optional `limit` query bounds the page.
   ///
   /// Note: This method returns the HTTP [Response].
-  Future<Response> getAutoFlowsWithHttpInfo() async {
+  ///
+  /// Parameters:
+  ///
+  /// * [int] limit:
+  ///   Limit bounds the page (default 200, maximum 1000).
+  Future<Response> getAutoFlowsWithHttpInfo({ int? limit, }) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/auto/flows';
 
@@ -91,6 +136,10 @@ class AutoApi {
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
+    if (limit != null) {
+      queryParams.addAll(_queryParams('', 'limit', limit));
+    }
+
     const contentTypes = <String>[];
 
 
@@ -105,11 +154,16 @@ class AutoApi {
     );
   }
 
-  /// Flows lists the caller's flows, newest first.
+  /// Returns the caller org's automations, most-recently-updated first.
   ///
-  /// Flows lists the caller's flows, newest first. The list is scoped by the product to the caller's org — it can only ever hold the caller's own flows.
-  Future<Object?> getAutoFlows() async {
-    final response = await getAutoFlowsWithHttpInfo();
+  /// Returns the caller org's automations, most-recently-updated first. The optional `limit` query bounds the page.
+  ///
+  /// Parameters:
+  ///
+  /// * [int] limit:
+  ///   Limit bounds the page (default 200, maximum 1000).
+  Future<FlowPage?> getAutoFlows({ int? limit, }) async {
+    final response = await getAutoFlowsWithHttpInfo( limit: limit, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -117,26 +171,26 @@ class AutoApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Object',) as Object;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'FlowPage',) as FlowPage;
     
     }
     return null;
   }
 
-  /// Flow reads one of the caller's flows — the full record, graph included.
+  /// Returns one automation and its latest version.
   ///
-  /// Flow reads one of the caller's flows — the full record, graph included. A flow outside the caller's org answers 404, indistinguishable from one that does not exist.
+  /// Returns one automation and its latest version. That is the flow record plus the step tree the builder edits; a flow of another org answers not-found.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
-  /// * [String] flow (required):
-  ///   Flow is the flow's id, taken from the path.
-  Future<Response> getAutoFlowsByFlowWithHttpInfo(String flow,) async {
+  /// * [String] id (required):
+  ///   ID is the flow to act on, from the path.
+  Future<Response> getAutoFlowsByIdWithHttpInfo(String id,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/auto/flows/{flow}'
-      .replaceAll('{flow}', flow);
+    final path = r'/v1/auto/flows/{id}'
+      .replaceAll('{id}', id);
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -159,16 +213,16 @@ class AutoApi {
     );
   }
 
-  /// Flow reads one of the caller's flows — the full record, graph included.
+  /// Returns one automation and its latest version.
   ///
-  /// Flow reads one of the caller's flows — the full record, graph included. A flow outside the caller's org answers 404, indistinguishable from one that does not exist.
+  /// Returns one automation and its latest version. That is the flow record plus the step tree the builder edits; a flow of another org answers not-found.
   ///
   /// Parameters:
   ///
-  /// * [String] flow (required):
-  ///   Flow is the flow's id, taken from the path.
-  Future<Object?> getAutoFlowsByFlow(String flow,) async {
-    final response = await getAutoFlowsByFlowWithHttpInfo(flow,);
+  /// * [String] id (required):
+  ///   ID is the flow to act on, from the path.
+  Future<PopulatedFlow?> getAutoFlowsById(String id,) async {
+    final response = await getAutoFlowsByIdWithHttpInfo(id,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -176,20 +230,29 @@ class AutoApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Object',) as Object;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PopulatedFlow',) as PopulatedFlow;
     
     }
     return null;
   }
 
-  /// Pieces lists the product's built-in piece catalog: the trigger and action types a flow's nodes can use (webhook, schedule, http, set, branch), each with its input descriptors.
+  /// Returns one flow's versions, newest first.
   ///
-  /// Pieces lists the product's built-in piece catalog: the trigger and action types a flow's nodes can use (webhook, schedule, http, set, branch), each with its input descriptors. The catalog is compiled into the product — adding a piece is a product release, not a platform call.
+  /// Returns one flow's versions, newest first. The optional `limit` query bounds the page.
   ///
   /// Note: This method returns the HTTP [Response].
-  Future<Response> getAutoPiecesWithHttpInfo() async {
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the flow whose versions to list, from the path.
+  ///
+  /// * [int] limit:
+  ///   Limit bounds the page (default 200, maximum 1000).
+  Future<Response> getAutoFlowsByIdVersionsWithHttpInfo(String id, { int? limit, }) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/auto/pieces';
+    final path = r'/v1/auto/flows/{id}/versions'
+      .replaceAll('{id}', id);
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -197,6 +260,10 @@ class AutoApi {
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
+
+    if (limit != null) {
+      queryParams.addAll(_queryParams('', 'limit', limit));
+    }
 
     const contentTypes = <String>[];
 
@@ -212,11 +279,19 @@ class AutoApi {
     );
   }
 
-  /// Pieces lists the product's built-in piece catalog: the trigger and action types a flow's nodes can use (webhook, schedule, http, set, branch), each with its input descriptors.
+  /// Returns one flow's versions, newest first.
   ///
-  /// Pieces lists the product's built-in piece catalog: the trigger and action types a flow's nodes can use (webhook, schedule, http, set, branch), each with its input descriptors. The catalog is compiled into the product — adding a piece is a product release, not a platform call.
-  Future<Object?> getAutoPieces() async {
-    final response = await getAutoPiecesWithHttpInfo();
+  /// Returns one flow's versions, newest first. The optional `limit` query bounds the page.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the flow whose versions to list, from the path.
+  ///
+  /// * [int] limit:
+  ///   Limit bounds the page (default 200, maximum 1000).
+  Future<VersionPage?> getAutoFlowsByIdVersions(String id, { int? limit, }) async {
+    final response = await getAutoFlowsByIdVersionsWithHttpInfo(id,  limit: limit, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -224,23 +299,26 @@ class AutoApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Object',) as Object;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'VersionPage',) as VersionPage;
     
     }
     return null;
   }
 
-  /// Runs lists the caller's run records, newest first — optionally one flow's.
+  /// Returns the caller org's run history, newest first.
   ///
-  /// Runs lists the caller's run records, newest first — optionally one flow's. Each record carries the run's status (queued, running, completed, failed), its input, and its output once the run finished.
+  /// Returns the caller org's run history, newest first. The optional `flowId` query narrows it to one flow and `limit` bounds the page.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
-  /// * [String] flow:
-  ///   Flow narrows the list to one flow's runs when present.
-  Future<Response> getAutoRunsWithHttpInfo({ String? flow, }) async {
+  /// * [String] flowId:
+  ///   FlowID narrows the history to one flow. Omit it for the whole org's runs.
+  ///
+  /// * [int] limit:
+  ///   Limit bounds the page (default 200, maximum 1000).
+  Future<Response> getAutoRunsWithHttpInfo({ String? flowId, int? limit, }) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/auto/runs';
 
@@ -251,8 +329,11 @@ class AutoApi {
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    if (flow != null) {
-      queryParams.addAll(_queryParams('', 'flow', flow));
+    if (flowId != null) {
+      queryParams.addAll(_queryParams('', 'flowId', flowId));
+    }
+    if (limit != null) {
+      queryParams.addAll(_queryParams('', 'limit', limit));
     }
 
     const contentTypes = <String>[];
@@ -269,16 +350,19 @@ class AutoApi {
     );
   }
 
-  /// Runs lists the caller's run records, newest first — optionally one flow's.
+  /// Returns the caller org's run history, newest first.
   ///
-  /// Runs lists the caller's run records, newest first — optionally one flow's. Each record carries the run's status (queued, running, completed, failed), its input, and its output once the run finished.
+  /// Returns the caller org's run history, newest first. The optional `flowId` query narrows it to one flow and `limit` bounds the page.
   ///
   /// Parameters:
   ///
-  /// * [String] flow:
-  ///   Flow narrows the list to one flow's runs when present.
-  Future<Object?> getAutoRuns({ String? flow, }) async {
-    final response = await getAutoRunsWithHttpInfo( flow: flow, );
+  /// * [String] flowId:
+  ///   FlowID narrows the history to one flow. Omit it for the whole org's runs.
+  ///
+  /// * [int] limit:
+  ///   Limit bounds the page (default 200, maximum 1000).
+  Future<RunPage?> getAutoRuns({ String? flowId, int? limit, }) async {
+    final response = await getAutoRunsWithHttpInfo( flowId: flowId, limit: limit, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -286,26 +370,26 @@ class AutoApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Object',) as Object;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'RunPage',) as RunPage;
     
     }
     return null;
   }
 
-  /// Run reads one run record: status, input, output (each executed node's result keyed by node id once completed), error detail if it failed, and timestamps.
+  /// Returns one run.
   ///
-  /// Run reads one run record: status, input, output (each executed node's result keyed by node id once completed), error detail if it failed, and timestamps. A run outside the caller's org answers 404.
+  /// Returns one run. A run that has not reached a terminal status is refreshed from the durable engine first — scoped to the org's own namespace — so the caller sees live progress rather than the last status that happened to be persisted.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
-  /// * [String] run (required):
-  ///   Run is the run's id, taken from the path.
-  Future<Response> getAutoRunsByRunWithHttpInfo(String run,) async {
+  /// * [String] id (required):
+  ///   ID is the run to read, from the path.
+  Future<Response> getAutoRunsByIdWithHttpInfo(String id,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/auto/runs/{run}'
-      .replaceAll('{run}', run);
+    final path = r'/v1/auto/runs/{id}'
+      .replaceAll('{id}', id);
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -328,16 +412,16 @@ class AutoApi {
     );
   }
 
-  /// Run reads one run record: status, input, output (each executed node's result keyed by node id once completed), error detail if it failed, and timestamps.
+  /// Returns one run.
   ///
-  /// Run reads one run record: status, input, output (each executed node's result keyed by node id once completed), error detail if it failed, and timestamps. A run outside the caller's org answers 404.
+  /// Returns one run. A run that has not reached a terminal status is refreshed from the durable engine first — scoped to the org's own namespace — so the caller sees live progress rather than the last status that happened to be persisted.
   ///
   /// Parameters:
   ///
-  /// * [String] run (required):
-  ///   Run is the run's id, taken from the path.
-  Future<Object?> getAutoRunsByRun(String run,) async {
-    final response = await getAutoRunsByRunWithHttpInfo(run,);
+  /// * [String] id (required):
+  ///   ID is the run to read, from the path.
+  Future<FlowRun?> getAutoRunsById(String id,) async {
+    final response = await getAutoRunsByIdWithHttpInfo(id,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -345,79 +429,31 @@ class AutoApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Object',) as Object;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'FlowRun',) as FlowRun;
     
     }
     return null;
   }
 
-  /// Status reports whether the auto service is reachable — its own health endpoint as an honest lens for \"is the automation plane up\".
+  /// Updates one automation's metadata in place.
   ///
-  /// Status reports whether the auto service is reachable — its own health endpoint as an honest lens for \"is the automation plane up\".
-  ///
-  /// Note: This method returns the HTTP [Response].
-  Future<Response> getAutoStatusWithHttpInfo() async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/auto/status';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'GET',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Status reports whether the auto service is reachable — its own health endpoint as an honest lens for \"is the automation plane up\".
-  ///
-  /// Status reports whether the auto service is reachable — its own health endpoint as an honest lens for \"is the automation plane up\".
-  Future<AutoStatus?> getAutoStatus() async {
-    final response = await getAutoStatusWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AutoStatus',) as AutoStatus;
-    
-    }
-    return null;
-  }
-
-  /// Patches one of the caller's flows: the name, the graph, or both — only the stated fields move.
-  ///
-  /// Patches one of the caller's flows: the name, the graph, or both — only the stated fields move.
+  /// Updates one automation's metadata in place. Every field is optional; a field the request omits is left alone. Publishing a version pins which one runs, and is refused unless that version belongs to this flow.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
-  /// * [String] flow (required):
-  ///   Flow is the flow's id, taken from the path.
+  /// * [String] id (required):
+  ///   ID is the flow to update, from the path.
   ///
-  /// * [AutoUpdate] autoUpdate (required):
-  Future<Response> patchAutoFlowsByFlowWithHttpInfo(String flow, AutoUpdate autoUpdate,) async {
+  /// * [PatchFlowIn] patchFlowIn (required):
+  Future<Response> patchAutoFlowsByIdWithHttpInfo(String id, PatchFlowIn patchFlowIn,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/auto/flows/{flow}'
-      .replaceAll('{flow}', flow);
+    final path = r'/v1/auto/flows/{id}'
+      .replaceAll('{id}', id);
 
     // ignore: prefer_final_locals
-    Object? postBody = autoUpdate;
+    Object? postBody = patchFlowIn;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
@@ -437,18 +473,18 @@ class AutoApi {
     );
   }
 
-  /// Patches one of the caller's flows: the name, the graph, or both — only the stated fields move.
+  /// Updates one automation's metadata in place.
   ///
-  /// Patches one of the caller's flows: the name, the graph, or both — only the stated fields move.
+  /// Updates one automation's metadata in place. Every field is optional; a field the request omits is left alone. Publishing a version pins which one runs, and is refused unless that version belongs to this flow.
   ///
   /// Parameters:
   ///
-  /// * [String] flow (required):
-  ///   Flow is the flow's id, taken from the path.
+  /// * [String] id (required):
+  ///   ID is the flow to update, from the path.
   ///
-  /// * [AutoUpdate] autoUpdate (required):
-  Future<Object?> patchAutoFlowsByFlow(String flow, AutoUpdate autoUpdate,) async {
-    final response = await patchAutoFlowsByFlowWithHttpInfo(flow, autoUpdate,);
+  /// * [PatchFlowIn] patchFlowIn (required):
+  Future<Flow?> patchAutoFlowsById(String id, PatchFlowIn patchFlowIn,) async {
+    final response = await patchAutoFlowsByIdWithHttpInfo(id, patchFlowIn,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -456,27 +492,31 @@ class AutoApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Object',) as Object;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Flow',) as Flow;
     
     }
     return null;
   }
 
-  /// Creates a flow in the caller's org.
+  /// Run executes one connector action in-process and answers the outcome.
   ///
-  /// Creates a flow in the caller's org. The org is stamped server-side from the validated principal — there is no field by which a caller could place a flow in another org.
+  /// Run executes one connector action in-process and answers the outcome. The caller's resolved credential travels in `auth`, delivered to the action verbatim — the runtime resolves no credential itself. An action that ran and failed (or an action name the connector does not have) answers ok:false with the failure message, not an HTTP error; an unknown connector is 404 and a missing action 422.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
-  /// * [AutoCreate] autoCreate (required):
-  Future<Response> postAutoFlowsWithHttpInfo(AutoCreate autoCreate,) async {
+  /// * [String] id (required):
+  ///   ID is the connector to run, from the path.
+  ///
+  /// * [RunIn] runIn (required):
+  Future<Response> postAutoConnectorsByIdRunWithHttpInfo(String id, RunIn runIn,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/auto/flows';
+    final path = r'/v1/auto/connectors/{id}/run'
+      .replaceAll('{id}', id);
 
     // ignore: prefer_final_locals
-    Object? postBody = autoCreate;
+    Object? postBody = runIn;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
@@ -496,15 +536,18 @@ class AutoApi {
     );
   }
 
-  /// Creates a flow in the caller's org.
+  /// Run executes one connector action in-process and answers the outcome.
   ///
-  /// Creates a flow in the caller's org. The org is stamped server-side from the validated principal — there is no field by which a caller could place a flow in another org.
+  /// Run executes one connector action in-process and answers the outcome. The caller's resolved credential travels in `auth`, delivered to the action verbatim — the runtime resolves no credential itself. An action that ran and failed (or an action name the connector does not have) answers ok:false with the failure message, not an HTTP error; an unknown connector is 404 and a missing action 422.
   ///
   /// Parameters:
   ///
-  /// * [AutoCreate] autoCreate (required):
-  Future<Object?> postAutoFlows(AutoCreate autoCreate,) async {
-    final response = await postAutoFlowsWithHttpInfo(autoCreate,);
+  /// * [String] id (required):
+  ///   ID is the connector to run, from the path.
+  ///
+  /// * [RunIn] runIn (required):
+  Future<RunResp?> postAutoConnectorsByIdRun(String id, RunIn runIn,) async {
+    final response = await postAutoConnectorsByIdRunWithHttpInfo(id, runIn,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -512,26 +555,82 @@ class AutoApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Object',) as Object;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'RunResp',) as RunResp;
     
     }
     return null;
   }
 
-  /// Publish snapshots the flow's current graph as its next immutable version and arms the flow's triggers.
+  /// Creates an automation and its initial DRAFT version in one call.
   ///
-  /// Publish snapshots the flow's current graph as its next immutable version and arms the flow's triggers. Past versions stay addressable in the product for rollback; runs always execute the graph as it was dispatched.
+  /// Creates an automation and its initial DRAFT version in one call. The new flow is DISABLED — creating it does not arm its trigger; POST /v1/auto/flows/{id}/enable does that.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
-  /// * [String] flow (required):
-  ///   Flow is the flow's id, taken from the path.
-  Future<Response> postAutoFlowsByFlowPublishWithHttpInfo(String flow,) async {
+  /// * [CreateFlowReq] createFlowReq (required):
+  Future<Response> postAutoFlowsWithHttpInfo(CreateFlowReq createFlowReq,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/auto/flows/{flow}/publish'
-      .replaceAll('{flow}', flow);
+    final path = r'/v1/auto/flows';
+
+    // ignore: prefer_final_locals
+    Object? postBody = createFlowReq;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Creates an automation and its initial DRAFT version in one call.
+  ///
+  /// Creates an automation and its initial DRAFT version in one call. The new flow is DISABLED — creating it does not arm its trigger; POST /v1/auto/flows/{id}/enable does that.
+  ///
+  /// Parameters:
+  ///
+  /// * [CreateFlowReq] createFlowReq (required):
+  Future<PopulatedFlow?> postAutoFlows(CreateFlowReq createFlowReq,) async {
+    final response = await postAutoFlowsWithHttpInfo(createFlowReq,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PopulatedFlow',) as PopulatedFlow;
+    
+    }
+    return null;
+  }
+
+  /// Disarms a flow's trigger and marks it DISABLED.
+  ///
+  /// Disarms a flow's trigger and marks it DISABLED. Its schedule and its event subscriptions are dropped, so a disabled flow is never a live target; runs already in flight are unaffected, and it can still be started on demand.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the flow to act on, from the path.
+  Future<Response> postAutoFlowsByIdDisableWithHttpInfo(String id,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/auto/flows/{id}/disable'
+      .replaceAll('{id}', id);
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -554,16 +653,16 @@ class AutoApi {
     );
   }
 
-  /// Publish snapshots the flow's current graph as its next immutable version and arms the flow's triggers.
+  /// Disarms a flow's trigger and marks it DISABLED.
   ///
-  /// Publish snapshots the flow's current graph as its next immutable version and arms the flow's triggers. Past versions stay addressable in the product for rollback; runs always execute the graph as it was dispatched.
+  /// Disarms a flow's trigger and marks it DISABLED. Its schedule and its event subscriptions are dropped, so a disabled flow is never a live target; runs already in flight are unaffected, and it can still be started on demand.
   ///
   /// Parameters:
   ///
-  /// * [String] flow (required):
-  ///   Flow is the flow's id, taken from the path.
-  Future<Object?> postAutoFlowsByFlowPublish(String flow,) async {
-    final response = await postAutoFlowsByFlowPublishWithHttpInfo(flow,);
+  /// * [String] id (required):
+  ///   ID is the flow to act on, from the path.
+  Future<Flow?> postAutoFlowsByIdDisable(String id,) async {
+    final response = await postAutoFlowsByIdDisableWithHttpInfo(id,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -571,27 +670,198 @@ class AutoApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Object',) as Object;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Flow',) as Flow;
     
     }
     return null;
   }
 
-  /// Start begins one asynchronous run of a flow: the product dispatches the graph to its durable execution engine (the hanzo tasks plane) and answers immediately with the run record in status running.
+  /// Arms a flow's trigger and marks it ENABLED.
   ///
-  /// Start begins one asynchronous run of a flow: the product dispatches the graph to its durable execution engine (the hanzo tasks plane) and answers immediately with the run record in status running. Poll the run until it reaches completed — its output then holds each node's result keyed by node id — or failed, with the error. A flow whose engine is unreachable answers the product's 503: dispatch is real or it is refused, never queued into the void.
+  /// Arms a flow's trigger and marks it ENABLED. A POLLING trigger gets a cron schedule on the durable engine; a WEBHOOK trigger gets a subscription in the routing index, so an inbound event starts it; a MANUAL trigger arms nothing and still runs on demand.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
-  /// * [AutoStart] autoStart (required):
-  Future<Response> postAutoRunsWithHttpInfo(AutoStart autoStart,) async {
+  /// * [String] id (required):
+  ///   ID is the flow to act on, from the path.
+  Future<Response> postAutoFlowsByIdEnableWithHttpInfo(String id,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/auto/runs';
+    final path = r'/v1/auto/flows/{id}/enable'
+      .replaceAll('{id}', id);
 
     // ignore: prefer_final_locals
-    Object? postBody = autoStart;
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Arms a flow's trigger and marks it ENABLED.
+  ///
+  /// Arms a flow's trigger and marks it ENABLED. A POLLING trigger gets a cron schedule on the durable engine; a WEBHOOK trigger gets a subscription in the routing index, so an inbound event starts it; a MANUAL trigger arms nothing and still runs on demand.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the flow to act on, from the path.
+  Future<Flow?> postAutoFlowsByIdEnable(String id,) async {
+    final response = await postAutoFlowsByIdEnableWithHttpInfo(id,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Flow',) as Flow;
+    
+    }
+    return null;
+  }
+
+  /// Edit a flow — rename it, retarget its trigger, or add, move and delete steps
+  ///
+  /// Applies ONE flow operation and answers the thing it changed. The operation is named by `type`, with its arguments under `request`: `CHANGE_NAME`, `UPDATE_TRIGGER`, `ADD_ACTION`, `UPDATE_ACTION`, `MOVE_ACTION`, `DELETE_ACTION` edit the flow's LATEST version and answer with that version, and `CHANGE_STATUS` instead enables or disables the flow and answers with the FLOW. Two response shapes on one address is the rule a reader would otherwise get wrong, and it is why this route is not a typed op.  Edits land on the latest version only — the published version a run executes is untouched until it is republished — and the whole resulting step tree is re-validated against the step-count and size caps after every operation, so a long sequence of `ADD_ACTION` calls cannot grow a flow past a bound one step at a time (422 when it would). Org-scoped and fails closed: a validated principal is required (403 without one), the flow and its version are read under the caller's OWN org so another tenant's id is a 404, and an operation whose `request` does not decode is a 400.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  Future<Response> postAutoFlowsByIdOperationsWithHttpInfo(String id,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/auto/flows/{id}/operations'
+      .replaceAll('{id}', id);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Edit a flow — rename it, retarget its trigger, or add, move and delete steps
+  ///
+  /// Applies ONE flow operation and answers the thing it changed. The operation is named by `type`, with its arguments under `request`: `CHANGE_NAME`, `UPDATE_TRIGGER`, `ADD_ACTION`, `UPDATE_ACTION`, `MOVE_ACTION`, `DELETE_ACTION` edit the flow's LATEST version and answer with that version, and `CHANGE_STATUS` instead enables or disables the flow and answers with the FLOW. Two response shapes on one address is the rule a reader would otherwise get wrong, and it is why this route is not a typed op.  Edits land on the latest version only — the published version a run executes is untouched until it is republished — and the whole resulting step tree is re-validated against the step-count and size caps after every operation, so a long sequence of `ADD_ACTION` calls cannot grow a flow past a bound one step at a time (422 when it would). Org-scoped and fails closed: a validated principal is required (403 without one), the flow and its version are read under the caller's OWN org so another tenant's id is a 404, and an operation whose `request` does not decode is a 400.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  Future<void> postAutoFlowsByIdOperations(String id,) async {
+    final response = await postAutoFlowsByIdOperationsWithHttpInfo(id,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+  }
+
+  /// Starts one durable run of a flow now.
+  ///
+  /// Starts one durable run of a flow now. It runs the flow's published version if one is pinned, else its latest, and answers the run record it created. The run is bounded by the org's per-minute run-start budget and its in-flight concurrency ceiling; over either, or with the engine not ready, no run is started and no run id is burned.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the flow to act on, from the path.
+  Future<Response> postAutoFlowsByIdRunWithHttpInfo(String id,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/auto/flows/{id}/run'
+      .replaceAll('{id}', id);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Starts one durable run of a flow now.
+  ///
+  /// Starts one durable run of a flow now. It runs the flow's published version if one is pinned, else its latest, and answers the run record it created. The run is bounded by the org's per-minute run-start budget and its in-flight concurrency ceiling; over either, or with the engine not ready, no run is started and no run id is burned.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the flow to act on, from the path.
+  Future<FlowRun?> postAutoFlowsByIdRun(String id,) async {
+    final response = await postAutoFlowsByIdRunWithHttpInfo(id,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'FlowRun',) as FlowRun;
+    
+    }
+    return null;
+  }
+
+  /// Adds a new DRAFT version to a flow.
+  ///
+  /// Adds a new DRAFT version to a flow. The version is created invalid unless it carries a trigger, and it does not become the running version until it is published (PATCH the flow's publishedVersionId) or becomes the latest.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the flow to add a version to, from the path.
+  ///
+  /// * [CreateVersionIn] createVersionIn (required):
+  Future<Response> postAutoFlowsByIdVersionsWithHttpInfo(String id, CreateVersionIn createVersionIn,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/auto/flows/{id}/versions'
+      .replaceAll('{id}', id);
+
+    // ignore: prefer_final_locals
+    Object? postBody = createVersionIn;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
@@ -611,15 +881,18 @@ class AutoApi {
     );
   }
 
-  /// Start begins one asynchronous run of a flow: the product dispatches the graph to its durable execution engine (the hanzo tasks plane) and answers immediately with the run record in status running.
+  /// Adds a new DRAFT version to a flow.
   ///
-  /// Start begins one asynchronous run of a flow: the product dispatches the graph to its durable execution engine (the hanzo tasks plane) and answers immediately with the run record in status running. Poll the run until it reaches completed — its output then holds each node's result keyed by node id — or failed, with the error. A flow whose engine is unreachable answers the product's 503: dispatch is real or it is refused, never queued into the void.
+  /// Adds a new DRAFT version to a flow. The version is created invalid unless it carries a trigger, and it does not become the running version until it is published (PATCH the flow's publishedVersionId) or becomes the latest.
   ///
   /// Parameters:
   ///
-  /// * [AutoStart] autoStart (required):
-  Future<Object?> postAutoRuns(AutoStart autoStart,) async {
-    final response = await postAutoRunsWithHttpInfo(autoStart,);
+  /// * [String] id (required):
+  ///   ID is the flow to add a version to, from the path.
+  ///
+  /// * [CreateVersionIn] createVersionIn (required):
+  Future<FlowVersion?> postAutoFlowsByIdVersions(String id, CreateVersionIn createVersionIn,) async {
+    final response = await postAutoFlowsByIdVersionsWithHttpInfo(id, createVersionIn,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -627,9 +900,112 @@ class AutoApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Object',) as Object;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'FlowVersion',) as FlowVersion;
     
     }
     return null;
+  }
+
+  /// Fire an event that starts every enabled flow subscribed to it
+  ///
+  /// Delivers one event to the org's automation triggers and answers `{matched:n}` — how many enabled flows had a webhook trigger on this `(source, event)` key and were started by it. A zero match is a success, not an error: nothing was subscribed.  The path is the trigger key and the JSON object body is the event payload, threaded into each started run as `{{trigger.*}}` with all of its keys intact — which is why this is not a typed op, since a declared input struct would silently DISCARD every payload key it had no field for. Re-delivery is a no-op: an `X-Idempotency-Key` header dedupes, and with none the body is content-hashed instead, so a hammer of identical posts collapses to ONE run rather than minting a fresh one per post. An in-platform producer may propagate `X-Causation-Depth` so a firing that a flow caused is bounded against a loop; an absent or invalid header reads as depth 0, an external origin.  Authenticated and org-scoped, unlike a provider's public webhook URL: a validated principal is required (403 without one) and the org is that principal's, never the body's, so a producer can only fire into its own tenant's flows. Both path segments are required (400) and a payload over the size limit is a 413.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] source_ (required):
+  ///
+  /// * [String] event (required):
+  Future<Response> postAutoHooksBySourceByEventWithHttpInfo(String source_, String event,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/auto/hooks/{source}/{event}'
+      .replaceAll('{source}', source_)
+      .replaceAll('{event}', event);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Fire an event that starts every enabled flow subscribed to it
+  ///
+  /// Delivers one event to the org's automation triggers and answers `{matched:n}` — how many enabled flows had a webhook trigger on this `(source, event)` key and were started by it. A zero match is a success, not an error: nothing was subscribed.  The path is the trigger key and the JSON object body is the event payload, threaded into each started run as `{{trigger.*}}` with all of its keys intact — which is why this is not a typed op, since a declared input struct would silently DISCARD every payload key it had no field for. Re-delivery is a no-op: an `X-Idempotency-Key` header dedupes, and with none the body is content-hashed instead, so a hammer of identical posts collapses to ONE run rather than minting a fresh one per post. An in-platform producer may propagate `X-Causation-Depth` so a firing that a flow caused is bounded against a loop; an absent or invalid header reads as depth 0, an external origin.  Authenticated and org-scoped, unlike a provider's public webhook URL: a validated principal is required (403 without one) and the org is that principal's, never the body's, so a producer can only fire into its own tenant's flows. Both path segments are required (400) and a payload over the size limit is a 413.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] source_ (required):
+  ///
+  /// * [String] event (required):
+  Future<void> postAutoHooksBySourceByEvent(String source_, String event,) async {
+    final response = await postAutoHooksBySourceByEventWithHttpInfo(source_, event,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+  }
+
+  /// Release a run waiting at an approval step, with the approval payload
+  ///
+  /// Delivers the durable `resume` signal to a run parked on a `wait_for_approval` waitpoint and answers `{resumed:true}` once the engine has taken it.  The body is an ARBITRARY JSON value — object, array, string, number — delivered VERBATIM into the workflow as that waitpoint's output, so it is what the steps after the approval read as their input. An empty body resumes with no payload. That open shape is why this route is not a typed op: an operation's input can carry the payload or the run address, never both.  Org-scoped and fails closed: a validated principal is required (403 without one), the run is read under the caller's OWN org so another tenant's run id is a 404, a body that is not JSON is a 400, and a payload over the size limit is a 413 — it becomes durable engine state, so it is bounded here rather than after it lands. The resume is audited as `automations.run.resume`.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  Future<Response> postAutoRunsByIdResumeWithHttpInfo(String id,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/auto/runs/{id}/resume'
+      .replaceAll('{id}', id);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Release a run waiting at an approval step, with the approval payload
+  ///
+  /// Delivers the durable `resume` signal to a run parked on a `wait_for_approval` waitpoint and answers `{resumed:true}` once the engine has taken it.  The body is an ARBITRARY JSON value — object, array, string, number — delivered VERBATIM into the workflow as that waitpoint's output, so it is what the steps after the approval read as their input. An empty body resumes with no payload. That open shape is why this route is not a typed op: an operation's input can carry the payload or the run address, never both.  Org-scoped and fails closed: a validated principal is required (403 without one), the run is read under the caller's OWN org so another tenant's run id is a 404, a body that is not JSON is a 400, and a payload over the size limit is a 413 — it becomes durable engine state, so it is bounded here rather than after it lands. The resume is audited as `automations.run.resume`.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  Future<void> postAutoRunsByIdResume(String id,) async {
+    final response = await postAutoRunsByIdResumeWithHttpInfo(id,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
   }
 }

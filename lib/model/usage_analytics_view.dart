@@ -22,7 +22,6 @@ class UsageAnalyticsView {
     this.scope,
     this.start,
   });
-
   /// End is the window's exclusive end, RFC3339 UTC.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

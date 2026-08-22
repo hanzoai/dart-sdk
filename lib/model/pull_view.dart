@@ -25,7 +25,6 @@ class PullView {
     this.title,
     this.updatedAt,
   });
-
   /// Author is the user who opened it; empty for a caller with no user.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

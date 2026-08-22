@@ -20,7 +20,6 @@ class ChannelMetric {
     this.spendError,
     this.status,
   });
-
   /// ExternalID is the provider-side id of the execution the spend belongs to. Absent until the channel has launched.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

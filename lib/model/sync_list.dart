@@ -15,7 +15,6 @@ class SyncList {
   SyncList({
     this.data = const [],
   });
-
   /// Data is the org's syncs, each with its endpoints, policy and last-synced time.
   List<SyncView> data;
 

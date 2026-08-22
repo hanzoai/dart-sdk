@@ -19,7 +19,6 @@ class CategoryIn {
     this.order,
     this.summary,
   });
-
   /// Brands are the brands whose console shows it. Omit for every brand.
   List<String> brands;
 

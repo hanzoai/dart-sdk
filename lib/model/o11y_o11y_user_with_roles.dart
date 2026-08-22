@@ -23,7 +23,6 @@ class O11yO11yUserWithRoles {
     this.updatedAt,
     this.userRoles = const [],
   });
-
   /// CreatedAt is when they joined.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

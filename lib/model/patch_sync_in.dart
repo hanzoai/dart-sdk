@@ -21,7 +21,6 @@ class PatchSyncIn {
     this.target,
     this.trigger,
   });
-
   /// Actor is the loop-guard identity the sync writes as. Omitted, the stored actor stands.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

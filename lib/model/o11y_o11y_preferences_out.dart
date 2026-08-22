@@ -16,7 +16,6 @@ class O11yO11yPreferencesOut {
     this.data = const [],
     this.status,
   });
-
   /// Data holds the preferences.
   List<O11yO11yPreference> data;
 

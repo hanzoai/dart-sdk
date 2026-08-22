@@ -15,7 +15,6 @@ class TraceList {
   TraceList({
     this.data = const [],
   });
-
   /// Data is the caller org's traces matching the filters, bounded by limit.
   List<TraceView> data;
 

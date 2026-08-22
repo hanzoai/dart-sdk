@@ -19,7 +19,6 @@ class PlanResolution {
     this.priceRef,
     this.tenantId,
   });
-
   Object? entitlements;
 
   /// ID is the plan's catalog id.

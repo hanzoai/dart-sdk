@@ -17,7 +17,6 @@ class RiskResolveIn {
     this.now,
     this.subjects = const [],
   });
-
   /// Horizon is how many days an event must age before it may be resolved at all, and it is the whole of the no-leakage rule. 120 for the payment lane (past the Visa and Mastercard dispute windows), 14 for signup abuse. Unstated takes 120.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

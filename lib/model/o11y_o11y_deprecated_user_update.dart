@@ -16,7 +16,6 @@ class O11yO11yDeprecatedUserUpdate {
     this.displayName,
     this.role,
   });
-
   /// DisplayName is the new display name; empty leaves it unchanged.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

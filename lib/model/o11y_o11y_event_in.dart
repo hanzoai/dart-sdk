@@ -18,7 +18,6 @@ class O11yO11yEventIn {
     required this.eventType,
     this.rateLimited,
   });
-
   /// Attributes are free-form event properties.
   Map<String, Object> attributes;
 

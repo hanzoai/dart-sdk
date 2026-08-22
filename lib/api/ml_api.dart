@@ -263,23 +263,27 @@ class MlApi {
     }
   }
 
-  /// Deploy an inference model
+  /// Deploys one inference model for the caller's org, and answers 201 with the model as Kubernetes admitted it.
   ///
-  /// Deploys a model into the caller's own tenant namespace and answers the created resource, 201. The spec is the kserve InferenceService spec, relayed as given, so anything kserve serves is deployable here without this layer knowing what it is.  THE BALANCE GATE RUNS FIRST, before a namespace or a resource exists, so an unfunded org cannot start GPU compute and then be billed for it. It fails CLOSED: a commerce that cannot be reached refuses rather than admits. The refusal carries the fleet's nested error body — the 402 shape a funded-balance client already parses — which is precisely why this route is not a typed op. On success the submission fee is debited from the caller org's own ledger, asynchronously and best-effort; ongoing GPU-hour cost is metered elsewhere.  The tenant namespace is derived from the VALIDATED org and project — never from a field — and the mapping is injective in both, so two tenants can never land in one namespace. An unvalidated caller is refused before any of that. The name must be a DNS-1123 label; a name already taken in the tenant's namespace is a 409.
+  /// Deploys one inference model for the caller's org, and answers 201 with the model as Kubernetes admitted it.  The `spec` is a kserve InferenceService spec, passed through unchanged — this plane owns the tenancy, the billing and the namespace, and kserve owns what a model IS. An unfunded org is refused BEFORE anything is created, so nobody runs free GPU compute and nobody is charged for a resource that was never made.
   ///
   /// Note: This method returns the HTTP [Response].
-  Future<Response> postMlModelsWithHttpInfo() async {
+  ///
+  /// Parameters:
+  ///
+  /// * [MlCreate] mlCreate (required):
+  Future<Response> postMlModelsWithHttpInfo(MlCreate mlCreate,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/ml/models';
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = mlCreate;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -293,14 +297,26 @@ class MlApi {
     );
   }
 
-  /// Deploy an inference model
+  /// Deploys one inference model for the caller's org, and answers 201 with the model as Kubernetes admitted it.
   ///
-  /// Deploys a model into the caller's own tenant namespace and answers the created resource, 201. The spec is the kserve InferenceService spec, relayed as given, so anything kserve serves is deployable here without this layer knowing what it is.  THE BALANCE GATE RUNS FIRST, before a namespace or a resource exists, so an unfunded org cannot start GPU compute and then be billed for it. It fails CLOSED: a commerce that cannot be reached refuses rather than admits. The refusal carries the fleet's nested error body — the 402 shape a funded-balance client already parses — which is precisely why this route is not a typed op. On success the submission fee is debited from the caller org's own ledger, asynchronously and best-effort; ongoing GPU-hour cost is metered elsewhere.  The tenant namespace is derived from the VALIDATED org and project — never from a field — and the mapping is injective in both, so two tenants can never land in one namespace. An unvalidated caller is refused before any of that. The name must be a DNS-1123 label; a name already taken in the tenant's namespace is a 409.
-  Future<void> postMlModels() async {
-    final response = await postMlModelsWithHttpInfo();
+  /// Deploys one inference model for the caller's org, and answers 201 with the model as Kubernetes admitted it.  The `spec` is a kserve InferenceService spec, passed through unchanged — this plane owns the tenancy, the billing and the namespace, and kserve owns what a model IS. An unfunded org is refused BEFORE anything is created, so nobody runs free GPU compute and nobody is charged for a resource that was never made.
+  ///
+  /// Parameters:
+  ///
+  /// * [MlCreate] mlCreate (required):
+  Future<MlResource?> postMlModels(MlCreate mlCreate,) async {
+    final response = await postMlModelsWithHttpInfo(mlCreate,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'MlResource',) as MlResource;
+    
+    }
+    return null;
   }
 
   /// Run inference against one of your deployed models

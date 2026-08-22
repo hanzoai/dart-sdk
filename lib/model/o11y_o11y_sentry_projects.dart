@@ -16,7 +16,6 @@ class O11yO11ySentryProjects {
     this.items = const [],
     this.total,
   });
-
   /// Items are the projects.
   List<O11yO11ySentryProject> items;
 

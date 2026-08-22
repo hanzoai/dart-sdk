@@ -15,7 +15,6 @@ class DataroomLinks {
   DataroomLinks({
     this.links = const [],
   });
-
   /// Links is every non-archived link, newest first.
   List<DataroomLink> links;
 

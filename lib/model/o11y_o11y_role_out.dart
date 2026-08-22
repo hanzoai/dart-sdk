@@ -16,7 +16,6 @@ class O11yO11yRoleOut {
     this.data,
     this.status,
   });
-
   /// Data holds the role and its transaction groups.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -19,7 +19,6 @@ class MCPPackage {
     this.transport,
     this.version,
   });
-
   /// Identifier is the package name or download URL.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

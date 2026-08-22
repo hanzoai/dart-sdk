@@ -15,7 +15,6 @@ class AccountList {
   AccountList({
     this.accounts = const [],
   });
-
   /// Accounts are the org's accounts, newest first.
   List<WalletAccount> accounts;
 

@@ -19,7 +19,7 @@ class BlueprintCounts {
     this.strategies,
     this.templates,
   });
-
+  /// Principles is how many spine archetypes the playbook carries (64 in the shipped corpus).
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -28,6 +28,7 @@ class BlueprintCounts {
   ///
   int? principles;
 
+  /// Sections is how many phases the journey has.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -36,6 +37,7 @@ class BlueprintCounts {
   ///
   int? sections;
 
+  /// Steps is how many checklist items the playbook holds, DISABLED ONES INCLUDED — this counts the authored document, not the journey an org runs, so it is normally larger than the `total` on a progress view.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -44,6 +46,7 @@ class BlueprintCounts {
   ///
   int? steps;
 
+  /// Strategies is how many tactics the corpus holds, again counting disabled ones.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -52,6 +55,7 @@ class BlueprintCounts {
   ///
   int? strategies;
 
+  /// Templates is how many reusable prompts the playbook carries.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

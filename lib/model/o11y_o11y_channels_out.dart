@@ -16,7 +16,6 @@ class O11yO11yChannelsOut {
     this.data = const [],
     this.status,
   });
-
   /// Data holds the channels.
   List<O11yChannel> data;
 

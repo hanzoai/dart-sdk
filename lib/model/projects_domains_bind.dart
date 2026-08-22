@@ -16,7 +16,6 @@ class ProjectsDomainsBind {
     this.domains = const [],
     this.slug,
   });
-
   /// Domains are the custom hostnames to attach, in order. An empty list is a 400 rather than a clear — releasing a host is its own call.
   List<String> domains;
 

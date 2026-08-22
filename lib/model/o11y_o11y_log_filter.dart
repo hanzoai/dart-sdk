@@ -16,7 +16,6 @@ class O11yO11yLogFilter {
     this.items = const [],
     this.op,
   });
-
   /// Items are the predicates.
   List<O11yO11yLogFilterItem> items;
 

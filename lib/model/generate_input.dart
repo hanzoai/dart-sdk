@@ -26,7 +26,6 @@ class GenerateInput {
     this.tone,
     this.voice,
   });
-
   /// the brief/goal driving copy generation
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -20,7 +20,6 @@ class InsightsBody {
     this.timestamp,
     this.uuid,
   });
-
   List<InsightsEvent> batch;
 
   ///

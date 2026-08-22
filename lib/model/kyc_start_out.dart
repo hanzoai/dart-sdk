@@ -17,7 +17,6 @@ class KycStartOut {
     this.provider,
     this.sessions = const [],
   });
-
   /// Formation is the org's incorporation record, with each founder's session reference and status recorded on it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class NamespaceCreateIn {
   NamespaceCreateIn({
     this.title,
   });
-
   /// Title is the namespace's display title. Cloudflare mints the id.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class O11yO11yQueryWarningNote {
   O11yO11yQueryWarningNote({
     this.message,
   });
-
   /// Message is the note.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

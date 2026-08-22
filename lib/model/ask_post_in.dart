@@ -16,7 +16,6 @@ class AskPostIn {
     this.query,
     this.repo,
   });
-
   /// Query is the question, from the BODY. Takes precedence over `?q=`.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

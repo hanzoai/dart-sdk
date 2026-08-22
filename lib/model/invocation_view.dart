@@ -20,7 +20,6 @@ class InvocationView {
     this.statusCode,
     this.time,
   });
-
   /// how long it took
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

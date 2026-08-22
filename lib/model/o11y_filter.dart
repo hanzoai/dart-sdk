@@ -15,7 +15,6 @@ class O11yFilter {
   O11yFilter({
     this.expression,
   });
-
   /// expression to filter by following the filter syntax
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

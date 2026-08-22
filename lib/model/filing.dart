@@ -19,7 +19,6 @@ class Filing {
     this.ref,
     this.status,
   });
-
   /// At is the unix second the filing record was written.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

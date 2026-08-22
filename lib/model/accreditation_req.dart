@@ -21,7 +21,6 @@ class AccreditationReq {
     this.status,
     this.subjectId,
   });
-
   /// Basis is the qualification category: income, net_worth, professional_license, or entity.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

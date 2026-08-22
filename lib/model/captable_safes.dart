@@ -15,7 +15,6 @@ class CaptableSafes {
   CaptableSafes({
     this.data = const [],
   });
-
   /// Data is every SAFE, newest first.
   List<CaptableSafe> data;
 

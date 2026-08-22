@@ -17,7 +17,6 @@ class BlueprintRow {
     this.services,
     this.templateId,
   });
-
   /// CentsPerMonth is the estimated compute cost of running the whole stack for one month, in USD cents, from the rate card GET /v1/blueprint/health echoes.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -17,7 +17,6 @@ class JobCancel {
     this.reason,
     this.run,
   });
-
   /// ID is the job (activity) id, from the URL path.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -16,7 +16,7 @@ class RpcError {
     this.code,
     this.message,
   });
-
+  /// Code is the JSON-RPC error code the chain reported, passed through as it came. -32603 (internal error) is the one value this deployment mints itself, for an upstream that could not be reached at all.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -25,6 +25,7 @@ class RpcError {
   ///
   int? code;
 
+  /// Message is the chain's own explanation, e.g. \"execution reverted\". It is \"upstream unavailable\" when the deployment minted the error rather than the chain — that is the one message this side writes.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

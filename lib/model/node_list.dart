@@ -15,7 +15,6 @@ class NodeList {
   NodeList({
     this.nodes = const [],
   });
-
   /// Nodes is one row per worker node, in the SAME machineView shape the machines surface emits — a node IS a machine.
   List<MachineView> nodes;
 

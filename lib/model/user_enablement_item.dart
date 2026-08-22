@@ -20,7 +20,6 @@ class UserEnablementItem {
     this.optedIn,
     this.state,
   });
-
   /// beta && not yet opted in
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

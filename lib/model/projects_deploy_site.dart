@@ -17,9 +17,10 @@ class ProjectsDeploySite {
     this.name,
     this.slug,
   });
-
+  /// Files is the whole site, inline — every file it consists of. It REPLACES what is there rather than merging, so an omitted file is a deleted one.
   List<ProjectsFile> files;
 
+  /// Name is the site's display name.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -28,6 +29,7 @@ class ProjectsDeploySite {
   ///
   String? name;
 
+  /// Slug is the handle and public host label to publish under.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

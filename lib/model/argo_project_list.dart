@@ -16,9 +16,10 @@ class ArgoProjectList {
     this.items = const [],
     this.metadata,
   });
-
+  /// Items is the projects visible to the caller — its own organization's, or every organization's for a SuperAdmin. A project named \"default\" is always present and is prepended when IAM does not carry one, because that is what an application with no project label groups under.
   List<ArgoProject> items;
 
+  /// Metadata is the list envelope the SPA expects; it carries no resume point.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

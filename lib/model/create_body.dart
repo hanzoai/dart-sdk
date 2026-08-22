@@ -21,7 +21,6 @@ class CreateBody {
     this.subjectKind,
     this.variants = const [],
   });
-
   /// ExposureEvent is the event that marks a subject as enrolled — the analysis denominator — defaulting to the SDK's $feature_flag_called marker.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

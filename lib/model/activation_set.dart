@@ -15,7 +15,6 @@ class ActivationSet {
   ActivationSet({
     this.enabled = const [],
   });
-
   /// Enabled is every tool name activated for the caller's org and project.
   List<String> enabled;
 

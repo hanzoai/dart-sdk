@@ -17,7 +17,6 @@ class RouteCreateIn {
     this.script,
     this.zone,
   });
-
   /// Pattern is the URL pattern to bind, e.g. \"acme.com/api/_*\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

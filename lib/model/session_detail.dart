@@ -42,7 +42,6 @@ class SessionDetail {
     this.title,
     this.updatedAt,
   });
-
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -67,6 +66,7 @@ class SessionDetail {
   ///
   String? agent;
 
+  /// Children is the session's DIRECT children, one level down, each with its own counts. The promoted `children` integer beside it is how many there are; this is who they are. For the whole subtree, read the tree.
   List<SessionView> childSessions;
 
   ///
@@ -173,6 +173,7 @@ class SessionDetail {
   ///
   bool? published;
 
+  /// RecentEvents is the 50 most recent turns, OLDEST of those first — a transcript to read down, not a feed. The promoted `events` integer says how many the log holds in total; page the rest from a seq.
   List<EventView> recentEvents;
 
   ///

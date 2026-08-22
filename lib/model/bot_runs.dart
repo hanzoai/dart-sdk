@@ -15,7 +15,6 @@ class BotRuns {
   BotRuns({
     this.bots = const [],
   });
-
   /// Bots is the org's live runs. Always an array, never null.
   List<BotRun> bots;
 

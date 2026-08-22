@@ -19,7 +19,6 @@ class StageEvent {
     this.note,
     this.to,
   });
-
   /// At is the unix second of the move.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

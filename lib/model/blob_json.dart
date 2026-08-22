@@ -20,7 +20,6 @@ class BlobJSON {
     this.size,
     this.truncated,
   });
-
   /// Binary marks content git could not treat as text; it comes back base64.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

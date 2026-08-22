@@ -17,7 +17,6 @@ class StatusCounts {
     this.signup,
     this.total,
   });
-
   /// Qualified is how many referees have made metered spend.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

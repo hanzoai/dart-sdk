@@ -15,7 +15,6 @@ class SubjectList {
   SubjectList({
     this.data = const [],
   });
-
   /// Data is the org's subjects, newest first, without contact PII.
   List<SubjectSummary> data;
 

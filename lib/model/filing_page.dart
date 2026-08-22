@@ -16,7 +16,6 @@ class FilingPage {
     this.data = const [],
     this.disclaimer,
   });
-
   /// Data are the filing records.
   List<LegalFiling> data;
 

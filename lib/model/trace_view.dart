@@ -29,7 +29,6 @@ class TraceView {
     this.startTime,
     this.timestamp,
   });
-
   /// APIKeyHash is the non-reversible credential ref (never a plaintext key), so a trace correlates to the key that drove it without the store holding a secret.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

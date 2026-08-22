@@ -24,7 +24,6 @@ class Pairing {
     this.rescueAOverB,
     this.rescueBOverA,
   });
-
   /// A is the first model id.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

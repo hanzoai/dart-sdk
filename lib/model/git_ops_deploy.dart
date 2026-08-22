@@ -19,7 +19,7 @@ class GitOpsDeploy {
     this.revision,
     this.startedAt,
   });
-
+  /// Automated is whether CD started this deploy itself, from its own polling of the tracked git ref (initiatedBy.automated), rather than someone asking for it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -28,6 +28,7 @@ class GitOpsDeploy {
   ///
   bool? automated;
 
+  /// DeployedAt is when the apply finished, RFC 3339. Absent when CD recorded none.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -36,6 +37,7 @@ class GitOpsDeploy {
   ///
   String? deployedAt;
 
+  /// ID is CD's own sequence number for this deploy (status.history[].id). It increases with every applied revision, so the largest id in `history` is the most recent deploy — which is the first entry, since the list is reversed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -44,6 +46,7 @@ class GitOpsDeploy {
   ///
   int? id;
 
+  /// Revision is the git commit this deploy applied, as CD recorded it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -52,6 +55,7 @@ class GitOpsDeploy {
   ///
   String? revision;
 
+  /// StartedAt is when CD began applying the revision (deployStartedAt), RFC 3339. Absent when CD recorded none.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

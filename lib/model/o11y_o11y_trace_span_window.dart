@@ -19,7 +19,6 @@ class O11yO11yTraceSpanWindow {
     this.isSubTree,
     this.startTimestampMillis,
   });
-
   /// Columns names the fields each row carries, in row order.
   List<String> columns;
 

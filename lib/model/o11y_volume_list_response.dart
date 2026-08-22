@@ -17,7 +17,6 @@ class O11yVolumeListResponse {
     this.total,
     this.type,
   });
-
   List<O11yVolumeListRecord> records;
 
   ///

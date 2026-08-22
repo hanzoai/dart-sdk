@@ -21,7 +21,7 @@ class TemplateView {
     this.title,
     this.version,
   });
-
+  /// Category is the corporate need the template serves: formation, equity, ops or sales. Formation and equity are the securities-class categories, which is what forces counselReview.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -30,6 +30,7 @@ class TemplateView {
   ///
   String? category;
 
+  /// CounselReview marks a template whose rendered documents open with the counsel notice. True for every formation and equity template whatever an override sends: the engine prepends the notice and no caller can suppress it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -38,8 +39,10 @@ class TemplateView {
   ///
   bool? counselReview;
 
+  /// Fields declares the merge fields the body consumes — every key a generation must supply, each with its human label. All are REQUIRED: a missing one is refused rather than rendered as a blank into a contract.
   List<Field> fields;
 
+  /// ID is the template's stable id and the path segment that fetches its body — \"nda\", \"msa\", \"safe\". An override keeps the built-in's id.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -48,6 +51,7 @@ class TemplateView {
   ///
   String? id;
 
+  /// Origin is \"builtin\" for a template the platform ships or \"org\" for one this org saved. It separates the catalog every tenant sees from this tenant's own.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -56,6 +60,7 @@ class TemplateView {
   ///
   String? origin;
 
+  /// Title is the display name, e.g. \"Mutual Non-Disclosure Agreement\". A generated document inherits it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -64,6 +69,7 @@ class TemplateView {
   ///
   String? title;
 
+  /// Version is which version of this template the caller's org resolves to. A built-in is version 1; the org's first override is 2 and each save increments, so an override version never collides with the built-in's.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

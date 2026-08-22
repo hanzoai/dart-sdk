@@ -16,7 +16,6 @@ class O11yO11yTable {
     this.columns = const [],
     this.rows = const [],
   });
-
   /// Columns names each position in a row.
   List<String> columns;
 

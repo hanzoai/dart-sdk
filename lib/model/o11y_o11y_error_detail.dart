@@ -21,7 +21,6 @@ class O11yO11yErrorDetail {
     this.type,
     this.url,
   });
-
   /// Code is the machine-readable code.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

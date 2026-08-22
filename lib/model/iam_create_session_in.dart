@@ -19,7 +19,6 @@ class IamCreateSessionIn {
     required this.owner,
     this.sessionId = const [],
   });
-
   String application;
 
   ///

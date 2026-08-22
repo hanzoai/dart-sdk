@@ -16,9 +16,10 @@ class ArgoClusterList {
     this.items = const [],
     this.metadata,
   });
-
+  /// Items is one entry per distinct destination server, in first-seen order with the in-cluster destination first. Never empty: an empty fleet still has the one cluster it would deploy into.
   List<ArgoCluster> items;
 
+  /// Metadata is the list envelope the SPA expects; it carries no resume point.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

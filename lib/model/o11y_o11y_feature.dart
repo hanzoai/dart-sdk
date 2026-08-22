@@ -21,7 +21,6 @@ class O11yO11yFeature {
     this.stage,
     this.variants = const {},
   });
-
   /// DefaultVariant is the variant used when nothing overrides it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

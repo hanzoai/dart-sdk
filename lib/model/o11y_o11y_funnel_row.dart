@@ -16,7 +16,6 @@ class O11yO11yFunnelRow {
     this.data = const {},
     this.timestamp,
   });
-
   /// Data are the row's columns, keyed by column name.
   Map<String, Object> data;
 

@@ -19,7 +19,6 @@ class O11yO11yGlobalConfig {
     this.ingestionUrl,
     this.mcpUrl,
   });
-
   /// AIAssistantURL is the AI assistant endpoint, when one is exposed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

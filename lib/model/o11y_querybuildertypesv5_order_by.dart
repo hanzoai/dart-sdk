@@ -16,7 +16,6 @@ class O11yQuerybuildertypesv5OrderBy {
     this.direction,
     this.key,
   });
-
   Object? direction;
 
   /// key to order by

@@ -20,7 +20,6 @@ class ChannelSpec {
     this.platform,
     this.status,
   });
-
   /// Account is the provider account this channel runs under: an ad-account, a page or a mailing-list id. An executor may replace it at launch with the account it actually used.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -18,7 +18,6 @@ class O11yUsageBucket {
     this.t,
     this.tokens,
   });
-
   /// Calls is how many LLM calls landed in the bucket.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

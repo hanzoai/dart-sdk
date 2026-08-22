@@ -25,7 +25,6 @@ class CaptableNote {
     this.status,
     this.type,
   });
-
   /// Capital is the principal the investor lent.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

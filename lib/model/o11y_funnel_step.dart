@@ -24,7 +24,6 @@ class O11yFunnelStep {
     this.spanName,
     this.stepOrder,
   });
-
   /// step description
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

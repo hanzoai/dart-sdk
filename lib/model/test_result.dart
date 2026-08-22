@@ -18,7 +18,7 @@ class TestResult {
     this.error,
     this.httpStatus,
   });
-
+  /// Delivered is whether the subscriber accepted the test POST. It is the whole answer: the send is synchronous and is not retried.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -27,6 +27,7 @@ class TestResult {
   ///
   bool? delivered;
 
+  /// DurationMs is how long the single attempt took, in MILLISECONDS.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -35,6 +36,7 @@ class TestResult {
   ///
   int? durationMs;
 
+  /// Error says what stopped it. Empty when delivered.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -43,6 +45,7 @@ class TestResult {
   ///
   String? error;
 
+  /// HTTPStatus is what the subscriber answered, or 0 if it never answered.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

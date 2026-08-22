@@ -16,7 +16,6 @@ class O11yO11yServicesMetadataOut {
     this.data,
     this.status,
   });
-
   /// Data holds the services metadata.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

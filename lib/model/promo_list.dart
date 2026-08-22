@@ -15,7 +15,7 @@ class PromoList {
   PromoList({
     this.data = const [],
   });
-
+  /// Data is every promo in the deployment, oldest first, each with its live counters. The list is fleet-wide rather than per-org. It is normally EMPTY: nothing seeds a promo, and the migration purges the one that once shipped by accident.
   List<PromoStatus> data;
 
   @override

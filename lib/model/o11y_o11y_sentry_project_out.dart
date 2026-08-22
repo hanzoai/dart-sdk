@@ -16,7 +16,6 @@ class O11yO11ySentryProjectOut {
     this.data,
     this.status,
   });
-
   /// Data is the project.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

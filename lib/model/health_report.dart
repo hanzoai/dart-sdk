@@ -22,7 +22,6 @@ class HealthReport {
     this.status,
     this.warehouse,
   });
-
   /// Datastore reports whether the shared warehouse client has a live connection. It is load-bearing for the READ path: false is one of the two ways this answers 503.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class O11ySpanMapperConfig {
   O11ySpanMapperConfig({
     this.sources = const [],
   });
-
   List<O11ySpanMapperSource> sources;
 
   @override

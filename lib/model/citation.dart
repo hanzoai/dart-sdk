@@ -19,7 +19,7 @@ class Citation {
     this.repo,
     this.symbol,
   });
-
+  /// EndLine is its last line, inclusive.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -28,6 +28,7 @@ class Citation {
   ///
   int? endLine;
 
+  /// File is the path inside the repo, relative to its root.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -36,6 +37,7 @@ class Citation {
   ///
   String? file;
 
+  /// Line is the first line of the cited region, 1-based.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -44,6 +46,7 @@ class Citation {
   ///
   int? line;
 
+  /// Repo is the repository the cited code lives in (\"owner/name\"), absent when the ask was already scoped to one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -52,6 +55,7 @@ class Citation {
   ///
   String? repo;
 
+  /// Symbol is the declaration the region belongs to, when it belongs to one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

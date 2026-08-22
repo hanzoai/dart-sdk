@@ -15,7 +15,6 @@ class BuildList {
   BuildList({
     this.builds = const [],
   });
-
   /// Builds is every published build, most recently updated first.
   List<BuildSummary> builds;
 

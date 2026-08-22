@@ -25,7 +25,6 @@ class CompanyReq {
     this.name,
     this.xLink,
   });
-
   /// ARR is annual recurring revenue in minor units (cents) of Currency.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

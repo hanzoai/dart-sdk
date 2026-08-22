@@ -18,7 +18,6 @@ class O11yO11yMetricInspectIn {
     required this.metricName,
     required this.start,
   });
-
   /// End is the end of the window as a Unix timestamp in milliseconds, at most thirty minutes after start. Required.
   int end;
 

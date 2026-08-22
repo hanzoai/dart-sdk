@@ -13,17 +13,36 @@ part of hanzoai.cloud;
 class IamInput {
   /// Returns a new [IamInput] instance.
   IamInput({
+    this.action,
+    this.clientIp,
     this.createdTime,
-    this.description,
-    this.displayName,
-    this.isDefault,
-    this.metadata,
+    this.isTriggered,
+    this.language,
+    this.method,
     this.name,
+    this.object,
     this.organization,
     this.owner,
-    this.tags = const [],
-    this.workspace,
+    this.requestUri,
+    this.response,
+    this.statusCode,
+    this.user,
   });
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? action;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? clientIp;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -39,7 +58,7 @@ class IamInput {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? description;
+  bool? isTriggered;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -47,7 +66,7 @@ class IamInput {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? displayName;
+  String? language;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -55,15 +74,7 @@ class IamInput {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  bool? isDefault;
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? metadata;
+  String? method;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -72,6 +83,14 @@ class IamInput {
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
   String? name;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? object;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -89,7 +108,13 @@ class IamInput {
   ///
   String? owner;
 
-  List<String> tags;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? requestUri;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -97,69 +122,103 @@ class IamInput {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? workspace;
+  String? response;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  int? statusCode;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? user;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is IamInput &&
+    other.action == action &&
+    other.clientIp == clientIp &&
     other.createdTime == createdTime &&
-    other.description == description &&
-    other.displayName == displayName &&
-    other.isDefault == isDefault &&
-    other.metadata == metadata &&
+    other.isTriggered == isTriggered &&
+    other.language == language &&
+    other.method == method &&
     other.name == name &&
+    other.object == object &&
     other.organization == organization &&
     other.owner == owner &&
-    _deepEquality.equals(other.tags, tags) &&
-    other.workspace == workspace;
+    other.requestUri == requestUri &&
+    other.response == response &&
+    other.statusCode == statusCode &&
+    other.user == user;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
+    (action == null ? 0 : action!.hashCode) +
+    (clientIp == null ? 0 : clientIp!.hashCode) +
     (createdTime == null ? 0 : createdTime!.hashCode) +
-    (description == null ? 0 : description!.hashCode) +
-    (displayName == null ? 0 : displayName!.hashCode) +
-    (isDefault == null ? 0 : isDefault!.hashCode) +
-    (metadata == null ? 0 : metadata!.hashCode) +
+    (isTriggered == null ? 0 : isTriggered!.hashCode) +
+    (language == null ? 0 : language!.hashCode) +
+    (method == null ? 0 : method!.hashCode) +
     (name == null ? 0 : name!.hashCode) +
+    (object == null ? 0 : object!.hashCode) +
     (organization == null ? 0 : organization!.hashCode) +
     (owner == null ? 0 : owner!.hashCode) +
-    (tags.hashCode) +
-    (workspace == null ? 0 : workspace!.hashCode);
+    (requestUri == null ? 0 : requestUri!.hashCode) +
+    (response == null ? 0 : response!.hashCode) +
+    (statusCode == null ? 0 : statusCode!.hashCode) +
+    (user == null ? 0 : user!.hashCode);
 
   @override
-  String toString() => 'IamInput[createdTime=$createdTime, description=$description, displayName=$displayName, isDefault=$isDefault, metadata=$metadata, name=$name, organization=$organization, owner=$owner, tags=$tags, workspace=$workspace]';
+  String toString() => 'IamInput[action=$action, clientIp=$clientIp, createdTime=$createdTime, isTriggered=$isTriggered, language=$language, method=$method, name=$name, object=$object, organization=$organization, owner=$owner, requestUri=$requestUri, response=$response, statusCode=$statusCode, user=$user]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
+    if (this.action != null) {
+      json[r'action'] = this.action;
+    } else {
+      json[r'action'] = null;
+    }
+    if (this.clientIp != null) {
+      json[r'clientIp'] = this.clientIp;
+    } else {
+      json[r'clientIp'] = null;
+    }
     if (this.createdTime != null) {
       json[r'createdTime'] = this.createdTime;
     } else {
       json[r'createdTime'] = null;
     }
-    if (this.description != null) {
-      json[r'description'] = this.description;
+    if (this.isTriggered != null) {
+      json[r'isTriggered'] = this.isTriggered;
     } else {
-      json[r'description'] = null;
+      json[r'isTriggered'] = null;
     }
-    if (this.displayName != null) {
-      json[r'displayName'] = this.displayName;
+    if (this.language != null) {
+      json[r'language'] = this.language;
     } else {
-      json[r'displayName'] = null;
+      json[r'language'] = null;
     }
-    if (this.isDefault != null) {
-      json[r'isDefault'] = this.isDefault;
+    if (this.method != null) {
+      json[r'method'] = this.method;
     } else {
-      json[r'isDefault'] = null;
-    }
-    if (this.metadata != null) {
-      json[r'metadata'] = this.metadata;
-    } else {
-      json[r'metadata'] = null;
+      json[r'method'] = null;
     }
     if (this.name != null) {
       json[r'name'] = this.name;
     } else {
       json[r'name'] = null;
+    }
+    if (this.object != null) {
+      json[r'object'] = this.object;
+    } else {
+      json[r'object'] = null;
     }
     if (this.organization != null) {
       json[r'organization'] = this.organization;
@@ -171,11 +230,25 @@ class IamInput {
     } else {
       json[r'owner'] = null;
     }
-      json[r'tags'] = this.tags;
-    if (this.workspace != null) {
-      json[r'workspace'] = this.workspace;
+    if (this.requestUri != null) {
+      json[r'requestUri'] = this.requestUri;
     } else {
-      json[r'workspace'] = null;
+      json[r'requestUri'] = null;
+    }
+    if (this.response != null) {
+      json[r'response'] = this.response;
+    } else {
+      json[r'response'] = null;
+    }
+    if (this.statusCode != null) {
+      json[r'statusCode'] = this.statusCode;
+    } else {
+      json[r'statusCode'] = null;
+    }
+    if (this.user != null) {
+      json[r'user'] = this.user;
+    } else {
+      json[r'user'] = null;
     }
     return json;
   }
@@ -199,18 +272,20 @@ class IamInput {
       }());
 
       return IamInput(
+        action: mapValueOfType<String>(json, r'action'),
+        clientIp: mapValueOfType<String>(json, r'clientIp'),
         createdTime: mapValueOfType<String>(json, r'createdTime'),
-        description: mapValueOfType<String>(json, r'description'),
-        displayName: mapValueOfType<String>(json, r'displayName'),
-        isDefault: mapValueOfType<bool>(json, r'isDefault'),
-        metadata: mapValueOfType<String>(json, r'metadata'),
+        isTriggered: mapValueOfType<bool>(json, r'isTriggered'),
+        language: mapValueOfType<String>(json, r'language'),
+        method: mapValueOfType<String>(json, r'method'),
         name: mapValueOfType<String>(json, r'name'),
+        object: mapValueOfType<String>(json, r'object'),
         organization: mapValueOfType<String>(json, r'organization'),
         owner: mapValueOfType<String>(json, r'owner'),
-        tags: json[r'tags'] is Iterable
-            ? (json[r'tags'] as Iterable).cast<String>().toList(growable: false)
-            : const [],
-        workspace: mapValueOfType<String>(json, r'workspace'),
+        requestUri: mapValueOfType<String>(json, r'requestUri'),
+        response: mapValueOfType<String>(json, r'response'),
+        statusCode: mapValueOfType<int>(json, r'statusCode'),
+        user: mapValueOfType<String>(json, r'user'),
       );
     }
     return null;

@@ -20,7 +20,6 @@ class CaptableHolding {
     this.shares,
     this.stakeholderId,
   });
-
   /// FullyDiluted is shares plus options.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

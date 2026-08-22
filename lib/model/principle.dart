@@ -22,7 +22,6 @@ class Principle {
     this.slug,
     this.sunTzu,
   });
-
   /// the Book of Changes reading
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

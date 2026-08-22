@@ -21,7 +21,6 @@ class Waiting {
     this.org,
     this.since,
   });
-
   /// Email is the founder's email — the key a decision is posted against.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

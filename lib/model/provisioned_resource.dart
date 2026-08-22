@@ -22,7 +22,6 @@ class ProvisionedResource {
     this.status,
     this.username,
   });
-
   /// Database is the logical database, collection, index or bucket this resource resolves to on its backend.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

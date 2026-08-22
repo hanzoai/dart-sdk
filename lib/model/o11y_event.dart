@@ -18,7 +18,6 @@ class O11yEvent {
     this.name,
     this.timeUnixNano,
   });
-
   Map<String, Object> attributeMap;
 
   ///

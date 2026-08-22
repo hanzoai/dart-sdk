@@ -20,7 +20,6 @@ class O11yO11yDashboardPostable {
     this.spec,
     this.tags = const [],
   });
-
   /// GenerateName derives a fresh unique name from spec.display.name instead of taking Name.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

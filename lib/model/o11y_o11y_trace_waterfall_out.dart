@@ -16,7 +16,6 @@ class O11yO11yTraceWaterfallOut {
     this.data,
     this.status,
   });
-
   /// Data holds the waterfall.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

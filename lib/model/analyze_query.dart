@@ -19,7 +19,6 @@ class AnalyzeQuery {
     this.id,
     this.start,
   });
-
   /// Alpha overrides the 0.05 two-tailed significance threshold when it lies strictly between 0 and 1; anything else leaves the default in place.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

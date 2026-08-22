@@ -19,7 +19,6 @@ class O11yPostablePlannedMaintenance {
     this.schedule,
     this.scope,
   });
-
   List<String> alertIds;
 
   ///

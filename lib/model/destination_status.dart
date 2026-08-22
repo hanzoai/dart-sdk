@@ -21,10 +21,10 @@ class DestinationStatus {
     this.fields = const [],
     this.live,
     this.name,
+    this.pixel,
     this.platform,
     this.secrets = const [],
   });
-
   /// Account is the operator's own label for the connected account, as supplied on connect. Absent when unset.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -67,7 +67,7 @@ class DestinationStatus {
   /// Fields are the non-secret inputs this platform needs, which the console card renders and the connect body fills.
   List<DestinationField> fields;
 
-  /// Live is whether a credential resolves RIGHT NOW: a KMS-sealed secret for this org, else the integrations connection named by the platform's Fallback, else no credential needed at all (a public-ingest sink like Umami). False on a connected destination whose secret has gone missing — Connected && !Live is exactly the \"reconnect me\" state.
+  /// Live is whether a credential resolves RIGHT NOW: a KMS-sealed secret for this org, else the integrations connection named by the platform's Fallback, else no credential needed at all (a public-ingest sink like Analytics). False on a connected destination whose secret has gone missing — Connected && !Live is exactly the \"reconnect me\" state.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -84,6 +84,15 @@ class DestinationStatus {
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
   String? name;
+
+  /// Pixel is whether the hosted tag can inject a browser pixel for this platform, so a console offers a per-SITE pixel input for exactly these. False means the platform receives conversions server-side only, and an input would promise an injection that never happens. Derived from the tag's own map (event.BrowserTags), never restated — a second list is how a console offers a pixel nothing fires.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  bool? pixel;
 
   /// the platform slug, and the path segment every route addresses it by
   ///
@@ -107,6 +116,7 @@ class DestinationStatus {
     _deepEquality.equals(other.fields, fields) &&
     other.live == live &&
     other.name == name &&
+    other.pixel == pixel &&
     other.platform == platform &&
     _deepEquality.equals(other.secrets, secrets);
 
@@ -121,11 +131,12 @@ class DestinationStatus {
     (fields.hashCode) +
     (live == null ? 0 : live!.hashCode) +
     (name == null ? 0 : name!.hashCode) +
+    (pixel == null ? 0 : pixel!.hashCode) +
     (platform == null ? 0 : platform!.hashCode) +
     (secrets.hashCode);
 
   @override
-  String toString() => 'DestinationStatus[account=$account, category=$category, config=$config, connected=$connected, enabled=$enabled, fields=$fields, live=$live, name=$name, platform=$platform, secrets=$secrets]';
+  String toString() => 'DestinationStatus[account=$account, category=$category, config=$config, connected=$connected, enabled=$enabled, fields=$fields, live=$live, name=$name, pixel=$pixel, platform=$platform, secrets=$secrets]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -160,6 +171,11 @@ class DestinationStatus {
       json[r'name'] = this.name;
     } else {
       json[r'name'] = null;
+    }
+    if (this.pixel != null) {
+      json[r'pixel'] = this.pixel;
+    } else {
+      json[r'pixel'] = null;
     }
     if (this.platform != null) {
       json[r'platform'] = this.platform;
@@ -197,6 +213,7 @@ class DestinationStatus {
         fields: DestinationField.listFromJson(json[r'fields']),
         live: mapValueOfType<bool>(json, r'live'),
         name: mapValueOfType<String>(json, r'name'),
+        pixel: mapValueOfType<bool>(json, r'pixel'),
         platform: mapValueOfType<String>(json, r'platform'),
         secrets: json[r'secrets'] is Iterable
             ? (json[r'secrets'] as Iterable).cast<String>().toList(growable: false)

@@ -16,7 +16,6 @@ class BoardPage {
     this.count,
     this.data = const [],
   });
-
   /// Count is the number of rows in THIS page — never the org's total.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

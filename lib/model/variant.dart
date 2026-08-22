@@ -19,7 +19,6 @@ class Variant {
     this.label,
     this.source_,
   });
-
   /// only when it differs from the template's
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

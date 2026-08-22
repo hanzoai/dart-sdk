@@ -30,7 +30,7 @@ class StepView {
     this.title,
     this.tool,
   });
-
+  /// Args are the tool's default arguments, merged under whatever the caller passes at run time.
   Map<String, Object> args;
 
   /// Automatable is true when the Business AI can run this step (it names a tool).
@@ -66,6 +66,7 @@ class StepView {
   ///
   String? detail;
 
+  /// Draft, when set, is the prompt the embedded AI answers first; its output is folded into one of Args before the tool runs.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -74,6 +75,7 @@ class StepView {
   ///
   String? draft;
 
+  /// DraftInto names the argument the drafted text lands in. Empty means \"brief\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -136,6 +138,7 @@ class StepView {
   ///
   String? state;
 
+  /// Title is the one-line quest as a person reads it in the checklist.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -144,7 +147,7 @@ class StepView {
   ///
   String? title;
 
-  /// Tool is the MCP tool the Business AI runs for \"do it for me\"; Args are its default arguments, Draft an optional AI prompt whose output fills the DraftInto arg (default \"brief\").
+  /// Tool is the MCP tool the Business AI runs for \"do it for me\". A step naming none can only be completed by a person.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

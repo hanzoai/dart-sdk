@@ -16,7 +16,6 @@ class O11yO11yAPIKeyCreateIn {
     this.expiresAt,
     this.name,
   });
-
   /// ExpiresAt is when the key stops working, as a unix timestamp in seconds. Zero means it never expires; a past timestamp is refused.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

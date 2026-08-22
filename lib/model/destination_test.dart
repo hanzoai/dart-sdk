@@ -18,7 +18,6 @@ class DestinationTest {
     this.ok,
     this.sent,
   });
-
   /// Error is the platform's rejection, present only on a failed send.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

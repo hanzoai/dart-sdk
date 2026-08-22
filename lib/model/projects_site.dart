@@ -19,7 +19,7 @@ class ProjectsSite {
     this.updatedAt,
     this.url,
   });
-
+  /// Name is the site's display name.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -28,6 +28,7 @@ class ProjectsSite {
   ///
   String? name;
 
+  /// Slug is the site's handle — also the label of the host it serves at.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -36,6 +37,7 @@ class ProjectsSite {
   ///
   String? slug;
 
+  /// Status is the project's state behind the site — whether it is serving, still building, or failed its last build. A site that is listed is not necessarily one that answers.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -44,6 +46,7 @@ class ProjectsSite {
   ///
   String? status;
 
+  /// UpdatedAt is when the project last changed, as Unix seconds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -52,6 +55,7 @@ class ProjectsSite {
   ///
   int? updatedAt;
 
+  /// URL is the pretty address readers use, not the object-store path behind it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

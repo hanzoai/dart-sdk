@@ -18,9 +18,10 @@ class ArgoProjectSpec {
     this.destinations = const [],
     this.sourceRepos = const [],
   });
-
+  /// ClusterResourceWhitelist are the cluster-scoped kinds it may create — [{group:\"*\", kind:\"*\"}] on a synthesized project.
   List<ArgoGroupKind> clusterResourceWhitelist;
 
+  /// Description is the project's human label: the IAM project's display name, or its description when it has no display name. Absent when IAM carries neither.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -29,8 +30,10 @@ class ArgoProjectSpec {
   ///
   String? description;
 
+  /// Destinations are the cluster/namespace pairs it may write to — a single {server:\"*\", namespace:\"*\"} on a synthesized project, for the same reason.
   List<ArgoDestination> destinations;
 
+  /// SourceRepos are the git repos applications in this project may pull from. [\"*\"] for every project this plane synthesizes or reflects from IAM: the boundary that actually holds on this platform is the IAM org, resolved before a row is ever projected, so the projected fence is deliberately permissive and is NOT an authorization statement.
   List<String> sourceRepos;
 
   @override

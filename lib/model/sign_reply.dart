@@ -17,7 +17,6 @@ class SignReply {
     this.esignRef,
     this.provider,
   });
-
   /// Document is the document, now out for signature. Its rendered body is not repeated here.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

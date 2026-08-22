@@ -20,7 +20,6 @@ class VerifyOut {
     this.reason,
     this.scopes = const [],
   });
-
   /// Account is the account label the provider reported. Present only when active.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

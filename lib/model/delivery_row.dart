@@ -23,7 +23,7 @@ class DeliveryRow {
     this.status,
     this.subject,
   });
-
+  /// Attempt is which try this row is, starting at 1. The ladder waits 1s, then 5s, then 25s before the next one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -32,6 +32,7 @@ class DeliveryRow {
   ///
   int? attempt;
 
+  /// Created is when the attempt was made, RFC3339 in UTC.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -40,6 +41,7 @@ class DeliveryRow {
   ///
   String? created;
 
+  /// DeliveryID groups the attempts for ONE event to ONE endpoint. Rows sharing it are the same delivery being retried, not separate events.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -48,6 +50,7 @@ class DeliveryRow {
   ///
   String? delivery;
 
+  /// DurationMs is how long this attempt took end to end, in MILLISECONDS.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -56,6 +59,7 @@ class DeliveryRow {
   ///
   int? durationMs;
 
+  /// EndpointID is which subscriber this attempt was for.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -64,6 +68,7 @@ class DeliveryRow {
   ///
   String? endpoint;
 
+  /// Error says what went wrong on a non-ok attempt. Empty on success.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -72,6 +77,7 @@ class DeliveryRow {
   ///
   String? error;
 
+  /// HTTPStatus is what the subscriber answered. ZERO means it never answered — a refused connection, a DNS failure or a timeout — which is why a zero here is not a 200.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -80,6 +86,7 @@ class DeliveryRow {
   ///
   int? httpStatus;
 
+  /// Status is \"ok\" when the subscriber accepted it, \"retrying\" while a further attempt will follow, and \"failed\" when none will. Exactly one row of a delivery is terminal.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -88,6 +95,7 @@ class DeliveryRow {
   ///
   String? status;
 
+  /// Subject is the event that was delivered (\"commerce.order.created\"). A manual test send carries \"webhook.test\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

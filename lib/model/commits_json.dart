@@ -15,7 +15,6 @@ class CommitsJSON {
   CommitsJSON({
     this.commits = const [],
   });
-
   /// Commits are newest first.
   List<CommitJSON> commits;
 

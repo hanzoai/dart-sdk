@@ -16,7 +16,6 @@ class PricingHealth {
     this.service,
     this.status,
   });
-
   /// Service names the subsystem that answered.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

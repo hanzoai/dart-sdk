@@ -17,7 +17,6 @@ class O11yO11yUsageItem {
     this.time,
     this.timestamp,
   });
-
   /// Count is how many spans were ingested in the bucket.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

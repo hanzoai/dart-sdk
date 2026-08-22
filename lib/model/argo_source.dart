@@ -17,7 +17,7 @@ class ArgoSource {
     this.repoURL,
     this.targetRevision,
   });
-
+  /// Path is the directory within RepoURL. Display-only alongside a display-only RepoURL; CD's own value for a CD row.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -26,6 +26,7 @@ class ArgoSource {
   ///
   String? path;
 
+  /// RepoURL is the git repository the desired state comes from. For an application projected from an App CR it is the fleet manifest repo and is DISPLAY ONLY — an App CR pins an image, and nothing is rendered from this repo to produce it. For a CD row it is the repo CD actually polls.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -34,6 +35,7 @@ class ArgoSource {
   ///
   String? repoURL;
 
+  /// TargetRevision is the git ref tracked there — a branch such as \"main\". Display-only for a projected App CR; the ref CD tracks for a CD row.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

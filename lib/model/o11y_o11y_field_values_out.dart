@@ -16,7 +16,6 @@ class O11yO11yFieldValuesOut {
     this.data,
     this.status,
   });
-
   /// Data holds the values by data type, and whether the value list is complete.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

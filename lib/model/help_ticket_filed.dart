@@ -16,7 +16,6 @@ class HelpTicketFiled {
     this.status,
     this.ticket,
   });
-
   /// Status is the lifecycle state the ticket was filed in — always \"Open\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

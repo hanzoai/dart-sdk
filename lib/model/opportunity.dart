@@ -24,7 +24,6 @@ class Opportunity {
     this.stage,
     this.updatedAt,
   });
-
   /// Amount is the deal value in minor units (cents) of Currency.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class O11yO11yLogRecordsOut {
   O11yO11yLogRecordsOut({
     this.results = const [],
   });
-
   /// Results are the records, newest first.
   List<Map<String, Object>> results;
 

@@ -20,7 +20,6 @@ class EvaluatorView {
     this.scoreName,
     this.updatedAt,
   });
-
   /// CreatedAt is when the judge was first defined.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -21,7 +21,6 @@ class CampaignInput {
     this.spend,
     this.status,
   });
-
   /// Account is the provider ad-account this campaign runs on (Meta act_<id>). Optional.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

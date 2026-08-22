@@ -21,7 +21,6 @@ class NodeView {
     this.platform,
     this.version,
   });
-
   /// Caps is the capability list the node reported. It is a self-report, useful to SHOW and never load-bearing: what a node may actually be asked to do is decided at the socket by the deployment's allowlist.
   List<String> caps;
 
@@ -46,7 +45,7 @@ class NodeView {
   ///
   String? displayName;
 
-  /// ID is the node's own identifier within the org — the value POST /v1/bot/nodes/{id}/invoke addresses it by.
+  /// ID is the node's own identifier within the org — the value POST /v1/node/{id}/invoke addresses it by.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

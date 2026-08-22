@@ -18,7 +18,6 @@ class CampaignSummary {
     this.channels = const [],
     this.live,
   });
-
   /// Budget is the sum of every campaign's budget, in CENTS.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

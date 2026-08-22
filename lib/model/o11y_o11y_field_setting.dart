@@ -20,7 +20,6 @@ class O11yO11yFieldSetting {
     this.selected,
     required this.type,
   });
-
   /// DataType is the field's data type, e.g. string, int64, float64, bool. Required.
   String dataType;
 

@@ -24,7 +24,7 @@ class BuildSummary {
     this.title,
     this.turns,
   });
-
+  /// Agent is the label the surface that did the work calls itself by.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -33,6 +33,7 @@ class BuildSummary {
   ///
   String? agent;
 
+  /// EndedAt is when it finished, same format. Empty means it is still going.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -41,6 +42,7 @@ class BuildSummary {
   ///
   String? endedAt;
 
+  /// Org and Project are the build's public ADDRESS — the pair the full story is read at, and the pair a visitor sees in the URL bar. Not a tenant key: this index is anonymous and lists only what authors published.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -49,6 +51,7 @@ class BuildSummary {
   ///
   String? org;
 
+  /// Project is the product's slug, the second half of that address.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -57,6 +60,7 @@ class BuildSummary {
   ///
   String? project;
 
+  /// Repo is the repository the work was done in, as the session reported it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -65,6 +69,7 @@ class BuildSummary {
   ///
   String? repo;
 
+  /// Session is the agent session behind the build, and the value its commits name in their `Hanzo-Session:` trailer.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -73,6 +78,7 @@ class BuildSummary {
   ///
   String? session;
 
+  /// StartedAt is when the session opened, RFC 3339 in UTC.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -81,6 +87,7 @@ class BuildSummary {
   ///
   String? startedAt;
 
+  /// Status is the session's own: running, paused, done or error — so a card can show a build still being written.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -89,6 +96,7 @@ class BuildSummary {
   ///
   String? status;
 
+  /// Title is the human line for the card. Sent even when empty, like every field here, because that is what this route has always sent.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -97,6 +105,7 @@ class BuildSummary {
   ///
   String? title;
 
+  /// Turns is HOW MANY turns the transcript holds — a COUNT, unlike the `turn` on each turn of the full story, which is that turn's position. The full read returns at most 1000 of them; this number is not capped.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

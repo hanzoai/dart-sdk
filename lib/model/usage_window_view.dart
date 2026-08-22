@@ -33,7 +33,6 @@ class UsageWindowView {
     this.windowMinutes,
     this.windowStart,
   });
-
   /// Account is the linked provider account the window belongs to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -17,7 +17,6 @@ class RiskLabelEvent {
     this.kind,
     this.subject,
   });
-
   /// At is the event's own instant, RFC 3339. It is part of the event's IDENTITY and not a filter: it is matched exactly, to the second, against the `at` the assertions were filed under, so an instant a second off names a different event and resolves to nothing. It is also what this event's as-of is measured from — At plus the horizon.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

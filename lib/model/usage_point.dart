@@ -13,20 +13,12 @@ part of hanzoai.cloud;
 class UsagePoint {
   /// Returns a new [UsagePoint] instance.
   UsagePoint({
-    this.date,
     this.requests,
     this.spendCents,
+    this.t,
     this.tokens,
   });
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? date;
-
+  /// Requests is how many LLM calls fell in this bucket.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -35,6 +27,7 @@ class UsagePoint {
   ///
   int? requests;
 
+  /// SpendCents is what they cost, in cents.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -43,6 +36,16 @@ class UsagePoint {
   ///
   int? spendCents;
 
+  /// T is the bucket's start, RFC3339 UTC, aligned to the interval.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? t;
+
+  /// Tokens is prompt plus completion tokens over those calls.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -53,29 +56,24 @@ class UsagePoint {
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is UsagePoint &&
-    other.date == date &&
     other.requests == requests &&
     other.spendCents == spendCents &&
+    other.t == t &&
     other.tokens == tokens;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (date == null ? 0 : date!.hashCode) +
     (requests == null ? 0 : requests!.hashCode) +
     (spendCents == null ? 0 : spendCents!.hashCode) +
+    (t == null ? 0 : t!.hashCode) +
     (tokens == null ? 0 : tokens!.hashCode);
 
   @override
-  String toString() => 'UsagePoint[date=$date, requests=$requests, spendCents=$spendCents, tokens=$tokens]';
+  String toString() => 'UsagePoint[requests=$requests, spendCents=$spendCents, t=$t, tokens=$tokens]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.date != null) {
-      json[r'date'] = this.date;
-    } else {
-      json[r'date'] = null;
-    }
     if (this.requests != null) {
       json[r'requests'] = this.requests;
     } else {
@@ -85,6 +83,11 @@ class UsagePoint {
       json[r'spendCents'] = this.spendCents;
     } else {
       json[r'spendCents'] = null;
+    }
+    if (this.t != null) {
+      json[r't'] = this.t;
+    } else {
+      json[r't'] = null;
     }
     if (this.tokens != null) {
       json[r'tokens'] = this.tokens;
@@ -113,9 +116,9 @@ class UsagePoint {
       }());
 
       return UsagePoint(
-        date: mapValueOfType<String>(json, r'date'),
         requests: mapValueOfType<int>(json, r'requests'),
         spendCents: mapValueOfType<int>(json, r'spendCents'),
+        t: mapValueOfType<String>(json, r't'),
         tokens: mapValueOfType<int>(json, r'tokens'),
       );
     }

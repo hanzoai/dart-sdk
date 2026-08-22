@@ -25,7 +25,6 @@ class LeaderboardView {
     this.subject,
     this.total,
   });
-
   /// Available is false when the usage warehouse is not connected or its rollup is not ready. Rows is then empty because nothing could be read — not because nobody used anything. Show that difference; never render an unavailable board as a real one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

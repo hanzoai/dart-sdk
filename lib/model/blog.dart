@@ -19,7 +19,7 @@ class Blog {
     this.title,
     this.why,
   });
-
+  /// CaseStudy is one worked instance — somebody who ran it, and what happened.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -28,6 +28,7 @@ class Blog {
   ///
   String? caseStudy;
 
+  /// How is the run book: the steps to execute the tactic.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -36,6 +37,7 @@ class Blog {
   ///
   String? how;
 
+  /// Slug is the post's address — the last path segment it is published at.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -44,6 +46,7 @@ class Blog {
   ///
   String? slug;
 
+  /// Title is the post's headline.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -52,6 +55,7 @@ class Blog {
   ///
   String? title;
 
+  /// Why is the mechanism: the reason the tactic works, stated as a principle rather than as instructions.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

@@ -16,7 +16,6 @@ class SpendPoint {
     this.cents,
     this.t,
   });
-
   /// Cents is the consumption recorded in that bucket, in US cents.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class O11yO11yUpdatablePreference {
   O11yO11yUpdatablePreference({
     this.value,
   });
-
   /// Value is the value to set; its JSON type must match the preference's declared value type.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

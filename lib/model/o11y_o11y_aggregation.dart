@@ -22,7 +22,6 @@ class O11yO11yAggregation {
     this.series = const [],
     this.upperBoundSeries = const [],
   });
-
   /// Alias is the aggregation's alias.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class O11yO11yPasswordAuthN {
   O11yO11yPasswordAuthN({
     this.provider,
   });
-
   /// Provider is the route's provider, e.g. email_password.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -17,7 +17,6 @@ class MeetHealth {
     this.service,
     this.status,
   });
-
   /// Ready reports whether this deployment can mint join tokens. False is the 503.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

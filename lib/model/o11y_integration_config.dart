@@ -16,7 +16,6 @@ class O11yIntegrationConfig {
     this.enabledRegions = const [],
     this.telemetry,
   });
-
   /// backward compatible
   List<String> enabledRegions;
 

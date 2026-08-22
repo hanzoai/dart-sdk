@@ -21,7 +21,6 @@ class ProvisionedSummary {
     this.port,
     this.status,
   });
-
   /// CreatedAt is when the resource was provisioned, in unix seconds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

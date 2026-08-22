@@ -18,7 +18,7 @@ class BalanceLine {
     this.name,
     this.type,
   });
-
+  /// Account is the chart-of-accounts number this line reports on. ABSENT marks a DERIVED line that no account holds — retained earnings is the one such line, computed from cumulative income minus expense.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -27,7 +27,7 @@ class BalanceLine {
   ///
   String? account;
 
-  /// cents, display sign
+  /// Amount is the balance as of the statement date, in whole cents, in its NATURAL sign: positive when the account behaved normally, on all three sides. Assets are debit-normal and shown as stored; liabilities and equity are credit-normal and flipped once here for display. A negative asset is a real overdraft, not a sign convention.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -36,6 +36,7 @@ class BalanceLine {
   ///
   int? amount;
 
+  /// Name is the account's human name, or the derived line's own name.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -44,6 +45,7 @@ class BalanceLine {
   ///
   String? name;
 
+  /// Type is the account's fundamental class. Absent on a derived line, which belongs to no account and therefore has none.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

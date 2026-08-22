@@ -18,7 +18,6 @@ class PushResp {
     this.commit,
     this.sshUrl,
   });
-
   /// Branch is the branch that was advanced, resolved (never empty).
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

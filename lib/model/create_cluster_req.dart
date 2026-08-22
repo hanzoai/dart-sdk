@@ -18,7 +18,6 @@ class CreateClusterReq {
     this.region,
     this.version,
   });
-
   /// Name is the cluster's name. Required.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

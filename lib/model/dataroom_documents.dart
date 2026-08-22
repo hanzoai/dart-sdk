@@ -15,7 +15,6 @@ class DataroomDocuments {
   DataroomDocuments({
     this.documents = const [],
   });
-
   /// Documents is every document in the caller's own store, newest first.
   List<DataroomDocument> documents;
 

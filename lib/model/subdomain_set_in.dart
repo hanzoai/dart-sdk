@@ -16,7 +16,6 @@ class SubdomainSetIn {
     this.enabled,
     this.script,
   });
-
   /// Enabled publishes the script on <script>.<subdomain>.workers.dev when true, and withdraws it when false.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

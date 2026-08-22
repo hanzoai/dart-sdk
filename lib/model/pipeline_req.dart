@@ -16,7 +16,6 @@ class PipelineReq {
     this.feeds = const [],
     this.filters,
   });
-
   /// Feeds is the RSS/Atom feed URLs to read, at most 64. Each must be an http(s) URL whose host is on the server's allowlist — the SSRF guard is applied here, at the write, so a stored pipeline can never name a host the fetcher would refuse. Blank entries are dropped and duplicates collapse.
   List<String> feeds;
 

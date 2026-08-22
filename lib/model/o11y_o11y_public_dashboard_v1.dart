@@ -23,7 +23,6 @@ class O11yO11yPublicDashboardV1 {
     this.updatedAt,
     this.updatedBy,
   });
-
   /// CreatedAt is when the dashboard was created.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

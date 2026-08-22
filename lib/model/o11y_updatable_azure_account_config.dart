@@ -15,7 +15,6 @@ class O11yUpdatableAzureAccountConfig {
   O11yUpdatableAzureAccountConfig({
     this.resourceGroups = const [],
   });
-
   List<String> resourceGroups;
 
   @override

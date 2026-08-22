@@ -16,7 +16,6 @@ class O11yO11yMetricAttributes {
     this.attributes = const [],
     this.totalKeys,
   });
-
   /// Attributes are the keys, each with its values.
   List<O11yO11yMetricAttribute> attributes;
 

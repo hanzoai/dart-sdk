@@ -17,7 +17,6 @@ class O11yO11yLLMUsersPage {
     this.limit,
     this.offset,
   });
-
   /// Items are the end users, newest first.
   List<O11yO11yLLMUser> items;
 

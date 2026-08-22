@@ -18,7 +18,6 @@ class MintedKey {
     this.limit = const [],
     this.type,
   });
-
   /// AccessKey is the same value under its predecessor name, carried so callers written against the older field keep working. One value, two names.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

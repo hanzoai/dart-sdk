@@ -18,7 +18,6 @@ class SourceState {
     this.scope,
     this.source_,
   });
-
   /// Available reports whether this ledger answered; false is honest \"unavailable\", never a zero that would read as no usage.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -18,7 +18,6 @@ class HelpTicketIntake {
     this.priority,
     this.subject,
   });
-
   /// Description is the customer's message. Optional; it becomes the ticket's description AND the opening entry of its conversation thread. Clipped at 16 KiB.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

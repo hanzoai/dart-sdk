@@ -20,7 +20,6 @@ class O11yItemInput {
     this.sessionId,
     this.traceId,
   });
-
   /// Assignee is the reviewer this item is for, up to 512 characters.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

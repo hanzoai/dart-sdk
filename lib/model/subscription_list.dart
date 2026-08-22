@@ -15,7 +15,6 @@ class SubscriptionList {
   SubscriptionList({
     this.data = const [],
   });
-
   /// Data holds the repo's subscriptions.
   List<SubscriptionView> data;
 

@@ -16,7 +16,6 @@ class O11yO11yAttributeValuesOut {
     this.data,
     this.status,
   });
-
   /// Data holds the values, split by data type.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

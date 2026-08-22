@@ -18,7 +18,6 @@ class O11yO11yLLMAnnotationsPage {
     this.offset,
     this.total,
   });
-
   /// Items are the annotations, newest first.
   List<O11yO11yLLMAnnotation> items;
 

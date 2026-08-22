@@ -17,7 +17,7 @@ class PromoStatus {
     this.redeemed,
     this.remaining,
   });
-
+  /// Promo is the offer itself. It is fleet-wide, identical for every org — only the two counters beside it move.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -35,6 +35,7 @@ class PromoStatus {
   ///
   int? redeemed;
 
+  /// Remaining is MaxRedemptions minus Redeemed, floored at 0. At 0 the next redeem is declined, and a quote reports ineligible rather than pricing an offer that cannot be taken.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

@@ -16,7 +16,6 @@ class PathIn {
     this.id,
     this.path,
   });
-
   /// ID is the sandbox to read from, from an earlier lease.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -17,7 +17,6 @@ class IamFaceId {
     this.imageUrl,
     this.name,
   });
-
   List<num> faceIdData;
 
   ///

@@ -18,7 +18,6 @@ class Attribution {
     this.createdAt,
     this.id,
   });
-
   /// Code is the affiliate code the edge was recorded under, normalized to lower case. On a re-post it is the code of the STANDING edge, which may differ from the one just sent — first touch wins.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

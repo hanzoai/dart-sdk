@@ -22,7 +22,7 @@ class GithubSearchHit {
     this.private,
     this.stars,
   });
-
+  /// CloneURL is the repository's https git remote.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -31,6 +31,7 @@ class GithubSearchHit {
   ///
   String? cloneUrl;
 
+  /// DefaultBranch is the branch a clone checks out.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -39,6 +40,7 @@ class GithubSearchHit {
   ///
   String? defaultBranch;
 
+  /// Description is the blurb the repository's owner wrote. Empty when it has none.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -47,6 +49,7 @@ class GithubSearchHit {
   ///
   String? description;
 
+  /// FullName is the repository's \"owner/repo\" on GitHub. Finding it here does NOT make it forkable: githubFork takes a repo the org's installation was granted, and a hit from the public index usually is not one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -55,6 +58,7 @@ class GithubSearchHit {
   ///
   String? fullName;
 
+  /// HTMLURL is the repository's page on github.com.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -63,6 +67,7 @@ class GithubSearchHit {
   ///
   String? htmlUrl;
 
+  /// Language is the primary language GitHub detected from the file mix (\"Go\", \"TypeScript\"). Empty when GitHub attributes none.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -71,6 +76,7 @@ class GithubSearchHit {
   ///
   String? language;
 
+  /// Private is GitHub's visibility flag, passed through. This op reads the public index — the org's token only charges the rate limit to the installation — so it is false for everything a search can reach.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -79,6 +85,7 @@ class GithubSearchHit {
   ///
   bool? private;
 
+  /// Stars is GitHub's stargazers_count as the SEARCH INDEX held it when the query ran — a snapshot, not a live count off the repository.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

@@ -15,7 +15,6 @@ class SampleList {
   SampleList({
     this.samples = const [],
   });
-
   /// Samples are the readings, OLDEST first — the order a chart plots.
   List<SampleView> samples;
 

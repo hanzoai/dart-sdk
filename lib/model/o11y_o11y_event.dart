@@ -39,7 +39,6 @@ class O11yO11yEvent {
     this.userIp,
     this.value,
   });
-
   /// Culprit is where it came from — the function or route blamed for it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

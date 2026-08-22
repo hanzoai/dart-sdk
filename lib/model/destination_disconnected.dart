@@ -15,7 +15,6 @@ class DestinationDisconnected {
   DestinationDisconnected({
     this.disconnected,
   });
-
   /// Disconnected is true when the credentials and the row are gone.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

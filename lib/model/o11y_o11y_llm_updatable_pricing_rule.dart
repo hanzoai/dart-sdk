@@ -23,7 +23,6 @@ class O11yO11yLLMUpdatablePricingRule {
     this.sourceId,
     this.unit,
   });
-
   /// Enabled turns the rule on.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

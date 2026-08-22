@@ -32,7 +32,6 @@ class RiskModelState {
     this.values = const [],
     this.warm,
   });
-
   /// Aggregates reports the pressure on this organisation's own sliding aggregates, and whether they have started forgetting subjects to stay inside their bound.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

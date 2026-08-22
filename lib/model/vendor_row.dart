@@ -17,7 +17,6 @@ class VendorRow {
     this.canonical,
     this.defaultCategory,
   });
-
   /// Aliases are the other spellings a receipt may print the vendor under; a scan matching any of them resolves to this vendor.
   List<String> aliases;
 

@@ -16,7 +16,6 @@ class O11yO11yResourceRef {
     this.kind,
     this.type,
   });
-
   /// Kind is the resource kind the type belongs to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

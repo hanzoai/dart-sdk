@@ -17,7 +17,6 @@ class ReferenceSetsOut {
     this.sets = const [],
     this.stale = const [],
   });
-
   /// Refused names the sets that cannot be consulted at all. A key checked against one of these is UNKNOWN, not clean.
   List<String> refused;
 

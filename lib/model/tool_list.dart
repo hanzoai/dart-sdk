@@ -15,7 +15,6 @@ class ToolList {
   ToolList({
     this.tools = const [],
   });
-
   /// Tools is every tool the caller may see, deduplicated by name with source precedence applied.
   List<Tool> tools;
 

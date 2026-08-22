@@ -20,7 +20,6 @@ class O11yO11yMetricMetadataSaveIn {
     this.type,
     this.unit,
   });
-
   /// Description describes the metric.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

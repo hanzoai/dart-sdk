@@ -16,7 +16,6 @@ class UserOptinReq {
     this.handle,
     this.listed,
   });
-
   /// Handle is the display name shown on a listed row: 1-40 characters of letters, digits, space, dot, underscore, apostrophe or hyphen. Left empty on a listing opt-in it defaults to the caller's username.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

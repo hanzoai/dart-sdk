@@ -15,7 +15,6 @@ class O11yO11yDashboardListSpec {
   O11yO11yDashboardListSpec({
     this.display,
   });
-
   /// Display is the dashboard's display metadata.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

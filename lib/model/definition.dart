@@ -25,7 +25,6 @@ class Definition {
     this.target,
     this.timeoutSec,
   });
-
   /// Code is the source to run, capped so one function cannot amplify the store.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

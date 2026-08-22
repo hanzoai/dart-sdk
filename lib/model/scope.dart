@@ -15,7 +15,6 @@ class Scope {
   Scope({
     this.org,
   });
-
   /// Org is the IAM org slug the rows were read under: the validated principal's, resolved server-side.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

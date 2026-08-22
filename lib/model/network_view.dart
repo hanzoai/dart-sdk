@@ -18,8 +18,7 @@ class NetworkView {
     this.nodes,
     this.status,
   });
-
-  /// ID is the org-derived id of the overlay network — the key GET /v1/networks/{id} addresses.
+  /// ID is the org-derived id of the overlay network — the key GET /v1/network/{id} addresses.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

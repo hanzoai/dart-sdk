@@ -22,7 +22,6 @@ class Overview {
     this.start,
     this.web,
   });
-
   /// Commerce is the orders/revenue lens over product events.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

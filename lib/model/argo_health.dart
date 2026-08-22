@@ -16,7 +16,7 @@ class ArgoHealth {
     this.message,
     this.status,
   });
-
+  /// Message is why the status is what it is — \"Running: no replicas ready\", \"iam: CrashLoopBackOff\". A Healthy object carries one too (\"Running: all replicas ready\"), so this is not a failure signal. Always absent on a CD row, which reports no health message.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -25,6 +25,7 @@ class ArgoHealth {
   ///
   String? message;
 
+  /// Status is the ArgoCD health vocabulary, Capitalized: Healthy, Progressing, Degraded, Suspended, Missing or Unknown. For an App CR it is derived per object from what the operator reconciled (a workload with every replica ready is Healthy, one scaled to zero is Suspended, a crash-looping pod is Degraded); for a CD row it is the verdict CD wrote.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

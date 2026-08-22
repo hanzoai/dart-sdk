@@ -19,7 +19,7 @@ class CatalogEntry {
     this.kind,
     this.provider,
   });
-
+  /// Configured is whether THIS DEPLOYMENT holds the OAuth client credentials for the provider. False means Connect would dead-end, so the console can offer it disabled instead of broken. It is deployment-wide and says nothing about whether the caller's org has connected the source — that is the connector list's `status`.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -28,6 +28,7 @@ class CatalogEntry {
   ///
   bool? configured;
 
+  /// Description is one line of shop copy: what connecting this source pulls in. Native connectors carry written prose; a piece-backed one reads \"activepieces connector (<piece>)\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -36,6 +37,7 @@ class CatalogEntry {
   ///
   String? description;
 
+  /// DisplayName is the label to show a person. First-party connectors carry a written name (\"GitHub\", \"Google Drive\"); a piece-backed one falls back to the provider capitalized, because the rich activepieces metadata lives behind a cross-service call this read will not make.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -53,6 +55,7 @@ class CatalogEntry {
   ///
   String? kind;
 
+  /// Provider is the source's id and the address every connector op takes it by (/v1/knowledge/connectors/:provider). One of github, slack, google, notion.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

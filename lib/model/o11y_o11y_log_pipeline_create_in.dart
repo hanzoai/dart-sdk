@@ -15,7 +15,6 @@ class O11yO11yLogPipelineCreateIn {
   O11yO11yLogPipelineCreateIn({
     this.pipelines = const [],
   });
-
   /// Pipelines are the pipelines the new version holds, in order.
   List<O11yO11yLogPostablePipeline> pipelines;
 

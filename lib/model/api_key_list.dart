@@ -15,7 +15,6 @@ class ApiKeyList {
   ApiKeyList({
     this.keys = const [],
   });
-
   /// Keys is every key the caller holds, at most one per type.
   List<ApiKey> keys;
 

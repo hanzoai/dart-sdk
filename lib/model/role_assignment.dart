@@ -16,7 +16,6 @@ class RoleAssignment {
     this.role,
     this.user,
   });
-
   /// Role is the granted role's name.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

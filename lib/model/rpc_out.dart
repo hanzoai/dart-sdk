@@ -18,7 +18,7 @@ class RpcOut {
     this.jsonrpc,
     this.result,
   });
-
+  /// Error is the JSON-RPC error object, present instead of Result. Its presence is the ONLY way a failure shows up here: the HTTP status stays 200, because that is what a standard JSON-RPC client parses.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -29,6 +29,7 @@ class RpcOut {
 
   Object? id;
 
+  /// JSONRPC is always \"2.0\". An upstream that omits it has it filled in, so a client never has to cope with a response that is missing the one field telling it which protocol it is reading.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

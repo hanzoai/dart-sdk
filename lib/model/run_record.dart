@@ -23,7 +23,6 @@ class RunRecord {
     this.scored,
     this.updatedAt,
   });
-
   /// AvgScore is the mean over the scored examples.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

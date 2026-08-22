@@ -15,7 +15,6 @@ class PromptList {
   PromptList({
     this.data = const [],
   });
-
   /// Data is one row per prompt the org owns, each with its version numbers and taxonomy — never the template bodies.
   List<PromptMeta> data;
 

@@ -16,7 +16,6 @@ class GithubPagesDisabledOut {
     this.disabled,
     this.repo,
   });
-
   /// Disabled is always true — a failure is an HTTP error, never this shape.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

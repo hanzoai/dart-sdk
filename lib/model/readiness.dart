@@ -19,7 +19,6 @@ class Readiness {
     this.service,
     this.status,
   });
-
   /// CRD is whether the operator App CRD was found, and is absent when no cluster client resolved and the question could not be asked.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -16,7 +16,7 @@ class ImageView {
     this.repository,
     this.tag,
   });
-
+  /// Repository is the image path without a tag (ghcr.io/acme/api). Required for source `image`, which runs it as-is. A git app's built image is NOT this: the build pushes to a path derived from the org and slug, and the deployment records that full ref.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -25,6 +25,7 @@ class ImageView {
   ///
   String? repository;
 
+  /// Tag is the tag to run: what the create declared, then RE-STAMPED on every transition to live with the tag that actually went live. So after a deploy it names what is running, not what was asked for.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

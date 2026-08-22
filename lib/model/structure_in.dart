@@ -17,7 +17,6 @@ class StructureIn {
     this.name,
     this.structure,
   });
-
   /// Jurisdiction is the state of formation: DE or WY.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

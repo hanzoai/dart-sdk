@@ -17,9 +17,10 @@ class GitOpsPlane {
     this.installed,
     this.reason,
   });
-
+  /// Applications is every CD Application in the cluster, ordered by namespace then name. Empty (never null) when the plane is not installed, and equally empty when it is installed and tracks nothing — Installed is what separates those two.
   List<GitOpsApp> applications;
 
+  /// Installed is whether this cluster serves the CD Application CRD at all. False is a fact about the cluster, not a failure of the request: the caller says \"no CD plane here\" rather than rendering an error it cannot act on.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -28,6 +29,7 @@ class GitOpsPlane {
   ///
   bool? installed;
 
+  /// Reason says why the plane is absent, in words a caller can show. Empty when Installed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

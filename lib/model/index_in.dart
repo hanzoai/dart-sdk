@@ -17,7 +17,6 @@ class IndexIn {
     this.prune,
     this.repo,
   });
-
   /// Files is the full set of files to index. Required and non-empty; max 20000 files, 1 MiB per file and 1 GiB in total. Unchanged files are skipped by content hash, so re-sending the whole tree is cheap.
   List<FileInput> files;
 

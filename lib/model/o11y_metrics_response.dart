@@ -19,7 +19,7 @@ class O11yMetricsResponse {
     this.summary,
     this.usage,
   });
-
+  /// Product is the service these numbers are about, echoed back.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -34,7 +34,7 @@ class O11yMetricsResponse {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  O11yAvailabilityResponseRange? range;
+  O11yMetricsResponseRange? range;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -130,7 +130,7 @@ class O11yMetricsResponse {
 
       return O11yMetricsResponse(
         product: mapValueOfType<String>(json, r'product'),
-        range: O11yAvailabilityResponseRange.fromJson(json[r'range']),
+        range: O11yMetricsResponseRange.fromJson(json[r'range']),
         series: O11yMetricsResponseSeries.fromJson(json[r'series']),
         summary: O11yMetricsResponseSummary.fromJson(json[r'summary']),
         usage: O11yMetricsResponseUsage.fromJson(json[r'usage']),

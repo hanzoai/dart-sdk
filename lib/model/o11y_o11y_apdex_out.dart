@@ -16,7 +16,6 @@ class O11yO11yApdexOut {
     this.data = const [],
     this.status,
   });
-
   /// Data holds one settings row per service.
   List<O11yO11yApdexSettings> data;
 

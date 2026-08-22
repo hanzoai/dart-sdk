@@ -16,7 +16,7 @@ class O11yDeployment {
     this.instance,
     this.up,
   });
-
+  /// Instance is the replica as the telemetry store labels it — the address the series was recorded against, which is what distinguishes two replicas of one service.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -25,6 +25,7 @@ class O11yDeployment {
   ///
   String? instance;
 
+  /// Up is that replica's last reported state. Every target emits on every cycle, so a replica missing from the list is one the prober is not reporting at all, which is a different fact from down.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

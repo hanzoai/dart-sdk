@@ -20,7 +20,6 @@ class TreasuryReport {
     this.reserveCents,
     this.solventForPayout,
   });
-
   /// lifetime revenue-share into the fund
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

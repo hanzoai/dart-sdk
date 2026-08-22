@@ -19,7 +19,6 @@ class Spec {
     this.memory,
     this.os,
   });
-
   /// amd64 | arm64 | ...
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -38,6 +37,7 @@ class Spec {
   ///
   int? cpus;
 
+  /// GPUs is every accelerator the machine advertises, one entry each, capped at 32 on write. Empty means the probe found none — and that is the answer a Need is checked against, so a machine with no entry here clears no accelerator floor. The list is not vendor-filtered: what satisfies a job is counts and VRAM, never a brand (see Need).
   List<GPU> gpus;
 
   /// total RAM, bytes

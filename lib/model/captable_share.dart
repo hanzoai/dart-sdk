@@ -27,7 +27,6 @@ class CaptableShare {
     this.stakeholderName,
     this.status,
   });
-
   /// CapitalContribution is the cash paid for the certificate, if recorded.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

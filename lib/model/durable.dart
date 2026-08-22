@@ -25,7 +25,6 @@ class Durable {
     this.optStartTime,
     this.replayPolicy,
   });
-
   /// Ack is the acknowledgment policy: explicit (default), all, or none.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -18,14 +18,13 @@ class ProjectsBoundDomains {
     this.org,
     this.slug,
   });
-
   /// Bound is the result of THIS call, one row per host in the request: live for an already-vouched host, pending with the DNS records to publish otherwise.
   List<ProjectsDomain> bound;
 
   /// Domains are the hostnames that are VERIFIED and routing right now, after this bind.
   List<String> domains;
 
-  /// Org and Slug identify the site the hosts were bound to.
+  /// Org is the organisation that owns the site.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -34,6 +33,7 @@ class ProjectsBoundDomains {
   ///
   String? org;
 
+  /// Slug is the site the hosts were bound to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

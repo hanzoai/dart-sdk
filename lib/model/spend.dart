@@ -23,7 +23,6 @@ class Spend {
     this.source_,
     this.totalCents,
   });
-
   /// Available is false when the commerce ledger was unconfigured or unreachable. Every number below is then an honest zero, NOT a measured one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

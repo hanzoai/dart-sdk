@@ -24,7 +24,6 @@ class TotalView {
     this.window,
     this.windows,
   });
-
   /// Confidence says how real the row's numbers are.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -18,7 +18,6 @@ class O11yFilterAttributeValueResponse {
     this.relatedValues,
     this.stringAttributeValues = const [],
   });
-
   List<bool> boolAttributeValues;
 
   List<Object> numberAttributeValues;

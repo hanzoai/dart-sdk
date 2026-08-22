@@ -16,7 +16,6 @@ class RedeemInput {
     this.code,
     this.instrument,
   });
-
   /// Code is the promo code from the path.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -16,7 +16,6 @@ class CsrfResp {
     this.csrfToken,
     this.expiresIn,
   });
-
   /// Token is the value to send back in the X-CSRF-Token header. It is bound to the caller's identity, so it authorizes writes as them and as nobody else.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

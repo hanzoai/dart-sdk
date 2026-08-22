@@ -16,7 +16,6 @@ class GitOrigin {
     this.branch,
     this.url,
   });
-
   /// Branch is the branch to build; defaults to `main` for a git source.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

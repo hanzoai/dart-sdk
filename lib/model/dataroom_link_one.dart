@@ -15,7 +15,6 @@ class DataroomLinkOne {
   DataroomLinkOne({
     this.link,
   });
-
   /// Link is the link itself, including the id a visitor opens it with.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

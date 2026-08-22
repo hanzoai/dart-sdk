@@ -15,7 +15,6 @@ class SkillWritten {
   SkillWritten({
     this.skill,
   });
-
   /// Skill is the skill as stored, with its derived id and creation time.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

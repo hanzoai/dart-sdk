@@ -22,7 +22,6 @@ class ChannelView {
     this.id,
     this.pendingPairing,
   });
-
   /// Account is the id-shaped fact about that connection: the lowercased external id integrations custodies for it — a Discord guild id, a Slack team (workspace) id, a Teams AAD tenant id, or the Telegram chat the org bound. Empty when not connected. Informational: the access policy keys on (org, channel), so exactly one account is representable per pair.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

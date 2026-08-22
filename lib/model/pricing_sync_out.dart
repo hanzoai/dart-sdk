@@ -16,7 +16,6 @@ class PricingSyncOut {
     this.status,
     this.updated,
   });
-
   /// Status is \"ok\" when the sync completed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

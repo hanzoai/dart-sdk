@@ -20,7 +20,6 @@ class O11yO11yRoutePolicyUpdateIn {
     this.name,
     this.tags = const [],
   });
-
   List<String> channels;
 
   ///

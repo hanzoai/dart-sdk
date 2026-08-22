@@ -15,7 +15,6 @@ class O11yGettableTraceAggregations {
   O11yGettableTraceAggregations({
     this.aggregations = const [],
   });
-
   List<O11ySpanAggregationResult> aggregations;
 
   @override

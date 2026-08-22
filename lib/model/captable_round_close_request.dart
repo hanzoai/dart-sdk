@@ -16,7 +16,6 @@ class CaptableRoundCloseRequest {
     this.closeDate,
     this.id,
   });
-
   Object? closeDate;
 
   /// ID is the round to close. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller's principal, so an id from another tenant is simply not found.

@@ -15,7 +15,6 @@ class RiskSearchIn {
   RiskSearchIn({
     this.days,
   });
-
   /// Days is how much of the organisation's own history to replay, 1 to 400. Zero takes thirty.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

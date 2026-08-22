@@ -16,7 +16,6 @@ class LicensingFingerprintResponse {
     this.fingerprint,
     this.version,
   });
-
   /// Fingerprint is the OPAQUE binding value to pass to POST /v1/licensing/issue. It is one-way: the raw signals cannot be recovered from it and are never echoed back.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

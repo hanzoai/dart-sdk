@@ -19,7 +19,7 @@ class StrategyView {
     this.tags = const [],
     this.workload,
   });
-
+  /// Action is the tactic itself: the thing to go and do.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -28,6 +28,7 @@ class StrategyView {
   ///
   String? action;
 
+  /// Category is the growth discipline the tactic belongs to — the axis `?category=` narrows on.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -36,6 +37,7 @@ class StrategyView {
   ///
   String? category;
 
+  /// ID is the tactic's stable slug in the corpus.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -44,8 +46,10 @@ class StrategyView {
   ///
   String? id;
 
+  /// Tags are the PRECONDITIONS this tactic already satisfied to appear in the answer — `stage:<name>` and `has:<capability>` predicates over the org's observed profile. They are carried back so a caller can show why a tactic surfaced, not so it can filter again.
   List<String> tags;
 
+  /// Workload is how much effort running the tactic costs, so a corpus can be cut to what the org has the hands for.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

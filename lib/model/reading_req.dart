@@ -35,7 +35,6 @@ class ReadingReq {
     this.windowMinutes,
     this.windowStart,
   });
-
   /// Account is the provider-side account the sample belongs to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

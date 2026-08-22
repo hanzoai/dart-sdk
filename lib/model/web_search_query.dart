@@ -16,7 +16,6 @@ class WebSearchQuery {
     this.language,
     this.q,
   });
-
   /// Language narrows the engines to a locale, BCP-47-ish (\"en\", \"ja\", \"de\"). Empty means no narrowing.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

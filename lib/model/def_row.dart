@@ -19,9 +19,9 @@ class DefRow {
     this.updatedBy,
     this.version,
   });
-
   Object? definition;
 
+  /// Key is the flag's primary key in the caller's (org, project) store, and the name evaluation looks it up by. On a write it is taken from the URL, never from the body: the stored document's own \"key\" is forced to match.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -30,6 +30,7 @@ class DefRow {
   ///
   String? key;
 
+  /// UpdatedAt is when the definition was last written, RFC 3339 UTC.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -38,6 +39,7 @@ class DefRow {
   ///
   String? updatedAt;
 
+  /// UpdatedBy is the email of the principal who last wrote it. Empty when the write came from an in-process composer (an experiment registering its own assignment flag) rather than from a signed-in person.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -46,6 +48,7 @@ class DefRow {
   ///
   String? updatedBy;
 
+  /// Version is 1 when the key was created and rises by one on every overwrite. It counts writes, not content changes: re-storing an identical document bumps it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

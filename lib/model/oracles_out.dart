@@ -15,7 +15,6 @@ class OraclesOut {
   OraclesOut({
     this.oracles = const [],
   });
-
   /// Oracles is one row per on-chain price feed, or an empty list when the graph is unreachable or carries none — never a fabricated feed.
   List<OracleView> oracles;
 

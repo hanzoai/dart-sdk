@@ -19,7 +19,6 @@ class CodingStarted {
     this.sessionId,
     this.targetId,
   });
-
   /// Branch is the ref the run will push its work to, and the ONLY ref it is permitted to write. It exists before the work does, so it is safe to tell somebody where to look while the run is still going.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

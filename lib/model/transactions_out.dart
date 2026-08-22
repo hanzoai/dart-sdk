@@ -15,7 +15,6 @@ class TransactionsOut {
   TransactionsOut({
     this.transactions = const [],
   });
-
   /// Transactions is the matching register rows, newest first.
   List<Txn> transactions;
 

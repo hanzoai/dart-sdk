@@ -34,7 +34,6 @@ class CampaignResults {
     this.status,
     this.visitors,
   });
-
   Object? abTest;
 
   /// Available is false when the analytics warehouse is not connected or the query failed: the funnel below is then zero because nothing could be read, not because nothing happened. Spend and Channels are still real — they come from the connectors, not the warehouse.

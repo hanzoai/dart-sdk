@@ -20,7 +20,6 @@ class ModelRow {
     this.spendCents,
     this.tokens,
   });
-
   /// Model is the model id, e.g. zen5-coder.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

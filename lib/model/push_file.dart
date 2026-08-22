@@ -17,7 +17,6 @@ class PushFile {
     this.encoding,
     this.path,
   });
-
   /// Content is the file's bytes, carried per Encoding.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

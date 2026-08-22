@@ -16,7 +16,6 @@ class CaptableInstrumentTotal {
     this.capital,
     this.count,
   });
-
   /// Capital is the total capital across those instruments.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

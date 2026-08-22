@@ -15,7 +15,6 @@ class CreateAccountIn {
   CreateAccountIn({
     this.name,
   });
-
   /// Name is the account's label. Required, trimmed; it groups wallets and is not itself a key.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

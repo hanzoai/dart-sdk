@@ -17,7 +17,6 @@ class O11yO11yQueueCheck {
     this.errorMessage,
     this.status,
   });
-
   /// Attribute is the span attribute or telemetry the check looked for.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -18,7 +18,6 @@ class ProviderRow {
     this.requests,
     this.tokens,
   });
-
   /// CostCents is what they cost the org, in US cents.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

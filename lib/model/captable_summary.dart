@@ -20,7 +20,6 @@ class CaptableSummary {
     this.rounds,
     this.totals,
   });
-
   /// ByShareClass is each share class's authorized-versus-issued position, in class creation order.
   List<CaptableClassHolding> byShareClass;
 

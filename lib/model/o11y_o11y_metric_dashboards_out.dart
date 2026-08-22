@@ -16,7 +16,6 @@ class O11yO11yMetricDashboardsOut {
     this.data,
     this.status,
   });
-
   /// Data holds the panels.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

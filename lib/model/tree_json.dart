@@ -15,7 +15,6 @@ class TreeJSON {
   TreeJSON({
     this.entries = const [],
   });
-
   /// Entries are the immediate children, directories before files.
   List<TreeEntryJSON> entries;
 

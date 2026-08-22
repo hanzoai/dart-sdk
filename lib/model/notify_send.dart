@@ -23,7 +23,6 @@ class NotifySend {
     this.templateVars,
     this.to = const [],
   });
-
   /// Body is the message text, sent verbatim when present — the no-template path.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

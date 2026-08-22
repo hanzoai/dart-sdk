@@ -15,7 +15,6 @@ class Runs {
   Runs({
     this.data = const [],
   });
-
   /// Data is the caller org's runs, bounded by limit.
   List<RunRecord> data;
 

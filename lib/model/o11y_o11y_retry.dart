@@ -15,7 +15,6 @@ class O11yO11yRetry {
   O11yO11yRetry({
     this.delay,
   });
-
   /// Delay is how long to wait before retrying, in nanoseconds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

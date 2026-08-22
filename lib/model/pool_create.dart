@@ -22,7 +22,6 @@ class PoolCreate {
     this.provider,
     this.size,
   });
-
   /// AutoScale turns the provider's cluster autoscaler on for this pool.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -50,6 +49,7 @@ class PoolCreate {
   ///
   int? count;
 
+  /// MaxNodes is the ceiling the autoscaler may not grow the pool past, and so the bound on what this pool can spend. Ignored unless AutoScale is set.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -58,7 +58,7 @@ class PoolCreate {
   ///
   int? maxNodes;
 
-  /// MinNodes and MaxNodes bound the autoscaler; they are ignored unless AutoScale is set.
+  /// MinNodes is the floor the autoscaler may not shrink the pool below. Ignored unless AutoScale is set.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

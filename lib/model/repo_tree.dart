@@ -16,7 +16,6 @@ class RepoTree {
     this.files = const [],
     this.repo,
   });
-
   /// Files are the repo's indexed files in path order, each with its language and how many symbols it defines. Never null.
   List<TreeEntry> files;
 

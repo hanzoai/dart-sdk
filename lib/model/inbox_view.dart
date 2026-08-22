@@ -24,7 +24,6 @@ class InboxView {
     this.senderUser,
     this.text,
   });
-
   /// Account is the lowercased external id of the org's connected account on that transport: the Discord guild id, the Slack team id, the Teams AAD tenant id, or the bound Telegram chat id. Informational only — the gate keys on (org, channel), never on the account.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

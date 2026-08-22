@@ -16,7 +16,6 @@ class O11yAWSCloudWatchMetricStreamFilter {
     this.metricNames = const [],
     this.namespace,
   });
-
   List<String> metricNames;
 
   /// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-metricstream-metricstreamfilter.html

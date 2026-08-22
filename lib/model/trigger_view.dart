@@ -20,7 +20,6 @@ class TriggerView {
     this.target,
     this.type,
   });
-
   /// whether it currently fires
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

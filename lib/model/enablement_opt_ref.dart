@@ -16,7 +16,6 @@ class EnablementOptRef {
     this.id,
     this.kind,
   });
-
   /// ID is the item within that namespace.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -18,7 +18,6 @@ class O11yO11yMetricPoint {
     this.value,
     this.values = const [],
   });
-
   /// Partial marks a point whose bucket the window only partly covers.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

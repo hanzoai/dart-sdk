@@ -17,7 +17,6 @@ class DriftTally {
     this.red,
     this.yellow,
   });
-
   /// OK is how many rows run what they declare.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

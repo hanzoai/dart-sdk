@@ -15,7 +15,6 @@ class DataroomRooms {
   DataroomRooms({
     this.datarooms = const [],
   });
-
   /// Datarooms is every data room in the caller's own store, newest first.
   List<DataroomRoom> datarooms;
 

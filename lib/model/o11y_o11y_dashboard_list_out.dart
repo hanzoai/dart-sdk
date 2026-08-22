@@ -16,7 +16,6 @@ class O11yO11yDashboardListOut {
     this.data,
     this.status,
   });
-
   /// Data is the list page.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

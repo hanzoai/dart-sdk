@@ -19,7 +19,6 @@ class WebQuestion {
     this.q,
     this.sources = const [],
   });
-
   /// Language narrows the search to a locale, BCP-47-ish (\"en\", \"ja\"). Empty means no narrowing.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

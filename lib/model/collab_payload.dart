@@ -17,7 +17,6 @@ class CollabPayload {
     this.source_,
     this.updates = const {},
   });
-
   /// Content maps a document field to its ProseMirror markup JSON.
   Map<String, String> content;
 

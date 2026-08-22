@@ -28,7 +28,6 @@ class TrafficView {
     this.unscored,
     this.windowSec,
   });
-
   /// Blind is how many requests in the window carried no identity to attribute them to — no validated credential and no client address. Non-zero on a public plane means the client address is not reaching this process (a TCP load balancer with no PROXY protocol in front of it, typically), so this scope's callers cannot be told apart and nothing can be held against them.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

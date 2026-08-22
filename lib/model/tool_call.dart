@@ -16,7 +16,6 @@ class ToolCall {
     this.arguments = const {},
     this.name,
   });
-
   /// Arguments is the tool's own input object, passed through verbatim to whichever source owns it.
   Map<String, Object> arguments;
 

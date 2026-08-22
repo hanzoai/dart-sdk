@@ -18,7 +18,6 @@ class O11yO11yQueryRange {
     this.type,
     this.warning,
   });
-
   /// Data holds the results.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -16,7 +16,6 @@ class RenewResult {
     this.paidCents,
     this.record,
   });
-
   /// what this renewal cost, in cents
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

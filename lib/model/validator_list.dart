@@ -16,7 +16,6 @@ class ValidatorList {
     this.data = const [],
     this.network,
   });
-
   /// Data is one entry per slot this org has claimed.
   List<SlotView> data;
 

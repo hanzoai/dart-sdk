@@ -19,7 +19,6 @@ class MyReferralView {
     this.referee,
     this.status,
   });
-
   /// CreatedAt is when the referral was recorded, as a Unix timestamp.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

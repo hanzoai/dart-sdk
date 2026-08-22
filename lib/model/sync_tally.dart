@@ -16,7 +16,6 @@ class SyncTally {
     this.live,
     this.sandbox,
   });
-
   /// Live is the number of vouchers newly posted to the live ledger.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

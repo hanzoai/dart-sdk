@@ -16,7 +16,6 @@ class BookResponse {
     this.posted,
     this.scanId,
   });
-
   /// Posted is true when this call wrote the voucher, false when the same scan had already booked and nothing was written.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

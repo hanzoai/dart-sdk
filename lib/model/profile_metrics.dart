@@ -18,7 +18,7 @@ class ProfileMetrics {
     this.records,
     this.revenueCents,
   });
-
+  /// Funnel is what the org's analytics observed over the trailing window. Read its `available` first: an org with no analytics reports zeros here, and zero traffic and no measurement are different facts.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -27,6 +27,7 @@ class ProfileMetrics {
   ///
   Funnel? funnel;
 
+  /// LaunchProgress is the org's own position in the launch checklist, folded in so a profile carries both what the org has BUILT and what it has DONE.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -35,6 +36,7 @@ class ProfileMetrics {
   ///
   ProgressView? launchProgress;
 
+  /// Records is how many business records the org holds — the volume that tells a real book of customers from an empty account. It feeds the `customers` signal, which crosses at a threshold rather than at one row.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -43,6 +45,7 @@ class ProfileMetrics {
   ///
   int? records;
 
+  /// RevenueCents is the org's money OF RECORD — what its books say, in whole cents, never a float and never a display string. This is the number the scaling stage is decided on; funnel.revenue is the beacon's separate, unreconciled view of the same business. Zero when the org has none, and also zero when the books could not be read, which is why the `revenue` signal beside it is the thing to trust.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

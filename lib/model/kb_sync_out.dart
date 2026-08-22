@@ -16,7 +16,6 @@ class KbSyncOut {
     this.ingested,
     this.provider,
   });
-
   /// Ingested is how many documents landed in the org's knowledge store.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

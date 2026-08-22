@@ -16,7 +16,6 @@ class Sequences {
     this.consumerSeq,
     this.streamSeq,
   });
-
   /// Consumer is the consumer's own sequence.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

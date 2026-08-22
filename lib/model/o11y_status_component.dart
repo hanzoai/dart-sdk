@@ -17,7 +17,6 @@ class O11yStatusComponent {
     this.id,
     this.name,
   });
-
   /// CurrentStatus is this component's own condition: \"full_outage\" for a service that did not answer its health probe at all.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -27,6 +26,7 @@ class O11yStatusComponent {
   ///
   String? currentStatus;
 
+  /// ID is the component's stable handle, which on this platform IS the service name — there is no separate component registry to allocate ids from.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -35,6 +35,7 @@ class O11yStatusComponent {
   ///
   String? id;
 
+  /// Name is the service as the fleet prober knows it (the `service` label on hanzo_service_up), so a reader can match a component to what is being probed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

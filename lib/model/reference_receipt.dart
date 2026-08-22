@@ -19,7 +19,6 @@ class ReferenceReceipt {
     this.source_,
     this.version,
   });
-
   /// AsOf is when the load happened, RFC 3339. Absent is dated on arrival, which can only make the list look older than it is.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

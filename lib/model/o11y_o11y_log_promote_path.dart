@@ -17,7 +17,6 @@ class O11yO11yLogPromotePath {
     this.path,
     this.promote,
   });
-
   /// Indexes are the indexes to put on the path.
   List<O11yO11yLogPromoteIndex> indexes;
 

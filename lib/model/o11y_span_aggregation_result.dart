@@ -17,7 +17,6 @@ class O11ySpanAggregationResult {
     this.field,
     this.value = const {},
   });
-
   Object? aggregation;
 
   ///

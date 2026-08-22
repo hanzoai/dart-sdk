@@ -16,7 +16,6 @@ class SourceFailure {
     this.reason,
     this.source_,
   });
-
   /// Reason is a terse, log-safe summary — never the upstream's response body.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

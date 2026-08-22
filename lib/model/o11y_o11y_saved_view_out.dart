@@ -16,7 +16,6 @@ class O11yO11ySavedViewOut {
     this.data,
     this.status,
   });
-
   /// Data holds the view.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

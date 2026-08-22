@@ -15,7 +15,6 @@ class DocumentList {
   DocumentList({
     this.data = const [],
   });
-
   /// Data is the matching documents, newest-updated first unless order_by said otherwise, each projected to the requested fields plus the envelope keys.
   List<Map<String, Object>> data;
 

@@ -16,7 +16,6 @@ class AuditList {
     this.data = const [],
     this.disclaimer,
   });
-
   /// Data is the org's compliance.* audit rows, newest first.
   List<Wire> data;
 

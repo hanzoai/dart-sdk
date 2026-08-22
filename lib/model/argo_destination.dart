@@ -17,7 +17,6 @@ class ArgoDestination {
     this.namespace,
     this.server,
   });
-
   /// ArgoCD allows a destination by cluster name; omitted for the in-cluster projection.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -27,6 +26,7 @@ class ArgoDestination {
   ///
   String? name;
 
+  /// Namespace is where in that cluster the workload lands. \"*\" on a project's destination fence means any namespace.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -35,6 +35,7 @@ class ArgoDestination {
   ///
   String? namespace;
 
+  /// Server is the cluster API URL the application reconciles into. Everything this plane projects lands in the cluster it runs in, so it is https://kubernetes.default.svc — except on a project's destination fence, where \"*\" means any cluster.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

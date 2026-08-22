@@ -20,7 +20,6 @@ class DatasetView {
     this.name,
     this.updatedAt,
   });
-
   /// CreatedAt is when the name was first written, kept across later edits.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class FoundersIn {
   FoundersIn({
     this.founders = const [],
   });
-
   /// Founders is every founding stakeholder. Each needs a name and an email, and equityBps between 0 and 10000 (1% == 100 bps).
   List<Founder> founders;
 

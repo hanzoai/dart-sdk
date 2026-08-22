@@ -16,7 +16,6 @@ class RevokedKey {
     this.ok,
     this.type,
   });
-
   /// OK is true when the key was revoked. A failure is an error status, never a false here.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

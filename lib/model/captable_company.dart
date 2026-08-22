@@ -22,7 +22,6 @@ class CaptableCompany {
     this.publicId,
     this.updatedAt,
   });
-
   /// CreatedAt is when the company row was seeded, in unix milliseconds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,7 @@ class SuppressionList {
   SuppressionList({
     this.data = const [],
   });
-
+  /// Data is the page: every (channel, address) this org's send gate refuses, newest opt-out first. Absence from it is not permission to mail someone — it only means no opt-out was recorded on that channel.
   List<Suppression> data;
 
   @override

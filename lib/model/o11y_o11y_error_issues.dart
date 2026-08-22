@@ -18,7 +18,6 @@ class O11yO11yErrorIssues {
     this.offset,
     this.total,
   });
-
   /// Items are the issues.
   List<O11yO11yErrorIssue> items;
 

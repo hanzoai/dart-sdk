@@ -15,7 +15,6 @@ class BuildBoard {
   BuildBoard({
     this.builds = const [],
   });
-
   /// Builds are the org's real BuildKit build records, newest first.
   List<BuildRow> builds;
 

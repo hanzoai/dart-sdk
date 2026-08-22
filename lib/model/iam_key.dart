@@ -15,6 +15,8 @@ class IamKey {
   IamKey({
     this.accessKey,
     this.accessSecret,
+    this.accessSecretDigest,
+    this.act,
     this.application,
     this.createdAt,
     this.createdTime,
@@ -32,8 +34,7 @@ class IamKey {
     this.updatedTime,
     this.user,
   });
-
-  /// AccessKey (pk-*) is the publishable identifier and lookup index; AccessSecret (sk-*) is the confidential secret.
+  /// AccessKey (pk-*) is the publishable identifier and lookup index; AccessSecret (sk-*) is the confidential secret. AccessSecret IS NOT PERSISTED for a key minted at or after the digest change: it carries the secret out to its holder once, in the mint response, and the row keeps only AccessSecretDigest. It stays on the struct because that one-time reveal is the whole point of minting, and it stays in the schema because rows written before the change still hold a plaintext secret that the resolver drains on first use.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -49,6 +50,24 @@ class IamKey {
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
   String? accessSecret;
+
+  /// AccessSecretDigest is how a presented secret finds its key: the resolver digests what the caller sent and looks THAT up. It is what lets the row hold no plaintext and still be found in one indexed read — a salted hash cannot be looked up by value, which is the reason the plaintext was here.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? accessSecretDigest;
+
+  /// Act is the durable, opt-in grant that lets this key act FOR a user in its own org — the credential behind as(): presenting it authorizes minting a short-lived, user-bound token for a member of the key's tenant. Default false, so a server key mints nothing on anyone's behalf until the grant is set deliberately — the capability is never inherited by every key. It is confined at mint time to the key's OWN Owner, and a reserved-org or SuperAdmin target is refused, so the grant reaches only ordinary members of the one tenant that holds the key.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  bool? act;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -188,6 +207,8 @@ class IamKey {
   bool operator ==(Object other) => identical(this, other) || other is IamKey &&
     other.accessKey == accessKey &&
     other.accessSecret == accessSecret &&
+    other.accessSecretDigest == accessSecretDigest &&
+    other.act == act &&
     other.application == application &&
     other.createdAt == createdAt &&
     other.createdTime == createdTime &&
@@ -210,6 +231,8 @@ class IamKey {
     // ignore: unnecessary_parenthesis
     (accessKey == null ? 0 : accessKey!.hashCode) +
     (accessSecret == null ? 0 : accessSecret!.hashCode) +
+    (accessSecretDigest == null ? 0 : accessSecretDigest!.hashCode) +
+    (act == null ? 0 : act!.hashCode) +
     (application == null ? 0 : application!.hashCode) +
     (createdAt == null ? 0 : createdAt!.hashCode) +
     (createdTime == null ? 0 : createdTime!.hashCode) +
@@ -228,7 +251,7 @@ class IamKey {
     (user == null ? 0 : user!.hashCode);
 
   @override
-  String toString() => 'IamKey[accessKey=$accessKey, accessSecret=$accessSecret, application=$application, createdAt=$createdAt, createdTime=$createdTime, deleted=$deleted, displayName=$displayName, expireTime=$expireTime, id=$id, name=$name, organization=$organization, owner=$owner, scope=$scope, state=$state, type=$type, updatedAt=$updatedAt, updatedTime=$updatedTime, user=$user]';
+  String toString() => 'IamKey[accessKey=$accessKey, accessSecret=$accessSecret, accessSecretDigest=$accessSecretDigest, act=$act, application=$application, createdAt=$createdAt, createdTime=$createdTime, deleted=$deleted, displayName=$displayName, expireTime=$expireTime, id=$id, name=$name, organization=$organization, owner=$owner, scope=$scope, state=$state, type=$type, updatedAt=$updatedAt, updatedTime=$updatedTime, user=$user]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -241,6 +264,16 @@ class IamKey {
       json[r'accessSecret'] = this.accessSecret;
     } else {
       json[r'accessSecret'] = null;
+    }
+    if (this.accessSecretDigest != null) {
+      json[r'accessSecretDigest'] = this.accessSecretDigest;
+    } else {
+      json[r'accessSecretDigest'] = null;
+    }
+    if (this.act != null) {
+      json[r'act'] = this.act;
+    } else {
+      json[r'act'] = null;
     }
     if (this.application != null) {
       json[r'application'] = this.application;
@@ -346,6 +379,8 @@ class IamKey {
       return IamKey(
         accessKey: mapValueOfType<String>(json, r'accessKey'),
         accessSecret: mapValueOfType<String>(json, r'accessSecret'),
+        accessSecretDigest: mapValueOfType<String>(json, r'accessSecretDigest'),
+        act: mapValueOfType<bool>(json, r'act'),
         application: mapValueOfType<String>(json, r'application'),
         createdAt: mapDateTime(json, r'createdAt', r''),
         createdTime: mapValueOfType<String>(json, r'createdTime'),

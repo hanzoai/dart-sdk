@@ -15,7 +15,6 @@ class O11yO11yRoleID {
   O11yO11yRoleID({
     this.id,
   });
-
   /// ID is the role id.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class FleetBoard {
   FleetBoard({
     this.units = const [],
   });
-
   /// Units is the union across sources — agent run-targets, BYO workers, BYO clusters and Visor machines — each row naming the source it came from.
   List<FleetUnit> units;
 

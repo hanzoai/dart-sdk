@@ -18,7 +18,6 @@ class O11yO11yPostableUser {
     this.frontendBaseUrl,
     this.userRoles = const [],
   });
-
   /// DisplayName is the new member's display name.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

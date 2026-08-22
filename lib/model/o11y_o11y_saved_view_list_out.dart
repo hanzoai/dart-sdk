@@ -16,7 +16,6 @@ class O11yO11ySavedViewListOut {
     this.data = const [],
     this.status,
   });
-
   /// Data holds the views.
   List<O11ySavedView> data;
 

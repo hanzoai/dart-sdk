@@ -15,7 +15,6 @@ class ReportOut {
   ReportOut({
     this.delivered,
   });
-
   /// Delivered is true when a waiting durable owner received this result. False means there was none to deliver to — an unknown or already-finished run — which is a clean no-op, not an error.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

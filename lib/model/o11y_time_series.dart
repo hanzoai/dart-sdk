@@ -16,7 +16,6 @@ class O11yTimeSeries {
     this.labels = const [],
     this.values = const [],
   });
-
   List<O11yLabel> labels;
 
   List<Object> values;

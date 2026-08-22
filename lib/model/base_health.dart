@@ -16,7 +16,6 @@ class BaseHealth {
     this.service,
     this.status,
   });
-
   /// Service is \"base\" — which subsystem answered.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

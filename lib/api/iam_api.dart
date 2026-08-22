@@ -251,7 +251,7 @@ class IamApi {
   /// * [IamCreateSessionIn] iamCreateSessionIn (required):
   Future<Response> createSessionWithHttpInfo(IamCreateSessionIn iamCreateSessionIn,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/iam/sessions/create';
+    final path = r'/v1/iam/sessions';
 
     // ignore: prefer_final_locals
     Object? postBody = iamCreateSessionIn;
@@ -307,9 +307,11 @@ class IamApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<Response> deleteIamApplicationWithHttpInfo(String owner, String name,) async {
+  Future<Response> deleteIamApplicationsByOwnerByNameWithHttpInfo(String owner, String name,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/iam/application';
+    final path = r'/v1/iam/applications/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -317,9 +319,6 @@ class IamApi {
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
-
-      queryParams.addAll(_queryParams('', 'owner', owner));
-      queryParams.addAll(_queryParams('', 'name', name));
 
     const contentTypes = <String>[];
 
@@ -344,8 +343,8 @@ class IamApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<IamDeleteResult?> deleteIamApplication(String owner, String name,) async {
-    final response = await deleteIamApplicationWithHttpInfo(owner, name,);
+  Future<IamDeleteResult?> deleteIamApplicationsByOwnerByName(String owner, String name,) async {
+    final response = await deleteIamApplicationsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -354,6 +353,480 @@ class IamApi {
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
       return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamDeleteResult',) as IamDeleteResult;
+    
+    }
+    return null;
+  }
+
+  /// Removes an audit entry.
+  ///
+  /// Removes an audit entry. Retention policy is normally what should expire a trail; deleting by hand leaves a gap a reviewer will notice.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<Response> deleteIamAuditLogsByOwnerByNameWithHttpInfo(String owner, String name,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/audit-logs/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'DELETE',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Removes an audit entry.
+  ///
+  /// Removes an audit entry. Retention policy is normally what should expire a trail; deleting by hand leaves a gap a reviewer will notice.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<IamDeleteOutput?> deleteIamAuditLogsByOwnerByName(String owner, String name,) async {
+    final response = await deleteIamAuditLogsByOwnerByNameWithHttpInfo(owner, name,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamDeleteOutput',) as IamDeleteOutput;
+    
+    }
+    return null;
+  }
+
+  /// Removes a signing certificate.
+  ///
+  /// Removes a signing certificate. Tokens signed with it can no longer be verified, so retire it only once nothing is still presenting them.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<Response> deleteIamCertsByOwnerByNameWithHttpInfo(String owner, String name,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/certs/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'DELETE',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Removes a signing certificate.
+  ///
+  /// Removes a signing certificate. Tokens signed with it can no longer be verified, so retire it only once nothing is still presenting them.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<IamCertsDeleteOutput?> deleteIamCertsByOwnerByName(String owner, String name,) async {
+    final response = await deleteIamCertsByOwnerByNameWithHttpInfo(owner, name,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamCertsDeleteOutput',) as IamCertsDeleteOutput;
+    
+    }
+    return null;
+  }
+
+  /// Withdraws an invitation.
+  ///
+  /// Withdraws an invitation. It stops being redeemable at once; anyone who already joined through it keeps their account.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<Response> deleteIamInvitationsByOwnerByNameWithHttpInfo(String owner, String name,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/invitations/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'DELETE',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Withdraws an invitation.
+  ///
+  /// Withdraws an invitation. It stops being redeemable at once; anyone who already joined through it keeps their account.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<IamInvitationsDeleteOutput?> deleteIamInvitationsByOwnerByName(String owner, String name,) async {
+    final response = await deleteIamInvitationsByOwnerByNameWithHttpInfo(owner, name,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamInvitationsDeleteOutput',) as IamInvitationsDeleteOutput;
+    
+    }
+    return null;
+  }
+
+  /// Revokes an API key.
+  ///
+  /// Revokes an API key. Anything still presenting it stops being authorized at once, so roll the replacement out before you revoke.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<Response> deleteIamKeysByOwnerByNameWithHttpInfo(String owner, String name,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/keys/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'DELETE',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Revokes an API key.
+  ///
+  /// Revokes an API key. Anything still presenting it stops being authorized at once, so roll the replacement out before you revoke.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<IamDeleteResponse?> deleteIamKeysByOwnerByName(String owner, String name,) async {
+    final response = await deleteIamKeysByOwnerByNameWithHttpInfo(owner, name,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamDeleteResponse',) as IamDeleteResponse;
+    
+    }
+    return null;
+  }
+
+  /// Turns a factor off, so sign-in stops asking for it.
+  ///
+  /// Turns a factor off, so sign-in stops asking for it. Naming no factor turns off ALL of them — the reset path. People may do this for themselves; doing it for somebody else takes an administrator, which is what makes it the way back in when a phone is lost.  The recovery codes go with the last factor: they are the way past a challenge, so keeping them alive for an account with nothing to challenge would leave a standing credential behind.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> deleteIamMfaWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/mfa';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'DELETE',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Turns a factor off, so sign-in stops asking for it.
+  ///
+  /// Turns a factor off, so sign-in stops asking for it. Naming no factor turns off ALL of them — the reset path. People may do this for themselves; doing it for somebody else takes an administrator, which is what makes it the way back in when a phone is lost.  The recovery codes go with the last factor: they are the way past a challenge, so keeping them alive for an account with nothing to challenge would leave a standing credential behind.
+  Future<void> deleteIamMfa() async {
+    final response = await deleteIamMfaWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+  }
+
+  /// Revokes a permission.
+  ///
+  /// Revokes a permission. Everyone who held access only through it loses that access immediately; grants they hold by another route are untouched.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<Response> deleteIamPermissionsByOwnerByNameWithHttpInfo(String owner, String name,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/permissions/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'DELETE',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Revokes a permission.
+  ///
+  /// Revokes a permission. Everyone who held access only through it loses that access immediately; grants they hold by another route are untouched.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<IamPermissionDeleteResponse?> deleteIamPermissionsByOwnerByName(String owner, String name,) async {
+    final response = await deleteIamPermissionsByOwnerByNameWithHttpInfo(owner, name,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamPermissionDeleteResponse',) as IamPermissionDeleteResponse;
+    
+    }
+    return null;
+  }
+
+  /// Removes a project.
+  ///
+  /// Removes a project. The people and roles in your organization are unchanged; what goes is the scope itself, so move anything addressed by it first.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<Response> deleteIamProjectsByOwnerByNameWithHttpInfo(String owner, String name,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/projects/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'DELETE',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Removes a project.
+  ///
+  /// Removes a project. The people and roles in your organization are unchanged; what goes is the scope itself, so move anything addressed by it first.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<IamProjectsDeleteOutput?> deleteIamProjectsByOwnerByName(String owner, String name,) async {
+    final response = await deleteIamProjectsByOwnerByNameWithHttpInfo(owner, name,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamProjectsDeleteOutput',) as IamProjectsDeleteOutput;
+    
+    }
+    return null;
+  }
+
+  /// Removes a role.
+  ///
+  /// Removes a role. Everyone in it loses the access it carried; their accounts, and any other role they hold, are untouched.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<Response> deleteIamRolesByOwnerByNameWithHttpInfo(String owner, String name,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/roles/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'DELETE',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Removes a role.
+  ///
+  /// Removes a role. Everyone in it loses the access it carried; their accounts, and any other role they hold, are untouched.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<IamRolesDeleteOutput?> deleteIamRolesByOwnerByName(String owner, String name,) async {
+    final response = await deleteIamRolesByOwnerByNameWithHttpInfo(owner, name,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamRolesDeleteOutput',) as IamRolesDeleteOutput;
     
     }
     return null;
@@ -462,6 +935,184 @@ class IamApi {
     }
   }
 
+  /// Removes a person from your organization.
+  ///
+  /// Removes a person from your organization. Their sessions stop working immediately and the account is gone rather than suspended — to keep the record and only stop sign-in, update the user instead.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<Response> deleteIamUsersByOwnerByNameWithHttpInfo(String owner, String name,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/users/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'DELETE',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Removes a person from your organization.
+  ///
+  /// Removes a person from your organization. Their sessions stop working immediately and the account is gone rather than suspended — to keep the record and only stop sign-in, update the user instead.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<IamUsersDeleteOutput?> deleteIamUsersByOwnerByName(String owner, String name,) async {
+    final response = await deleteIamUsersByOwnerByNameWithHttpInfo(owner, name,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamUsersDeleteOutput',) as IamUsersDeleteOutput;
+    
+    }
+    return null;
+  }
+
+  /// Clears the target user's key of the requested TYPE (immediate revoke).
+  ///
+  /// Clears the target user's key of the requested TYPE (immediate revoke). Scoped by the same `?type` field mint takes, so revoking the browser key leaves the server key working. A secret key's stored value is the sk- in its schema.Key row.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<Response> deleteIamUsersByOwnerByNameKeysWithHttpInfo(String owner, String name,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/users/{owner}/{name}/keys'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'DELETE',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Clears the target user's key of the requested TYPE (immediate revoke).
+  ///
+  /// Clears the target user's key of the requested TYPE (immediate revoke). Scoped by the same `?type` field mint takes, so revoking the browser key leaves the server key working. A secret key's stored value is the sk- in its schema.Key row.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<void> deleteIamUsersByOwnerByNameKeys(String owner, String name,) async {
+    final response = await deleteIamUsersByOwnerByNameKeysWithHttpInfo(owner, name,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+  }
+
+  /// Removes a workspace.
+  ///
+  /// Removes a workspace. The people and roles in your organization are unchanged; what goes is the scope itself.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<Response> deleteIamWorkspacesByOwnerByNameWithHttpInfo(String owner, String name,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/workspaces/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'DELETE',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Removes a workspace.
+  ///
+  /// Removes a workspace. The people and roles in your organization are unchanged; what goes is the scope itself.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<IamWorkspacesDeleteOutput?> deleteIamWorkspacesByOwnerByName(String owner, String name,) async {
+    final response = await deleteIamWorkspacesByOwnerByNameWithHttpInfo(owner, name,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamWorkspacesDeleteOutput',) as IamWorkspacesDeleteOutput;
+    
+    }
+    return null;
+  }
+
   /// Removes an organization and everything named inside it.
   ///
   /// Removes an organization and everything named inside it. There is no undo, and every session issued under it stops working.  The built-in admin organization cannot be deleted — losing it would leave the account with no way back in.
@@ -470,24 +1121,28 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [IamDeleteOrganizationInput] iamDeleteOrganizationInput (required):
-  Future<Response> deleteOrganizationWithHttpInfo(IamDeleteOrganizationInput iamDeleteOrganizationInput,) async {
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<Response> deleteOrganizationWithHttpInfo(String owner, String name,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/iam/organizations/delete';
+    final path = r'/v1/iam/organizations/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
 
     // ignore: prefer_final_locals
-    Object? postBody = iamDeleteOrganizationInput;
+    Object? postBody;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>['application/json'];
+    const contentTypes = <String>[];
 
 
     return apiClient.invokeAPI(
       path,
-      'POST',
+      'DELETE',
       queryParams,
       postBody,
       headerParams,
@@ -502,9 +1157,11 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [IamDeleteOrganizationInput] iamDeleteOrganizationInput (required):
-  Future<IamDeleteOrganizationOutput?> deleteOrganization(IamDeleteOrganizationInput iamDeleteOrganizationInput,) async {
-    final response = await deleteOrganizationWithHttpInfo(iamDeleteOrganizationInput,);
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<IamDeleteOrganizationOutput?> deleteOrganization(String owner, String name,) async {
+    final response = await deleteOrganizationWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -526,24 +1183,28 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [IamProviderKey] iamProviderKey (required):
-  Future<Response> deleteProviderWithHttpInfo(IamProviderKey iamProviderKey,) async {
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<Response> deleteProviderWithHttpInfo(String owner, String name,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/iam/providers/delete';
+    final path = r'/v1/iam/providers/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
 
     // ignore: prefer_final_locals
-    Object? postBody = iamProviderKey;
+    Object? postBody;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>['application/json'];
+    const contentTypes = <String>[];
 
 
     return apiClient.invokeAPI(
       path,
-      'POST',
+      'DELETE',
       queryParams,
       postBody,
       headerParams,
@@ -558,9 +1219,11 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [IamProviderKey] iamProviderKey (required):
-  Future<IamMutationResult?> deleteProvider(IamProviderKey iamProviderKey,) async {
-    final response = await deleteProviderWithHttpInfo(iamProviderKey,);
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<IamMutationResult?> deleteProvider(String owner, String name,) async {
+    final response = await deleteProviderWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -582,24 +1245,31 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [IamSessionRef] iamSessionRef (required):
-  Future<Response> deleteSessionWithHttpInfo(IamSessionRef iamSessionRef,) async {
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
+  /// * [String] application (required):
+  Future<Response> deleteSessionWithHttpInfo(String owner, String name, String application,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/iam/sessions/delete';
+    final path = r'/v1/iam/sessions/{owner}/{name}/{application}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name)
+      .replaceAll('{application}', application);
 
     // ignore: prefer_final_locals
-    Object? postBody = iamSessionRef;
+    Object? postBody;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>['application/json'];
+    const contentTypes = <String>[];
 
 
     return apiClient.invokeAPI(
       path,
-      'POST',
+      'DELETE',
       queryParams,
       postBody,
       headerParams,
@@ -614,9 +1284,13 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [IamSessionRef] iamSessionRef (required):
-  Future<IamDeleteSessionOut?> deleteSession(IamSessionRef iamSessionRef,) async {
-    final response = await deleteSessionWithHttpInfo(iamSessionRef,);
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
+  /// * [String] application (required):
+  Future<IamDeleteSessionOut?> deleteSession(String owner, String name, String application,) async {
+    final response = await deleteSessionWithHttpInfo(owner, name, application,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -638,24 +1312,28 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [IamTokenKey] iamTokenKey (required):
-  Future<Response> deleteTokenWithHttpInfo(IamTokenKey iamTokenKey,) async {
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<Response> deleteTokenWithHttpInfo(String owner, String name,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/iam/tokens/delete';
+    final path = r'/v1/iam/tokens/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
 
     // ignore: prefer_final_locals
-    Object? postBody = iamTokenKey;
+    Object? postBody;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>['application/json'];
+    const contentTypes = <String>[];
 
 
     return apiClient.invokeAPI(
       path,
-      'POST',
+      'DELETE',
       queryParams,
       postBody,
       headerParams,
@@ -670,9 +1348,11 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [IamTokenKey] iamTokenKey (required):
-  Future<IamTokenMutation?> deleteToken(IamTokenKey iamTokenKey,) async {
-    final response = await deleteTokenWithHttpInfo(iamTokenKey,);
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<IamTokenMutation?> deleteToken(String owner, String name,) async {
+    final response = await deleteTokenWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -694,24 +1374,28 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [IamWebauthnCredentialKey] iamWebauthnCredentialKey (required):
-  Future<Response> deleteWebauthnCredentialWithHttpInfo(IamWebauthnCredentialKey iamWebauthnCredentialKey,) async {
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<Response> deleteWebauthnCredentialWithHttpInfo(String owner, String name,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/iam/webauthn-credentials/delete';
+    final path = r'/v1/iam/webauthn-credentials/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
 
     // ignore: prefer_final_locals
-    Object? postBody = iamWebauthnCredentialKey;
+    Object? postBody;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>['application/json'];
+    const contentTypes = <String>[];
 
 
     return apiClient.invokeAPI(
       path,
-      'POST',
+      'DELETE',
       queryParams,
       postBody,
       headerParams,
@@ -726,9 +1410,11 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [IamWebauthnCredentialKey] iamWebauthnCredentialKey (required):
-  Future<IamWebauthnCredentialMutationResult?> deleteWebauthnCredential(IamWebauthnCredentialKey iamWebauthnCredentialKey,) async {
-    final response = await deleteWebauthnCredentialWithHttpInfo(iamWebauthnCredentialKey,);
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<IamWebauthnCredentialMutationResult?> deleteWebauthnCredential(String owner, String name,) async {
+    final response = await deleteWebauthnCredentialWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -780,69 +1466,6 @@ class IamApi {
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
-  }
-
-  /// Returns one application: its sign-in methods, its allowed redirect URIs and the client credentials your integration authenticates with.
-  ///
-  /// Returns one application: its sign-in methods, its allowed redirect URIs and the client credentials your integration authenticates with.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [String] owner (required):
-  ///
-  /// * [String] name (required):
-  Future<Response> getIamApplicationWithHttpInfo(String owner, String name,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/application';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-      queryParams.addAll(_queryParams('', 'owner', owner));
-      queryParams.addAll(_queryParams('', 'name', name));
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'GET',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Returns one application: its sign-in methods, its allowed redirect URIs and the client credentials your integration authenticates with.
-  ///
-  /// Returns one application: its sign-in methods, its allowed redirect URIs and the client credentials your integration authenticates with.
-  ///
-  /// Parameters:
-  ///
-  /// * [String] owner (required):
-  ///
-  /// * [String] name (required):
-  Future<IamApplication?> getIamApplication(String owner, String name,) async {
-    final response = await getIamApplicationWithHttpInfo(owner, name,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamApplication',) as IamApplication;
-    
-    }
-    return null;
   }
 
   /// Returns the applications in one organization, newest first — each product or site your people sign in to, with the sign-in methods and redirect URIs it allows.
@@ -914,9 +1537,11 @@ class IamApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<Response> getIamApplicationsGetWithHttpInfo(String owner, String name,) async {
+  Future<Response> getIamApplicationsByOwnerByNameWithHttpInfo(String owner, String name,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/iam/applications/get';
+    final path = r'/v1/iam/applications/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -924,9 +1549,6 @@ class IamApi {
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
-
-      queryParams.addAll(_queryParams('', 'owner', owner));
-      queryParams.addAll(_queryParams('', 'name', name));
 
     const contentTypes = <String>[];
 
@@ -951,8 +1573,8 @@ class IamApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<IamApplication?> getIamApplicationsGet(String owner, String name,) async {
-    final response = await getIamApplicationsGetWithHttpInfo(owner, name,);
+  Future<IamApplication?> getIamApplicationsByOwnerByName(String owner, String name,) async {
+    final response = await getIamApplicationsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -1021,6 +1643,68 @@ class IamApi {
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
       return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamListOutput',) as IamListOutput;
+    
+    }
+    return null;
+  }
+
+  /// Returns one audit entry in full: the action, the person or key behind it, and the request it came in on.
+  ///
+  /// Returns one audit entry in full: the action, the person or key behind it, and the request it came in on.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<Response> getIamAuditLogsByOwnerByNameWithHttpInfo(String owner, String name,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/audit-logs/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Returns one audit entry in full: the action, the person or key behind it, and the request it came in on.
+  ///
+  /// Returns one audit entry in full: the action, the person or key behind it, and the request it came in on.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<IamAuditLog?> getIamAuditLogsByOwnerByName(String owner, String name,) async {
+    final response = await getIamAuditLogsByOwnerByNameWithHttpInfo(owner, name,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamAuditLog',) as IamAuditLog;
     
     }
     return null;
@@ -1219,6 +1903,68 @@ class IamApi {
     return null;
   }
 
+  /// Returns one signing certificate — its algorithm, its validity window and its public half.
+  ///
+  /// Returns one signing certificate — its algorithm, its validity window and its public half. The private key is masked.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<Response> getIamCertsByOwnerByNameWithHttpInfo(String owner, String name,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/certs/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Returns one signing certificate — its algorithm, its validity window and its public half.
+  ///
+  /// Returns one signing certificate — its algorithm, its validity window and its public half. The private key is masked.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<IamCert?> getIamCertsByOwnerByName(String owner, String name,) async {
+    final response = await getIamCertsByOwnerByNameWithHttpInfo(owner, name,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamCert',) as IamCert;
+    
+    }
+    return null;
+  }
+
   /// Returns the calling person's own privacy and communication choices.
   ///
   /// Returns the calling person's own privacy and communication choices. Somebody who has never set them gets the defaults rather than nothing, so a consent screen always has something to show — insights on, and training UNANSWERED, which is the state that means the screen still has to ask.
@@ -1370,837 +2116,6 @@ class IamApi {
     return null;
   }
 
-  /// Reads one record — the older spelling of the single reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Reads one record — the older spelling of the single reads on the REST surface, over the same data and the same permissions.  Secrets are stripped. Naming a record in another organization does not reach it, however the request spells it.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  Future<Response> getIamGetApplicationWithHttpInfo() async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/get-application';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'GET',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Reads one record — the older spelling of the single reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Reads one record — the older spelling of the single reads on the REST surface, over the same data and the same permissions.  Secrets are stripped. Naming a record in another organization does not reach it, however the request spells it.
-  Future<void> getIamGetApplication() async {
-    final response = await getIamGetApplicationWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.  Secrets are stripped from every row. Send both a page number and a page size to page, and the total comes back alongside; send neither and you get the whole set. You see your own organization and no other, whatever the request asks for.  Scoping note (intentional, fail-closed): iam's ownership model is mixed — users/roles/permissions are owned by their tenant org, while organizations/ applications/providers/certs are platform-owned (Owner \"admin\"). A SuperAdmin (Scope → the requested owner, empty = all) therefore lists every entity, which is the console-admin path. A non-super is pinned by Scope to its own org, so it lists its tenant-owned entities correctly and is refused the platform-owned lists at the Guard (owner \"\" or \"admin\" both deny) — a safe 403, never another tenant's rows. Non-super, membership-scoped views of the platform-owned entities (e.g. an org console's own app list keyed on Application.Organization) are a separate, additive surface, not a silent behavior of this generic lister.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  Future<Response> getIamGetApplicationsWithHttpInfo() async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/get-applications';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'GET',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.  Secrets are stripped from every row. Send both a page number and a page size to page, and the total comes back alongside; send neither and you get the whole set. You see your own organization and no other, whatever the request asks for.  Scoping note (intentional, fail-closed): iam's ownership model is mixed — users/roles/permissions are owned by their tenant org, while organizations/ applications/providers/certs are platform-owned (Owner \"admin\"). A SuperAdmin (Scope → the requested owner, empty = all) therefore lists every entity, which is the console-admin path. A non-super is pinned by Scope to its own org, so it lists its tenant-owned entities correctly and is refused the platform-owned lists at the Guard (owner \"\" or \"admin\" both deny) — a safe 403, never another tenant's rows. Non-super, membership-scoped views of the platform-owned entities (e.g. an org console's own app list keyed on Application.Organization) are a separate, additive surface, not a silent behavior of this generic lister.
-  Future<void> getIamGetApplications() async {
-    final response = await getIamGetApplicationsWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
-  /// Reads one record — the older spelling of the single reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Reads one record — the older spelling of the single reads on the REST surface, over the same data and the same permissions.  Secrets are stripped. Naming a record in another organization does not reach it, however the request spells it.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  Future<Response> getIamGetCertWithHttpInfo() async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/get-cert';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'GET',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Reads one record — the older spelling of the single reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Reads one record — the older spelling of the single reads on the REST surface, over the same data and the same permissions.  Secrets are stripped. Naming a record in another organization does not reach it, however the request spells it.
-  Future<void> getIamGetCert() async {
-    final response = await getIamGetCertWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.  Secrets are stripped from every row. Send both a page number and a page size to page, and the total comes back alongside; send neither and you get the whole set. You see your own organization and no other, whatever the request asks for.  Scoping note (intentional, fail-closed): iam's ownership model is mixed — users/roles/permissions are owned by their tenant org, while organizations/ applications/providers/certs are platform-owned (Owner \"admin\"). A SuperAdmin (Scope → the requested owner, empty = all) therefore lists every entity, which is the console-admin path. A non-super is pinned by Scope to its own org, so it lists its tenant-owned entities correctly and is refused the platform-owned lists at the Guard (owner \"\" or \"admin\" both deny) — a safe 403, never another tenant's rows. Non-super, membership-scoped views of the platform-owned entities (e.g. an org console's own app list keyed on Application.Organization) are a separate, additive surface, not a silent behavior of this generic lister.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  Future<Response> getIamGetCertsWithHttpInfo() async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/get-certs';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'GET',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.  Secrets are stripped from every row. Send both a page number and a page size to page, and the total comes back alongside; send neither and you get the whole set. You see your own organization and no other, whatever the request asks for.  Scoping note (intentional, fail-closed): iam's ownership model is mixed — users/roles/permissions are owned by their tenant org, while organizations/ applications/providers/certs are platform-owned (Owner \"admin\"). A SuperAdmin (Scope → the requested owner, empty = all) therefore lists every entity, which is the console-admin path. A non-super is pinned by Scope to its own org, so it lists its tenant-owned entities correctly and is refused the platform-owned lists at the Guard (owner \"\" or \"admin\" both deny) — a safe 403, never another tenant's rows. Non-super, membership-scoped views of the platform-owned entities (e.g. an org console's own app list keyed on Application.Organization) are a separate, additive surface, not a silent behavior of this generic lister.
-  Future<void> getIamGetCerts() async {
-    final response = await getIamGetCertsWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.  Secrets are stripped from every row. Send both a page number and a page size to page, and the total comes back alongside; send neither and you get the whole set. You see your own organization and no other, whatever the request asks for.  Scoping note (intentional, fail-closed): iam's ownership model is mixed — users/roles/permissions are owned by their tenant org, while organizations/ applications/providers/certs are platform-owned (Owner \"admin\"). A SuperAdmin (Scope → the requested owner, empty = all) therefore lists every entity, which is the console-admin path. A non-super is pinned by Scope to its own org, so it lists its tenant-owned entities correctly and is refused the platform-owned lists at the Guard (owner \"\" or \"admin\" both deny) — a safe 403, never another tenant's rows. Non-super, membership-scoped views of the platform-owned entities (e.g. an org console's own app list keyed on Application.Organization) are a separate, additive surface, not a silent behavior of this generic lister.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  Future<Response> getIamGetGlobalUsersWithHttpInfo() async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/get-global-users';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'GET',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.  Secrets are stripped from every row. Send both a page number and a page size to page, and the total comes back alongside; send neither and you get the whole set. You see your own organization and no other, whatever the request asks for.  Scoping note (intentional, fail-closed): iam's ownership model is mixed — users/roles/permissions are owned by their tenant org, while organizations/ applications/providers/certs are platform-owned (Owner \"admin\"). A SuperAdmin (Scope → the requested owner, empty = all) therefore lists every entity, which is the console-admin path. A non-super is pinned by Scope to its own org, so it lists its tenant-owned entities correctly and is refused the platform-owned lists at the Guard (owner \"\" or \"admin\" both deny) — a safe 403, never another tenant's rows. Non-super, membership-scoped views of the platform-owned entities (e.g. an org console's own app list keyed on Application.Organization) are a separate, additive surface, not a silent behavior of this generic lister.
-  Future<void> getIamGetGlobalUsers() async {
-    final response = await getIamGetGlobalUsersWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.  Secrets are stripped from every row. Send both a page number and a page size to page, and the total comes back alongside; send neither and you get the whole set. You see your own organization and no other, whatever the request asks for.  Scoping note (intentional, fail-closed): iam's ownership model is mixed — users/roles/permissions are owned by their tenant org, while organizations/ applications/providers/certs are platform-owned (Owner \"admin\"). A SuperAdmin (Scope → the requested owner, empty = all) therefore lists every entity, which is the console-admin path. A non-super is pinned by Scope to its own org, so it lists its tenant-owned entities correctly and is refused the platform-owned lists at the Guard (owner \"\" or \"admin\" both deny) — a safe 403, never another tenant's rows. Non-super, membership-scoped views of the platform-owned entities (e.g. an org console's own app list keyed on Application.Organization) are a separate, additive surface, not a silent behavior of this generic lister.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  Future<Response> getIamGetInvitationsWithHttpInfo() async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/get-invitations';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'GET',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.  Secrets are stripped from every row. Send both a page number and a page size to page, and the total comes back alongside; send neither and you get the whole set. You see your own organization and no other, whatever the request asks for.  Scoping note (intentional, fail-closed): iam's ownership model is mixed — users/roles/permissions are owned by their tenant org, while organizations/ applications/providers/certs are platform-owned (Owner \"admin\"). A SuperAdmin (Scope → the requested owner, empty = all) therefore lists every entity, which is the console-admin path. A non-super is pinned by Scope to its own org, so it lists its tenant-owned entities correctly and is refused the platform-owned lists at the Guard (owner \"\" or \"admin\" both deny) — a safe 403, never another tenant's rows. Non-super, membership-scoped views of the platform-owned entities (e.g. an org console's own app list keyed on Application.Organization) are a separate, additive surface, not a silent behavior of this generic lister.
-  Future<void> getIamGetInvitations() async {
-    final response = await getIamGetInvitationsWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
-  /// Answers either question about who belongs where: which organizations one person can act in, or who can act in one organization.
-  ///
-  /// Answers either question about who belongs where: which organizations one person can act in, or who can act in one organization.  Both are org-scoped: a non-SuperAdmin may ask about ITS OWN org's roster, or about a user whose home org is its own, and nothing else. The bound comes from the verified credential via authz.Scope, so a request parameter can never widen it — a membership row names who may act and spend in an org, so a cross-tenant read is a customer roster leak.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [String] user:
-  ///   User is \"<homeOrg>/<username>\" — which organizations that identity may act in.
-  ///
-  /// * [String] org:
-  ///   Org is an organization — who may act in it.
-  Future<Response> getIamGetMembershipsWithHttpInfo({ String? user, String? org, }) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/get-memberships';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    if (user != null) {
-      queryParams.addAll(_queryParams('', 'user', user));
-    }
-    if (org != null) {
-      queryParams.addAll(_queryParams('', 'org', org));
-    }
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'GET',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Answers either question about who belongs where: which organizations one person can act in, or who can act in one organization.
-  ///
-  /// Answers either question about who belongs where: which organizations one person can act in, or who can act in one organization.  Both are org-scoped: a non-SuperAdmin may ask about ITS OWN org's roster, or about a user whose home org is its own, and nothing else. The bound comes from the verified credential via authz.Scope, so a request parameter can never widen it — a membership row names who may act and spend in an org, so a cross-tenant read is a customer roster leak.
-  ///
-  /// Parameters:
-  ///
-  /// * [String] user:
-  ///   User is \"<homeOrg>/<username>\" — which organizations that identity may act in.
-  ///
-  /// * [String] org:
-  ///   Org is an organization — who may act in it.
-  Future<IamAnswer?> getIamGetMemberships({ String? user, String? org, }) async {
-    final response = await getIamGetMembershipsWithHttpInfo( user: user, org: org, );
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamAnswer',) as IamAnswer;
-    
-    }
-    return null;
-  }
-
-  /// Reads one record — the older spelling of the single reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Reads one record — the older spelling of the single reads on the REST surface, over the same data and the same permissions.  Secrets are stripped. Naming a record in another organization does not reach it, however the request spells it.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  Future<Response> getIamGetOrganizationWithHttpInfo() async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/get-organization';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'GET',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Reads one record — the older spelling of the single reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Reads one record — the older spelling of the single reads on the REST surface, over the same data and the same permissions.  Secrets are stripped. Naming a record in another organization does not reach it, however the request spells it.
-  Future<void> getIamGetOrganization() async {
-    final response = await getIamGetOrganizationWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
-  /// Returns one organization's projects — what a scope switcher lists so somebody can move between them.
-  ///
-  /// Returns one organization's projects — what a scope switcher lists so somebody can move between them.  You see your own organization and no other, whatever the request asks for.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  Future<Response> getIamGetOrganizationProjectsWithHttpInfo() async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/get-organization-projects';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'GET',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Returns one organization's projects — what a scope switcher lists so somebody can move between them.
-  ///
-  /// Returns one organization's projects — what a scope switcher lists so somebody can move between them.  You see your own organization and no other, whatever the request asks for.
-  Future<void> getIamGetOrganizationProjects() async {
-    final response = await getIamGetOrganizationProjectsWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
-  /// Returns one organization's workspaces — what a scope switcher lists so somebody can move between them.
-  ///
-  /// Returns one organization's workspaces — what a scope switcher lists so somebody can move between them.  You see your own organization and no other, whatever the request asks for.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  Future<Response> getIamGetOrganizationWorkspacesWithHttpInfo() async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/get-organization-workspaces';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'GET',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Returns one organization's workspaces — what a scope switcher lists so somebody can move between them.
-  ///
-  /// Returns one organization's workspaces — what a scope switcher lists so somebody can move between them.  You see your own organization and no other, whatever the request asks for.
-  Future<void> getIamGetOrganizationWorkspaces() async {
-    final response = await getIamGetOrganizationWorkspacesWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.  Secrets are stripped from every row. Send both a page number and a page size to page, and the total comes back alongside; send neither and you get the whole set. You see your own organization and no other, whatever the request asks for.  Scoping note (intentional, fail-closed): iam's ownership model is mixed — users/roles/permissions are owned by their tenant org, while organizations/ applications/providers/certs are platform-owned (Owner \"admin\"). A SuperAdmin (Scope → the requested owner, empty = all) therefore lists every entity, which is the console-admin path. A non-super is pinned by Scope to its own org, so it lists its tenant-owned entities correctly and is refused the platform-owned lists at the Guard (owner \"\" or \"admin\" both deny) — a safe 403, never another tenant's rows. Non-super, membership-scoped views of the platform-owned entities (e.g. an org console's own app list keyed on Application.Organization) are a separate, additive surface, not a silent behavior of this generic lister.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  Future<Response> getIamGetOrganizationsWithHttpInfo() async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/get-organizations';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'GET',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.  Secrets are stripped from every row. Send both a page number and a page size to page, and the total comes back alongside; send neither and you get the whole set. You see your own organization and no other, whatever the request asks for.  Scoping note (intentional, fail-closed): iam's ownership model is mixed — users/roles/permissions are owned by their tenant org, while organizations/ applications/providers/certs are platform-owned (Owner \"admin\"). A SuperAdmin (Scope → the requested owner, empty = all) therefore lists every entity, which is the console-admin path. A non-super is pinned by Scope to its own org, so it lists its tenant-owned entities correctly and is refused the platform-owned lists at the Guard (owner \"\" or \"admin\" both deny) — a safe 403, never another tenant's rows. Non-super, membership-scoped views of the platform-owned entities (e.g. an org console's own app list keyed on Application.Organization) are a separate, additive surface, not a silent behavior of this generic lister.
-  Future<void> getIamGetOrganizations() async {
-    final response = await getIamGetOrganizationsWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
-  /// Reads one record — the older spelling of the single reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Reads one record — the older spelling of the single reads on the REST surface, over the same data and the same permissions.  Secrets are stripped. Naming a record in another organization does not reach it, however the request spells it.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  Future<Response> getIamGetPermissionWithHttpInfo() async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/get-permission';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'GET',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Reads one record — the older spelling of the single reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Reads one record — the older spelling of the single reads on the REST surface, over the same data and the same permissions.  Secrets are stripped. Naming a record in another organization does not reach it, however the request spells it.
-  Future<void> getIamGetPermission() async {
-    final response = await getIamGetPermissionWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.  Secrets are stripped from every row. Send both a page number and a page size to page, and the total comes back alongside; send neither and you get the whole set. You see your own organization and no other, whatever the request asks for.  Scoping note (intentional, fail-closed): iam's ownership model is mixed — users/roles/permissions are owned by their tenant org, while organizations/ applications/providers/certs are platform-owned (Owner \"admin\"). A SuperAdmin (Scope → the requested owner, empty = all) therefore lists every entity, which is the console-admin path. A non-super is pinned by Scope to its own org, so it lists its tenant-owned entities correctly and is refused the platform-owned lists at the Guard (owner \"\" or \"admin\" both deny) — a safe 403, never another tenant's rows. Non-super, membership-scoped views of the platform-owned entities (e.g. an org console's own app list keyed on Application.Organization) are a separate, additive surface, not a silent behavior of this generic lister.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  Future<Response> getIamGetPermissionsWithHttpInfo() async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/get-permissions';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'GET',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.  Secrets are stripped from every row. Send both a page number and a page size to page, and the total comes back alongside; send neither and you get the whole set. You see your own organization and no other, whatever the request asks for.  Scoping note (intentional, fail-closed): iam's ownership model is mixed — users/roles/permissions are owned by their tenant org, while organizations/ applications/providers/certs are platform-owned (Owner \"admin\"). A SuperAdmin (Scope → the requested owner, empty = all) therefore lists every entity, which is the console-admin path. A non-super is pinned by Scope to its own org, so it lists its tenant-owned entities correctly and is refused the platform-owned lists at the Guard (owner \"\" or \"admin\" both deny) — a safe 403, never another tenant's rows. Non-super, membership-scoped views of the platform-owned entities (e.g. an org console's own app list keyed on Application.Organization) are a separate, additive surface, not a silent behavior of this generic lister.
-  Future<void> getIamGetPermissions() async {
-    final response = await getIamGetPermissionsWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
-  /// Reads one record — the older spelling of the single reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Reads one record — the older spelling of the single reads on the REST surface, over the same data and the same permissions.  Secrets are stripped. Naming a record in another organization does not reach it, however the request spells it.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  Future<Response> getIamGetProviderWithHttpInfo() async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/get-provider';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'GET',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Reads one record — the older spelling of the single reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Reads one record — the older spelling of the single reads on the REST surface, over the same data and the same permissions.  Secrets are stripped. Naming a record in another organization does not reach it, however the request spells it.
-  Future<void> getIamGetProvider() async {
-    final response = await getIamGetProviderWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.  Secrets are stripped from every row. Send both a page number and a page size to page, and the total comes back alongside; send neither and you get the whole set. You see your own organization and no other, whatever the request asks for.  Scoping note (intentional, fail-closed): iam's ownership model is mixed — users/roles/permissions are owned by their tenant org, while organizations/ applications/providers/certs are platform-owned (Owner \"admin\"). A SuperAdmin (Scope → the requested owner, empty = all) therefore lists every entity, which is the console-admin path. A non-super is pinned by Scope to its own org, so it lists its tenant-owned entities correctly and is refused the platform-owned lists at the Guard (owner \"\" or \"admin\" both deny) — a safe 403, never another tenant's rows. Non-super, membership-scoped views of the platform-owned entities (e.g. an org console's own app list keyed on Application.Organization) are a separate, additive surface, not a silent behavior of this generic lister.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  Future<Response> getIamGetProvidersWithHttpInfo() async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/get-providers';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'GET',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.  Secrets are stripped from every row. Send both a page number and a page size to page, and the total comes back alongside; send neither and you get the whole set. You see your own organization and no other, whatever the request asks for.  Scoping note (intentional, fail-closed): iam's ownership model is mixed — users/roles/permissions are owned by their tenant org, while organizations/ applications/providers/certs are platform-owned (Owner \"admin\"). A SuperAdmin (Scope → the requested owner, empty = all) therefore lists every entity, which is the console-admin path. A non-super is pinned by Scope to its own org, so it lists its tenant-owned entities correctly and is refused the platform-owned lists at the Guard (owner \"\" or \"admin\" both deny) — a safe 403, never another tenant's rows. Non-super, membership-scoped views of the platform-owned entities (e.g. an org console's own app list keyed on Application.Organization) are a separate, additive surface, not a silent behavior of this generic lister.
-  Future<void> getIamGetProviders() async {
-    final response = await getIamGetProvidersWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.  Secrets are stripped from every row. Send both a page number and a page size to page, and the total comes back alongside; send neither and you get the whole set. You see your own organization and no other, whatever the request asks for.  Scoping note (intentional, fail-closed): iam's ownership model is mixed — users/roles/permissions are owned by their tenant org, while organizations/ applications/providers/certs are platform-owned (Owner \"admin\"). A SuperAdmin (Scope → the requested owner, empty = all) therefore lists every entity, which is the console-admin path. A non-super is pinned by Scope to its own org, so it lists its tenant-owned entities correctly and is refused the platform-owned lists at the Guard (owner \"\" or \"admin\" both deny) — a safe 403, never another tenant's rows. Non-super, membership-scoped views of the platform-owned entities (e.g. an org console's own app list keyed on Application.Organization) are a separate, additive surface, not a silent behavior of this generic lister.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  Future<Response> getIamGetRecordsWithHttpInfo() async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/get-records';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'GET',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.  Secrets are stripped from every row. Send both a page number and a page size to page, and the total comes back alongside; send neither and you get the whole set. You see your own organization and no other, whatever the request asks for.  Scoping note (intentional, fail-closed): iam's ownership model is mixed — users/roles/permissions are owned by their tenant org, while organizations/ applications/providers/certs are platform-owned (Owner \"admin\"). A SuperAdmin (Scope → the requested owner, empty = all) therefore lists every entity, which is the console-admin path. A non-super is pinned by Scope to its own org, so it lists its tenant-owned entities correctly and is refused the platform-owned lists at the Guard (owner \"\" or \"admin\" both deny) — a safe 403, never another tenant's rows. Non-super, membership-scoped views of the platform-owned entities (e.g. an org console's own app list keyed on Application.Organization) are a separate, additive surface, not a silent behavior of this generic lister.
-  Future<void> getIamGetRecords() async {
-    final response = await getIamGetRecordsWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
-  /// Reads one record — the older spelling of the single reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Reads one record — the older spelling of the single reads on the REST surface, over the same data and the same permissions.  Secrets are stripped. Naming a record in another organization does not reach it, however the request spells it.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  Future<Response> getIamGetRoleWithHttpInfo() async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/get-role';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'GET',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Reads one record — the older spelling of the single reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Reads one record — the older spelling of the single reads on the REST surface, over the same data and the same permissions.  Secrets are stripped. Naming a record in another organization does not reach it, however the request spells it.
-  Future<void> getIamGetRole() async {
-    final response = await getIamGetRoleWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.  Secrets are stripped from every row. Send both a page number and a page size to page, and the total comes back alongside; send neither and you get the whole set. You see your own organization and no other, whatever the request asks for.  Scoping note (intentional, fail-closed): iam's ownership model is mixed — users/roles/permissions are owned by their tenant org, while organizations/ applications/providers/certs are platform-owned (Owner \"admin\"). A SuperAdmin (Scope → the requested owner, empty = all) therefore lists every entity, which is the console-admin path. A non-super is pinned by Scope to its own org, so it lists its tenant-owned entities correctly and is refused the platform-owned lists at the Guard (owner \"\" or \"admin\" both deny) — a safe 403, never another tenant's rows. Non-super, membership-scoped views of the platform-owned entities (e.g. an org console's own app list keyed on Application.Organization) are a separate, additive surface, not a silent behavior of this generic lister.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  Future<Response> getIamGetRolesWithHttpInfo() async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/get-roles';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'GET',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.  Secrets are stripped from every row. Send both a page number and a page size to page, and the total comes back alongside; send neither and you get the whole set. You see your own organization and no other, whatever the request asks for.  Scoping note (intentional, fail-closed): iam's ownership model is mixed — users/roles/permissions are owned by their tenant org, while organizations/ applications/providers/certs are platform-owned (Owner \"admin\"). A SuperAdmin (Scope → the requested owner, empty = all) therefore lists every entity, which is the console-admin path. A non-super is pinned by Scope to its own org, so it lists its tenant-owned entities correctly and is refused the platform-owned lists at the Guard (owner \"\" or \"admin\" both deny) — a safe 403, never another tenant's rows. Non-super, membership-scoped views of the platform-owned entities (e.g. an org console's own app list keyed on Application.Organization) are a separate, additive surface, not a silent behavior of this generic lister.
-  Future<void> getIamGetRoles() async {
-    final response = await getIamGetRolesWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
-  /// Reads one person, two ways.
-  ///
-  /// Reads one person, two ways.  Name them and it is an ordinary read, with secrets stripped. Or hand it a SECRET API key and it answers with the person that key belongs to — how a service of yours turns a credential on an incoming request into an identity.  A publishable key resolves to nobody here, deliberately: it is safe to ship in a browser precisely because it names an organization and never a person.  get-user is handler-authorized (authz.handlerAuthorizedExact) because the key variant carries no owner/name for the Guard to authorize; so the owner/name variant reinstates the SAME read authorization the Guard applies, through the ONE policy function (authz.Can) — identical behavior, a cross-tenant or non-self read still refused 403 — then reuses the generic getHandler verbatim for resolution and redaction. No authz and no CRUD is reimplemented.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  Future<Response> getIamGetUserWithHttpInfo() async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/get-user';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'GET',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Reads one person, two ways.
-  ///
-  /// Reads one person, two ways.  Name them and it is an ordinary read, with secrets stripped. Or hand it a SECRET API key and it answers with the person that key belongs to — how a service of yours turns a credential on an incoming request into an identity.  A publishable key resolves to nobody here, deliberately: it is safe to ship in a browser precisely because it names an organization and never a person.  get-user is handler-authorized (authz.handlerAuthorizedExact) because the key variant carries no owner/name for the Guard to authorize; so the owner/name variant reinstates the SAME read authorization the Guard applies, through the ONE policy function (authz.Can) — identical behavior, a cross-tenant or non-self read still refused 403 — then reuses the generic getHandler verbatim for resolution and redaction. No authz and no CRUD is reimplemented.
-  Future<void> getIamGetUser() async {
-    final response = await getIamGetUserWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.  Secrets are stripped from every row. Send both a page number and a page size to page, and the total comes back alongside; send neither and you get the whole set. You see your own organization and no other, whatever the request asks for.  Scoping note (intentional, fail-closed): iam's ownership model is mixed — users/roles/permissions are owned by their tenant org, while organizations/ applications/providers/certs are platform-owned (Owner \"admin\"). A SuperAdmin (Scope → the requested owner, empty = all) therefore lists every entity, which is the console-admin path. A non-super is pinned by Scope to its own org, so it lists its tenant-owned entities correctly and is refused the platform-owned lists at the Guard (owner \"\" or \"admin\" both deny) — a safe 403, never another tenant's rows. Non-super, membership-scoped views of the platform-owned entities (e.g. an org console's own app list keyed on Application.Organization) are a separate, additive surface, not a silent behavior of this generic lister.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  Future<Response> getIamGetUsersWithHttpInfo() async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/get-users';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'GET',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.
-  ///
-  /// Lists one kind of record in your organization — the older spelling of the collection reads on the REST surface, over the same data and the same permissions.  Secrets are stripped from every row. Send both a page number and a page size to page, and the total comes back alongside; send neither and you get the whole set. You see your own organization and no other, whatever the request asks for.  Scoping note (intentional, fail-closed): iam's ownership model is mixed — users/roles/permissions are owned by their tenant org, while organizations/ applications/providers/certs are platform-owned (Owner \"admin\"). A SuperAdmin (Scope → the requested owner, empty = all) therefore lists every entity, which is the console-admin path. A non-super is pinned by Scope to its own org, so it lists its tenant-owned entities correctly and is refused the platform-owned lists at the Guard (owner \"\" or \"admin\" both deny) — a safe 403, never another tenant's rows. Non-super, membership-scoped views of the platform-owned entities (e.g. an org console's own app list keyed on Application.Organization) are a separate, additive surface, not a silent behavior of this generic lister.
-  Future<void> getIamGetUsers() async {
-    final response = await getIamGetUsersWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
   /// Returns your organization's invitations, newest first — who has been asked to join, on what terms, and how many seats each invitation still has left.
   ///
   /// Returns your organization's invitations, newest first — who has been asked to join, on what terms, and how many seats each invitation still has left.  You see your own organization's invitations and no one else's; which organization that is comes from your credentials, not from the request.
@@ -2256,6 +2171,68 @@ class IamApi {
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
       return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamInvitationsListOutput',) as IamInvitationsListOutput;
+    
+    }
+    return null;
+  }
+
+  /// Returns one invitation: who it is for, what it grants on acceptance, and when it expires.
+  ///
+  /// Returns one invitation: who it is for, what it grants on acceptance, and when it expires.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<Response> getIamInvitationsByOwnerByNameWithHttpInfo(String owner, String name,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/invitations/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Returns one invitation: who it is for, what it grants on acceptance, and when it expires.
+  ///
+  /// Returns one invitation: who it is for, what it grants on acceptance, and when it expires.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<IamInvitation?> getIamInvitationsByOwnerByName(String owner, String name,) async {
+    final response = await getIamInvitationsByOwnerByNameWithHttpInfo(owner, name,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamInvitation',) as IamInvitation;
     
     }
     return null;
@@ -2329,12 +2306,14 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [String] owner:
+  /// * [String] owner (required):
   ///
-  /// * [String] name:
-  Future<Response> getIamKeysGetWithHttpInfo({ String? owner, String? name, }) async {
+  /// * [String] name (required):
+  Future<Response> getIamKeysByOwnerByNameWithHttpInfo(String owner, String name,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/iam/keys/get';
+    final path = r'/v1/iam/keys/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -2342,13 +2321,6 @@ class IamApi {
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
-
-    if (owner != null) {
-      queryParams.addAll(_queryParams('', 'owner', owner));
-    }
-    if (name != null) {
-      queryParams.addAll(_queryParams('', 'name', name));
-    }
 
     const contentTypes = <String>[];
 
@@ -2370,11 +2342,11 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [String] owner:
+  /// * [String] owner (required):
   ///
-  /// * [String] name:
-  Future<IamKey?> getIamKeysGet({ String? owner, String? name, }) async {
-    final response = await getIamKeysGetWithHttpInfo( owner: owner, name: name, );
+  /// * [String] name (required):
+  Future<IamKey?> getIamKeysByOwnerByName(String owner, String name,) async {
+    final response = await getIamKeysByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -2386,6 +2358,86 @@ class IamApi {
     
     }
     return null;
+  }
+
+  /// Resolve a PUBLISHABLE key to the organization that owns it
+  ///
+  /// Answers which organization a publishable key belongs to — what a service calls to attribute a request that arrived carrying a key shipped in a browser. This is the noun spelling of `/v1/iam/resolve-key`, the same handler at the address that replaces it; both answer while callers migrate.  It names an ORGANIZATION and never a person. No path through it loads or returns a user, so a key placed in client code cannot become a way to learn who anyone is — which is the whole reason this is a separate door from the one below.  A key that is expired, secret rather than publishable, or simply unknown all answer with the same sentence and a `code` saying which it was. Only a confidential service that has already proved it may resolve keys reads that code — there is no anonymous caller here to probe which keys exist — and telling those apart is what lets a holder be told to re-mint an expired key instead of hunting a configuration error.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> getIamKeysOrgWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/keys/org';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Resolve a PUBLISHABLE key to the organization that owns it
+  ///
+  /// Answers which organization a publishable key belongs to — what a service calls to attribute a request that arrived carrying a key shipped in a browser. This is the noun spelling of `/v1/iam/resolve-key`, the same handler at the address that replaces it; both answer while callers migrate.  It names an ORGANIZATION and never a person. No path through it loads or returns a user, so a key placed in client code cannot become a way to learn who anyone is — which is the whole reason this is a separate door from the one below.  A key that is expired, secret rather than publishable, or simply unknown all answer with the same sentence and a `code` saying which it was. Only a confidential service that has already proved it may resolve keys reads that code — there is no anonymous caller here to probe which keys exist — and telling those apart is what lets a holder be told to re-mint an expired key instead of hunting a configuration error.
+  Future<void> getIamKeysOrg() async {
+    final response = await getIamKeysOrgWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+  }
+
+  /// Resolve a SECRET key to the principal it authenticates
+  ///
+  /// Answers who a secret key belongs to — the owner and name a gateway needs to attribute and bill a request that arrived carrying an `sk-`. This is the noun spelling of `/v1/iam/get-user?accessKey=`, the same handler at the address that replaces it; both answer while callers migrate.  It resolves a KEY and nothing else. The verb it replaces also reads a user by `?id=`, and carrying that here would make this a second address for the user read — the exact thing being retired. Ask for a person by name at the user read; ask here only what a credential resolves to.  Requires a confidential caller: the resolver authenticates as an app, so a request without that credential resolves nothing rather than falling back to an anonymous lookup. An unresolvable key answers with a `code` distinguishing expired from wrong-door from unknown, so the holder can be told which one cure applies.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> getIamKeysPrincipalWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/keys/principal';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Resolve a SECRET key to the principal it authenticates
+  ///
+  /// Answers who a secret key belongs to — the owner and name a gateway needs to attribute and bill a request that arrived carrying an `sk-`. This is the noun spelling of `/v1/iam/get-user?accessKey=`, the same handler at the address that replaces it; both answer while callers migrate.  It resolves a KEY and nothing else. The verb it replaces also reads a user by `?id=`, and carrying that here would make this a second address for the user read — the exact thing being retired. Ask for a person by name at the user read; ask here only what a credential resolves to.  Requires a confidential caller: the resolver authenticates as an app, so a request without that credential resolves nothing rather than falling back to an anonymous lookup. An unresolvable key answers with a `code` distinguishing expired from wrong-door from unknown, so the holder can be told which one cure applies.
+  Future<void> getIamKeysPrincipal() async {
+    final response = await getIamKeysPrincipalWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
   }
 
   /// Returns the sign-in identities linked to the calling person's account — every provider they can currently sign in with.
@@ -2581,7 +2633,7 @@ class IamApi {
 
   /// Ends a sign-in and sends the browser somewhere sensible.
   ///
-  /// Ends a sign-in and sends the browser somewhere sensible. Accepts GET or POST, so it works as a plain link.  It ACTUALLY signs you out, which is worth stating because the endpoint spent a release not doing it: the whole body computed a redirect and answered {\"status\":\"ok\"} unconditionally — no session ended, no token revoked. A logout that reports success while leaving the session live is worse than no logout at all, because the person on the shared machine believes it worked. Three things happen here now, in this order:   1. The browser session dies — sid revoked server-side AND the cookie expired     (sessions.Clear). Server-side revocation is the load-bearing half: a copy     of the cookie taken before logout must not still resolve.  2. The relying party's tokens are revoked when an id_token_hint names it, so     the refresh token cannot mint a fresh access token after the human left.     Revocation state is authoritative — a JWT's `exp` still reads valid for     days, so expiry is necessary but never sufficient.  3. Only then is a redirect considered, and only to a REGISTERED uri.  The open-redirect guard is unchanged: a redirect happens only when a VERIFIED id_token_hint identifies the application and that application has registered the target. Anything else refuses to redirect — nobody can turn your logout link into a redirect to a site of their choosing.
+  /// Ends a sign-in and sends the browser somewhere sensible. Accepts GET or POST, so it works as a plain link.  It ACTUALLY signs you out — worth stating, because a logout that computes a redirect and answers {\"status\":\"ok\"} while ending no session and revoking no token is worse than none: the person on the shared machine believes it worked. Three things happen here, in this order:   1. The browser session dies — sid revoked server-side AND the cookie expired     (sessions.Clear). Server-side revocation is the load-bearing half: a copy     of the cookie taken before logout must not still resolve.  2. The relying party's tokens are revoked when an id_token_hint names it, so     the refresh token cannot mint a fresh access token after the human left.     Revocation state is authoritative — a JWT's `exp` still reads valid for     days, so expiry is necessary but never sufficient.  3. Only then is a redirect considered, and only to a REGISTERED uri.  The open-redirect guard is unchanged: a redirect happens only when a VERIFIED id_token_hint identifies the application and that application has registered the target. Anything else refuses to redirect — nobody can turn your logout link into a redirect to a site of their choosing.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getIamOauthLogoutWithHttpInfo() async {
@@ -2611,7 +2663,7 @@ class IamApi {
 
   /// Ends a sign-in and sends the browser somewhere sensible.
   ///
-  /// Ends a sign-in and sends the browser somewhere sensible. Accepts GET or POST, so it works as a plain link.  It ACTUALLY signs you out, which is worth stating because the endpoint spent a release not doing it: the whole body computed a redirect and answered {\"status\":\"ok\"} unconditionally — no session ended, no token revoked. A logout that reports success while leaving the session live is worse than no logout at all, because the person on the shared machine believes it worked. Three things happen here now, in this order:   1. The browser session dies — sid revoked server-side AND the cookie expired     (sessions.Clear). Server-side revocation is the load-bearing half: a copy     of the cookie taken before logout must not still resolve.  2. The relying party's tokens are revoked when an id_token_hint names it, so     the refresh token cannot mint a fresh access token after the human left.     Revocation state is authoritative — a JWT's `exp` still reads valid for     days, so expiry is necessary but never sufficient.  3. Only then is a redirect considered, and only to a REGISTERED uri.  The open-redirect guard is unchanged: a redirect happens only when a VERIFIED id_token_hint identifies the application and that application has registered the target. Anything else refuses to redirect — nobody can turn your logout link into a redirect to a site of their choosing.
+  /// Ends a sign-in and sends the browser somewhere sensible. Accepts GET or POST, so it works as a plain link.  It ACTUALLY signs you out — worth stating, because a logout that computes a redirect and answers {\"status\":\"ok\"} while ending no session and revoking no token is worse than none: the person on the shared machine believes it worked. Three things happen here, in this order:   1. The browser session dies — sid revoked server-side AND the cookie expired     (sessions.Clear). Server-side revocation is the load-bearing half: a copy     of the cookie taken before logout must not still resolve.  2. The relying party's tokens are revoked when an id_token_hint names it, so     the refresh token cannot mint a fresh access token after the human left.     Revocation state is authoritative — a JWT's `exp` still reads valid for     days, so expiry is necessary but never sufficient.  3. Only then is a redirect considered, and only to a REGISTERED uri.  The open-redirect guard is unchanged: a redirect happens only when a VERIFIED id_token_hint identifies the application and that application has registered the target. Anything else refuses to redirect — nobody can turn your logout link into a redirect to a site of their choosing.
   Future<void> getIamOauthLogout() async {
     final response = await getIamOauthLogoutWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -2727,12 +2779,14 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [String] owner:
+  /// * [String] owner (required):
   ///
-  /// * [String] name:
-  Future<Response> getIamPermissionsGetWithHttpInfo({ String? owner, String? name, }) async {
+  /// * [String] name (required):
+  Future<Response> getIamPermissionsByOwnerByNameWithHttpInfo(String owner, String name,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/iam/permissions/get';
+    final path = r'/v1/iam/permissions/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -2740,13 +2794,6 @@ class IamApi {
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
-
-    if (owner != null) {
-      queryParams.addAll(_queryParams('', 'owner', owner));
-    }
-    if (name != null) {
-      queryParams.addAll(_queryParams('', 'name', name));
-    }
 
     const contentTypes = <String>[];
 
@@ -2768,11 +2815,11 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [String] owner:
+  /// * [String] owner (required):
   ///
-  /// * [String] name:
-  Future<IamPermission?> getIamPermissionsGet({ String? owner, String? name, }) async {
-    final response = await getIamPermissionsGetWithHttpInfo( owner: owner, name: name, );
+  /// * [String] name (required):
+  Future<IamPermission?> getIamPermissionsByOwnerByName(String owner, String name,) async {
+    final response = await getIamPermissionsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -2841,6 +2888,68 @@ class IamApi {
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
       return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamProjectsListOutput',) as IamProjectsListOutput;
+    
+    }
+    return null;
+  }
+
+  /// Returns one project: what it is called and how it is set up.
+  ///
+  /// Returns one project: what it is called and how it is set up.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<Response> getIamProjectsByOwnerByNameWithHttpInfo(String owner, String name,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/projects/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Returns one project: what it is called and how it is set up.
+  ///
+  /// Returns one project: what it is called and how it is set up.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<IamProject?> getIamProjectsByOwnerByName(String owner, String name,) async {
+    final response = await getIamProjectsByOwnerByNameWithHttpInfo(owner, name,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamProject',) as IamProject;
     
     }
     return null;
@@ -2926,46 +3035,6 @@ class IamApi {
     }
   }
 
-  /// Answers which organization a PUBLISHABLE key belongs to — what a service of yours calls to attribute a request that arrived carrying a key shipped in a browser.
-  ///
-  /// Answers which organization a PUBLISHABLE key belongs to — what a service of yours calls to attribute a request that arrived carrying a key shipped in a browser.  It names an organization and never a person: no path through it can load or return a user, so a key you put in client code cannot become a way to learn who anyone is. A key that is expired, secret rather than publishable, or simply unknown all answer with the same sentence, and with a `code` saying which of those it was. Only a confidential service that already proved it may resolve keys at all ever reads that code — there is no anonymous caller here to probe for which keys exist — and telling it apart is what lets the holder be told to re-mint an expired key instead of hunting a configuration error.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  Future<Response> getIamResolveKeyWithHttpInfo() async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/resolve-key';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'GET',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Answers which organization a PUBLISHABLE key belongs to — what a service of yours calls to attribute a request that arrived carrying a key shipped in a browser.
-  ///
-  /// Answers which organization a PUBLISHABLE key belongs to — what a service of yours calls to attribute a request that arrived carrying a key shipped in a browser.  It names an organization and never a person: no path through it can load or return a user, so a key you put in client code cannot become a way to learn who anyone is. A key that is expired, secret rather than publishable, or simply unknown all answer with the same sentence, and with a `code` saying which of those it was. Only a confidential service that already proved it may resolve keys at all ever reads that code — there is no anonymous caller here to probe for which keys exist — and telling it apart is what lets the holder be told to re-mint an expired key instead of hunting a configuration error.
-  Future<void> getIamResolveKey() async {
-    final response = await getIamResolveKeyWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
   /// Returns your organization's roles, newest first — each a named group of people that permissions are granted to.
   ///
   /// Returns your organization's roles, newest first — each a named group of people that permissions are granted to.  You see your own organization's roles and no one else's; which organization that is comes from your credentials, not from the request.
@@ -3021,6 +3090,68 @@ class IamApi {
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
       return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamRolesListOutput',) as IamRolesListOutput;
+    
+    }
+    return null;
+  }
+
+  /// Returns one role: who is in it, and the roles it includes.
+  ///
+  /// Returns one role: who is in it, and the roles it includes.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<Response> getIamRolesByOwnerByNameWithHttpInfo(String owner, String name,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/roles/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Returns one role: who is in it, and the roles it includes.
+  ///
+  /// Returns one role: who is in it, and the roles it includes.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<IamRole?> getIamRolesByOwnerByName(String owner, String name,) async {
+    final response = await getIamRolesByOwnerByNameWithHttpInfo(owner, name,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamRole',) as IamRole;
     
     }
     return null;
@@ -3468,10 +3599,13 @@ class IamApi {
   ///
   /// * [String] owner (required):
   ///
+  /// * [String] email:
+  ///   Email narrows the page to the accounts carrying one address. Looking a person up by their address is a QUERY over the collection, not an item read: an address is not the natural key, two rows in one org can carry one, and a caller that gets a page SEES both — where a single-item read would have to choose, and choosing is how somebody joins a team under a colleague's identity.
+  ///
   /// * [int] limit:
   ///
   /// * [int] offset:
-  Future<Response> getIamUsersWithHttpInfo(String owner, { int? limit, int? offset, }) async {
+  Future<Response> getIamUsersWithHttpInfo(String owner, { String? email, int? limit, int? offset, }) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/iam/users';
 
@@ -3483,6 +3617,9 @@ class IamApi {
     final formParams = <String, String>{};
 
       queryParams.addAll(_queryParams('', 'owner', owner));
+    if (email != null) {
+      queryParams.addAll(_queryParams('', 'email', email));
+    }
     if (limit != null) {
       queryParams.addAll(_queryParams('', 'limit', limit));
     }
@@ -3512,11 +3649,14 @@ class IamApi {
   ///
   /// * [String] owner (required):
   ///
+  /// * [String] email:
+  ///   Email narrows the page to the accounts carrying one address. Looking a person up by their address is a QUERY over the collection, not an item read: an address is not the natural key, two rows in one org can carry one, and a caller that gets a page SEES both — where a single-item read would have to choose, and choosing is how somebody joins a team under a colleague's identity.
+  ///
   /// * [int] limit:
   ///
   /// * [int] offset:
-  Future<IamUsersListOutput?> getIamUsers(String owner, { int? limit, int? offset, }) async {
-    final response = await getIamUsersWithHttpInfo(owner,  limit: limit, offset: offset, );
+  Future<IamUsersListOutput?> getIamUsers(String owner, { String? email, int? limit, int? offset, }) async {
+    final response = await getIamUsersWithHttpInfo(owner,  email: email, limit: limit, offset: offset, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -3540,12 +3680,14 @@ class IamApi {
   ///
   /// * [String] owner (required):
   ///
-  /// * [String] name:
+  /// * [String] name (required):
   ///
   /// * [String] email:
-  Future<Response> getIamUsersGetWithHttpInfo(String owner, { String? name, String? email, }) async {
+  Future<Response> getIamUsersByOwnerByNameWithHttpInfo(String owner, String name, { String? email, }) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/iam/users/get';
+    final path = r'/v1/iam/users/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -3554,10 +3696,6 @@ class IamApi {
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-      queryParams.addAll(_queryParams('', 'owner', owner));
-    if (name != null) {
-      queryParams.addAll(_queryParams('', 'name', name));
-    }
     if (email != null) {
       queryParams.addAll(_queryParams('', 'email', email));
     }
@@ -3584,11 +3722,11 @@ class IamApi {
   ///
   /// * [String] owner (required):
   ///
-  /// * [String] name:
+  /// * [String] name (required):
   ///
   /// * [String] email:
-  Future<IamUser?> getIamUsersGet(String owner, { String? name, String? email, }) async {
-    final response = await getIamUsersGetWithHttpInfo(owner,  name: name, email: email, );
+  Future<IamUser?> getIamUsersByOwnerByName(String owner, String name, { String? email, }) async {
+    final response = await getIamUsersByOwnerByNameWithHttpInfo(owner, name,  email: email, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -3637,6 +3775,86 @@ class IamApi {
   /// Starts a wallet sign-in: it returns a one-time challenge for the wallet to sign. The challenge is good once and is tied to the site that asked for it, so a signature collected elsewhere cannot be replayed here.
   Future<void> getIamWeb3Nonce() async {
     final response = await getIamWeb3NonceWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+  }
+
+  /// Starts a passkey sign-in: it returns the challenge the person's authenticator signs.
+  ///
+  /// Starts a passkey sign-in: it returns the challenge the person's authenticator signs.  The account is named in the query, and the challenge is bound to it, so what may answer is decided here — by the server, from the row — and the finish checks the answer against that decision rather than recomputing it.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> getIamWebauthnSigninBeginWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/webauthn/signin/begin';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Starts a passkey sign-in: it returns the challenge the person's authenticator signs.
+  ///
+  /// Starts a passkey sign-in: it returns the challenge the person's authenticator signs.  The account is named in the query, and the challenge is bound to it, so what may answer is decided here — by the server, from the row — and the finish checks the answer against that decision rather than recomputing it.
+  Future<void> getIamWebauthnSigninBegin() async {
+    final response = await getIamWebauthnSigninBeginWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+  }
+
+  /// Starts enrolling a passkey for the signed-in person: it returns the options their browser hands to the authenticator.
+  ///
+  /// Starts enrolling a passkey for the signed-in person: it returns the options their browser hands to the authenticator.  Passkeys already on the account are EXCLUDED, so a second enrollment on a device that already holds one is refused by the authenticator itself rather than silently producing a duplicate the person cannot tell apart.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> getIamWebauthnSignupBeginWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/webauthn/signup/begin';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Starts enrolling a passkey for the signed-in person: it returns the options their browser hands to the authenticator.
+  ///
+  /// Starts enrolling a passkey for the signed-in person: it returns the options their browser hands to the authenticator.  Passkeys already on the account are EXCLUDED, so a second enrollment on a device that already holds one is refused by the authenticator itself rather than silently producing a duplicate the person cannot tell apart.
+  Future<void> getIamWebauthnSignupBegin() async {
+    final response = await getIamWebauthnSignupBeginWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -3862,20 +4080,22 @@ class IamApi {
     return null;
   }
 
-  /// Returns one organization: its display, its defaults and the sign-in rules everyone in it inherits.
+  /// Returns one workspace: what it is called and how it is set up.
   ///
-  /// Returns one organization: its display, its defaults and the sign-in rules everyone in it inherits.
+  /// Returns one workspace: what it is called and how it is set up.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
-  /// * [String] owner:
+  /// * [String] owner (required):
   ///
-  /// * [String] name:
-  Future<Response> getOrganizationWithHttpInfo({ String? owner, String? name, }) async {
+  /// * [String] name (required):
+  Future<Response> getIamWorkspacesByOwnerByNameWithHttpInfo(String owner, String name,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/iam/organizations/get';
+    final path = r'/v1/iam/workspaces/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -3884,12 +4104,67 @@ class IamApi {
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    if (owner != null) {
-      queryParams.addAll(_queryParams('', 'owner', owner));
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Returns one workspace: what it is called and how it is set up.
+  ///
+  /// Returns one workspace: what it is called and how it is set up.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<IamWorkspace?> getIamWorkspacesByOwnerByName(String owner, String name,) async {
+    final response = await getIamWorkspacesByOwnerByNameWithHttpInfo(owner, name,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
-    if (name != null) {
-      queryParams.addAll(_queryParams('', 'name', name));
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamWorkspace',) as IamWorkspace;
+    
     }
+    return null;
+  }
+
+  /// Returns one organization: its display, its defaults and the sign-in rules everyone in it inherits.
+  ///
+  /// Returns one organization: its display, its defaults and the sign-in rules everyone in it inherits.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<Response> getOrganizationWithHttpInfo(String owner, String name,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/organizations/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
 
     const contentTypes = <String>[];
 
@@ -3911,11 +4186,11 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [String] owner:
+  /// * [String] owner (required):
   ///
-  /// * [String] name:
-  Future<IamOrganization?> getOrganization({ String? owner, String? name, }) async {
-    final response = await getOrganizationWithHttpInfo( owner: owner, name: name, );
+  /// * [String] name (required):
+  Future<IamOrganization?> getOrganization(String owner, String name,) async {
+    final response = await getOrganizationWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -3937,24 +4212,28 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [IamProviderKey] iamProviderKey (required):
-  Future<Response> getProviderWithHttpInfo(IamProviderKey iamProviderKey,) async {
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<Response> getProviderWithHttpInfo(String owner, String name,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/iam/providers/get';
+    final path = r'/v1/iam/providers/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
 
     // ignore: prefer_final_locals
-    Object? postBody = iamProviderKey;
+    Object? postBody;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>['application/json'];
+    const contentTypes = <String>[];
 
 
     return apiClient.invokeAPI(
       path,
-      'POST',
+      'GET',
       queryParams,
       postBody,
       headerParams,
@@ -3969,9 +4248,11 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [IamProviderKey] iamProviderKey (required):
-  Future<IamProviderResult?> getProvider(IamProviderKey iamProviderKey,) async {
-    final response = await getProviderWithHttpInfo(iamProviderKey,);
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<IamProviderResult?> getProvider(String owner, String name,) async {
+    final response = await getProviderWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -3993,24 +4274,31 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [IamSessionRef] iamSessionRef (required):
-  Future<Response> getSessionWithHttpInfo(IamSessionRef iamSessionRef,) async {
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
+  /// * [String] application (required):
+  Future<Response> getSessionWithHttpInfo(String owner, String name, String application,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/iam/sessions/get';
+    final path = r'/v1/iam/sessions/{owner}/{name}/{application}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name)
+      .replaceAll('{application}', application);
 
     // ignore: prefer_final_locals
-    Object? postBody = iamSessionRef;
+    Object? postBody;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>['application/json'];
+    const contentTypes = <String>[];
 
 
     return apiClient.invokeAPI(
       path,
-      'POST',
+      'GET',
       queryParams,
       postBody,
       headerParams,
@@ -4025,9 +4313,13 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [IamSessionRef] iamSessionRef (required):
-  Future<IamSession?> getSession(IamSessionRef iamSessionRef,) async {
-    final response = await getSessionWithHttpInfo(iamSessionRef,);
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
+  /// * [String] application (required):
+  Future<IamSession?> getSession(String owner, String name, String application,) async {
+    final response = await getSessionWithHttpInfo(owner, name, application,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -4049,24 +4341,28 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [IamTokenKey] iamTokenKey (required):
-  Future<Response> getTokenWithHttpInfo(IamTokenKey iamTokenKey,) async {
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<Response> getTokenWithHttpInfo(String owner, String name,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/iam/tokens/get';
+    final path = r'/v1/iam/tokens/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
 
     // ignore: prefer_final_locals
-    Object? postBody = iamTokenKey;
+    Object? postBody;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>['application/json'];
+    const contentTypes = <String>[];
 
 
     return apiClient.invokeAPI(
       path,
-      'POST',
+      'GET',
       queryParams,
       postBody,
       headerParams,
@@ -4081,9 +4377,11 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [IamTokenKey] iamTokenKey (required):
-  Future<IamTokenResult?> getToken(IamTokenKey iamTokenKey,) async {
-    final response = await getTokenWithHttpInfo(iamTokenKey,);
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<IamTokenResult?> getToken(String owner, String name,) async {
+    final response = await getTokenWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -4105,24 +4403,28 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [IamWebauthnCredentialKey] iamWebauthnCredentialKey (required):
-  Future<Response> getWebauthnCredentialWithHttpInfo(IamWebauthnCredentialKey iamWebauthnCredentialKey,) async {
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<Response> getWebauthnCredentialWithHttpInfo(String owner, String name,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/iam/webauthn-credentials/get';
+    final path = r'/v1/iam/webauthn-credentials/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
 
     // ignore: prefer_final_locals
-    Object? postBody = iamWebauthnCredentialKey;
+    Object? postBody;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>['application/json'];
+    const contentTypes = <String>[];
 
 
     return apiClient.invokeAPI(
       path,
-      'POST',
+      'GET',
       queryParams,
       postBody,
       headerParams,
@@ -4137,9 +4439,11 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [IamWebauthnCredentialKey] iamWebauthnCredentialKey (required):
-  Future<IamWebauthnCredentialResult?> getWebauthnCredential(IamWebauthnCredentialKey iamWebauthnCredentialKey,) async {
-    final response = await getWebauthnCredentialWithHttpInfo(iamWebauthnCredentialKey,);
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<IamWebauthnCredentialResult?> getWebauthnCredential(String owner, String name,) async {
+    final response = await getWebauthnCredentialWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -4153,20 +4457,22 @@ class IamApi {
     return null;
   }
 
-  /// Returns the organizations you can see, newest first.
+  /// Returns the organizations you can act in, the ones you belong to first and the rest after, newest first, narrowed by an optional query against the name or the display name.
   ///
-  /// Returns the organizations you can see, newest first. Narrow it to one parent account, and set a limit and offset to page through the rest.
+  /// Returns the organizations you can act in, the ones you belong to first and the rest after, newest first, narrowed by an optional query against the name or the display name.  Platform operators see every organization; everyone else sees their own. Pass the cursor from the previous page to continue; an empty cursor in the answer means there is nothing more.  THE SCOPE IS THE HANDLER'S OWN, so it holds at every door. The Guard refuses a bearerless request before this runs, but the agent door carries a typed op to its handler with no middleware in front of it — a handler that read no principal would answer such a caller with the whole registry. Reading the principal here is what makes the answer the same one over both.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
-  /// * [String] owner:
+  /// * [String] xForwardedFor:
+  ///
+  /// * [String] q:
   ///
   /// * [int] limit:
   ///
-  /// * [int] offset:
-  Future<Response> listOrganizationsWithHttpInfo({ String? owner, int? limit, int? offset, }) async {
+  /// * [String] cursor:
+  Future<Response> listOrganizationsWithHttpInfo({ String? xForwardedFor, String? q, int? limit, String? cursor, }) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/iam/organizations';
 
@@ -4177,14 +4483,18 @@ class IamApi {
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    if (owner != null) {
-      queryParams.addAll(_queryParams('', 'owner', owner));
+    if (q != null) {
+      queryParams.addAll(_queryParams('', 'q', q));
     }
     if (limit != null) {
       queryParams.addAll(_queryParams('', 'limit', limit));
     }
-    if (offset != null) {
-      queryParams.addAll(_queryParams('', 'offset', offset));
+    if (cursor != null) {
+      queryParams.addAll(_queryParams('', 'cursor', cursor));
+    }
+
+    if (xForwardedFor != null) {
+      headerParams[r'X-Forwarded-For'] = parameterToString(xForwardedFor);
     }
 
     const contentTypes = <String>[];
@@ -4201,19 +4511,21 @@ class IamApi {
     );
   }
 
-  /// Returns the organizations you can see, newest first.
+  /// Returns the organizations you can act in, the ones you belong to first and the rest after, newest first, narrowed by an optional query against the name or the display name.
   ///
-  /// Returns the organizations you can see, newest first. Narrow it to one parent account, and set a limit and offset to page through the rest.
+  /// Returns the organizations you can act in, the ones you belong to first and the rest after, newest first, narrowed by an optional query against the name or the display name.  Platform operators see every organization; everyone else sees their own. Pass the cursor from the previous page to continue; an empty cursor in the answer means there is nothing more.  THE SCOPE IS THE HANDLER'S OWN, so it holds at every door. The Guard refuses a bearerless request before this runs, but the agent door carries a typed op to its handler with no middleware in front of it — a handler that read no principal would answer such a caller with the whole registry. Reading the principal here is what makes the answer the same one over both.
   ///
   /// Parameters:
   ///
-  /// * [String] owner:
+  /// * [String] xForwardedFor:
+  ///
+  /// * [String] q:
   ///
   /// * [int] limit:
   ///
-  /// * [int] offset:
-  Future<IamListOrganizationsOutput?> listOrganizations({ String? owner, int? limit, int? offset, }) async {
-    final response = await listOrganizationsWithHttpInfo( owner: owner, limit: limit, offset: offset, );
+  /// * [String] cursor:
+  Future<IamListOrganizationsOutput?> listOrganizations({ String? xForwardedFor, String? q, int? limit, String? cursor, }) async {
+    final response = await listOrganizationsWithHttpInfo( xForwardedFor: xForwardedFor, q: q, limit: limit, cursor: cursor, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -4295,24 +4607,36 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [IamListSessionsIn] iamListSessionsIn (required):
-  Future<Response> listSessionsWithHttpInfo(IamListSessionsIn iamListSessionsIn,) async {
+  /// * [String] owner (required):
+  ///
+  /// * [String] name:
+  ///
+  /// * [String] application:
+  Future<Response> listSessionsWithHttpInfo(String owner, { String? name, String? application, }) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/iam/sessions/list';
+    final path = r'/v1/iam/sessions';
 
     // ignore: prefer_final_locals
-    Object? postBody = iamListSessionsIn;
+    Object? postBody;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>['application/json'];
+      queryParams.addAll(_queryParams('', 'owner', owner));
+    if (name != null) {
+      queryParams.addAll(_queryParams('', 'name', name));
+    }
+    if (application != null) {
+      queryParams.addAll(_queryParams('', 'application', application));
+    }
+
+    const contentTypes = <String>[];
 
 
     return apiClient.invokeAPI(
       path,
-      'POST',
+      'GET',
       queryParams,
       postBody,
       headerParams,
@@ -4327,9 +4651,13 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [IamListSessionsIn] iamListSessionsIn (required):
-  Future<IamListSessionsOut?> listSessions(IamListSessionsIn iamListSessionsIn,) async {
-    final response = await listSessionsWithHttpInfo(iamListSessionsIn,);
+  /// * [String] owner (required):
+  ///
+  /// * [String] name:
+  ///
+  /// * [String] application:
+  Future<IamListSessionsOut?> listSessions(String owner, { String? name, String? application, }) async {
+    final response = await listSessionsWithHttpInfo(owner,  name: name, application: application, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -4410,16 +4738,16 @@ class IamApi {
     return null;
   }
 
-  /// Returns the passkeys and security keys registered in your organization, newest first — which device each belongs to and when it was last used.
+  /// Returns the passkeys and security keys registered to one person, newest first — which device each lives on and when it was registered.
   ///
-  /// Returns the passkeys and security keys registered in your organization, newest first — which device each belongs to and when it was last used.
+  /// Returns the passkeys and security keys registered to one person, newest first — which device each lives on and when it was registered.  Yours by default. Name somebody else and you get them only if you already administer their account, which is the same authority that governs reading their user record — so this list can never show more people than the surface beside it already does.  There is no organization-wide list, by design. Scoping to the ORG would hand an org admin every member's credential rows in one answer and a SuperAdmin every tenant's, while a plain member could not read even their own (an unnamed target fails the Guard's tenant rule). One scope answers both halves cleanly: the answer is a person's, and the caller is that person unless they say otherwise and may.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
-  /// * [String] owner:
-  Future<Response> listWebauthnCredentialsWithHttpInfo({ String? owner, }) async {
+  /// * [String] user:
+  Future<Response> listWebauthnCredentialsWithHttpInfo({ String? user, }) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/iam/webauthn-credentials';
 
@@ -4430,8 +4758,8 @@ class IamApi {
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    if (owner != null) {
-      queryParams.addAll(_queryParams('', 'owner', owner));
+    if (user != null) {
+      queryParams.addAll(_queryParams('', 'user', user));
     }
 
     const contentTypes = <String>[];
@@ -4448,15 +4776,15 @@ class IamApi {
     );
   }
 
-  /// Returns the passkeys and security keys registered in your organization, newest first — which device each belongs to and when it was last used.
+  /// Returns the passkeys and security keys registered to one person, newest first — which device each lives on and when it was registered.
   ///
-  /// Returns the passkeys and security keys registered in your organization, newest first — which device each belongs to and when it was last used.
+  /// Returns the passkeys and security keys registered to one person, newest first — which device each lives on and when it was registered.  Yours by default. Name somebody else and you get them only if you already administer their account, which is the same authority that governs reading their user record — so this list can never show more people than the surface beside it already does.  There is no organization-wide list, by design. Scoping to the ORG would hand an org admin every member's credential rows in one answer and a SuperAdmin every tenant's, while a plain member could not read even their own (an unnamed target fails the Guard's tenant rule). One scope answers both halves cleanly: the answer is a person's, and the caller is that person unless they say otherwise and may.
   ///
   /// Parameters:
   ///
-  /// * [String] owner:
-  Future<IamListWebauthnCredentialsOut?> listWebauthnCredentials({ String? owner, }) async {
-    final response = await listWebauthnCredentialsWithHttpInfo( owner: owner, );
+  /// * [String] user:
+  Future<IamListWebauthnCredentialsOut?> listWebauthnCredentials({ String? user, }) async {
+    final response = await listWebauthnCredentialsWithHttpInfo( user: user, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -4524,438 +4852,6 @@ class IamApi {
     }
   }
 
-  /// Registers an application in your organization — one product or site your people sign in to, with its own client credentials, sign-in methods and allowed redirect URIs.
-  ///
-  /// Registers an application in your organization — one product or site your people sign in to, with its own client credentials, sign-in methods and allowed redirect URIs.  The older spelling of POST /v1/iam/application. A name already used in the organization is refused rather than overwritten.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamApplication] iamApplication (required):
-  Future<Response> postIamAddApplicationWithHttpInfo(IamApplication iamApplication,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/add-application';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamApplication;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Registers an application in your organization — one product or site your people sign in to, with its own client credentials, sign-in methods and allowed redirect URIs.
-  ///
-  /// Registers an application in your organization — one product or site your people sign in to, with its own client credentials, sign-in methods and allowed redirect URIs.  The older spelling of POST /v1/iam/application. A name already used in the organization is refused rather than overwritten.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamApplication] iamApplication (required):
-  Future<IamResponse?> postIamAddApplication(IamApplication iamApplication,) async {
-    final response = await postIamAddApplicationWithHttpInfo(iamApplication,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamResponse',) as IamResponse;
-    
-    }
-    return null;
-  }
-
-  /// Lets a person or an application act in an organization.
-  ///
-  /// Lets a person or an application act in an organization. It is the grant behind \"add someone to the team\", and it is safe to repeat — granting a membership that already exists changes nothing. Granting membership IS the org's authority to give, so it takes the same gate a write to that org's own registry row takes: a SuperAdmin, an admin of the org itself, or an org-admin-capable confidential client. One rule, one place (internal/authz).
-  ///
-  /// Note: This method returns the HTTP [Response].
-  Future<Response> postIamAddMembershipWithHttpInfo() async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/add-membership';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Lets a person or an application act in an organization.
-  ///
-  /// Lets a person or an application act in an organization. It is the grant behind \"add someone to the team\", and it is safe to repeat — granting a membership that already exists changes nothing. Granting membership IS the org's authority to give, so it takes the same gate a write to that org's own registry row takes: a SuperAdmin, an admin of the org itself, or an org-admin-capable confidential client. One rule, one place (internal/authz).
-  Future<void> postIamAddMembership() async {
-    final response = await postIamAddMembershipWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
-  /// Creates an organization — the account everything else in your directory hangs from.
-  ///
-  /// Creates an organization — the account everything else in your directory hangs from. Users, applications, roles, projects and workspaces are all named inside one organization, so this is the first write in a new tenant.  The older spelling of POST /v1/iam/organizations. Both reach the same create, so a name already taken is refused here too.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamCreateOrganizationInput] iamCreateOrganizationInput (required):
-  Future<Response> postIamAddOrganizationWithHttpInfo(IamCreateOrganizationInput iamCreateOrganizationInput,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/add-organization';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamCreateOrganizationInput;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Creates an organization — the account everything else in your directory hangs from.
-  ///
-  /// Creates an organization — the account everything else in your directory hangs from. Users, applications, roles, projects and workspaces are all named inside one organization, so this is the first write in a new tenant.  The older spelling of POST /v1/iam/organizations. Both reach the same create, so a name already taken is refused here too.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamCreateOrganizationInput] iamCreateOrganizationInput (required):
-  Future<IamResponse?> postIamAddOrganization(IamCreateOrganizationInput iamCreateOrganizationInput,) async {
-    final response = await postIamAddOrganizationWithHttpInfo(iamCreateOrganizationInput,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamResponse',) as IamResponse;
-    
-    }
-    return null;
-  }
-
-  /// Creates a project inside your organization — the scope people pick between when their work is separated by product or client rather than by team.
-  ///
-  /// Creates a project inside your organization — the scope people pick between when their work is separated by product or client rather than by team.  The older spelling of POST /v1/iam/projects. Creating one takes an administrator of the owning organization.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamInput] iamInput (required):
-  Future<Response> postIamAddProjectWithHttpInfo(IamInput iamInput,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/add-project';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamInput;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Creates a project inside your organization — the scope people pick between when their work is separated by product or client rather than by team.
-  ///
-  /// Creates a project inside your organization — the scope people pick between when their work is separated by product or client rather than by team.  The older spelling of POST /v1/iam/projects. Creating one takes an administrator of the owning organization.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamInput] iamInput (required):
-  Future<IamResponse?> postIamAddProject(IamInput iamInput,) async {
-    final response = await postIamAddProjectWithHttpInfo(iamInput,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamResponse',) as IamResponse;
-    
-    }
-    return null;
-  }
-
-  /// Adds an identity provider your people can sign in with, or a service your applications send through — a social or enterprise login, an email or SMS sender, a storage or payment connector.
-  ///
-  /// Adds an identity provider your people can sign in with, or a service your applications send through — a social or enterprise login, an email or SMS sender, a storage or payment connector.  A provider is configured once here and then switched on per application, so several applications can share one set of credentials.  The older spelling of POST /v1/iam/providers.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamProvider] iamProvider (required):
-  Future<Response> postIamAddProviderWithHttpInfo(IamProvider iamProvider,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/add-provider';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamProvider;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Adds an identity provider your people can sign in with, or a service your applications send through — a social or enterprise login, an email or SMS sender, a storage or payment connector.
-  ///
-  /// Adds an identity provider your people can sign in with, or a service your applications send through — a social or enterprise login, an email or SMS sender, a storage or payment connector.  A provider is configured once here and then switched on per application, so several applications can share one set of credentials.  The older spelling of POST /v1/iam/providers.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamProvider] iamProvider (required):
-  Future<IamResponse?> postIamAddProvider(IamProvider iamProvider,) async {
-    final response = await postIamAddProviderWithHttpInfo(iamProvider,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamResponse',) as IamResponse;
-    
-    }
-    return null;
-  }
-
-  /// Creates a role — a named group of people that permissions are granted to.
-  ///
-  /// Creates a role — a named group of people that permissions are granted to. Granting to a role rather than to each person is what keeps access correct as your team changes: add someone to the role and they inherit everything it can do.  The older spelling of POST /v1/iam/roles.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamRolesInput] iamRolesInput (required):
-  Future<Response> postIamAddRoleWithHttpInfo(IamRolesInput iamRolesInput,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/add-role';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamRolesInput;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Creates a role — a named group of people that permissions are granted to.
-  ///
-  /// Creates a role — a named group of people that permissions are granted to. Granting to a role rather than to each person is what keeps access correct as your team changes: add someone to the role and they inherit everything it can do.  The older spelling of POST /v1/iam/roles.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamRolesInput] iamRolesInput (required):
-  Future<IamResponse?> postIamAddRole(IamRolesInput iamRolesInput,) async {
-    final response = await postIamAddRoleWithHttpInfo(iamRolesInput,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamResponse',) as IamResponse;
-    
-    }
-    return null;
-  }
-
-  /// Adds a person to your organization and, if you send a password, sets the one they will sign in with.
-  ///
-  /// Adds a person to your organization and, if you send a password, sets the one they will sign in with. The password is hashed before it is stored and is never returned to you or to anyone else.  Usernames are checked against one rule wherever an account is created — this verb, password signup, a social sign-in, or SCIM — so a name accepted here is a name accepted everywhere.  The older spelling of POST /v1/iam/users, and it posts the user's fields at the top level rather than wrapped in {user, password}.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamUserBody] iamUserBody (required):
-  Future<Response> postIamAddUserWithHttpInfo(IamUserBody iamUserBody,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/add-user';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamUserBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Adds a person to your organization and, if you send a password, sets the one they will sign in with.
-  ///
-  /// Adds a person to your organization and, if you send a password, sets the one they will sign in with. The password is hashed before it is stored and is never returned to you or to anyone else.  Usernames are checked against one rule wherever an account is created — this verb, password signup, a social sign-in, or SCIM — so a name accepted here is a name accepted everywhere.  The older spelling of POST /v1/iam/users, and it posts the user's fields at the top level rather than wrapped in {user, password}.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamUserBody] iamUserBody (required):
-  Future<IamResponse?> postIamAddUser(IamUserBody iamUserBody,) async {
-    final response = await postIamAddUserWithHttpInfo(iamUserBody,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamResponse',) as IamResponse;
-    
-    }
-    return null;
-  }
-
-  /// Creates a workspace inside your organization — the scope a team works in, alongside projects rather than instead of them.
-  ///
-  /// Creates a workspace inside your organization — the scope a team works in, alongside projects rather than instead of them.  The older spelling of POST /v1/iam/workspaces. Creating one takes an administrator of the owning organization.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamWorkspacesInput] iamWorkspacesInput (required):
-  Future<Response> postIamAddWorkspaceWithHttpInfo(IamWorkspacesInput iamWorkspacesInput,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/add-workspace';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamWorkspacesInput;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Creates a workspace inside your organization — the scope a team works in, alongside projects rather than instead of them.
-  ///
-  /// Creates a workspace inside your organization — the scope a team works in, alongside projects rather than instead of them.  The older spelling of POST /v1/iam/workspaces. Creating one takes an administrator of the owning organization.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamWorkspacesInput] iamWorkspacesInput (required):
-  Future<IamResponse?> postIamAddWorkspace(IamWorkspacesInput iamWorkspacesInput,) async {
-    final response = await postIamAddWorkspaceWithHttpInfo(iamWorkspacesInput,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamResponse',) as IamResponse;
-    
-    }
-    return null;
-  }
-
   /// Sets up an account on someone's behalf — the same onboarding a person gets themselves, driven by one of your own services instead of by them.
   ///
   /// Sets up an account on someone's behalf — the same onboarding a person gets themselves, driven by one of your own services instead of by them.  It authenticates as your service rather than as a person, which is why the person to provision is named in the request. The setup it performs is identical to self-service onboarding; there is one provisioning path, not two that can drift.
@@ -4994,62 +4890,6 @@ class IamApi {
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
-  }
-
-  /// Registers an application in your organization — one product or site your people sign in to, with its own client credentials, sign-in methods and allowed redirect URIs.
-  ///
-  /// Registers an application in your organization — one product or site your people sign in to, with its own client credentials, sign-in methods and allowed redirect URIs. A name already used in the organization is refused rather than overwritten.  Exported so the legacy add-application alias reuses this exact path — one create, two spellings.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamApplication] iamApplication (required):
-  Future<Response> postIamApplicationWithHttpInfo(IamApplication iamApplication,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/application';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamApplication;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Registers an application in your organization — one product or site your people sign in to, with its own client credentials, sign-in methods and allowed redirect URIs.
-  ///
-  /// Registers an application in your organization — one product or site your people sign in to, with its own client credentials, sign-in methods and allowed redirect URIs. A name already used in the organization is refused rather than overwritten.  Exported so the legacy add-application alias reuses this exact path — one create, two spellings.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamApplication] iamApplication (required):
-  Future<IamApplication?> postIamApplication(IamApplication iamApplication,) async {
-    final response = await postIamApplicationWithHttpInfo(iamApplication,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamApplication',) as IamApplication;
-    
-    }
-    return null;
   }
 
   /// Registers an application in your organization — one product or site your people sign in to, with its own client credentials, sign-in methods and allowed redirect URIs.
@@ -5108,25 +4948,36 @@ class IamApi {
     return null;
   }
 
-  /// Removes an application.
+  /// Steps a platform operator into an organization: it returns their own access token re-scoped to that tenant, so they see what the tenant sees.
   ///
-  /// Removes an application. Anyone mid-sign-in through it is turned away and its client credentials stop working, so retire the integration before deleting it.
+  /// Steps a platform operator into an organization: it returns their own access token re-scoped to that tenant, so they see what the tenant sees.  The token still names the operator — stepping in is not becoming somebody else — and records the organization it was scoped to, so everything done with it is attributed to the person who did it. Only a platform operator may, and the attempt is recorded whether or not it succeeds.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
-  /// * [IamApplicationRef] iamApplicationRef (required):
-  Future<Response> postIamApplicationsDeleteWithHttpInfo(IamApplicationRef iamApplicationRef,) async {
+  /// * [IamAssumeBody] iamAssumeBody (required):
+  ///
+  /// * [String] authorization:
+  ///
+  /// * [String] xForwardedFor:
+  Future<Response> postIamAssumeWithHttpInfo(IamAssumeBody iamAssumeBody, { String? authorization, String? xForwardedFor, }) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/iam/applications/delete';
+    final path = r'/v1/iam/assume';
 
     // ignore: prefer_final_locals
-    Object? postBody = iamApplicationRef;
+    Object? postBody = iamAssumeBody;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
+
+    if (authorization != null) {
+      headerParams[r'Authorization'] = parameterToString(authorization);
+    }
+    if (xForwardedFor != null) {
+      headerParams[r'X-Forwarded-For'] = parameterToString(xForwardedFor);
+    }
 
     const contentTypes = <String>['application/json'];
 
@@ -5142,15 +4993,19 @@ class IamApi {
     );
   }
 
-  /// Removes an application.
+  /// Steps a platform operator into an organization: it returns their own access token re-scoped to that tenant, so they see what the tenant sees.
   ///
-  /// Removes an application. Anyone mid-sign-in through it is turned away and its client credentials stop working, so retire the integration before deleting it.
+  /// Steps a platform operator into an organization: it returns their own access token re-scoped to that tenant, so they see what the tenant sees.  The token still names the operator — stepping in is not becoming somebody else — and records the organization it was scoped to, so everything done with it is attributed to the person who did it. Only a platform operator may, and the attempt is recorded whether or not it succeeds.
   ///
   /// Parameters:
   ///
-  /// * [IamApplicationRef] iamApplicationRef (required):
-  Future<IamDeleteResult?> postIamApplicationsDelete(IamApplicationRef iamApplicationRef,) async {
-    final response = await postIamApplicationsDeleteWithHttpInfo(iamApplicationRef,);
+  /// * [IamAssumeBody] iamAssumeBody (required):
+  ///
+  /// * [String] authorization:
+  ///
+  /// * [String] xForwardedFor:
+  Future<IamAnswer?> postIamAssume(IamAssumeBody iamAssumeBody, { String? authorization, String? xForwardedFor, }) async {
+    final response = await postIamAssumeWithHttpInfo(iamAssumeBody,  authorization: authorization, xForwardedFor: xForwardedFor, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -5158,63 +5013,7 @@ class IamApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamDeleteResult',) as IamDeleteResult;
-    
-    }
-    return null;
-  }
-
-  /// Changes an application's display, its sign-in methods and the redirect URIs it may return to — the call that makes login work from a new host.
-  ///
-  /// Changes an application's display, its sign-in methods and the redirect URIs it may return to — the call that makes login work from a new host. Which organization it belongs to and what it is named are fixed when it is created and are not editable here.  Exported so the legacy update-application alias reuses this exact path — one update, two spellings.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamApplication] iamApplication (required):
-  Future<Response> postIamApplicationsUpdateWithHttpInfo(IamApplication iamApplication,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/applications/update';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamApplication;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Changes an application's display, its sign-in methods and the redirect URIs it may return to — the call that makes login work from a new host.
-  ///
-  /// Changes an application's display, its sign-in methods and the redirect URIs it may return to — the call that makes login work from a new host. Which organization it belongs to and what it is named are fixed when it is created and are not editable here.  Exported so the legacy update-application alias reuses this exact path — one update, two spellings.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamApplication] iamApplication (required):
-  Future<IamApplication?> postIamApplicationsUpdate(IamApplication iamApplication,) async {
-    final response = await postIamApplicationsUpdateWithHttpInfo(iamApplication,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamApplication',) as IamApplication;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamAnswer',) as IamAnswer;
     
     }
     return null;
@@ -5228,13 +5027,13 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [IamAuditlogsInput] iamAuditlogsInput (required):
-  Future<Response> postIamAuditLogsWithHttpInfo(IamAuditlogsInput iamAuditlogsInput,) async {
+  /// * [IamInput] iamInput (required):
+  Future<Response> postIamAuditLogsWithHttpInfo(IamInput iamInput,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/iam/audit-logs';
 
     // ignore: prefer_final_locals
-    Object? postBody = iamAuditlogsInput;
+    Object? postBody = iamInput;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
@@ -5260,9 +5059,9 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [IamAuditlogsInput] iamAuditlogsInput (required):
-  Future<IamAuditLog?> postIamAuditLogs(IamAuditlogsInput iamAuditlogsInput,) async {
-    final response = await postIamAuditLogsWithHttpInfo(iamAuditlogsInput,);
+  /// * [IamInput] iamInput (required):
+  Future<IamAuditLog?> postIamAuditLogs(IamInput iamInput,) async {
+    final response = await postIamAuditLogsWithHttpInfo(iamInput,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -5276,177 +5075,9 @@ class IamApi {
     return null;
   }
 
-  /// Removes an audit entry.
+  /// Adds a signing certificate your applications can verify tokens against — the call you make to stage the next one before a rotation.
   ///
-  /// Removes an audit entry. Retention policy is normally what should expire a trail; deleting by hand leaves a gap a reviewer will notice.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamRef] iamRef (required):
-  Future<Response> postIamAuditLogsDeleteWithHttpInfo(IamRef iamRef,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/audit-logs/delete';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamRef;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Removes an audit entry.
-  ///
-  /// Removes an audit entry. Retention policy is normally what should expire a trail; deleting by hand leaves a gap a reviewer will notice.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamRef] iamRef (required):
-  Future<IamDeleteOutput?> postIamAuditLogsDelete(IamRef iamRef,) async {
-    final response = await postIamAuditLogsDeleteWithHttpInfo(iamRef,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamDeleteOutput',) as IamDeleteOutput;
-    
-    }
-    return null;
-  }
-
-  /// Returns one audit entry in full: the action, the person or key behind it, and the request it came in on.
-  ///
-  /// Returns one audit entry in full: the action, the person or key behind it, and the request it came in on.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamRef] iamRef (required):
-  Future<Response> postIamAuditLogsGetWithHttpInfo(IamRef iamRef,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/audit-logs/get';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamRef;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Returns one audit entry in full: the action, the person or key behind it, and the request it came in on.
-  ///
-  /// Returns one audit entry in full: the action, the person or key behind it, and the request it came in on.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamRef] iamRef (required):
-  Future<IamAuditLog?> postIamAuditLogsGet(IamRef iamRef,) async {
-    final response = await postIamAuditLogsGetWithHttpInfo(iamRef,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamAuditLog',) as IamAuditLog;
-    
-    }
-    return null;
-  }
-
-  /// Corrects an audit entry.
-  ///
-  /// Corrects an audit entry. The trail is append-only in normal operation and nothing in the Hanzo Cloud rewrites it — this exists for an administrator to correct an entry their own systems recorded wrongly.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamAuditlogsInput] iamAuditlogsInput (required):
-  Future<Response> postIamAuditLogsUpdateWithHttpInfo(IamAuditlogsInput iamAuditlogsInput,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/audit-logs/update';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamAuditlogsInput;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Corrects an audit entry.
-  ///
-  /// Corrects an audit entry. The trail is append-only in normal operation and nothing in the Hanzo Cloud rewrites it — this exists for an administrator to correct an entry their own systems recorded wrongly.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamAuditlogsInput] iamAuditlogsInput (required):
-  Future<IamAuditLog?> postIamAuditLogsUpdate(IamAuditlogsInput iamAuditlogsInput,) async {
-    final response = await postIamAuditLogsUpdateWithHttpInfo(iamAuditlogsInput,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamAuditLog',) as IamAuditLog;
-    
-    }
-    return null;
-  }
-
-  /// Adds a signing certificate your applications can verify tokens against — the call you make to bring your own key, or to stage the next one before a rotation.
-  ///
-  /// Adds a signing certificate your applications can verify tokens against — the call you make to bring your own key, or to stage the next one before a rotation. A name already used in your organization is refused.
+  /// Adds a signing certificate your applications can verify tokens against — the call you make to stage the next one before a rotation. A name already used in your organization is refused.  It registers the certificate's IDENTITY: its name (which is the JWKS `kid`), its algorithm, its expiry. Key material does not travel this way and cannot: the private key is not part of the Cert's JSON, so it is neither served here nor accepted here. It is supplied to the process by the deployment, under the name registered here (internal/keyring). Staging a rotation is therefore two halves — this call names the key, and the deployment provides it.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -5478,9 +5109,9 @@ class IamApi {
     );
   }
 
-  /// Adds a signing certificate your applications can verify tokens against — the call you make to bring your own key, or to stage the next one before a rotation.
+  /// Adds a signing certificate your applications can verify tokens against — the call you make to stage the next one before a rotation.
   ///
-  /// Adds a signing certificate your applications can verify tokens against — the call you make to bring your own key, or to stage the next one before a rotation. A name already used in your organization is refused.
+  /// Adds a signing certificate your applications can verify tokens against — the call you make to stage the next one before a rotation. A name already used in your organization is refused.  It registers the certificate's IDENTITY: its name (which is the JWKS `kid`), its algorithm, its expiry. Key material does not travel this way and cannot: the private key is not part of the Cert's JSON, so it is neither served here nor accepted here. It is supplied to the process by the deployment, under the name registered here (internal/keyring). Staging a rotation is therefore two halves — this call names the key, and the deployment provides it.
   ///
   /// Parameters:
   ///
@@ -5495,230 +5126,6 @@ class IamApi {
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
       return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamCert',) as IamCert;
-    
-    }
-    return null;
-  }
-
-  /// Removes a signing certificate.
-  ///
-  /// Removes a signing certificate. Tokens signed with it can no longer be verified, so retire it only once nothing is still presenting them.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamCertsRef] iamCertsRef (required):
-  Future<Response> postIamCertsDeleteWithHttpInfo(IamCertsRef iamCertsRef,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/certs/delete';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamCertsRef;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Removes a signing certificate.
-  ///
-  /// Removes a signing certificate. Tokens signed with it can no longer be verified, so retire it only once nothing is still presenting them.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamCertsRef] iamCertsRef (required):
-  Future<IamCertsDeleteOutput?> postIamCertsDelete(IamCertsRef iamCertsRef,) async {
-    final response = await postIamCertsDeleteWithHttpInfo(iamCertsRef,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamCertsDeleteOutput',) as IamCertsDeleteOutput;
-    
-    }
-    return null;
-  }
-
-  /// Returns one signing certificate — its algorithm, its validity window and its public half.
-  ///
-  /// Returns one signing certificate — its algorithm, its validity window and its public half. The private key is masked.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamCertsRef] iamCertsRef (required):
-  Future<Response> postIamCertsGetWithHttpInfo(IamCertsRef iamCertsRef,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/certs/get';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamCertsRef;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Returns one signing certificate — its algorithm, its validity window and its public half.
-  ///
-  /// Returns one signing certificate — its algorithm, its validity window and its public half. The private key is masked.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamCertsRef] iamCertsRef (required):
-  Future<IamCert?> postIamCertsGet(IamCertsRef iamCertsRef,) async {
-    final response = await postIamCertsGetWithHttpInfo(iamCertsRef,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamCert',) as IamCert;
-    
-    }
-    return null;
-  }
-
-  /// Changes a signing certificate's settings.
-  ///
-  /// Changes a signing certificate's settings. What it is called does not change, and neither does when it was added.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamCert] iamCert (required):
-  Future<Response> postIamCertsUpdateWithHttpInfo(IamCert iamCert,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/certs/update';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamCert;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Changes a signing certificate's settings.
-  ///
-  /// Changes a signing certificate's settings. What it is called does not change, and neither does when it was added.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamCert] iamCert (required):
-  Future<IamCert?> postIamCertsUpdate(IamCert iamCert,) async {
-    final response = await postIamCertsUpdateWithHttpInfo(iamCert,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamCert',) as IamCert;
-    
-    }
-    return null;
-  }
-
-  /// Deletes an application.
-  ///
-  /// Deletes an application. Anyone mid-sign-in through it is turned away and its client credentials stop working, so retire the integration first.  The older spelling of DELETE /v1/iam/application.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamApplication] iamApplication (required):
-  Future<Response> postIamDeleteApplicationWithHttpInfo(IamApplication iamApplication,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/delete-application';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamApplication;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Deletes an application.
-  ///
-  /// Deletes an application. Anyone mid-sign-in through it is turned away and its client credentials stop working, so retire the integration first.  The older spelling of DELETE /v1/iam/application.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamApplication] iamApplication (required):
-  Future<IamResponse?> postIamDeleteApplication(IamApplication iamApplication,) async {
-    final response = await postIamDeleteApplicationWithHttpInfo(iamApplication,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamResponse',) as IamResponse;
     
     }
     return null;
@@ -5804,342 +5211,6 @@ class IamApi {
     }
   }
 
-  /// Deletes an organization and everything named inside it — its users, applications, roles, projects and workspaces.
-  ///
-  /// Deletes an organization and everything named inside it — its users, applications, roles, projects and workspaces. There is no undo, and every session issued under it stops working.  The older spelling of POST /v1/iam/organizations/delete.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamDeleteOrganizationInput] iamDeleteOrganizationInput (required):
-  Future<Response> postIamDeleteOrganizationWithHttpInfo(IamDeleteOrganizationInput iamDeleteOrganizationInput,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/delete-organization';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamDeleteOrganizationInput;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Deletes an organization and everything named inside it — its users, applications, roles, projects and workspaces.
-  ///
-  /// Deletes an organization and everything named inside it — its users, applications, roles, projects and workspaces. There is no undo, and every session issued under it stops working.  The older spelling of POST /v1/iam/organizations/delete.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamDeleteOrganizationInput] iamDeleteOrganizationInput (required):
-  Future<IamResponse?> postIamDeleteOrganization(IamDeleteOrganizationInput iamDeleteOrganizationInput,) async {
-    final response = await postIamDeleteOrganizationWithHttpInfo(iamDeleteOrganizationInput,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamResponse',) as IamResponse;
-    
-    }
-    return null;
-  }
-
-  /// Deletes a project.
-  ///
-  /// Deletes a project. The people and roles in your organization are unchanged; what goes is the scope itself, so anything addressed by it must move first.  The older spelling of POST /v1/iam/projects/delete.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamProjectsRef] iamProjectsRef (required):
-  Future<Response> postIamDeleteProjectWithHttpInfo(IamProjectsRef iamProjectsRef,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/delete-project';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamProjectsRef;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Deletes a project.
-  ///
-  /// Deletes a project. The people and roles in your organization are unchanged; what goes is the scope itself, so anything addressed by it must move first.  The older spelling of POST /v1/iam/projects/delete.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamProjectsRef] iamProjectsRef (required):
-  Future<IamResponse?> postIamDeleteProject(IamProjectsRef iamProjectsRef,) async {
-    final response = await postIamDeleteProjectWithHttpInfo(iamProjectsRef,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamResponse',) as IamResponse;
-    
-    }
-    return null;
-  }
-
-  /// Removes a provider.
-  ///
-  /// Removes a provider. Sign-in through it stops for every application that used it, so detach those applications first if they have no other method.  The older spelling of POST /v1/iam/providers/delete.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamProvider] iamProvider (required):
-  Future<Response> postIamDeleteProviderWithHttpInfo(IamProvider iamProvider,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/delete-provider';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamProvider;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Removes a provider.
-  ///
-  /// Removes a provider. Sign-in through it stops for every application that used it, so detach those applications first if they have no other method.  The older spelling of POST /v1/iam/providers/delete.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamProvider] iamProvider (required):
-  Future<IamResponse?> postIamDeleteProvider(IamProvider iamProvider,) async {
-    final response = await postIamDeleteProviderWithHttpInfo(iamProvider,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamResponse',) as IamResponse;
-    
-    }
-    return null;
-  }
-
-  /// Deletes a role.
-  ///
-  /// Deletes a role. Everyone in it loses the access it carried; their accounts and any other roles they hold are untouched.  The older spelling of POST /v1/iam/roles/delete.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamRolesRef] iamRolesRef (required):
-  Future<Response> postIamDeleteRoleWithHttpInfo(IamRolesRef iamRolesRef,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/delete-role';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamRolesRef;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Deletes a role.
-  ///
-  /// Deletes a role. Everyone in it loses the access it carried; their accounts and any other roles they hold are untouched.  The older spelling of POST /v1/iam/roles/delete.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamRolesRef] iamRolesRef (required):
-  Future<IamResponse?> postIamDeleteRole(IamRolesRef iamRolesRef,) async {
-    final response = await postIamDeleteRoleWithHttpInfo(iamRolesRef,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamResponse',) as IamResponse;
-    
-    }
-    return null;
-  }
-
-  /// Removes a person from your organization.
-  ///
-  /// Removes a person from your organization. Their sessions stop working and the account is gone, not suspended — to keep the record and only stop sign-in, update the user instead.  The older spelling of POST /v1/iam/users/delete.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamUserBody] iamUserBody (required):
-  Future<Response> postIamDeleteUserWithHttpInfo(IamUserBody iamUserBody,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/delete-user';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamUserBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Removes a person from your organization.
-  ///
-  /// Removes a person from your organization. Their sessions stop working and the account is gone, not suspended — to keep the record and only stop sign-in, update the user instead.  The older spelling of POST /v1/iam/users/delete.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamUserBody] iamUserBody (required):
-  Future<IamResponse?> postIamDeleteUser(IamUserBody iamUserBody,) async {
-    final response = await postIamDeleteUserWithHttpInfo(iamUserBody,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamResponse',) as IamResponse;
-    
-    }
-    return null;
-  }
-
-  /// Deletes a workspace.
-  ///
-  /// Deletes a workspace. The people and roles in your organization are unchanged; what goes is the scope itself.  The older spelling of POST /v1/iam/workspaces/delete.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamWorkspacesRef] iamWorkspacesRef (required):
-  Future<Response> postIamDeleteWorkspaceWithHttpInfo(IamWorkspacesRef iamWorkspacesRef,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/delete-workspace';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamWorkspacesRef;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Deletes a workspace.
-  ///
-  /// Deletes a workspace. The people and roles in your organization are unchanged; what goes is the scope itself.  The older spelling of POST /v1/iam/workspaces/delete.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamWorkspacesRef] iamWorkspacesRef (required):
-  Future<IamResponse?> postIamDeleteWorkspace(IamWorkspacesRef iamWorkspacesRef,) async {
-    final response = await postIamDeleteWorkspaceWithHttpInfo(iamWorkspacesRef,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamResponse',) as IamResponse;
-    
-    }
-    return null;
-  }
-
   /// Issues an invitation to join your organization — the code or link a new member redeems, with the role they arrive holding and the date it stops working.
   ///
   /// Issues an invitation to join your organization — the code or link a new member redeems, with the role they arrive holding and the date it stops working. A name already used in the organization is refused.
@@ -6183,174 +5254,6 @@ class IamApi {
   /// * [IamInvitationsInput] iamInvitationsInput (required):
   Future<IamInvitation?> postIamInvitations(IamInvitationsInput iamInvitationsInput,) async {
     final response = await postIamInvitationsWithHttpInfo(iamInvitationsInput,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamInvitation',) as IamInvitation;
-    
-    }
-    return null;
-  }
-
-  /// Withdraws an invitation.
-  ///
-  /// Withdraws an invitation. It stops being redeemable at once; anyone who already joined through it keeps their account.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamInvitationsRef] iamInvitationsRef (required):
-  Future<Response> postIamInvitationsDeleteWithHttpInfo(IamInvitationsRef iamInvitationsRef,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/invitations/delete';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamInvitationsRef;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Withdraws an invitation.
-  ///
-  /// Withdraws an invitation. It stops being redeemable at once; anyone who already joined through it keeps their account.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamInvitationsRef] iamInvitationsRef (required):
-  Future<IamInvitationsDeleteOutput?> postIamInvitationsDelete(IamInvitationsRef iamInvitationsRef,) async {
-    final response = await postIamInvitationsDeleteWithHttpInfo(iamInvitationsRef,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamInvitationsDeleteOutput',) as IamInvitationsDeleteOutput;
-    
-    }
-    return null;
-  }
-
-  /// Returns one invitation: who it is for, what it grants on acceptance, and when it expires.
-  ///
-  /// Returns one invitation: who it is for, what it grants on acceptance, and when it expires.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamInvitationsRef] iamInvitationsRef (required):
-  Future<Response> postIamInvitationsGetWithHttpInfo(IamInvitationsRef iamInvitationsRef,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/invitations/get';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamInvitationsRef;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Returns one invitation: who it is for, what it grants on acceptance, and when it expires.
-  ///
-  /// Returns one invitation: who it is for, what it grants on acceptance, and when it expires.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamInvitationsRef] iamInvitationsRef (required):
-  Future<IamInvitation?> postIamInvitationsGet(IamInvitationsRef iamInvitationsRef,) async {
-    final response = await postIamInvitationsGetWithHttpInfo(iamInvitationsRef,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamInvitation',) as IamInvitation;
-    
-    }
-    return null;
-  }
-
-  /// Changes an invitation's terms — the role it grants, how many may redeem it, or when it expires.
-  ///
-  /// Changes an invitation's terms — the role it grants, how many may redeem it, or when it expires. What it is called does not change.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamInvitationsInput] iamInvitationsInput (required):
-  Future<Response> postIamInvitationsUpdateWithHttpInfo(IamInvitationsInput iamInvitationsInput,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/invitations/update';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamInvitationsInput;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Changes an invitation's terms — the role it grants, how many may redeem it, or when it expires.
-  ///
-  /// Changes an invitation's terms — the role it grants, how many may redeem it, or when it expires. What it is called does not change.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamInvitationsInput] iamInvitationsInput (required):
-  Future<IamInvitation?> postIamInvitationsUpdate(IamInvitationsInput iamInvitationsInput,) async {
-    final response = await postIamInvitationsUpdateWithHttpInfo(iamInvitationsInput,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -6447,198 +5350,6 @@ class IamApi {
   /// * [IamKey] iamKey (required):
   Future<IamKey?> postIamKeys(IamKey iamKey,) async {
     final response = await postIamKeysWithHttpInfo(iamKey,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamKey',) as IamKey;
-    
-    }
-    return null;
-  }
-
-  /// Revokes an API key.
-  ///
-  /// Revokes an API key. Anything still presenting it stops being authorized at once, so roll the replacement out before you revoke.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamKeysRef] iamKeysRef (required):
-  Future<Response> postIamKeysDeleteWithHttpInfo(IamKeysRef iamKeysRef,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/keys/delete';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamKeysRef;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Revokes an API key.
-  ///
-  /// Revokes an API key. Anything still presenting it stops being authorized at once, so roll the replacement out before you revoke.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamKeysRef] iamKeysRef (required):
-  Future<IamDeleteResponse?> postIamKeysDelete(IamKeysRef iamKeysRef,) async {
-    final response = await postIamKeysDeleteWithHttpInfo(iamKeysRef,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamDeleteResponse',) as IamDeleteResponse;
-    
-    }
-    return null;
-  }
-
-  /// (re)generates the target user's key of the requested TYPE and returns it once, over the shared authorizeMinter + mintTarget seam.
-  ///
-  /// (re)generates the target user's key of the requested TYPE and returns it once, over the shared authorizeMinter + mintTarget seam. `?type=secret` (the default) yields the confidential sk-; `?type=publishable` yields the pk- that is safe to ship in client JS and resolves to an org, never a principal.  It writes the schema.Key row that the resolvers actually read. schema.User.AccessKey is not a credential and nothing resolves it, so a key stamped there would authenticate nobody.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  Future<Response> postIamKeysMintWithHttpInfo() async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/keys/mint';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// (re)generates the target user's key of the requested TYPE and returns it once, over the shared authorizeMinter + mintTarget seam.
-  ///
-  /// (re)generates the target user's key of the requested TYPE and returns it once, over the shared authorizeMinter + mintTarget seam. `?type=secret` (the default) yields the confidential sk-; `?type=publishable` yields the pk- that is safe to ship in client JS and resolves to an org, never a principal.  It writes the schema.Key row that the resolvers actually read. schema.User.AccessKey is not a credential and nothing resolves it, so a key stamped there would authenticate nobody.
-  Future<void> postIamKeysMint() async {
-    final response = await postIamKeysMintWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
-  /// Clears the target user's key of the requested TYPE (immediate revoke).
-  ///
-  /// Clears the target user's key of the requested TYPE (immediate revoke). Scoped by the same `?type` field mint takes, so revoking the browser key leaves the server key working. A secret key's stored value is the sk- in its schema.Key row.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  Future<Response> postIamKeysRevokeWithHttpInfo() async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/keys/revoke';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Clears the target user's key of the requested TYPE (immediate revoke).
-  ///
-  /// Clears the target user's key of the requested TYPE (immediate revoke). Scoped by the same `?type` field mint takes, so revoking the browser key leaves the server key working. A secret key's stored value is the sk- in its schema.Key row.
-  Future<void> postIamKeysRevoke() async {
-    final response = await postIamKeysRevokeWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
-  /// Changes what a key is called or what it may reach.
-  ///
-  /// Changes what a key is called or what it may reach. The credential itself is not reissued — the key in your deployment keeps working.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamKey] iamKey (required):
-  Future<Response> postIamKeysUpdateWithHttpInfo(IamKey iamKey,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/keys/update';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamKey;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Changes what a key is called or what it may reach.
-  ///
-  /// Changes what a key is called or what it may reach. The credential itself is not reissued — the key in your deployment keeps working.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamKey] iamKey (required):
-  Future<IamKey?> postIamKeysUpdate(IamKey iamKey,) async {
-    final response = await postIamKeysUpdateWithHttpInfo(iamKey,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -6772,46 +5483,6 @@ class IamApi {
     }
   }
 
-  /// Turns a factor off, so sign-in stops asking for it.
-  ///
-  /// Turns a factor off, so sign-in stops asking for it. Naming no factor turns off ALL of them — the reset path. People may do this for themselves; doing it for somebody else takes an administrator, which is what makes it the way back in when a phone is lost.  The recovery codes go with the last factor: they are the way past a challenge, so keeping them alive for an account with nothing to challenge would leave a standing credential behind.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  Future<Response> postIamMfaDisableWithHttpInfo() async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/mfa/disable';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Turns a factor off, so sign-in stops asking for it.
-  ///
-  /// Turns a factor off, so sign-in stops asking for it. Naming no factor turns off ALL of them — the reset path. People may do this for themselves; doing it for somebody else takes an administrator, which is what makes it the way back in when a phone is lost.  The recovery codes go with the last factor: they are the way past a challenge, so keeping them alive for an account with nothing to challenge would leave a standing credential behind.
-  Future<void> postIamMfaDisable() async {
-    final response = await postIamMfaDisableWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
   /// Picks which second factor an account is asked for first when it has more than one.
   ///
   /// Picks which second factor an account is asked for first when it has more than one. Only a factor the account actually holds: storing an unheld one told the login gate \"MFA is on\" — factor.Enabled reads that column — while leaving it nothing to ask for, so the sign-in required the password alone.
@@ -6854,7 +5525,7 @@ class IamApi {
 
   /// Finishes the enrolment: from here the account's sign-ins ask for this factor.
   ///
-  /// Finishes the enrolment: from here the account's sign-ins ask for this factor. It requires the proof initiate handed out — a passcode from the authenticator, or the code that was sent — and verifies it BEFORE writing anything.  It used to write on the strength of a `secret` field alone. A client that skipped the verify step, scanned the QR into the wrong app, or was simply buggy switched on a factor no code would ever satisfy, and the account was then locked out with no self-service way back: the gate holds the sign-in before minting, so the person cannot obtain the bearer that disable requires.  The recovery codes are minted here and returned ONCE, on the first factor the account adds. Answering with them is the way back in when no factor can be produced, so they are the same value the row's digests were made from — by construction, not by a client echoing them back.
+  /// Finishes the enrolment: from here the account's sign-ins ask for this factor. It requires the proof initiate handed out — a passcode from the authenticator, or the code that was sent — and verifies it BEFORE writing anything.  Verifying BEFORE writing is what keeps a client that never completed the proof — a skipped verify step, a QR scanned into the wrong app, a bug — from switching on a factor no code can satisfy. That would lock the account out with no self-service way back: the gate holds the sign-in before minting, so the person could not obtain the bearer that disable requires.  The recovery codes are minted here and returned ONCE, on the first factor the account adds. Answering with them is the way back in when no factor can be produced, so they are the same value the row's digests were made from — by construction, not by a client echoing them back.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> postIamMfaSetupEnableWithHttpInfo() async {
@@ -6884,7 +5555,7 @@ class IamApi {
 
   /// Finishes the enrolment: from here the account's sign-ins ask for this factor.
   ///
-  /// Finishes the enrolment: from here the account's sign-ins ask for this factor. It requires the proof initiate handed out — a passcode from the authenticator, or the code that was sent — and verifies it BEFORE writing anything.  It used to write on the strength of a `secret` field alone. A client that skipped the verify step, scanned the QR into the wrong app, or was simply buggy switched on a factor no code would ever satisfy, and the account was then locked out with no self-service way back: the gate holds the sign-in before minting, so the person cannot obtain the bearer that disable requires.  The recovery codes are minted here and returned ONCE, on the first factor the account adds. Answering with them is the way back in when no factor can be produced, so they are the same value the row's digests were made from — by construction, not by a client echoing them back.
+  /// Finishes the enrolment: from here the account's sign-ins ask for this factor. It requires the proof initiate handed out — a passcode from the authenticator, or the code that was sent — and verifies it BEFORE writing anything.  Verifying BEFORE writing is what keeps a client that never completed the proof — a skipped verify step, a QR scanned into the wrong app, a bug — from switching on a factor no code can satisfy. That would lock the account out with no self-service way back: the gate holds the sign-in before minting, so the person could not obtain the bearer that disable requires.  The recovery codes are minted here and returned ONCE, on the first factor the account adds. Answering with them is the way back in when no factor can be produced, so they are the same value the row's digests were made from — by construction, not by a client echoing them back.
   Future<void> postIamMfaSetupEnable() async {
     final response = await postIamMfaSetupEnableWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -7054,7 +5725,7 @@ class IamApi {
 
   /// Answers \"what am I approving?\" for a pending device code.
   ///
-  /// Answers \"what am I approving?\" for a pending device code.  The approval page exists to tell a human WHICH application they are authorizing; a page that names the wrong one defeats the control it implements. It used to render the portal's own app name — a constant, `hanzo-console` for every code — so a device code minted by `hanzo-cli` was approved under a screen naming a different application entirely. The client is a property of the CODE, so it is read from the code's row here and nowhere else.  Requires a signed-in session, and answers with the same ONE opaque refusal approveDevice uses. That is deliberate: the user_code is only 40 bits and is the one secret in this flow, so an unauthenticated lookup — or one that distinguished unknown from expired from already-approved — would be an oracle for hunting live codes. Gated and opaque, it reveals strictly less than the approval the same caller could already attempt.
+  /// Answers \"what am I approving?\" for a pending device code.  The approval page exists to tell a human WHICH application they are authorizing; a page that names any other one defeats the control it implements. The client is a property of the CODE, not of the page or of whatever app the browser happens to be signed in to, so it is read from the code's row here and nowhere else.  Requires a signed-in session, and answers with the same ONE opaque refusal approveDevice uses. That is deliberate: the user_code is only 40 bits and is the one secret in this flow, so an unauthenticated lookup — or one that distinguished unknown from expired from already-approved — would be an oracle for hunting live codes. Gated and opaque, it reveals strictly less than the approval the same caller could already attempt.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> postIamOauthDeviceInfoWithHttpInfo() async {
@@ -7084,7 +5755,7 @@ class IamApi {
 
   /// Answers \"what am I approving?\" for a pending device code.
   ///
-  /// Answers \"what am I approving?\" for a pending device code.  The approval page exists to tell a human WHICH application they are authorizing; a page that names the wrong one defeats the control it implements. It used to render the portal's own app name — a constant, `hanzo-console` for every code — so a device code minted by `hanzo-cli` was approved under a screen naming a different application entirely. The client is a property of the CODE, so it is read from the code's row here and nowhere else.  Requires a signed-in session, and answers with the same ONE opaque refusal approveDevice uses. That is deliberate: the user_code is only 40 bits and is the one secret in this flow, so an unauthenticated lookup — or one that distinguished unknown from expired from already-approved — would be an oracle for hunting live codes. Gated and opaque, it reveals strictly less than the approval the same caller could already attempt.
+  /// Answers \"what am I approving?\" for a pending device code.  The approval page exists to tell a human WHICH application they are authorizing; a page that names any other one defeats the control it implements. The client is a property of the CODE, not of the page or of whatever app the browser happens to be signed in to, so it is read from the code's row here and nowhere else.  Requires a signed-in session, and answers with the same ONE opaque refusal approveDevice uses. That is deliberate: the user_code is only 40 bits and is the one secret in this flow, so an unauthenticated lookup — or one that distinguished unknown from expired from already-approved — would be an oracle for hunting live codes. Gated and opaque, it reveals strictly less than the approval the same caller could already attempt.
   Future<void> postIamOauthDeviceInfo() async {
     final response = await postIamOauthDeviceInfoWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -7174,7 +5845,7 @@ class IamApi {
 
   /// Ends a sign-in and sends the browser somewhere sensible.
   ///
-  /// Ends a sign-in and sends the browser somewhere sensible. Accepts GET or POST, so it works as a plain link.  It ACTUALLY signs you out, which is worth stating because the endpoint spent a release not doing it: the whole body computed a redirect and answered {\"status\":\"ok\"} unconditionally — no session ended, no token revoked. A logout that reports success while leaving the session live is worse than no logout at all, because the person on the shared machine believes it worked. Three things happen here now, in this order:   1. The browser session dies — sid revoked server-side AND the cookie expired     (sessions.Clear). Server-side revocation is the load-bearing half: a copy     of the cookie taken before logout must not still resolve.  2. The relying party's tokens are revoked when an id_token_hint names it, so     the refresh token cannot mint a fresh access token after the human left.     Revocation state is authoritative — a JWT's `exp` still reads valid for     days, so expiry is necessary but never sufficient.  3. Only then is a redirect considered, and only to a REGISTERED uri.  The open-redirect guard is unchanged: a redirect happens only when a VERIFIED id_token_hint identifies the application and that application has registered the target. Anything else refuses to redirect — nobody can turn your logout link into a redirect to a site of their choosing.
+  /// Ends a sign-in and sends the browser somewhere sensible. Accepts GET or POST, so it works as a plain link.  It ACTUALLY signs you out — worth stating, because a logout that computes a redirect and answers {\"status\":\"ok\"} while ending no session and revoking no token is worse than none: the person on the shared machine believes it worked. Three things happen here, in this order:   1. The browser session dies — sid revoked server-side AND the cookie expired     (sessions.Clear). Server-side revocation is the load-bearing half: a copy     of the cookie taken before logout must not still resolve.  2. The relying party's tokens are revoked when an id_token_hint names it, so     the refresh token cannot mint a fresh access token after the human left.     Revocation state is authoritative — a JWT's `exp` still reads valid for     days, so expiry is necessary but never sufficient.  3. Only then is a redirect considered, and only to a REGISTERED uri.  The open-redirect guard is unchanged: a redirect happens only when a VERIFIED id_token_hint identifies the application and that application has registered the target. Anything else refuses to redirect — nobody can turn your logout link into a redirect to a site of their choosing.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> postIamOauthLogoutWithHttpInfo() async {
@@ -7204,7 +5875,7 @@ class IamApi {
 
   /// Ends a sign-in and sends the browser somewhere sensible.
   ///
-  /// Ends a sign-in and sends the browser somewhere sensible. Accepts GET or POST, so it works as a plain link.  It ACTUALLY signs you out, which is worth stating because the endpoint spent a release not doing it: the whole body computed a redirect and answered {\"status\":\"ok\"} unconditionally — no session ended, no token revoked. A logout that reports success while leaving the session live is worse than no logout at all, because the person on the shared machine believes it worked. Three things happen here now, in this order:   1. The browser session dies — sid revoked server-side AND the cookie expired     (sessions.Clear). Server-side revocation is the load-bearing half: a copy     of the cookie taken before logout must not still resolve.  2. The relying party's tokens are revoked when an id_token_hint names it, so     the refresh token cannot mint a fresh access token after the human left.     Revocation state is authoritative — a JWT's `exp` still reads valid for     days, so expiry is necessary but never sufficient.  3. Only then is a redirect considered, and only to a REGISTERED uri.  The open-redirect guard is unchanged: a redirect happens only when a VERIFIED id_token_hint identifies the application and that application has registered the target. Anything else refuses to redirect — nobody can turn your logout link into a redirect to a site of their choosing.
+  /// Ends a sign-in and sends the browser somewhere sensible. Accepts GET or POST, so it works as a plain link.  It ACTUALLY signs you out — worth stating, because a logout that computes a redirect and answers {\"status\":\"ok\"} while ending no session and revoking no token is worse than none: the person on the shared machine believes it worked. Three things happen here, in this order:   1. The browser session dies — sid revoked server-side AND the cookie expired     (sessions.Clear). Server-side revocation is the load-bearing half: a copy     of the cookie taken before logout must not still resolve.  2. The relying party's tokens are revoked when an id_token_hint names it, so     the refresh token cannot mint a fresh access token after the human left.     Revocation state is authoritative — a JWT's `exp` still reads valid for     days, so expiry is necessary but never sufficient.  3. Only then is a redirect considered, and only to a REGISTERED uri.  The open-redirect guard is unchanged: a redirect happens only when a VERIFIED id_token_hint identifies the application and that application has registered the target. Anything else refuses to redirect — nobody can turn your logout link into a redirect to a site of their choosing.
   Future<void> postIamOauthLogout() async {
     final response = await postIamOauthLogoutWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -7214,7 +5885,7 @@ class IamApi {
 
   /// Retires a token before it expires — what you call when someone signs out or a credential may have leaked.
   ///
-  /// Retires a token before it expires — what you call when someone signs out or a credential may have leaked.  Revoking an access token kills that token. Revoking a REFRESH token kills the whole chain it belongs to, so no further access tokens can be minted from it and every token already minted from it dies with it.  A token that is not yours, or that never existed, answers success and does nothing — so the endpoint cannot be used to discover which tokens are real.  PUBLIC clients revoke too, and must: sign-out is the only control a long-lived refresh token has. hanzo-cli is a public PKCE client holding a 30-day rotating refresh token, so a confidential-only revocation endpoint made `hanzo auth logout` a LOCAL DELETE — the credential it dropped stayed spendable at hanzo.id for the rest of the month, with nothing able to kill it. Measured 2026-08-01: revoke answered 401 invalid_client and the refresh token went on minting access tokens.  Widening authentication does not widen authority. The caller must still POSSESS the token — and possession already permits USE, of which revocation is the strict opposite — and the row must belong to the client that presents it, so a public client_id buys the ability to destroy exactly what its holder could otherwise spend. RFC 6749 §3.2.1 is the same reading: a client with no credentials identifies itself with client_id.
+  /// Retires a token before it expires — what you call when someone signs out or a credential may have leaked.  Revoking an access token kills that token. Revoking a REFRESH token kills the whole chain it belongs to, so no further access tokens can be minted from it and every token already minted from it dies with it.  A token that is not yours, or that never existed, answers success and does nothing — so the endpoint cannot be used to discover which tokens are real.  PUBLIC clients revoke too, and must: sign-out is the only control a long-lived refresh token has. A native app or CLI is a public PKCE client and holds no secret, so requiring one here would leave signing out as a local delete — forgetting a credential that stays spendable for the rest of its lifetime.  Widening authentication does not widen authority. The caller must still POSSESS the token — and possession already permits USE, of which revocation is the strict opposite — and the row must belong to the client that presents it, so a public client_id buys the ability to destroy exactly what its holder could otherwise spend. RFC 6749 §3.2.1 is the same reading: a client with no credentials identifies itself with client_id.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> postIamOauthRevokeWithHttpInfo() async {
@@ -7244,7 +5915,7 @@ class IamApi {
 
   /// Retires a token before it expires — what you call when someone signs out or a credential may have leaked.
   ///
-  /// Retires a token before it expires — what you call when someone signs out or a credential may have leaked.  Revoking an access token kills that token. Revoking a REFRESH token kills the whole chain it belongs to, so no further access tokens can be minted from it and every token already minted from it dies with it.  A token that is not yours, or that never existed, answers success and does nothing — so the endpoint cannot be used to discover which tokens are real.  PUBLIC clients revoke too, and must: sign-out is the only control a long-lived refresh token has. hanzo-cli is a public PKCE client holding a 30-day rotating refresh token, so a confidential-only revocation endpoint made `hanzo auth logout` a LOCAL DELETE — the credential it dropped stayed spendable at hanzo.id for the rest of the month, with nothing able to kill it. Measured 2026-08-01: revoke answered 401 invalid_client and the refresh token went on minting access tokens.  Widening authentication does not widen authority. The caller must still POSSESS the token — and possession already permits USE, of which revocation is the strict opposite — and the row must belong to the client that presents it, so a public client_id buys the ability to destroy exactly what its holder could otherwise spend. RFC 6749 §3.2.1 is the same reading: a client with no credentials identifies itself with client_id.
+  /// Retires a token before it expires — what you call when someone signs out or a credential may have leaked.  Revoking an access token kills that token. Revoking a REFRESH token kills the whole chain it belongs to, so no further access tokens can be minted from it and every token already minted from it dies with it.  A token that is not yours, or that never existed, answers success and does nothing — so the endpoint cannot be used to discover which tokens are real.  PUBLIC clients revoke too, and must: sign-out is the only control a long-lived refresh token has. A native app or CLI is a public PKCE client and holds no secret, so requiring one here would leave signing out as a local delete — forgetting a credential that stays spendable for the rest of its lifetime.  Widening authentication does not widen authority. The caller must still POSSESS the token — and possession already permits USE, of which revocation is the strict opposite — and the row must belong to the client that presents it, so a public client_id buys the ability to destroy exactly what its holder could otherwise spend. RFC 6749 §3.2.1 is the same reading: a client with no credentials identifies itself with client_id.
   Future<void> postIamOauthRevoke() async {
     final response = await postIamOauthRevokeWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -7428,118 +6099,6 @@ class IamApi {
     return null;
   }
 
-  /// Revokes a permission.
-  ///
-  /// Revokes a permission. Everyone who held access only through it loses that access immediately; grants they hold by another route are untouched.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamPermissionRef] iamPermissionRef (required):
-  Future<Response> postIamPermissionsDeleteWithHttpInfo(IamPermissionRef iamPermissionRef,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/permissions/delete';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamPermissionRef;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Revokes a permission.
-  ///
-  /// Revokes a permission. Everyone who held access only through it loses that access immediately; grants they hold by another route are untouched.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamPermissionRef] iamPermissionRef (required):
-  Future<IamPermissionDeleteResponse?> postIamPermissionsDelete(IamPermissionRef iamPermissionRef,) async {
-    final response = await postIamPermissionsDeleteWithHttpInfo(iamPermissionRef,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamPermissionDeleteResponse',) as IamPermissionDeleteResponse;
-    
-    }
-    return null;
-  }
-
-  /// Changes who a permission grants to, what it allows, or the resources it covers.
-  ///
-  /// Changes who a permission grants to, what it allows, or the resources it covers. Access changes as soon as the write lands. What the permission is called does not change, and neither does when it was created.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamPermission] iamPermission (required):
-  Future<Response> postIamPermissionsUpdateWithHttpInfo(IamPermission iamPermission,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/permissions/update';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamPermission;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Changes who a permission grants to, what it allows, or the resources it covers.
-  ///
-  /// Changes who a permission grants to, what it allows, or the resources it covers. Access changes as soon as the write lands. What the permission is called does not change, and neither does when it was created.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamPermission] iamPermission (required):
-  Future<IamPermission?> postIamPermissionsUpdate(IamPermission iamPermission,) async {
-    final response = await postIamPermissionsUpdateWithHttpInfo(iamPermission,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamPermission',) as IamPermission;
-    
-    }
-    return null;
-  }
-
   /// Saves the calling person's own settings and returns the full set afterwards.
   ///
   /// Saves the calling person's own settings and returns the full set afterwards. Send only the settings you are changing — the rest are kept, so two screens can save at once without one undoing the other.
@@ -7588,13 +6147,13 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [IamInput] iamInput (required):
-  Future<Response> postIamProjectsWithHttpInfo(IamInput iamInput,) async {
+  /// * [IamProjectsInput] iamProjectsInput (required):
+  Future<Response> postIamProjectsWithHttpInfo(IamProjectsInput iamProjectsInput,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/iam/projects';
 
     // ignore: prefer_final_locals
-    Object? postBody = iamInput;
+    Object? postBody = iamProjectsInput;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
@@ -7620,177 +6179,9 @@ class IamApi {
   ///
   /// Parameters:
   ///
-  /// * [IamInput] iamInput (required):
-  Future<IamProject?> postIamProjects(IamInput iamInput,) async {
-    final response = await postIamProjectsWithHttpInfo(iamInput,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamProject',) as IamProject;
-    
-    }
-    return null;
-  }
-
-  /// Removes a project.
-  ///
-  /// Removes a project. The people and roles in your organization are unchanged; what goes is the scope itself, so move anything addressed by it first.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamProjectsRef] iamProjectsRef (required):
-  Future<Response> postIamProjectsDeleteWithHttpInfo(IamProjectsRef iamProjectsRef,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/projects/delete';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamProjectsRef;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Removes a project.
-  ///
-  /// Removes a project. The people and roles in your organization are unchanged; what goes is the scope itself, so move anything addressed by it first.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamProjectsRef] iamProjectsRef (required):
-  Future<IamProjectsDeleteOutput?> postIamProjectsDelete(IamProjectsRef iamProjectsRef,) async {
-    final response = await postIamProjectsDeleteWithHttpInfo(iamProjectsRef,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamProjectsDeleteOutput',) as IamProjectsDeleteOutput;
-    
-    }
-    return null;
-  }
-
-  /// Returns one project: what it is called and how it is set up.
-  ///
-  /// Returns one project: what it is called and how it is set up.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamProjectsRef] iamProjectsRef (required):
-  Future<Response> postIamProjectsGetWithHttpInfo(IamProjectsRef iamProjectsRef,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/projects/get';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamProjectsRef;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Returns one project: what it is called and how it is set up.
-  ///
-  /// Returns one project: what it is called and how it is set up.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamProjectsRef] iamProjectsRef (required):
-  Future<IamProject?> postIamProjectsGet(IamProjectsRef iamProjectsRef,) async {
-    final response = await postIamProjectsGetWithHttpInfo(iamProjectsRef,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamProject',) as IamProject;
-    
-    }
-    return null;
-  }
-
-  /// Changes a project's settings.
-  ///
-  /// Changes a project's settings. What it is called does not change, and neither does when it was created.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamInput] iamInput (required):
-  Future<Response> postIamProjectsUpdateWithHttpInfo(IamInput iamInput,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/projects/update';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamInput;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Changes a project's settings.
-  ///
-  /// Changes a project's settings. What it is called does not change, and neither does when it was created.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamInput] iamInput (required):
-  Future<IamProject?> postIamProjectsUpdate(IamInput iamInput,) async {
-    final response = await postIamProjectsUpdateWithHttpInfo(iamInput,);
+  /// * [IamProjectsInput] iamProjectsInput (required):
+  Future<IamProject?> postIamProjects(IamProjectsInput iamProjectsInput,) async {
+    final response = await postIamProjectsWithHttpInfo(iamProjectsInput,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -7842,6 +6233,77 @@ class IamApi {
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+  }
+
+  /// Steps a platform operator back out: it returns their own access token with no organization assumed, which is the credential they had before they stepped in.
+  ///
+  /// Steps a platform operator back out: it returns their own access token with no organization assumed, which is the credential they had before they stepped in. Recorded like the step in.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [IamAssumeBody] iamAssumeBody (required):
+  ///
+  /// * [String] authorization:
+  ///
+  /// * [String] xForwardedFor:
+  Future<Response> postIamReleaseWithHttpInfo(IamAssumeBody iamAssumeBody, { String? authorization, String? xForwardedFor, }) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/release';
+
+    // ignore: prefer_final_locals
+    Object? postBody = iamAssumeBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    if (authorization != null) {
+      headerParams[r'Authorization'] = parameterToString(authorization);
+    }
+    if (xForwardedFor != null) {
+      headerParams[r'X-Forwarded-For'] = parameterToString(xForwardedFor);
+    }
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Steps a platform operator back out: it returns their own access token with no organization assumed, which is the credential they had before they stepped in.
+  ///
+  /// Steps a platform operator back out: it returns their own access token with no organization assumed, which is the credential they had before they stepped in. Recorded like the step in.
+  ///
+  /// Parameters:
+  ///
+  /// * [IamAssumeBody] iamAssumeBody (required):
+  ///
+  /// * [String] authorization:
+  ///
+  /// * [String] xForwardedFor:
+  Future<IamAnswer?> postIamRelease(IamAssumeBody iamAssumeBody, { String? authorization, String? xForwardedFor, }) async {
+    final response = await postIamReleaseWithHttpInfo(iamAssumeBody,  authorization: authorization, xForwardedFor: xForwardedFor, );
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamAnswer',) as IamAnswer;
+    
+    }
+    return null;
   }
 
   /// Clears the target user's key of the requested TYPE (immediate revoke).
@@ -7927,174 +6389,6 @@ class IamApi {
   /// * [IamRolesInput] iamRolesInput (required):
   Future<IamRole?> postIamRoles(IamRolesInput iamRolesInput,) async {
     final response = await postIamRolesWithHttpInfo(iamRolesInput,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamRole',) as IamRole;
-    
-    }
-    return null;
-  }
-
-  /// Removes a role.
-  ///
-  /// Removes a role. Everyone in it loses the access it carried; their accounts, and any other role they hold, are untouched.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamRolesRef] iamRolesRef (required):
-  Future<Response> postIamRolesDeleteWithHttpInfo(IamRolesRef iamRolesRef,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/roles/delete';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamRolesRef;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Removes a role.
-  ///
-  /// Removes a role. Everyone in it loses the access it carried; their accounts, and any other role they hold, are untouched.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamRolesRef] iamRolesRef (required):
-  Future<IamRolesDeleteOutput?> postIamRolesDelete(IamRolesRef iamRolesRef,) async {
-    final response = await postIamRolesDeleteWithHttpInfo(iamRolesRef,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamRolesDeleteOutput',) as IamRolesDeleteOutput;
-    
-    }
-    return null;
-  }
-
-  /// Returns one role: who is in it, and the roles it includes.
-  ///
-  /// Returns one role: who is in it, and the roles it includes.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamRolesRef] iamRolesRef (required):
-  Future<Response> postIamRolesGetWithHttpInfo(IamRolesRef iamRolesRef,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/roles/get';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamRolesRef;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Returns one role: who is in it, and the roles it includes.
-  ///
-  /// Returns one role: who is in it, and the roles it includes.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamRolesRef] iamRolesRef (required):
-  Future<IamRole?> postIamRolesGet(IamRolesRef iamRolesRef,) async {
-    final response = await postIamRolesGetWithHttpInfo(iamRolesRef,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamRole',) as IamRole;
-    
-    }
-    return null;
-  }
-
-  /// Changes who is in a role, or which roles it includes.
-  ///
-  /// Changes who is in a role, or which roles it includes. Access changes for everyone in it as soon as the write lands. What the role is called does not change, and neither does when it was created.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamRolesInput] iamRolesInput (required):
-  Future<Response> postIamRolesUpdateWithHttpInfo(IamRolesInput iamRolesInput,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/roles/update';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamRolesInput;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Changes who is in a role, or which roles it includes.
-  ///
-  /// Changes who is in a role, or which roles it includes. Access changes for everyone in it as soon as the write lands. What the role is called does not change, and neither does when it was created.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamRolesInput] iamRolesInput (required):
-  Future<IamRole?> postIamRolesUpdate(IamRolesInput iamRolesInput,) async {
-    final response = await postIamRolesUpdateWithHttpInfo(iamRolesInput,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -8477,118 +6771,6 @@ class IamApi {
     }
   }
 
-  /// Updates one of your applications — its display, its sign-in methods and the redirect URIs it is allowed to return to.
-  ///
-  /// Updates one of your applications — its display, its sign-in methods and the redirect URIs it is allowed to return to. Which organization and name the application has are fixed when it is created and are not editable here.  A redirect URI you add becomes an allowed sign-in origin, so this is the call that makes login work from a new host.  The older spelling of PUT /v1/iam/application.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamApplication] iamApplication (required):
-  Future<Response> postIamUpdateApplicationWithHttpInfo(IamApplication iamApplication,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/update-application';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamApplication;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Updates one of your applications — its display, its sign-in methods and the redirect URIs it is allowed to return to.
-  ///
-  /// Updates one of your applications — its display, its sign-in methods and the redirect URIs it is allowed to return to. Which organization and name the application has are fixed when it is created and are not editable here.  A redirect URI you add becomes an allowed sign-in origin, so this is the call that makes login work from a new host.  The older spelling of PUT /v1/iam/application.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamApplication] iamApplication (required):
-  Future<IamResponse?> postIamUpdateApplication(IamApplication iamApplication,) async {
-    final response = await postIamUpdateApplicationWithHttpInfo(iamApplication,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamResponse',) as IamResponse;
-    
-    }
-    return null;
-  }
-
-  /// Updates your organization — its display, its default settings and the sign-in rules everyone in it inherits.
-  ///
-  /// Updates your organization — its display, its default settings and the sign-in rules everyone in it inherits.  The older spelling of POST /v1/iam/organizations/update.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamUpdateOrganizationInput] iamUpdateOrganizationInput (required):
-  Future<Response> postIamUpdateOrganizationWithHttpInfo(IamUpdateOrganizationInput iamUpdateOrganizationInput,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/update-organization';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamUpdateOrganizationInput;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Updates your organization — its display, its default settings and the sign-in rules everyone in it inherits.
-  ///
-  /// Updates your organization — its display, its default settings and the sign-in rules everyone in it inherits.  The older spelling of POST /v1/iam/organizations/update.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamUpdateOrganizationInput] iamUpdateOrganizationInput (required):
-  Future<IamResponse?> postIamUpdateOrganization(IamUpdateOrganizationInput iamUpdateOrganizationInput,) async {
-    final response = await postIamUpdateOrganizationWithHttpInfo(iamUpdateOrganizationInput,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamResponse',) as IamResponse;
-    
-    }
-    return null;
-  }
-
   /// Saves the calling person's own settings and returns the full set afterwards.
   ///
   /// Saves the calling person's own settings and returns the full set afterwards. Send only the settings you are changing — the rest are kept, so two screens can save at once without one undoing the other.
@@ -8627,174 +6809,6 @@ class IamApi {
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
-  }
-
-  /// Updates a provider's settings or rotates the credentials it holds.
-  ///
-  /// Updates a provider's settings or rotates the credentials it holds. The change takes effect on the next sign-in through it — sessions already issued are unaffected.  The older spelling of POST /v1/iam/providers/update.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamProvider] iamProvider (required):
-  Future<Response> postIamUpdateProviderWithHttpInfo(IamProvider iamProvider,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/update-provider';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamProvider;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Updates a provider's settings or rotates the credentials it holds.
-  ///
-  /// Updates a provider's settings or rotates the credentials it holds. The change takes effect on the next sign-in through it — sessions already issued are unaffected.  The older spelling of POST /v1/iam/providers/update.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamProvider] iamProvider (required):
-  Future<IamResponse?> postIamUpdateProvider(IamProvider iamProvider,) async {
-    final response = await postIamUpdateProviderWithHttpInfo(iamProvider,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamResponse',) as IamResponse;
-    
-    }
-    return null;
-  }
-
-  /// Updates a role's members or the roles it includes.
-  ///
-  /// Updates a role's members or the roles it includes. Access changes for everyone in it as soon as the write lands.  The older spelling of POST /v1/iam/roles/update.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamRolesInput] iamRolesInput (required):
-  Future<Response> postIamUpdateRoleWithHttpInfo(IamRolesInput iamRolesInput,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/update-role';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamRolesInput;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Updates a role's members or the roles it includes.
-  ///
-  /// Updates a role's members or the roles it includes. Access changes for everyone in it as soon as the write lands.  The older spelling of POST /v1/iam/roles/update.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamRolesInput] iamRolesInput (required):
-  Future<IamResponse?> postIamUpdateRole(IamRolesInput iamRolesInput,) async {
-    final response = await postIamUpdateRoleWithHttpInfo(iamRolesInput,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamResponse',) as IamResponse;
-    
-    }
-    return null;
-  }
-
-  /// Updates one of your users' profile, roles or credentials.
-  ///
-  /// Updates one of your users' profile, roles or credentials. Send a password to reset it; leave it out and the current one stands.  The older spelling of POST /v1/iam/users/update, with the user's fields at the top level rather than wrapped in {user, password}.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamUserBody] iamUserBody (required):
-  Future<Response> postIamUpdateUserWithHttpInfo(IamUserBody iamUserBody,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/update-user';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamUserBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Updates one of your users' profile, roles or credentials.
-  ///
-  /// Updates one of your users' profile, roles or credentials. Send a password to reset it; leave it out and the current one stands.  The older spelling of POST /v1/iam/users/update, with the user's fields at the top level rather than wrapped in {user, password}.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamUserBody] iamUserBody (required):
-  Future<IamResponse?> postIamUpdateUser(IamUserBody iamUserBody,) async {
-    final response = await postIamUpdateUserWithHttpInfo(iamUserBody,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamResponse',) as IamResponse;
-    
-    }
-    return null;
   }
 
   /// Adds a person to your organization.
@@ -8853,27 +6867,31 @@ class IamApi {
     return null;
   }
 
-  /// Removes a person from your organization.
+  /// (re)generates the target user's key of the requested TYPE and returns it once, over the shared authorizeMinter + mintTarget seam.
   ///
-  /// Removes a person from your organization. Their sessions stop working immediately and the account is gone rather than suspended — to keep the record and only stop sign-in, update the user instead.
+  /// (re)generates the target user's key of the requested TYPE and returns it once, over the shared authorizeMinter + mintTarget seam. `?type=secret` (the default) yields the confidential sk-; `?type=publishable` yields the pk- that is safe to ship in client JS and resolves to an org, never a principal.  It writes the schema.Key row that the resolvers actually read. schema.User.AccessKey is not a credential and nothing resolves it, so a key stamped there would authenticate nobody.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
-  /// * [IamUsersRef] iamUsersRef (required):
-  Future<Response> postIamUsersDeleteWithHttpInfo(IamUsersRef iamUsersRef,) async {
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<Response> postIamUsersByOwnerByNameKeysWithHttpInfo(String owner, String name,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/iam/users/delete';
+    final path = r'/v1/iam/users/{owner}/{name}/keys'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
 
     // ignore: prefer_final_locals
-    Object? postBody = iamUsersRef;
+    Object? postBody;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>['application/json'];
+    const contentTypes = <String>[];
 
 
     return apiClient.invokeAPI(
@@ -8887,82 +6905,20 @@ class IamApi {
     );
   }
 
-  /// Removes a person from your organization.
+  /// (re)generates the target user's key of the requested TYPE and returns it once, over the shared authorizeMinter + mintTarget seam.
   ///
-  /// Removes a person from your organization. Their sessions stop working immediately and the account is gone rather than suspended — to keep the record and only stop sign-in, update the user instead.
+  /// (re)generates the target user's key of the requested TYPE and returns it once, over the shared authorizeMinter + mintTarget seam. `?type=secret` (the default) yields the confidential sk-; `?type=publishable` yields the pk- that is safe to ship in client JS and resolves to an org, never a principal.  It writes the schema.Key row that the resolvers actually read. schema.User.AccessKey is not a credential and nothing resolves it, so a key stamped there would authenticate nobody.
   ///
   /// Parameters:
   ///
-  /// * [IamUsersRef] iamUsersRef (required):
-  Future<IamUsersDeleteOutput?> postIamUsersDelete(IamUsersRef iamUsersRef,) async {
-    final response = await postIamUsersDeleteWithHttpInfo(iamUsersRef,);
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  Future<void> postIamUsersByOwnerByNameKeys(String owner, String name,) async {
+    final response = await postIamUsersByOwnerByNameKeysWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamUsersDeleteOutput',) as IamUsersDeleteOutput;
-    
-    }
-    return null;
-  }
-
-  /// Changes a person's profile, their roles, or the credentials they sign in with.
-  ///
-  /// Changes a person's profile, their roles, or the credentials they sign in with. Send a password to reset it; leave it out and their current one keeps working.  Who they are does not change: their organization, username and the identifier their existing sessions are keyed on all survive the write, so an update never signs anyone out.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamUpdateInput] iamUpdateInput (required):
-  Future<Response> postIamUsersUpdateWithHttpInfo(IamUpdateInput iamUpdateInput,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/users/update';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamUpdateInput;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Changes a person's profile, their roles, or the credentials they sign in with.
-  ///
-  /// Changes a person's profile, their roles, or the credentials they sign in with. Send a password to reset it; leave it out and their current one keeps working.  Who they are does not change: their organization, username and the identifier their existing sessions are keyed on all survive the write, so an update never signs anyone out.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamUpdateInput] iamUpdateInput (required):
-  Future<IamUser?> postIamUsersUpdate(IamUpdateInput iamUpdateInput,) async {
-    final response = await postIamUsersUpdateWithHttpInfo(iamUpdateInput,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamUser',) as IamUser;
-    
-    }
-    return null;
   }
 
   /// Validates the request and asks otp to get a code to the person.
@@ -9045,6 +7001,86 @@ class IamApi {
     }
   }
 
+  /// Verifies the signed challenge and signs the person in.
+  ///
+  /// Verifies the signed challenge and signs the person in.  It answers exactly as a password sign-in does — the same envelope, through the same grant — so nothing downstream branches on how somebody arrived.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> postIamWebauthnSigninFinishWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/webauthn/signin/finish';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Verifies the signed challenge and signs the person in.
+  ///
+  /// Verifies the signed challenge and signs the person in.  It answers exactly as a password sign-in does — the same envelope, through the same grant — so nothing downstream branches on how somebody arrived.
+  Future<void> postIamWebauthnSigninFinish() async {
+    final response = await postIamWebauthnSigninFinishWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+  }
+
+  /// Verifies the newly created passkey and stores it, so the person can sign in with their device from then on.
+  ///
+  /// Verifies the newly created passkey and stores it, so the person can sign in with their device from then on.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> postIamWebauthnSignupFinishWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/webauthn/signup/finish';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Verifies the newly created passkey and stores it, so the person can sign in with their device from then on.
+  ///
+  /// Verifies the newly created passkey and stores it, so the person can sign in with their device from then on.
+  Future<void> postIamWebauthnSignupFinish() async {
+    final response = await postIamWebauthnSignupFinishWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+  }
+
   /// Makes a workspace inside your organization — the scope a team works in, alongside projects rather than instead of them.
   ///
   /// Makes a workspace inside your organization — the scope a team works in, alongside projects rather than instead of them. A name already used in the organization is refused.
@@ -9101,32 +7137,43 @@ class IamApi {
     return null;
   }
 
-  /// Removes a workspace.
+  /// Saves the calling person's own profile — the name they are shown by, their picture, a line about themselves and a link.
   ///
-  /// Removes a workspace. The people and roles in your organization are unchanged; what goes is the scope itself.
+  /// Saves the calling person's own profile — the name they are shown by, their picture, a line about themselves and a link.  Only their own: the request names nobody, so it cannot reach another account. Send only what you are changing; a field you leave out keeps the value it had, and a field you send empty is cleared.  A picture is an https link or an inline image up to 96 KiB, the same value an organization's mark is (schema.AvatarRef) — one rule for how a subject appears, whether the subject is a person or an organization.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
-  /// * [IamWorkspacesRef] iamWorkspacesRef (required):
-  Future<Response> postIamWorkspacesDeleteWithHttpInfo(IamWorkspacesRef iamWorkspacesRef,) async {
+  /// * [IamAccountBody] iamAccountBody (required):
+  ///
+  /// * [String] cookie:
+  ///
+  /// * [String] authorization:
+  Future<Response> putIamAccountWithHttpInfo(IamAccountBody iamAccountBody, { String? cookie, String? authorization, }) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/iam/workspaces/delete';
+    final path = r'/v1/iam/account';
 
     // ignore: prefer_final_locals
-    Object? postBody = iamWorkspacesRef;
+    Object? postBody = iamAccountBody;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
+
+    if (cookie != null) {
+      headerParams[r'Cookie'] = parameterToString(cookie);
+    }
+    if (authorization != null) {
+      headerParams[r'Authorization'] = parameterToString(authorization);
+    }
 
     const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
       path,
-      'POST',
+      'PUT',
       queryParams,
       postBody,
       headerParams,
@@ -9135,15 +7182,19 @@ class IamApi {
     );
   }
 
-  /// Removes a workspace.
+  /// Saves the calling person's own profile — the name they are shown by, their picture, a line about themselves and a link.
   ///
-  /// Removes a workspace. The people and roles in your organization are unchanged; what goes is the scope itself.
+  /// Saves the calling person's own profile — the name they are shown by, their picture, a line about themselves and a link.  Only their own: the request names nobody, so it cannot reach another account. Send only what you are changing; a field you leave out keeps the value it had, and a field you send empty is cleared.  A picture is an https link or an inline image up to 96 KiB, the same value an organization's mark is (schema.AvatarRef) — one rule for how a subject appears, whether the subject is a person or an organization.
   ///
   /// Parameters:
   ///
-  /// * [IamWorkspacesRef] iamWorkspacesRef (required):
-  Future<IamWorkspacesDeleteOutput?> postIamWorkspacesDelete(IamWorkspacesRef iamWorkspacesRef,) async {
-    final response = await postIamWorkspacesDeleteWithHttpInfo(iamWorkspacesRef,);
+  /// * [IamAccountBody] iamAccountBody (required):
+  ///
+  /// * [String] cookie:
+  ///
+  /// * [String] authorization:
+  Future<IamAnswer?> putIamAccount(IamAccountBody iamAccountBody, { String? cookie, String? authorization, }) async {
+    final response = await putIamAccountWithHttpInfo(iamAccountBody,  cookie: cookie, authorization: authorization, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -9151,119 +7202,7 @@ class IamApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamWorkspacesDeleteOutput',) as IamWorkspacesDeleteOutput;
-    
-    }
-    return null;
-  }
-
-  /// Returns one workspace: what it is called and how it is set up.
-  ///
-  /// Returns one workspace: what it is called and how it is set up.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamWorkspacesRef] iamWorkspacesRef (required):
-  Future<Response> postIamWorkspacesGetWithHttpInfo(IamWorkspacesRef iamWorkspacesRef,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/workspaces/get';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamWorkspacesRef;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Returns one workspace: what it is called and how it is set up.
-  ///
-  /// Returns one workspace: what it is called and how it is set up.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamWorkspacesRef] iamWorkspacesRef (required):
-  Future<IamWorkspace?> postIamWorkspacesGet(IamWorkspacesRef iamWorkspacesRef,) async {
-    final response = await postIamWorkspacesGetWithHttpInfo(iamWorkspacesRef,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamWorkspace',) as IamWorkspace;
-    
-    }
-    return null;
-  }
-
-  /// Changes a workspace's settings.
-  ///
-  /// Changes a workspace's settings. What it is called does not change, and neither does when it was created.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [IamWorkspacesInput] iamWorkspacesInput (required):
-  Future<Response> postIamWorkspacesUpdateWithHttpInfo(IamWorkspacesInput iamWorkspacesInput,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/iam/workspaces/update';
-
-    // ignore: prefer_final_locals
-    Object? postBody = iamWorkspacesInput;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Changes a workspace's settings.
-  ///
-  /// Changes a workspace's settings. What it is called does not change, and neither does when it was created.
-  ///
-  /// Parameters:
-  ///
-  /// * [IamWorkspacesInput] iamWorkspacesInput (required):
-  Future<IamWorkspace?> postIamWorkspacesUpdate(IamWorkspacesInput iamWorkspacesInput,) async {
-    final response = await postIamWorkspacesUpdateWithHttpInfo(iamWorkspacesInput,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamWorkspace',) as IamWorkspace;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamAnswer',) as IamAnswer;
     
     }
     return null;
@@ -9277,10 +7216,16 @@ class IamApi {
   ///
   /// Parameters:
   ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
   /// * [IamApplication] iamApplication (required):
-  Future<Response> putIamApplicationWithHttpInfo(IamApplication iamApplication,) async {
+  Future<Response> putIamApplicationsByOwnerByNameWithHttpInfo(String owner, String name, IamApplication iamApplication,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/iam/application';
+    final path = r'/v1/iam/applications/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
 
     // ignore: prefer_final_locals
     Object? postBody = iamApplication;
@@ -9309,9 +7254,13 @@ class IamApi {
   ///
   /// Parameters:
   ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
   /// * [IamApplication] iamApplication (required):
-  Future<IamApplication?> putIamApplication(IamApplication iamApplication,) async {
-    final response = await putIamApplicationWithHttpInfo(iamApplication,);
+  Future<IamApplication?> putIamApplicationsByOwnerByName(String owner, String name, IamApplication iamApplication,) async {
+    final response = await putIamApplicationsByOwnerByNameWithHttpInfo(owner, name, iamApplication,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -9320,6 +7269,138 @@ class IamApi {
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
       return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamApplication',) as IamApplication;
+    
+    }
+    return null;
+  }
+
+  /// Corrects an audit entry.
+  ///
+  /// Corrects an audit entry. The trail is append-only in normal operation and nothing in the Hanzo Cloud rewrites it — this exists for an administrator to correct an entry their own systems recorded wrongly.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
+  /// * [IamInput] iamInput (required):
+  Future<Response> putIamAuditLogsByOwnerByNameWithHttpInfo(String owner, String name, IamInput iamInput,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/audit-logs/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody = iamInput;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'PUT',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Corrects an audit entry.
+  ///
+  /// Corrects an audit entry. The trail is append-only in normal operation and nothing in the Hanzo Cloud rewrites it — this exists for an administrator to correct an entry their own systems recorded wrongly.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
+  /// * [IamInput] iamInput (required):
+  Future<IamAuditLog?> putIamAuditLogsByOwnerByName(String owner, String name, IamInput iamInput,) async {
+    final response = await putIamAuditLogsByOwnerByNameWithHttpInfo(owner, name, iamInput,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamAuditLog',) as IamAuditLog;
+    
+    }
+    return null;
+  }
+
+  /// Changes a signing certificate's settings.
+  ///
+  /// Changes a signing certificate's settings. What it is called does not change, and neither does when it was added.  A PUT here is a METADATA edit — display name, expiry, provider. It overlays only the fields the request actually SET onto the loaded row: a field the JSON omits (or leaves at its zero value) keeps what the row holds, rather than blanking it. That is load-bearing, not a nicety. A read serves the public Certificate (Mask hides only PrivateKey and AccessSecret), so a client that reads a cert, changes one field, and writes it back sends the masked halves empty and every other field it did not touch at its zero value — and the old full-struct overlay wrote all of those blanks back. Blanking CryptoAlgorithm alone drops the cert from the JWKS (oidc.Publishes turns false), so every token under its `kid` stops verifying; blanking Provider/Account/ExpireTime breaks ACME renewal and expiry — all from a request that only meant to rename it. Absent-or-zero means \"unchanged\", so the deployment (key) and a rotation (cert) remain the only way key or published material changes; the metadata API cannot clear it.  The overlay is generic — it copies every set field, so a field nobody has added yet is carried without a line here — and leaves three things the request may not move: the bound Model (id, createdAt, key, snapshot), the natural key (owner/name address the row, they do not mutate it), and the creation stamp.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
+  /// * [IamCert] iamCert (required):
+  Future<Response> putIamCertsByOwnerByNameWithHttpInfo(String owner, String name, IamCert iamCert,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/certs/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody = iamCert;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'PUT',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Changes a signing certificate's settings.
+  ///
+  /// Changes a signing certificate's settings. What it is called does not change, and neither does when it was added.  A PUT here is a METADATA edit — display name, expiry, provider. It overlays only the fields the request actually SET onto the loaded row: a field the JSON omits (or leaves at its zero value) keeps what the row holds, rather than blanking it. That is load-bearing, not a nicety. A read serves the public Certificate (Mask hides only PrivateKey and AccessSecret), so a client that reads a cert, changes one field, and writes it back sends the masked halves empty and every other field it did not touch at its zero value — and the old full-struct overlay wrote all of those blanks back. Blanking CryptoAlgorithm alone drops the cert from the JWKS (oidc.Publishes turns false), so every token under its `kid` stops verifying; blanking Provider/Account/ExpireTime breaks ACME renewal and expiry — all from a request that only meant to rename it. Absent-or-zero means \"unchanged\", so the deployment (key) and a rotation (cert) remain the only way key or published material changes; the metadata API cannot clear it.  The overlay is generic — it copies every set field, so a field nobody has added yet is carried without a line here — and leaves three things the request may not move: the bound Model (id, createdAt, key, snapshot), the natural key (owner/name address the row, they do not mutate it), and the creation stamp.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
+  /// * [IamCert] iamCert (required):
+  Future<IamCert?> putIamCertsByOwnerByName(String owner, String name, IamCert iamCert,) async {
+    final response = await putIamCertsByOwnerByNameWithHttpInfo(owner, name, iamCert,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamCert',) as IamCert;
     
     }
     return null;
@@ -9363,6 +7444,140 @@ class IamApi {
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+  }
+
+  /// Changes an invitation's terms — the role it grants, how many may redeem it, or when it expires.
+  ///
+  /// Changes an invitation's terms — the role it grants, how many may redeem it, or when it expires. What it is called does not change.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
+  /// * [IamInvitationsInput] iamInvitationsInput (required):
+  Future<Response> putIamInvitationsByOwnerByNameWithHttpInfo(String owner, String name, IamInvitationsInput iamInvitationsInput,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/invitations/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody = iamInvitationsInput;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'PUT',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Changes an invitation's terms — the role it grants, how many may redeem it, or when it expires.
+  ///
+  /// Changes an invitation's terms — the role it grants, how many may redeem it, or when it expires. What it is called does not change.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
+  /// * [IamInvitationsInput] iamInvitationsInput (required):
+  Future<IamInvitation?> putIamInvitationsByOwnerByName(String owner, String name, IamInvitationsInput iamInvitationsInput,) async {
+    final response = await putIamInvitationsByOwnerByNameWithHttpInfo(owner, name, iamInvitationsInput,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamInvitation',) as IamInvitation;
+    
+    }
+    return null;
+  }
+
+  /// Changes what a key is called or what it may reach.
+  ///
+  /// Changes what a key is called or what it may reach. The credential itself is not reissued — the key in your deployment keeps working.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///   Owner is the tenant that holds the key; Name is unique within Owner.
+  ///
+  /// * [String] name (required):
+  ///
+  /// * [IamKey] iamKey (required):
+  Future<Response> putIamKeysByOwnerByNameWithHttpInfo(String owner, String name, IamKey iamKey,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/keys/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody = iamKey;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'PUT',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Changes what a key is called or what it may reach.
+  ///
+  /// Changes what a key is called or what it may reach. The credential itself is not reissued — the key in your deployment keeps working.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///   Owner is the tenant that holds the key; Name is unique within Owner.
+  ///
+  /// * [String] name (required):
+  ///
+  /// * [IamKey] iamKey (required):
+  Future<IamKey?> putIamKeysByOwnerByName(String owner, String name, IamKey iamKey,) async {
+    final response = await putIamKeysByOwnerByNameWithHttpInfo(owner, name, iamKey,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamKey',) as IamKey;
+    
+    }
+    return null;
   }
 
   /// Replaces the calling person's password.
@@ -9436,6 +7651,206 @@ class IamApi {
     return null;
   }
 
+  /// Changes who a permission grants to, what it allows, or the resources it covers.
+  ///
+  /// Changes who a permission grants to, what it allows, or the resources it covers. Access changes as soon as the write lands. What the permission is called does not change, and neither does when it was created.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///   Identity — the (owner, name) natural key.
+  ///
+  /// * [String] name (required):
+  ///
+  /// * [IamPermission] iamPermission (required):
+  Future<Response> putIamPermissionsByOwnerByNameWithHttpInfo(String owner, String name, IamPermission iamPermission,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/permissions/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody = iamPermission;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'PUT',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Changes who a permission grants to, what it allows, or the resources it covers.
+  ///
+  /// Changes who a permission grants to, what it allows, or the resources it covers. Access changes as soon as the write lands. What the permission is called does not change, and neither does when it was created.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///   Identity — the (owner, name) natural key.
+  ///
+  /// * [String] name (required):
+  ///
+  /// * [IamPermission] iamPermission (required):
+  Future<IamPermission?> putIamPermissionsByOwnerByName(String owner, String name, IamPermission iamPermission,) async {
+    final response = await putIamPermissionsByOwnerByNameWithHttpInfo(owner, name, iamPermission,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamPermission',) as IamPermission;
+    
+    }
+    return null;
+  }
+
+  /// Changes a project's settings.
+  ///
+  /// Changes a project's settings. What it is called does not change, and neither does when it was created.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
+  /// * [IamProjectsInput] iamProjectsInput (required):
+  Future<Response> putIamProjectsByOwnerByNameWithHttpInfo(String owner, String name, IamProjectsInput iamProjectsInput,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/projects/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody = iamProjectsInput;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'PUT',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Changes a project's settings.
+  ///
+  /// Changes a project's settings. What it is called does not change, and neither does when it was created.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
+  /// * [IamProjectsInput] iamProjectsInput (required):
+  Future<IamProject?> putIamProjectsByOwnerByName(String owner, String name, IamProjectsInput iamProjectsInput,) async {
+    final response = await putIamProjectsByOwnerByNameWithHttpInfo(owner, name, iamProjectsInput,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamProject',) as IamProject;
+    
+    }
+    return null;
+  }
+
+  /// Changes who is in a role, or which roles it includes.
+  ///
+  /// Changes who is in a role, or which roles it includes. Access changes for everyone in it as soon as the write lands. What the role is called does not change, and neither does when it was created.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
+  /// * [IamRolesInput] iamRolesInput (required):
+  Future<Response> putIamRolesByOwnerByNameWithHttpInfo(String owner, String name, IamRolesInput iamRolesInput,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/roles/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody = iamRolesInput;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'PUT',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Changes who is in a role, or which roles it includes.
+  ///
+  /// Changes who is in a role, or which roles it includes. Access changes for everyone in it as soon as the write lands. What the role is called does not change, and neither does when it was created.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
+  /// * [IamRolesInput] iamRolesInput (required):
+  Future<IamRole?> putIamRolesByOwnerByName(String owner, String name, IamRolesInput iamRolesInput,) async {
+    final response = await putIamRolesByOwnerByNameWithHttpInfo(owner, name, iamRolesInput,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamRole',) as IamRole;
+    
+    }
+    return null;
+  }
+
   /// Overwrites a person's SCIM attributes with what your identity provider sends — how a change made there lands here.
   ///
   /// Overwrites a person's SCIM attributes with what your identity provider sends — how a change made there lands here.  Only the attributes SCIM describes are replaced. Anything the standard does not cover — their multi-factor enrolment above all — survives untouched, so a routine sync from your IdP can never quietly strip someone's second factor or bring a deleted account back.
@@ -9490,21 +7905,153 @@ class IamApi {
     }
   }
 
-  /// Changes an organization's display, its defaults and the sign-in rules everyone in it inherits.
+  /// Changes a person's profile, their roles, or the credentials they sign in with.
   ///
-  /// Changes an organization's display, its defaults and the sign-in rules everyone in it inherits. Which organization it is does not change, and neither does when it was created.
+  /// Changes a person's profile, their roles, or the credentials they sign in with. Send a password to reset it; leave it out and their current one keeps working.  Who they are does not change: their organization, username and the identifier their existing sessions are keyed on all survive the write, so an update never signs anyone out.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
-  /// * [IamUpdateOrganizationInput] iamUpdateOrganizationInput (required):
-  Future<Response> updateOrganizationWithHttpInfo(IamUpdateOrganizationInput iamUpdateOrganizationInput,) async {
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
+  /// * [IamUpdateInput] iamUpdateInput (required):
+  Future<Response> putIamUsersByOwnerByNameWithHttpInfo(String owner, String name, IamUpdateInput iamUpdateInput,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/iam/organizations/update';
+    final path = r'/v1/iam/users/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
 
     // ignore: prefer_final_locals
-    Object? postBody = iamUpdateOrganizationInput;
+    Object? postBody = iamUpdateInput;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'PUT',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Changes a person's profile, their roles, or the credentials they sign in with.
+  ///
+  /// Changes a person's profile, their roles, or the credentials they sign in with. Send a password to reset it; leave it out and their current one keeps working.  Who they are does not change: their organization, username and the identifier their existing sessions are keyed on all survive the write, so an update never signs anyone out.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
+  /// * [IamUpdateInput] iamUpdateInput (required):
+  Future<IamUser?> putIamUsersByOwnerByName(String owner, String name, IamUpdateInput iamUpdateInput,) async {
+    final response = await putIamUsersByOwnerByNameWithHttpInfo(owner, name, iamUpdateInput,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamUser',) as IamUser;
+    
+    }
+    return null;
+  }
+
+  /// Changes a workspace's settings.
+  ///
+  /// Changes a workspace's settings. What it is called does not change, and neither does when it was created.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
+  /// * [IamWorkspacesInput] iamWorkspacesInput (required):
+  Future<Response> putIamWorkspacesByOwnerByNameWithHttpInfo(String owner, String name, IamWorkspacesInput iamWorkspacesInput,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/workspaces/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody = iamWorkspacesInput;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'PUT',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Changes a workspace's settings.
+  ///
+  /// Changes a workspace's settings. What it is called does not change, and neither does when it was created.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
+  /// * [IamWorkspacesInput] iamWorkspacesInput (required):
+  Future<IamWorkspace?> putIamWorkspacesByOwnerByName(String owner, String name, IamWorkspacesInput iamWorkspacesInput,) async {
+    final response = await putIamWorkspacesByOwnerByNameWithHttpInfo(owner, name, iamWorkspacesInput,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamWorkspace',) as IamWorkspace;
+    
+    }
+    return null;
+  }
+
+  /// Changes how an organization appears across Hanzo: the square mark beside its name, as an uploaded image or as a single emoji.
+  ///
+  /// Changes how an organization appears across Hanzo: the square mark beside its name, as an uploaded image or as a single emoji. Sending an image clears the emoji and sending an emoji clears the image — an organization has one mark, not a preference order — and sending neither clears both, which is how it goes back to being drawn as its initial.  An image is an https link or the bytes inline as a data URL, up to 96 KiB. Anyone who administers the organization may set this; it is not reserved to the platform.  It writes the two fields onto the stored row and touches nothing else, which update cannot do: update replaces the whole record, and a record read back first arrives masked, so a read-modify-write through it would persist the mask over the organization's own credential settings.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [IamSetAvatarInput] iamSetAvatarInput (required):
+  Future<Response> setOrganizationAvatarWithHttpInfo(IamSetAvatarInput iamSetAvatarInput,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/organizations/avatar';
+
+    // ignore: prefer_final_locals
+    Object? postBody = iamSetAvatarInput;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
@@ -9524,15 +8071,81 @@ class IamApi {
     );
   }
 
+  /// Changes how an organization appears across Hanzo: the square mark beside its name, as an uploaded image or as a single emoji.
+  ///
+  /// Changes how an organization appears across Hanzo: the square mark beside its name, as an uploaded image or as a single emoji. Sending an image clears the emoji and sending an emoji clears the image — an organization has one mark, not a preference order — and sending neither clears both, which is how it goes back to being drawn as its initial.  An image is an https link or the bytes inline as a data URL, up to 96 KiB. Anyone who administers the organization may set this; it is not reserved to the platform.  It writes the two fields onto the stored row and touches nothing else, which update cannot do: update replaces the whole record, and a record read back first arrives masked, so a read-modify-write through it would persist the mask over the organization's own credential settings.
+  ///
+  /// Parameters:
+  ///
+  /// * [IamSetAvatarInput] iamSetAvatarInput (required):
+  Future<IamOrganization?> setOrganizationAvatar(IamSetAvatarInput iamSetAvatarInput,) async {
+    final response = await setOrganizationAvatarWithHttpInfo(iamSetAvatarInput,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamOrganization',) as IamOrganization;
+    
+    }
+    return null;
+  }
+
+  /// Changes an organization's display, its defaults and the sign-in rules everyone in it inherits.
+  ///
+  /// Changes an organization's display, its defaults and the sign-in rules everyone in it inherits. Which organization it is does not change, and neither does when it was created.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
+  /// * [IamUpdateOrganizationInput] iamUpdateOrganizationInput (required):
+  Future<Response> updateOrganizationWithHttpInfo(String owner, String name, IamUpdateOrganizationInput iamUpdateOrganizationInput,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/organizations/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody = iamUpdateOrganizationInput;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'PUT',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
   /// Changes an organization's display, its defaults and the sign-in rules everyone in it inherits.
   ///
   /// Changes an organization's display, its defaults and the sign-in rules everyone in it inherits. Which organization it is does not change, and neither does when it was created.
   ///
   /// Parameters:
   ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
   /// * [IamUpdateOrganizationInput] iamUpdateOrganizationInput (required):
-  Future<IamOrganization?> updateOrganization(IamUpdateOrganizationInput iamUpdateOrganizationInput,) async {
-    final response = await updateOrganizationWithHttpInfo(iamUpdateOrganizationInput,);
+  Future<IamOrganization?> updateOrganization(String owner, String name, IamUpdateOrganizationInput iamUpdateOrganizationInput,) async {
+    final response = await updateOrganizationWithHttpInfo(owner, name, iamUpdateOrganizationInput,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -9554,10 +8167,16 @@ class IamApi {
   ///
   /// Parameters:
   ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
   /// * [IamProvider] iamProvider (required):
-  Future<Response> updateProviderWithHttpInfo(IamProvider iamProvider,) async {
+  Future<Response> updateProviderWithHttpInfo(String owner, String name, IamProvider iamProvider,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/iam/providers/update';
+    final path = r'/v1/iam/providers/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
 
     // ignore: prefer_final_locals
     Object? postBody = iamProvider;
@@ -9571,7 +8190,7 @@ class IamApi {
 
     return apiClient.invokeAPI(
       path,
-      'POST',
+      'PUT',
       queryParams,
       postBody,
       headerParams,
@@ -9586,9 +8205,13 @@ class IamApi {
   ///
   /// Parameters:
   ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
   /// * [IamProvider] iamProvider (required):
-  Future<IamMutationResult?> updateProvider(IamProvider iamProvider,) async {
-    final response = await updateProviderWithHttpInfo(iamProvider,);
+  Future<IamMutationResult?> updateProvider(String owner, String name, IamProvider iamProvider,) async {
+    final response = await updateProviderWithHttpInfo(owner, name, iamProvider,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -9610,10 +8233,19 @@ class IamApi {
   ///
   /// Parameters:
   ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
+  /// * [String] application (required):
+  ///
   /// * [IamUpdateSessionIn] iamUpdateSessionIn (required):
-  Future<Response> updateSessionWithHttpInfo(IamUpdateSessionIn iamUpdateSessionIn,) async {
+  Future<Response> updateSessionWithHttpInfo(String owner, String name, String application, IamUpdateSessionIn iamUpdateSessionIn,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/iam/sessions/update';
+    final path = r'/v1/iam/sessions/{owner}/{name}/{application}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name)
+      .replaceAll('{application}', application);
 
     // ignore: prefer_final_locals
     Object? postBody = iamUpdateSessionIn;
@@ -9627,7 +8259,7 @@ class IamApi {
 
     return apiClient.invokeAPI(
       path,
-      'POST',
+      'PUT',
       queryParams,
       postBody,
       headerParams,
@@ -9642,9 +8274,15 @@ class IamApi {
   ///
   /// Parameters:
   ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
+  /// * [String] application (required):
+  ///
   /// * [IamUpdateSessionIn] iamUpdateSessionIn (required):
-  Future<IamSession?> updateSession(IamUpdateSessionIn iamUpdateSessionIn,) async {
-    final response = await updateSessionWithHttpInfo(iamUpdateSessionIn,);
+  Future<IamSession?> updateSession(String owner, String name, String application, IamUpdateSessionIn iamUpdateSessionIn,) async {
+    final response = await updateSessionWithHttpInfo(owner, name, application, iamUpdateSessionIn,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -9666,10 +8304,16 @@ class IamApi {
   ///
   /// Parameters:
   ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
   /// * [IamToken] iamToken (required):
-  Future<Response> updateTokenWithHttpInfo(IamToken iamToken,) async {
+  Future<Response> updateTokenWithHttpInfo(String owner, String name, IamToken iamToken,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/iam/tokens/update';
+    final path = r'/v1/iam/tokens/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
 
     // ignore: prefer_final_locals
     Object? postBody = iamToken;
@@ -9683,7 +8327,7 @@ class IamApi {
 
     return apiClient.invokeAPI(
       path,
-      'POST',
+      'PUT',
       queryParams,
       postBody,
       headerParams,
@@ -9698,9 +8342,13 @@ class IamApi {
   ///
   /// Parameters:
   ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
   /// * [IamToken] iamToken (required):
-  Future<IamTokenMutation?> updateToken(IamToken iamToken,) async {
-    final response = await updateTokenWithHttpInfo(iamToken,);
+  Future<IamTokenMutation?> updateToken(String owner, String name, IamToken iamToken,) async {
+    final response = await updateTokenWithHttpInfo(owner, name, iamToken,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -9722,10 +8370,16 @@ class IamApi {
   ///
   /// Parameters:
   ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
   /// * [IamWebauthnCredential] iamWebauthnCredential (required):
-  Future<Response> updateWebauthnCredentialWithHttpInfo(IamWebauthnCredential iamWebauthnCredential,) async {
+  Future<Response> updateWebauthnCredentialWithHttpInfo(String owner, String name, IamWebauthnCredential iamWebauthnCredential,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/iam/webauthn-credentials/update';
+    final path = r'/v1/iam/webauthn-credentials/{owner}/{name}'
+      .replaceAll('{owner}', owner)
+      .replaceAll('{name}', name);
 
     // ignore: prefer_final_locals
     Object? postBody = iamWebauthnCredential;
@@ -9739,7 +8393,7 @@ class IamApi {
 
     return apiClient.invokeAPI(
       path,
-      'POST',
+      'PUT',
       queryParams,
       postBody,
       headerParams,
@@ -9754,9 +8408,13 @@ class IamApi {
   ///
   /// Parameters:
   ///
+  /// * [String] owner (required):
+  ///
+  /// * [String] name (required):
+  ///
   /// * [IamWebauthnCredential] iamWebauthnCredential (required):
-  Future<IamWebauthnCredentialMutationResult?> updateWebauthnCredential(IamWebauthnCredential iamWebauthnCredential,) async {
-    final response = await updateWebauthnCredentialWithHttpInfo(iamWebauthnCredential,);
+  Future<IamWebauthnCredentialMutationResult?> updateWebauthnCredential(String owner, String name, IamWebauthnCredential iamWebauthnCredential,) async {
+    final response = await updateWebauthnCredentialWithHttpInfo(owner, name, iamWebauthnCredential,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -9836,7 +8494,7 @@ class IamApi {
 
   /// Creates a person or updates them in place, so a deployment can declare the accounts it needs and re-run that declaration safely.
   ///
-  /// Creates a person or updates them in place, so a deployment can declare the accounts it needs and re-run that declaration safely.  Passwords are hashed before they are stored. Leave the password out and their current one is kept, so a redeploy never locks somebody out.
+  /// Creates a person or updates them in place, so a deployment can declare the accounts it needs and re-run that declaration safely.  It DESCRIBES an account it meets and GRANTS only to one it creates: org-admin is never raised on a row that already exists, and a machine identity is answered by name rather than adopted. Both are properties of the update itself, so a steady-state reconcile — which changes neither — is unaffected.  Passwords are hashed before they are stored. Leave the password out and their current one is kept, so a redeploy never locks somebody out; send the same one again and it is kept too, so a steady-state re-run is not a rotation.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -9876,7 +8534,7 @@ class IamApi {
 
   /// Creates a person or updates them in place, so a deployment can declare the accounts it needs and re-run that declaration safely.
   ///
-  /// Creates a person or updates them in place, so a deployment can declare the accounts it needs and re-run that declaration safely.  Passwords are hashed before they are stored. Leave the password out and their current one is kept, so a redeploy never locks somebody out.
+  /// Creates a person or updates them in place, so a deployment can declare the accounts it needs and re-run that declaration safely.  It DESCRIBES an account it meets and GRANTS only to one it creates: org-admin is never raised on a row that already exists, and a machine identity is answered by name rather than adopted. Both are properties of the update itself, so a steady-state reconcile — which changes neither — is unaffected.  Passwords are hashed before they are stored. Leave the password out and their current one is kept, so a redeploy never locks somebody out; send the same one again and it is kept too, so a steady-state re-run is not a rotation.
   ///
   /// Parameters:
   ///

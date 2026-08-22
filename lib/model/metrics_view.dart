@@ -17,7 +17,6 @@ class MetricsView {
     this.resource,
     this.series = const [],
   });
-
   /// echoes the requested window (24H|7D|30D)
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -27,6 +26,7 @@ class MetricsView {
   ///
   String? range;
 
+  /// Resource is the Resource Usage panel's rollup, and every field of it is currently null — see resourceUsage. It is present rather than omitted so a panel renders \"—\" instead of guessing.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

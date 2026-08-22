@@ -20,7 +20,7 @@ class TrialBalance {
     this.totalCredit,
     this.totalDebit,
   });
-
+  /// Balanced is the proof this report exists to give: whether total debits equal total credits. It is computed from the rows above, never assumed, and false means the ledger itself is broken rather than that the report is wrong.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -29,6 +29,7 @@ class TrialBalance {
   ///
   bool? balanced;
 
+  /// From is the posting time the window opens at, as it was asked for. Absent means the report runs from the beginning of the ledger.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -37,8 +38,10 @@ class TrialBalance {
   ///
   String? from;
 
+  /// Rows are the accounts that MOVED in one of the windows. An account that never moved is omitted rather than listed at zero, so this is shorter than the chart.
   List<TrialBalanceRow> rows;
 
+  /// To is the posting time the window closes at, inclusive. Absent means \"up to now\" — every posting the ledger holds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -47,6 +50,7 @@ class TrialBalance {
   ///
   String? to;
 
+  /// TotalCredit is the sum of every row's closing credit column, in cents.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -55,6 +59,7 @@ class TrialBalance {
   ///
   int? totalCredit;
 
+  /// TotalDebit is the sum of every row's CLOSING debit column, in cents.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

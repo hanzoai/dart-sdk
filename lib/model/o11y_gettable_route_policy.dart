@@ -25,7 +25,6 @@ class O11yGettableRoutePolicy {
     this.updatedAt,
     this.updatedBy,
   });
-
   List<String> channels;
 
   ///

@@ -18,7 +18,6 @@ class RefreshReferenceOut {
     this.took = const [],
     this.version,
   });
-
   /// Set is the set refreshed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

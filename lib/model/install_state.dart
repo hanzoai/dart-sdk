@@ -16,7 +16,6 @@ class InstallState {
     this.installed,
     this.tool,
   });
-
   /// Installed is its activation after the write.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

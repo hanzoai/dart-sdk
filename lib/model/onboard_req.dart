@@ -16,7 +16,6 @@ class OnboardReq {
     this.name,
     this.personal,
   });
-
   /// Name is the organization's display name. Ignored when personal is true, which derives the name from the caller's own username instead.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

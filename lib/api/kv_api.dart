@@ -16,20 +16,20 @@ class KvApi {
 
   final ApiClient apiClient;
 
-  /// DropKV deprovisions one Hanzo KV store.
+  /// Removes one bucket of the caller's org — every key and every revision with it — and answers 204 with no body.
   ///
-  /// DropKV deprovisions one Hanzo KV store. It reverts any app instance bound to it back to Base BEFORE tearing down the org's dedicated Valkey instance, then deletes the sealed credential and removes the metadata row. Answers 204 with no body; a second call is a 404.
+  /// Removes one bucket of the caller's org — every key and every revision with it — and answers 204 with no body. 404 when the org has no bucket of that name.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
-  /// * [String] name (required):
-  ///   Name is the resource's org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create.
-  Future<Response> deleteKvByNameWithHttpInfo(String name,) async {
+  /// * [String] bucket (required):
+  ///   Bucket is the bucket's name, from the path.
+  Future<Response> deleteKvByBucketWithHttpInfo(String bucket,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/kv/{name}'
-      .replaceAll('{name}', name);
+    final path = r'/v1/kv/{bucket}'
+      .replaceAll('{bucket}', bucket);
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -52,29 +52,97 @@ class KvApi {
     );
   }
 
-  /// DropKV deprovisions one Hanzo KV store.
+  /// Removes one bucket of the caller's org — every key and every revision with it — and answers 204 with no body.
   ///
-  /// DropKV deprovisions one Hanzo KV store. It reverts any app instance bound to it back to Base BEFORE tearing down the org's dedicated Valkey instance, then deletes the sealed credential and removes the metadata row. Answers 204 with no body; a second call is a 404.
+  /// Removes one bucket of the caller's org — every key and every revision with it — and answers 204 with no body. 404 when the org has no bucket of that name.
   ///
   /// Parameters:
   ///
-  /// * [String] name (required):
-  ///   Name is the resource's org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create.
-  Future<void> deleteKvByName(String name,) async {
-    final response = await deleteKvByNameWithHttpInfo(name,);
+  /// * [String] bucket (required):
+  ///   Bucket is the bucket's name, from the path.
+  Future<void> deleteKvByBucket(String bucket,) async {
+    final response = await deleteKvByBucketWithHttpInfo(bucket,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
   }
 
-  /// ListKV lists the caller org's Hanzo KV stores.
+  /// Delete removes one key — a delete marker in the key's history, so watchers see it and Get answers 404 — and answers 204 with no body.
   ///
-  /// ListKV lists the caller org's Hanzo KV stores. Each one is a DEDICATED Valkey instance the org alone runs, so the host is that instance's own in-cluster Service and the port is 6379.
+  /// Delete removes one key — a delete marker in the key's history, so watchers see it and Get answers 404 — and answers 204 with no body. 404 when the bucket does not exist.
   ///
   /// Note: This method returns the HTTP [Response].
-  Future<Response> getKvWithHttpInfo() async {
+  ///
+  /// Parameters:
+  ///
+  /// * [String] bucket (required):
+  ///   Bucket is the bucket, from the path.
+  ///
+  /// * [String] key (required):
+  ///   Key is the key, from the path.
+  Future<Response> deleteKvByBucketByKeyWithHttpInfo(String bucket, String key,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/kv';
+    final path = r'/v1/kv/{bucket}/{key}'
+      .replaceAll('{bucket}', bucket)
+      .replaceAll('{key}', key);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'DELETE',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Delete removes one key — a delete marker in the key's history, so watchers see it and Get answers 404 — and answers 204 with no body.
+  ///
+  /// Delete removes one key — a delete marker in the key's history, so watchers see it and Get answers 404 — and answers 204 with no body. 404 when the bucket does not exist.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] bucket (required):
+  ///   Bucket is the bucket, from the path.
+  ///
+  /// * [String] key (required):
+  ///   Key is the key, from the path.
+  Future<void> deleteKvByBucketByKey(String bucket, String key,) async {
+    final response = await deleteKvByBucketByKeyWithHttpInfo(bucket, key,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+  }
+
+  /// Get returns one key's current value and revision.
+  ///
+  /// Get returns one key's current value and revision. 404 when the bucket does not exist, the key was never written, or its latest revision is a delete.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] bucket (required):
+  ///   Bucket is the bucket, from the path.
+  ///
+  /// * [String] key (required):
+  ///   Key is the key, from the path.
+  Future<Response> getKvByBucketByKeyWithHttpInfo(String bucket, String key,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/kv/{bucket}/{key}'
+      .replaceAll('{bucket}', bucket)
+      .replaceAll('{key}', key);
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -97,11 +165,19 @@ class KvApi {
     );
   }
 
-  /// ListKV lists the caller org's Hanzo KV stores.
+  /// Get returns one key's current value and revision.
   ///
-  /// ListKV lists the caller org's Hanzo KV stores. Each one is a DEDICATED Valkey instance the org alone runs, so the host is that instance's own in-cluster Service and the port is 6379.
-  Future<List<ProvisionedSummary>?> getKv() async {
-    final response = await getKvWithHttpInfo();
+  /// Get returns one key's current value and revision. 404 when the bucket does not exist, the key was never written, or its latest revision is a delete.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] bucket (required):
+  ///   Bucket is the bucket, from the path.
+  ///
+  /// * [String] key (required):
+  ///   Key is the key, from the path.
+  Future<KvEntry?> getKvByBucketByKey(String bucket, String key,) async {
+    final response = await getKvByBucketByKeyWithHttpInfo(bucket, key,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -109,89 +185,97 @@ class KvApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      final responseBody = await _decodeBodyBytes(response);
-      return (await apiClient.deserializeAsync(responseBody, 'List<ProvisionedSummary>') as List)
-        .cast<ProvisionedSummary>()
-        .toList(growable: false);
-
-    }
-    return null;
-  }
-
-  /// GetKV returns one Hanzo KV store's metadata.
-  ///
-  /// GetKV returns one Hanzo KV store's metadata. It carries the store's status, its instance address and the Valkey user it authenticates as (\"default\", the only user a requirepass instance has) — never the password. A still-booting instance reads \"provisioning\", reconciled from the operator's live view.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [String] name (required):
-  ///   Name is the resource's org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create.
-  Future<Response> getKvByNameWithHttpInfo(String name,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/kv/{name}'
-      .replaceAll('{name}', name);
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'GET',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// GetKV returns one Hanzo KV store's metadata.
-  ///
-  /// GetKV returns one Hanzo KV store's metadata. It carries the store's status, its instance address and the Valkey user it authenticates as (\"default\", the only user a requirepass instance has) — never the password. A still-booting instance reads \"provisioning\", reconciled from the operator's live view.
-  ///
-  /// Parameters:
-  ///
-  /// * [String] name (required):
-  ///   Name is the resource's org-unique slug, from the path. Lower-cased and trimmed before lookup, exactly as it was at create.
-  Future<ProvisionedResource?> getKvByName(String name,) async {
-    final response = await getKvByNameWithHttpInfo(name,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'ProvisionedResource',) as ProvisionedResource;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'KvEntry',) as KvEntry;
     
     }
     return null;
   }
 
-  /// Provision a key-value store for your org
+  /// History returns one key's retained revisions, oldest first — every put and every delete marker up to the bucket's History depth.
   ///
-  /// Launches your org's OWN key-value instance and answers with its `kv://` connection string. The instance is yours alone: a deployment in your own tenant namespace, so its admin credential is naturally scoped to you and no other tenant shares the process. Off-cluster, where there is no orchestrator to launch one, this fails closed with 503 rather than handing back a shared one.  `name` is the org-unique slug every physical name derives from, and must match ^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$. `instance` optionally BINDS the add-on to one of your app instances: the DSN is injected into that instance's addons secret as <KIND>_URL, switching the app off its built-in store and onto this one. Omit it and the connection string is yours to wire.  THE CREDENTIAL COMES BACK ONCE. The connection string and password are in this response and nowhere else — every read beside it omits the password — so a caller that does not keep them has to provision again. Where KMS is configured the password is sealed there and only a reference is persisted; where it is not, it is returned this once and stored nowhere. It is never held in plaintext.  Scoped to the caller's validated org (403 without one), which also namespaces the physical resource under a fixed-width hash, so two tenants can never fold onto one backend resource — a residual collision fails closed with 409 rather than silently sharing. A name already taken in your org is 409; an invalid name or instance slug is 400; a backend that refuses the create is 502. Where a later step fails after the backend resource already exists, it is torn back down rather than left orphaned.  Billing is gated BEFORE anything is created: an unfunded org — or, in the fail-closed default, an unreachable meter — gets the fleet-wide 402/503 and nothing is provisioned. The fee is per-kind and set by the deployment.
+  /// History returns one key's retained revisions, oldest first — every put and every delete marker up to the bucket's History depth. 404 when the bucket does not exist or the key was never written.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
-  /// * [ProvisionRequest] provisionRequest:
-  Future<Response> postKvWithHttpInfo({ ProvisionRequest? provisionRequest, }) async {
+  /// * [String] bucket (required):
+  ///   Bucket is the bucket, from the path.
+  ///
+  /// * [String] key (required):
+  ///   Key is the key, from the path.
+  Future<Response> getKvByBucketByKeyHistoryWithHttpInfo(String bucket, String key,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/kv';
+    final path = r'/v1/kv/{bucket}/{key}/history'
+      .replaceAll('{bucket}', bucket)
+      .replaceAll('{key}', key);
 
     // ignore: prefer_final_locals
-    Object? postBody = provisionRequest;
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// History returns one key's retained revisions, oldest first — every put and every delete marker up to the bucket's History depth.
+  ///
+  /// History returns one key's retained revisions, oldest first — every put and every delete marker up to the bucket's History depth. 404 when the bucket does not exist or the key was never written.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] bucket (required):
+  ///   Bucket is the bucket, from the path.
+  ///
+  /// * [String] key (required):
+  ///   Key is the key, from the path.
+  Future<KvPage?> getKvByBucketByKeyHistory(String bucket, String key,) async {
+    final response = await getKvByBucketByKeyHistoryWithHttpInfo(bucket, key,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'KvPage',) as KvPage;
+    
+    }
+    return null;
+  }
+
+  /// Creates a KV bucket and returns it.
+  ///
+  /// Creates a KV bucket and returns it. A bucket is keyed state on the same durable plane as the streams: each key holds up to History revisions, entries can expire by TTL, and watchers on the NATS port see every write. 409 when the org already has a bucket of that name.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] bucket (required):
+  ///   Bucket is the bucket's name within the org, from the path: 1–64 of [A-Za-z0-9_], no dash.
+  ///
+  /// * [BucketWrite] bucketWrite (required):
+  Future<Response> postKvByBucketWithHttpInfo(String bucket, BucketWrite bucketWrite,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/kv/{bucket}'
+      .replaceAll('{bucket}', bucket);
+
+    // ignore: prefer_final_locals
+    Object? postBody = bucketWrite;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
@@ -211,15 +295,18 @@ class KvApi {
     );
   }
 
-  /// Provision a key-value store for your org
+  /// Creates a KV bucket and returns it.
   ///
-  /// Launches your org's OWN key-value instance and answers with its `kv://` connection string. The instance is yours alone: a deployment in your own tenant namespace, so its admin credential is naturally scoped to you and no other tenant shares the process. Off-cluster, where there is no orchestrator to launch one, this fails closed with 503 rather than handing back a shared one.  `name` is the org-unique slug every physical name derives from, and must match ^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$. `instance` optionally BINDS the add-on to one of your app instances: the DSN is injected into that instance's addons secret as <KIND>_URL, switching the app off its built-in store and onto this one. Omit it and the connection string is yours to wire.  THE CREDENTIAL COMES BACK ONCE. The connection string and password are in this response and nowhere else — every read beside it omits the password — so a caller that does not keep them has to provision again. Where KMS is configured the password is sealed there and only a reference is persisted; where it is not, it is returned this once and stored nowhere. It is never held in plaintext.  Scoped to the caller's validated org (403 without one), which also namespaces the physical resource under a fixed-width hash, so two tenants can never fold onto one backend resource — a residual collision fails closed with 409 rather than silently sharing. A name already taken in your org is 409; an invalid name or instance slug is 400; a backend that refuses the create is 502. Where a later step fails after the backend resource already exists, it is torn back down rather than left orphaned.  Billing is gated BEFORE anything is created: an unfunded org — or, in the fail-closed default, an unreachable meter — gets the fleet-wide 402/503 and nothing is provisioned. The fee is per-kind and set by the deployment.
+  /// Creates a KV bucket and returns it. A bucket is keyed state on the same durable plane as the streams: each key holds up to History revisions, entries can expire by TTL, and watchers on the NATS port see every write. 409 when the org already has a bucket of that name.
   ///
   /// Parameters:
   ///
-  /// * [ProvisionRequest] provisionRequest:
-  Future<ProvisionResult?> postKv({ ProvisionRequest? provisionRequest, }) async {
-    final response = await postKvWithHttpInfo( provisionRequest: provisionRequest, );
+  /// * [String] bucket (required):
+  ///   Bucket is the bucket's name within the org, from the path: 1–64 of [A-Za-z0-9_], no dash.
+  ///
+  /// * [BucketWrite] bucketWrite (required):
+  Future<BucketRecord?> postKvByBucket(String bucket, BucketWrite bucketWrite,) async {
+    final response = await postKvByBucketWithHttpInfo(bucket, bucketWrite,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -227,7 +314,77 @@ class KvApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'ProvisionResult',) as ProvisionResult;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'BucketRecord',) as BucketRecord;
+    
+    }
+    return null;
+  }
+
+  /// Put sets one key to one value and returns the revision the write created.
+  ///
+  /// Put sets one key to one value and returns the revision the write created. Writes are versioned: each put is a new revision and the bucket retains up to its History of them per key.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] bucket (required):
+  ///   Bucket is the bucket, from the path.
+  ///
+  /// * [String] key (required):
+  ///   Key is the key, from the path.
+  ///
+  /// * [KvWrite] kvWrite (required):
+  Future<Response> putKvByBucketByKeyWithHttpInfo(String bucket, String key, KvWrite kvWrite,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/kv/{bucket}/{key}'
+      .replaceAll('{bucket}', bucket)
+      .replaceAll('{key}', key);
+
+    // ignore: prefer_final_locals
+    Object? postBody = kvWrite;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'PUT',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Put sets one key to one value and returns the revision the write created.
+  ///
+  /// Put sets one key to one value and returns the revision the write created. Writes are versioned: each put is a new revision and the bucket retains up to its History of them per key.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] bucket (required):
+  ///   Bucket is the bucket, from the path.
+  ///
+  /// * [String] key (required):
+  ///   Key is the key, from the path.
+  ///
+  /// * [KvWrite] kvWrite (required):
+  Future<KvAck?> putKvByBucketByKey(String bucket, String key, KvWrite kvWrite,) async {
+    final response = await putKvByBucketByKeyWithHttpInfo(bucket, key, kvWrite,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'KvAck',) as KvAck;
     
     }
     return null;

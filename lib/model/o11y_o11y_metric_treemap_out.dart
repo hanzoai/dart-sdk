@@ -16,7 +16,6 @@ class O11yO11yMetricTreemapOut {
     this.data,
     this.status,
   });
-
   /// Data holds the treemap.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

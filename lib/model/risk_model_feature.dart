@@ -23,7 +23,6 @@ class RiskModelFeature {
     this.unit,
     this.window,
   });
-
   /// Blind is how often this dimension took that neutral value for THIS organisation.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

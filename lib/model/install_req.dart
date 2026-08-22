@@ -15,7 +15,6 @@ class InstallReq {
   InstallReq({
     this.tool,
   });
-
   /// Tool is the registry name of the capability to activate (or deactivate) for the caller's own org and project. Required.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

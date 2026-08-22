@@ -17,7 +17,6 @@ class O11yPodListResponse {
     this.total,
     this.type,
   });
-
   List<O11yPodListRecord> records;
 
   ///

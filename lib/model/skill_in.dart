@@ -17,7 +17,6 @@ class SkillIn {
     this.description,
     this.name,
   });
-
   /// Content is the SKILL.md body. Required, at most 256 KiB.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

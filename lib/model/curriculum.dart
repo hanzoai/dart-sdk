@@ -17,9 +17,10 @@ class Curriculum {
     this.title,
     this.version,
   });
-
+  /// Steps are the enabled steps in authoring order. Order is the tiebreak the next-step logic walks, so it is part of the contract rather than cosmetic.
   List<JourneyStep> steps;
 
+  /// Title is the playbook's name as it heads the checklist.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -28,6 +29,7 @@ class Curriculum {
   ///
   String? title;
 
+  /// Version identifies the authored playbook this journey was projected from, so two orgs on different playbooks can be told apart. It is the blueprint's own `version` string, not the store's numeric revision.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

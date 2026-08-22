@@ -15,7 +15,6 @@ class MachineList {
   MachineList({
     this.machines = const [],
   });
-
   /// Machines is every machine the org has: Visor-provisioned and BYO together.
   List<MachineView> machines;
 

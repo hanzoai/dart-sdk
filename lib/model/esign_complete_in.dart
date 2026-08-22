@@ -15,7 +15,6 @@ class EsignCompleteIn {
   EsignCompleteIn({
     this.signed,
   });
-
   /// Signed, when present, overrides what the provider reports — the manual path for a provider whose webhook is not wired. Omit it to take the provider's answer.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

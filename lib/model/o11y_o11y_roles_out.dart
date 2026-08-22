@@ -16,7 +16,6 @@ class O11yO11yRolesOut {
     this.data = const [],
     this.status,
   });
-
   /// Data holds the roles.
   List<O11yO11yRole> data;
 

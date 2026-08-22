@@ -23,7 +23,6 @@ class Config {
     this.storage,
     this.subjects = const [],
   });
-
   /// MaxAge caps message age, e.g. \"24h\" or \"7d\"; \"0\" (default) is unlimited.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

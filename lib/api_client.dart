@@ -9,7 +9,6 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 part of hanzoai.cloud;
-
 class ApiClient {
   ApiClient({this.basePath = 'https://api.hanzo.ai', this.authentication,});
 
@@ -186,14 +185,8 @@ class ApiClient {
           return AccList.fromJson(value);
         case 'AccView':
           return AccView.fromJson(value);
-        case 'AccessChange':
-          return AccessChange.fromJson(value);
-        case 'AccessOut':
-          return AccessOut.fromJson(value);
         case 'Account':
           return Account.fromJson(value);
-        case 'AccountFoldView':
-          return AccountFoldView.fromJson(value);
         case 'AccountList':
           return AccountList.fromJson(value);
         case 'AccountView':
@@ -210,12 +203,6 @@ class ApiClient {
           return AccreditationDecision.fromJson(value);
         case 'AccreditationReq':
           return AccreditationReq.fromJson(value);
-        case 'Accruals':
-          return Accruals.fromJson(value);
-        case 'AccrualsOut':
-          return AccrualsOut.fromJson(value);
-        case 'ActionOut':
-          return ActionOut.fromJson(value);
         case 'ActionRecord':
           return ActionRecord.fromJson(value);
         case 'ActionsView':
@@ -224,8 +211,6 @@ class ApiClient {
           return ActivationReq.fromJson(value);
         case 'ActivationSet':
           return ActivationSet.fromJson(value);
-        case 'Activity':
-          return Activity.fromJson(value);
         case 'ActivityFeed':
           return ActivityFeed.fromJson(value);
         case 'ActivityOut':
@@ -244,48 +229,16 @@ class ApiClient {
           return AdSummary.fromJson(value);
         case 'AddDomainReq':
           return AddDomainReq.fromJson(value);
-        case 'AdminAffiliateView':
-          return AdminAffiliateView.fromJson(value);
-        case 'AdminAuthorView':
-          return AdminAuthorView.fromJson(value);
-        case 'AdminBonusDirectory':
-          return AdminBonusDirectory.fromJson(value);
-        case 'AdminBonusesEnvelope':
-          return AdminBonusesEnvelope.fromJson(value);
-        case 'AdminBook':
-          return AdminBook.fromJson(value);
-        case 'AdminBookData':
-          return AdminBookData.fromJson(value);
-        case 'AdminCatalogOut':
-          return AdminCatalogOut.fromJson(value);
-        case 'AdminEnablementBoard':
-          return AdminEnablementBoard.fromJson(value);
-        case 'AdminEnablementItem':
-          return AdminEnablementItem.fromJson(value);
-        case 'AdminMe':
-          return AdminMe.fromJson(value);
-        case 'AdminReferralView':
-          return AdminReferralView.fromJson(value);
-        case 'AdminReportData':
-          return AdminReportData.fromJson(value);
-        case 'AdminReportOut':
-          return AdminReportOut.fromJson(value);
-        case 'AdminSummary':
-          return AdminSummary.fromJson(value);
         case 'Admission':
           return Admission.fromJson(value);
         case 'AdvanceIn':
           return AdvanceIn.fromJson(value);
         case 'AffiliateBoard':
           return AffiliateBoard.fromJson(value);
-        case 'AffiliateData':
-          return AffiliateData.fromJson(value);
         case 'AffiliateEarnings':
           return AffiliateEarnings.fromJson(value);
         case 'AffiliateLinks':
           return AffiliateLinks.fromJson(value);
-        case 'AffiliateOut':
-          return AffiliateOut.fromJson(value);
         case 'AffiliateSelf':
           return AffiliateSelf.fromJson(value);
         case 'AffiliateStanding':
@@ -296,8 +249,6 @@ class ApiClient {
           return AgentDetail.fromJson(value);
         case 'AgentList':
           return AgentList.fromJson(value);
-        case 'AgentMcpTools':
-          return AgentMcpTools.fromJson(value);
         case 'AgentRunView':
           return AgentRunView.fromJson(value);
         case 'AgentView':
@@ -306,50 +257,24 @@ class ApiClient {
           return AiMCPApp.fromJson(value);
         case 'AiMCPSurface':
           return AiMCPSurface.fromJson(value);
-        case 'AiMetrics':
-          return AiMetrics.fromJson(value);
-        case 'AimActorStat':
-          return AimActorStat.fromJson(value);
-        case 'AimEvals':
-          return AimEvals.fromJson(value);
-        case 'AimLfModelStat':
-          return AimLfModelStat.fromJson(value);
-        case 'AimModelStat':
-          return AimModelStat.fromJson(value);
-        case 'AimO11yAI':
-          return AimO11yAI.fromJson(value);
-        case 'AimRunStat':
-          return AimRunStat.fromJson(value);
-        case 'AimScorePoint':
-          return AimScorePoint.fromJson(value);
-        case 'AimScoreStat':
-          return AimScoreStat.fromJson(value);
-        case 'AimUsage':
-          return AimUsage.fromJson(value);
-        case 'AimetricsOut':
-          return AimetricsOut.fromJson(value);
+        case 'Alert':
+          return Alert.fromJson(value);
+        case 'AlertPatch':
+          return AlertPatch.fromJson(value);
+        case 'AlertSpec':
+          return AlertSpec.fromJson(value);
+        case 'Allowance':
+          return Allowance.fromJson(value);
         case 'AllowlistPutIn':
           return AllowlistPutIn.fromJson(value);
         case 'AllowlistView':
           return AllowlistView.fromJson(value);
         case 'Analysis':
           return Analysis.fromJson(value);
-        case 'AnalyticsData':
-          return AnalyticsData.fromJson(value);
-        case 'AnalyticsOut':
-          return AnalyticsOut.fromJson(value);
-        case 'AnalyticsSlice':
-          return AnalyticsSlice.fromJson(value);
         case 'AnalyticsView':
           return AnalyticsView.fromJson(value);
         case 'AnalyzeQuery':
           return AnalyzeQuery.fromJson(value);
-        case 'AnchorData':
-          return AnchorData.fromJson(value);
-        case 'AnchorOut':
-          return AnchorOut.fromJson(value);
-        case 'AnchorStatus':
-          return AnchorStatus.fromJson(value);
         case 'Answer':
           return Answer.fromJson(value);
         case 'ApiKey':
@@ -362,22 +287,12 @@ class ApiClient {
           return Appearance.fromJson(value);
         case 'Application':
           return Application.fromJson(value);
-        case 'ApplicationConfigOption':
-          return ApplicationConfigOption.fromJson(value);
-        case 'ApplicationEvent':
-          return ApplicationEvent.fromJson(value);
         case 'ApplicationList':
           return ApplicationList.fromJson(value);
-        case 'ApplicationView':
-          return ApplicationView.fromJson(value);
         case 'ApplyRequest':
           return ApplyRequest.fromJson(value);
-        case 'Approval':
-          return Approval.fromJson(value);
         case 'ApprovePairingIn':
           return ApprovePairingIn.fromJson(value);
-        case 'ApproveRequest':
-          return ApproveRequest.fromJson(value);
         case 'ArgoApp':
           return ArgoApp.fromJson(value);
         case 'ArgoAppList':
@@ -432,12 +347,6 @@ class ApiClient {
           return ArgoTree.fromJson(value);
         case 'Arm':
           return Arm.fromJson(value);
-        case 'Article':
-          return Article.fromJson(value);
-        case 'ArtifactOut':
-          return ArtifactOut.fromJson(value);
-        case 'ArtifactsOut':
-          return ArtifactsOut.fromJson(value);
         case 'AskAnswer':
           return AskAnswer.fromJson(value);
         case 'AskPostIn':
@@ -446,12 +355,8 @@ class ApiClient {
           return AskRequest.fromJson(value);
         case 'AskResponse':
           return AskResponse.fromJson(value);
-        case 'Asset':
-          return Asset.fromJson(value);
         case 'Assignment':
           return Assignment.fromJson(value);
-        case 'Attempt':
-          return Attempt.fromJson(value);
         case 'AttributeRequest':
           return AttributeRequest.fromJson(value);
         case 'Attribution':
@@ -462,20 +367,10 @@ class ApiClient {
           return AudienceList.fromJson(value);
         case 'AudiencePreview':
           return AudiencePreview.fromJson(value);
-        case 'Audit':
-          return Audit.fromJson(value);
         case 'AuditList':
           return AuditList.fromJson(value);
-        case 'AuthorData':
-          return AuthorData.fromJson(value);
-        case 'AuthorProgramSummary':
-          return AuthorProgramSummary.fromJson(value);
         case 'AuthorRepo':
           return AuthorRepo.fromJson(value);
-        case 'AuthorResult':
-          return AuthorResult.fromJson(value);
-        case 'AuthorSweepResult':
-          return AuthorSweepResult.fromJson(value);
         case 'AuthoredPlugin':
           return AuthoredPlugin.fromJson(value);
         case 'AuthoredPluginList':
@@ -484,26 +379,10 @@ class ApiClient {
           return AuthoredSkillList.fromJson(value);
         case 'AuthorizeOut':
           return AuthorizeOut.fromJson(value);
-        case 'AutoCreate':
-          return AutoCreate.fromJson(value);
-        case 'AutoStart':
-          return AutoStart.fromJson(value);
-        case 'AutoStatus':
-          return AutoStatus.fromJson(value);
-        case 'AutoUpdate':
-          return AutoUpdate.fromJson(value);
         case 'Backend':
           return Backend.fromJson(value);
-        case 'BackfillIn':
-          return BackfillIn.fromJson(value);
-        case 'BackfillOut':
-          return BackfillOut.fromJson(value);
-        case 'BackfillQuery':
-          return BackfillQuery.fromJson(value);
-        case 'BackfillResult':
-          return BackfillResult.fromJson(value);
-        case 'Backfilled':
-          return Backfilled.fromJson(value);
+        case 'BackendStatus':
+          return BackendStatus.fromJson(value);
         case 'BalanceLine':
           return BalanceLine.fromJson(value);
         case 'BalanceSheet':
@@ -518,18 +397,16 @@ class ApiClient {
           return BankTxnRow.fromJson(value);
         case 'BaseHealth':
           return BaseHealth.fromJson(value);
-        case 'BaseInstance':
-          return BaseInstance.fromJson(value);
-        case 'BasesOut':
-          return BasesOut.fromJson(value);
-        case 'BasisResult':
-          return BasisResult.fromJson(value);
         case 'BeginIn':
           return BeginIn.fromJson(value);
         case 'Benchmark':
           return Benchmark.fromJson(value);
         case 'BenchmarkCatalog':
           return BenchmarkCatalog.fromJson(value);
+        case 'BillingAccount':
+          return BillingAccount.fromJson(value);
+        case 'BillingInvoice':
+          return BillingInvoice.fromJson(value);
         case 'BinarySpec':
           return BinarySpec.fromJson(value);
         case 'BindAgentReq':
@@ -540,8 +417,6 @@ class ApiClient {
           return Blob.fromJson(value);
         case 'BlobJSON':
           return BlobJSON.fromJson(value);
-        case 'Block':
-          return Block.fromJson(value);
         case 'Blog':
           return Blog.fromJson(value);
         case 'Blueprint':
@@ -574,8 +449,6 @@ class ApiClient {
           return BoardScope.fromJson(value);
         case 'BoardTotals':
           return BoardTotals.fromJson(value);
-        case 'BoardView':
-          return BoardView.fromJson(value);
         case 'BookRequest':
           return BookRequest.fromJson(value);
         case 'BookResponse':
@@ -604,6 +477,12 @@ class ApiClient {
           return BrowserTagOut.fromJson(value);
         case 'BucketCreateIn':
           return BucketCreateIn.fromJson(value);
+        case 'BucketIn':
+          return BucketIn.fromJson(value);
+        case 'BucketItem':
+          return BucketItem.fromJson(value);
+        case 'BucketList':
+          return BucketList.fromJson(value);
         case 'BucketRecord':
           return BucketRecord.fromJson(value);
         case 'BucketWrite':
@@ -664,10 +543,12 @@ class ApiClient {
           return CampaignUpdate.fromJson(value);
         case 'CampaignWrite':
           return CampaignWrite.fromJson(value);
-        case 'CapIn':
-          return CapIn.fromJson(value);
+        case 'CapVerdict':
+          return CapVerdict.fromJson(value);
         case 'Capabilities':
           return Capabilities.fromJson(value);
+        case 'Capability':
+          return Capability.fromJson(value);
         case 'CaptableClassHolding':
           return CaptableClassHolding.fromJson(value);
         case 'CaptableCompany':
@@ -764,6 +645,8 @@ class ApiClient {
           return CategoryIn.fromJson(value);
         case 'CategorySpend':
           return CategorySpend.fromJson(value);
+        case 'Centre':
+          return Centre.fromJson(value);
         case 'Chain':
           return Chain.fromJson(value);
         case 'ChainList':
@@ -786,8 +669,8 @@ class ApiClient {
           return ChannelSpec.fromJson(value);
         case 'ChannelView':
           return ChannelView.fromJson(value);
-        case 'Chat':
-          return Chat.fromJson(value);
+        case 'Charge':
+          return Charge.fromJson(value);
         case 'ChatChannels':
           return ChatChannels.fromJson(value);
         case 'ChatRequest':
@@ -806,8 +689,16 @@ class ApiClient {
           return ClaimKeyOut.fromJson(value);
         case 'ClaimRequest':
           return ClaimRequest.fromJson(value);
+        case 'ClaimRow':
+          return ClaimRow.fromJson(value);
         case 'ClaimView':
           return ClaimView.fromJson(value);
+        case 'ClaimsOut':
+          return ClaimsOut.fromJson(value);
+        case 'ClauseCoverage':
+          return ClauseCoverage.fromJson(value);
+        case 'ClauseRow':
+          return ClauseRow.fromJson(value);
         case 'ClearReferenceOut':
           return ClearReferenceOut.fromJson(value);
         case 'ClickCount':
@@ -816,12 +707,6 @@ class ApiClient {
           return ClickRequest.fromJson(value);
         case 'ClipBody':
           return ClipBody.fromJson(value);
-        case 'CloudAccountView':
-          return CloudAccountView.fromJson(value);
-        case 'CloudAccountsView':
-          return CloudAccountsView.fromJson(value);
-        case 'Cluster':
-          return Cluster.fromJson(value);
         case 'ClusterAttach':
           return ClusterAttach.fromJson(value);
         case 'ClusterDetached':
@@ -830,8 +715,6 @@ class ApiClient {
           return ClusterDetailView.fromJson(value);
         case 'ClusterList':
           return ClusterList.fromJson(value);
-        case 'ClusterResult':
-          return ClusterResult.fromJson(value);
         case 'ClusterView':
           return ClusterView.fromJson(value);
         case 'CodeFile':
@@ -854,8 +737,8 @@ class ApiClient {
           return CollabRequest.fromJson(value);
         case 'CollabResult':
           return CollabResult.fromJson(value);
-        case 'CollectOut':
-          return CollectOut.fromJson(value);
+        case 'Collected':
+          return Collected.fromJson(value);
         case 'CommerceOverview':
           return CommerceOverview.fromJson(value);
         case 'CommitJSON':
@@ -870,10 +753,6 @@ class ApiClient {
           return CompanyReq.fromJson(value);
         case 'Completion':
           return Completion.fromJson(value);
-        case 'ComputeLeaf':
-          return ComputeLeaf.fromJson(value);
-        case 'ComputeOut':
-          return ComputeOut.fromJson(value);
         case 'Config':
           return Config.fromJson(value);
         case 'ConnView':
@@ -884,8 +763,6 @@ class ApiClient {
           return ConnectOut.fromJson(value);
         case 'ConnectRequest':
           return ConnectRequest.fromJson(value);
-        case 'Connection':
-          return Connection.fromJson(value);
         case 'ConnectionOut':
           return ConnectionOut.fromJson(value);
         case 'ConnectionView':
@@ -918,12 +795,6 @@ class ApiClient {
           return ConsoleSettingsHelp.fromJson(value);
         case 'Consumer':
           return Consumer.fromJson(value);
-        case 'ConsumerPage':
-          return ConsumerPage.fromJson(value);
-        case 'ConsumerRecord':
-          return ConsumerRecord.fromJson(value);
-        case 'ConsumerWrite':
-          return ConsumerWrite.fromJson(value);
         case 'Contact':
           return Contact.fromJson(value);
         case 'ContactList':
@@ -932,8 +803,6 @@ class ApiClient {
           return ContactReq.fromJson(value);
         case 'Contacts':
           return Contacts.fromJson(value);
-        case 'ContainerDetail':
-          return ContainerDetail.fromJson(value);
         case 'ContextBundle':
           return ContextBundle.fromJson(value);
         case 'ContextIn':
@@ -942,16 +811,16 @@ class ApiClient {
           return ControlCommandView.fromJson(value);
         case 'ControlDrain':
           return ControlDrain.fromJson(value);
+        case 'ControlList':
+          return ControlList.fromJson(value);
         case 'CookieAck':
           return CookieAck.fromJson(value);
-        case 'CordonIn':
-          return CordonIn.fromJson(value);
         case 'CorpusView':
           return CorpusView.fromJson(value);
-        case 'Cost':
-          return Cost.fromJson(value);
         case 'CostLine':
           return CostLine.fromJson(value);
+        case 'CoverRow':
+          return CoverRow.fromJson(value);
         case 'CrawlDocument':
           return CrawlDocument.fromJson(value);
         case 'CrawlRequest':
@@ -974,16 +843,12 @@ class ApiClient {
           return CreateEndpointIn.fromJson(value);
         case 'CreateFlowReq':
           return CreateFlowReq.fromJson(value);
-        case 'CreateLBReq':
-          return CreateLBReq.fromJson(value);
         case 'CreateLinkRequest':
           return CreateLinkRequest.fromJson(value);
         case 'CreateReq':
           return CreateReq.fromJson(value);
         case 'CreateServerReq':
           return CreateServerReq.fromJson(value);
-        case 'CreateVPCReq':
-          return CreateVPCReq.fromJson(value);
         case 'CreateVersionIn':
           return CreateVersionIn.fromJson(value);
         case 'CreateWalletIn':
@@ -992,8 +857,22 @@ class ApiClient {
           return CredentialIn.fromJson(value);
         case 'CredentialOut':
           return CredentialOut.fromJson(value);
+        case 'CreditBalance':
+          return CreditBalance.fromJson(value);
+        case 'CreditEntry':
+          return CreditEntry.fromJson(value);
+        case 'CreditGrant':
+          return CreditGrant.fromJson(value);
+        case 'CreditGrants':
+          return CreditGrants.fromJson(value);
         case 'CrmSummary':
           return CrmSummary.fromJson(value);
+        case 'CryptoAsset':
+          return CryptoAsset.fromJson(value);
+        case 'CryptoDeposit':
+          return CryptoDeposit.fromJson(value);
+        case 'CryptoOptions':
+          return CryptoOptions.fromJson(value);
         case 'CsrfResp':
           return CsrfResp.fromJson(value);
         case 'CurateReq':
@@ -1002,18 +881,6 @@ class ApiClient {
           return Curriculum.fromJson(value);
         case 'CurriculumView':
           return CurriculumView.fromJson(value);
-        case 'CustomerDetailData':
-          return CustomerDetailData.fromJson(value);
-        case 'CustomerDetailOut':
-          return CustomerDetailOut.fromJson(value);
-        case 'CustomerRow':
-          return CustomerRow.fromJson(value);
-        case 'CustomerTxn':
-          return CustomerTxn.fromJson(value);
-        case 'CustomerUser':
-          return CustomerUser.fromJson(value);
-        case 'CustomersOut':
-          return CustomersOut.fromJson(value);
         case 'D1Query':
           return D1Query.fromJson(value);
         case 'DashResp':
@@ -1064,10 +931,6 @@ class ApiClient {
           return DatasetReq.fromJson(value);
         case 'DatasetView':
           return DatasetView.fromJson(value);
-        case 'DatastoreVolume':
-          return DatastoreVolume.fromJson(value);
-        case 'DayCount':
-          return DayCount.fromJson(value);
         case 'DecideBody':
           return DecideBody.fromJson(value);
         case 'DecisionIn':
@@ -1098,8 +961,6 @@ class ApiClient {
           return DeployReq.fromJson(value);
         case 'DeployRequest':
           return DeployRequest.fromJson(value);
-        case 'DeploymentDetail':
-          return DeploymentDetail.fromJson(value);
         case 'DeploymentView':
           return DeploymentView.fromJson(value);
         case 'DestinationDisconnected':
@@ -1122,26 +983,16 @@ class ApiClient {
           return DeviceView.fromJson(value);
         case 'Diagnostic':
           return Diagnostic.fromJson(value);
-        case 'DigitaloceanSnapshot':
-          return DigitaloceanSnapshot.fromJson(value);
-        case 'DirectoryData':
-          return DirectoryData.fromJson(value);
-        case 'DirectoryOut':
-          return DirectoryOut.fromJson(value);
-        case 'Disbursal':
-          return Disbursal.fromJson(value);
         case 'DisconnectOut':
           return DisconnectOut.fromJson(value);
         case 'DnsRecord':
           return DnsRecord.fromJson(value);
-        case 'DoCost':
-          return DoCost.fromJson(value);
-        case 'DoHistoryPoint':
-          return DoHistoryPoint.fromJson(value);
         case 'DocField':
           return DocField.fromJson(value);
         case 'DocPerm':
           return DocPerm.fromJson(value);
+        case 'DocRow':
+          return DocRow.fromJson(value);
         case 'DocType':
           return DocType.fromJson(value);
         case 'DocTypeList':
@@ -1160,18 +1011,22 @@ class ApiClient {
           return DomainAddIn.fromJson(value);
         case 'DomainView':
           return DomainView.fromJson(value);
-        case 'Drift':
-          return Drift.fromJson(value);
         case 'DriftBoard':
           return DriftBoard.fromJson(value);
         case 'DriftFlag':
           return DriftFlag.fromJson(value);
         case 'DriftTally':
           return DriftTally.fromJson(value);
-        case 'DropletIn':
-          return DropletIn.fromJson(value);
+        case 'Dropped':
+          return Dropped.fromJson(value);
         case 'Durable':
           return Durable.fromJson(value);
+        case 'EIN':
+          return EIN.fromJson(value);
+        case 'EdgeState':
+          return EdgeState.fromJson(value);
+        case 'EinIn':
+          return EinIn.fromJson(value);
         case 'EmbedStatusResp':
           return EmbedStatusResp.fromJson(value);
         case 'EnableResp':
@@ -1212,10 +1067,6 @@ class ApiClient {
           return Entry.fromJson(value);
         case 'EnvVarJSON':
           return EnvVarJSON.fromJson(value);
-        case 'EnvVariable':
-          return EnvVariable.fromJson(value);
-        case 'Envelope':
-          return Envelope.fromJson(value);
         case 'EnvironmentBoard':
           return EnvironmentBoard.fromJson(value);
         case 'EnvironmentRow':
@@ -1226,8 +1077,54 @@ class ApiClient {
           return ErrorList.fromJson(value);
         case 'EsignCompleteIn':
           return EsignCompleteIn.fromJson(value);
+        case 'EsignCompletion':
+          return EsignCompletion.fromJson(value);
+        case 'EsignDocument':
+          return EsignDocument.fromJson(value);
+        case 'EsignDocuments':
+          return EsignDocuments.fromJson(value);
+        case 'EsignEvent':
+          return EsignEvent.fromJson(value);
+        case 'EsignField':
+          return EsignField.fromJson(value);
+        case 'EsignFieldIn':
+          return EsignFieldIn.fromJson(value);
+        case 'EsignHealth':
+          return EsignHealth.fromJson(value);
+        case 'EsignInsertion':
+          return EsignInsertion.fromJson(value);
+        case 'EsignInvite':
+          return EsignInvite.fromJson(value);
+        case 'EsignLink':
+          return EsignLink.fromJson(value);
+        case 'EsignLinks':
+          return EsignLinks.fromJson(value);
         case 'EsignOut':
           return EsignOut.fromJson(value);
+        case 'EsignPDF':
+          return EsignPDF.fromJson(value);
+        case 'EsignPlacement':
+          return EsignPlacement.fromJson(value);
+        case 'EsignRecipient':
+          return EsignRecipient.fromJson(value);
+        case 'EsignRecipientIn':
+          return EsignRecipientIn.fromJson(value);
+        case 'EsignRejectIn':
+          return EsignRejectIn.fromJson(value);
+        case 'EsignRejection':
+          return EsignRejection.fromJson(value);
+        case 'EsignSession':
+          return EsignSession.fromJson(value);
+        case 'EsignSigner':
+          return EsignSigner.fromJson(value);
+        case 'EsignState':
+          return EsignState.fromJson(value);
+        case 'EsignTrail':
+          return EsignTrail.fromJson(value);
+        case 'EsignUploadIn':
+          return EsignUploadIn.fromJson(value);
+        case 'EsignValueIn':
+          return EsignValueIn.fromJson(value);
         case 'EvaluateIn':
           return EvaluateIn.fromJson(value);
         case 'EvaluatorList':
@@ -1242,18 +1139,16 @@ class ApiClient {
           return EventList.fromJson(value);
         case 'EventView':
           return EventView.fromJson(value);
-        case 'ExampleQuestion':
-          return ExampleQuestion.fromJson(value);
-        case 'Experiment':
-          return Experiment.fromJson(value);
+        case 'ExecRequest':
+          return ExecRequest.fromJson(value);
+        case 'ExecResult':
+          return ExecResult.fromJson(value);
         case 'ExperimentList':
           return ExperimentList.fromJson(value);
-        case 'ExperimentsOut':
-          return ExperimentsOut.fromJson(value);
         case 'Extracted':
           return Extracted.fromJson(value);
-        case 'FetchQuery':
-          return FetchQuery.fromJson(value);
+        case 'FaqList':
+          return FaqList.fromJson(value);
         case 'Field':
           return Field.fromJson(value);
         case 'Figure':
@@ -1276,38 +1171,14 @@ class ApiClient {
           return FilingRequest.fromJson(value);
         case 'Filters':
           return Filters.fromJson(value);
-        case 'FinanceBalanceView':
-          return FinanceBalanceView.fromJson(value);
-        case 'FinanceCost':
-          return FinanceCost.fromJson(value);
-        case 'FinanceCredit':
-          return FinanceCredit.fromJson(value);
-        case 'FinanceData':
-          return FinanceData.fromJson(value);
-        case 'FinanceDerived':
-          return FinanceDerived.fromJson(value);
-        case 'FinanceInvoice':
-          return FinanceInvoice.fromJson(value);
         case 'FinanceLedgerEntry':
           return FinanceLedgerEntry.fromJson(value);
-        case 'FinanceOut':
-          return FinanceOut.fromJson(value);
-        case 'FinancePaymentMethod':
-          return FinancePaymentMethod.fromJson(value);
-        case 'FinanceRevenue':
-          return FinanceRevenue.fromJson(value);
-        case 'FinanceUsageView':
-          return FinanceUsageView.fromJson(value);
         case 'FinancialPackage':
           return FinancialPackage.fromJson(value);
-        case 'Finding':
-          return Finding.fromJson(value);
         case 'FindingList':
           return FindingList.fromJson(value);
         case 'FindingView':
           return FindingView.fromJson(value);
-        case 'FlagsOut':
-          return FlagsOut.fromJson(value);
         case 'FleetBoard':
           return FleetBoard.fromJson(value);
         case 'FleetMetrics':
@@ -1340,8 +1211,6 @@ class ApiClient {
           return FnList.fromJson(value);
         case 'Form':
           return Form.fromJson(value);
-        case 'FormItem':
-          return FormItem.fromJson(value);
         case 'Formation':
           return Formation.fromJson(value);
         case 'FormationView':
@@ -1352,14 +1221,16 @@ class ApiClient {
           return FoundersIn.fromJson(value);
         case 'Frame':
           return Frame.fromJson(value);
+        case 'FrameworkList':
+          return FrameworkList.fromJson(value);
+        case 'FrameworkRow':
+          return FrameworkRow.fromJson(value);
         case 'FunctionDetail':
           return FunctionDetail.fromJson(value);
         case 'FunctionView':
           return FunctionView.fromJson(value);
         case 'Funnel':
           return Funnel.fromJson(value);
-        case 'FwdRule':
-          return FwdRule.fromJson(value);
         case 'GLRow':
           return GLRow.fromJson(value);
         case 'GPU':
@@ -1374,54 +1245,6 @@ class ApiClient {
           return GenerateResult.fromJson(value);
         case 'Genesis':
           return Genesis.fromJson(value);
-        case 'GetAiActivities200Response':
-          return GetAiActivities200Response.fromJson(value);
-        case 'GetAiArticles200Response':
-          return GetAiArticles200Response.fromJson(value);
-        case 'GetAiAssets200Response':
-          return GetAiAssets200Response.fromJson(value);
-        case 'GetAiChats200Response':
-          return GetAiChats200Response.fromJson(value);
-        case 'GetAiDeployments200Response':
-          return GetAiDeployments200Response.fromJson(value);
-        case 'GetAiFiles200Response':
-          return GetAiFiles200Response.fromJson(value);
-        case 'GetAiForms200Response':
-          return GetAiForms200Response.fromJson(value);
-        case 'GetAiGraphs200Response':
-          return GetAiGraphs200Response.fromJson(value);
-        case 'GetAiMessages200Response':
-          return GetAiMessages200Response.fromJson(value);
-        case 'GetAiNodes200Response':
-          return GetAiNodes200Response.fromJson(value);
-        case 'GetAiProviders200Response':
-          return GetAiProviders200Response.fromJson(value);
-        case 'GetAiRecords200Response':
-          return GetAiRecords200Response.fromJson(value);
-        case 'GetAiRemoteConnections200Response':
-          return GetAiRemoteConnections200Response.fromJson(value);
-        case 'GetAiRoutes200Response':
-          return GetAiRoutes200Response.fromJson(value);
-        case 'GetAiScales200Response':
-          return GetAiScales200Response.fromJson(value);
-        case 'GetAiScans200Response':
-          return GetAiScans200Response.fromJson(value);
-        case 'GetAiSigninSessions200Response':
-          return GetAiSigninSessions200Response.fromJson(value);
-        case 'GetAiStores200Response':
-          return GetAiStores200Response.fromJson(value);
-        case 'GetAiTasks200Response':
-          return GetAiTasks200Response.fromJson(value);
-        case 'GetAiTemplates200Response':
-          return GetAiTemplates200Response.fromJson(value);
-        case 'GetAiUsages200Response':
-          return GetAiUsages200Response.fromJson(value);
-        case 'GetAiVectors200Response':
-          return GetAiVectors200Response.fromJson(value);
-        case 'GetAiVideos200Response':
-          return GetAiVideos200Response.fromJson(value);
-        case 'GetAiWorkflows200Response':
-          return GetAiWorkflows200Response.fromJson(value);
         case 'GitOpsApp':
           return GitOpsApp.fromJson(value);
         case 'GitOpsDeploy':
@@ -1478,6 +1301,10 @@ class ApiClient {
           return GithubSearchOut.fromJson(value);
         case 'GithubSearchReq':
           return GithubSearchReq.fromJson(value);
+        case 'GitlabProjectView':
+          return GitlabProjectView.fromJson(value);
+        case 'GitlabProjectsOut':
+          return GitlabProjectsOut.fromJson(value);
         case 'GpuAlertList':
           return GpuAlertList.fromJson(value);
         case 'GpuJob':
@@ -1486,26 +1313,36 @@ class ApiClient {
           return GpuList.fromJson(value);
         case 'GpuView':
           return GpuView.fromJson(value);
-        case 'GrantIn':
-          return GrantIn.fromJson(value);
-        case 'GrantOut':
-          return GrantOut.fromJson(value);
-        case 'GrantRequest':
-          return GrantRequest.fromJson(value);
-        case 'GrantResult':
-          return GrantResult.fromJson(value);
-        case 'GrantRow':
-          return GrantRow.fromJson(value);
-        case 'GrantsOut':
-          return GrantsOut.fromJson(value);
-        case 'Graph':
-          return Graph.fromJson(value);
+        case 'GraphAssertIn':
+          return GraphAssertIn.fromJson(value);
+        case 'GraphAssertOut':
+          return GraphAssertOut.fromJson(value);
         case 'GraphEdge':
           return GraphEdge.fromJson(value);
+        case 'GraphFact':
+          return GraphFact.fromJson(value);
+        case 'GraphNeighborsIn':
+          return GraphNeighborsIn.fromJson(value);
+        case 'GraphNeighborsOut':
+          return GraphNeighborsOut.fromJson(value);
         case 'GraphNode':
           return GraphNode.fromJson(value);
         case 'GraphOut':
           return GraphOut.fromJson(value);
+        case 'GraphQLError':
+          return GraphQLError.fromJson(value);
+        case 'GraphQLIn':
+          return GraphQLIn.fromJson(value);
+        case 'GraphQLOut':
+          return GraphQLOut.fromJson(value);
+        case 'GraphReadOut':
+          return GraphReadOut.fromJson(value);
+        case 'GraphResolveIn':
+          return GraphResolveIn.fromJson(value);
+        case 'GraphResolveOut':
+          return GraphResolveOut.fromJson(value);
+        case 'GraphVocabularyOut':
+          return GraphVocabularyOut.fromJson(value);
         case 'HandleRequest':
           return HandleRequest.fromJson(value);
         case 'HandleSet':
@@ -1538,14 +1375,18 @@ class ApiClient {
           return HelpTicketFiled.fromJson(value);
         case 'HelpTicketIntake':
           return HelpTicketIntake.fromJson(value);
+        case 'HistoryOut':
+          return HistoryOut.fromJson(value);
         case 'Hit':
           return Hit.fromJson(value);
+        case 'Holder':
+          return Holder.fromJson(value);
         case 'Holding':
           return Holding.fromJson(value);
         case 'Holdings':
           return Holdings.fromJson(value);
-        case 'Host':
-          return Host.fromJson(value);
+        case 'IamAccountBody':
+          return IamAccountBody.fromJson(value);
         case 'IamAccountItem':
           return IamAccountItem.fromJson(value);
         case 'IamAddress':
@@ -1556,12 +1397,10 @@ class ApiClient {
           return IamApplication.fromJson(value);
         case 'IamApplicationListResult':
           return IamApplicationListResult.fromJson(value);
-        case 'IamApplicationRef':
-          return IamApplicationRef.fromJson(value);
+        case 'IamAssumeBody':
+          return IamAssumeBody.fromJson(value);
         case 'IamAuditLog':
           return IamAuditLog.fromJson(value);
-        case 'IamAuditlogsInput':
-          return IamAuditlogsInput.fromJson(value);
         case 'IamBulk':
           return IamBulk.fromJson(value);
         case 'IamCartItem':
@@ -1572,8 +1411,6 @@ class ApiClient {
           return IamCertsDeleteOutput.fromJson(value);
         case 'IamCertsListOutput':
           return IamCertsListOutput.fromJson(value);
-        case 'IamCertsRef':
-          return IamCertsRef.fromJson(value);
         case 'IamConfig':
           return IamConfig.fromJson(value);
         case 'IamConsentRecord':
@@ -1584,8 +1421,6 @@ class ApiClient {
           return IamCreateOrganizationInput.fromJson(value);
         case 'IamCreateSessionIn':
           return IamCreateSessionIn.fromJson(value);
-        case 'IamDeleteOrganizationInput':
-          return IamDeleteOrganizationInput.fromJson(value);
         case 'IamDeleteOrganizationOutput':
           return IamDeleteOrganizationOutput.fromJson(value);
         case 'IamDeleteOutput':
@@ -1610,14 +1445,10 @@ class ApiClient {
           return IamInvitationsInput.fromJson(value);
         case 'IamInvitationsListOutput':
           return IamInvitationsListOutput.fromJson(value);
-        case 'IamInvitationsRef':
-          return IamInvitationsRef.fromJson(value);
         case 'IamJwtItem':
           return IamJwtItem.fromJson(value);
         case 'IamKey':
           return IamKey.fromJson(value);
-        case 'IamKeysRef':
-          return IamKeysRef.fromJson(value);
         case 'IamListOrganizationsOutput':
           return IamListOrganizationsOutput.fromJson(value);
         case 'IamListOutput':
@@ -1626,8 +1457,6 @@ class ApiClient {
           return IamListProvidersOut.fromJson(value);
         case 'IamListResponse':
           return IamListResponse.fromJson(value);
-        case 'IamListSessionsIn':
-          return IamListSessionsIn.fromJson(value);
         case 'IamListSessionsOut':
           return IamListSessionsOut.fromJson(value);
         case 'IamListTokensOut':
@@ -1654,34 +1483,26 @@ class ApiClient {
           return IamPermissionDeleteResponse.fromJson(value);
         case 'IamPermissionListResponse':
           return IamPermissionListResponse.fromJson(value);
-        case 'IamPermissionRef':
-          return IamPermissionRef.fromJson(value);
         case 'IamPerson':
           return IamPerson.fromJson(value);
         case 'IamProject':
           return IamProject.fromJson(value);
         case 'IamProjectsDeleteOutput':
           return IamProjectsDeleteOutput.fromJson(value);
+        case 'IamProjectsInput':
+          return IamProjectsInput.fromJson(value);
         case 'IamProjectsListOutput':
           return IamProjectsListOutput.fromJson(value);
-        case 'IamProjectsRef':
-          return IamProjectsRef.fromJson(value);
         case 'IamProvider':
           return IamProvider.fromJson(value);
         case 'IamProviderItem':
           return IamProviderItem.fromJson(value);
-        case 'IamProviderKey':
-          return IamProviderKey.fromJson(value);
         case 'IamProviderResult':
           return IamProviderResult.fromJson(value);
-        case 'IamRef':
-          return IamRef.fromJson(value);
         case 'IamRegistration':
           return IamRegistration.fromJson(value);
         case 'IamReply':
           return IamReply.fromJson(value);
-        case 'IamResponse':
-          return IamResponse.fromJson(value);
         case 'IamRole':
           return IamRole.fromJson(value);
         case 'IamRolesDeleteOutput':
@@ -1690,10 +1511,6 @@ class ApiClient {
           return IamRolesInput.fromJson(value);
         case 'IamRolesListOutput':
           return IamRolesListOutput.fromJson(value);
-        case 'IamRolesRef':
-          return IamRolesRef.fromJson(value);
-        case 'IamRowsOut':
-          return IamRowsOut.fromJson(value);
         case 'IamSamlItem':
           return IamSamlItem.fromJson(value);
         case 'IamScheme':
@@ -1704,8 +1521,8 @@ class ApiClient {
           return IamScopeItem.fromJson(value);
         case 'IamSession':
           return IamSession.fromJson(value);
-        case 'IamSessionRef':
-          return IamSessionRef.fromJson(value);
+        case 'IamSetAvatarInput':
+          return IamSetAvatarInput.fromJson(value);
         case 'IamSigninItem':
           return IamSigninItem.fromJson(value);
         case 'IamSigninMethod':
@@ -1718,8 +1535,6 @@ class ApiClient {
           return IamToggle.fromJson(value);
         case 'IamToken':
           return IamToken.fromJson(value);
-        case 'IamTokenKey':
-          return IamTokenKey.fromJson(value);
         case 'IamTokenMutation':
           return IamTokenMutation.fromJson(value);
         case 'IamTokenResult':
@@ -1732,18 +1547,12 @@ class ApiClient {
           return IamUpdateSessionIn.fromJson(value);
         case 'IamUser':
           return IamUser.fromJson(value);
-        case 'IamUserBody':
-          return IamUserBody.fromJson(value);
         case 'IamUsersDeleteOutput':
           return IamUsersDeleteOutput.fromJson(value);
         case 'IamUsersListOutput':
           return IamUsersListOutput.fromJson(value);
-        case 'IamUsersRef':
-          return IamUsersRef.fromJson(value);
         case 'IamWebauthnCredential':
           return IamWebauthnCredential.fromJson(value);
-        case 'IamWebauthnCredentialKey':
-          return IamWebauthnCredentialKey.fromJson(value);
         case 'IamWebauthnCredentialMutationResult':
           return IamWebauthnCredentialMutationResult.fromJson(value);
         case 'IamWebauthnCredentialResult':
@@ -1756,8 +1565,6 @@ class ApiClient {
           return IamWorkspacesInput.fromJson(value);
         case 'IamWorkspacesListOutput':
           return IamWorkspacesListOutput.fromJson(value);
-        case 'IamWorkspacesRef':
-          return IamWorkspacesRef.fromJson(value);
         case 'ImageOrigin':
           return ImageOrigin.fromJson(value);
         case 'ImageView':
@@ -1778,22 +1585,48 @@ class ApiClient {
           return InboxPage.fromJson(value);
         case 'InboxView':
           return InboxView.fromJson(value);
+        case 'Index':
+          return Index.fromJson(value);
+        case 'IndexCount':
+          return IndexCount.fromJson(value);
+        case 'IndexDocuments':
+          return IndexDocuments.fromJson(value);
+        case 'IndexEnqueued':
+          return IndexEnqueued.fromJson(value);
+        case 'IndexFilter':
+          return IndexFilter.fromJson(value);
+        case 'IndexHealth':
+          return IndexHealth.fromJson(value);
+        case 'IndexHits':
+          return IndexHits.fromJson(value);
         case 'IndexIn':
           return IndexIn.fromJson(value);
+        case 'IndexList':
+          return IndexList.fromJson(value);
+        case 'IndexNew':
+          return IndexNew.fromJson(value);
+        case 'IndexQuery':
+          return IndexQuery.fromJson(value);
         case 'IndexResult':
           return IndexResult.fromJson(value);
+        case 'IndexSettings':
+          return IndexSettings.fromJson(value);
+        case 'IndexStats':
+          return IndexStats.fromJson(value);
+        case 'IndexTask':
+          return IndexTask.fromJson(value);
+        case 'IndexVersion':
+          return IndexVersion.fromJson(value);
+        case 'IndexView':
+          return IndexView.fromJson(value);
         case 'IndexerView':
           return IndexerView.fromJson(value);
         case 'IndexersOut':
           return IndexersOut.fromJson(value);
         case 'InfoOut':
           return InfoOut.fromJson(value);
-        case 'IngestOut':
-          return IngestOut.fromJson(value);
         case 'IngestReq':
           return IngestReq.fromJson(value);
-        case 'IngestRequest':
-          return IngestRequest.fromJson(value);
         case 'IngestResp':
           return IngestResp.fromJson(value);
         case 'IngressMiddlewares':
@@ -1818,20 +1651,18 @@ class ApiClient {
           return InstallReq.fromJson(value);
         case 'InstallState':
           return InstallState.fromJson(value);
-        case 'Integrity':
-          return Integrity.fromJson(value);
         case 'InvocationList':
           return InvocationList.fromJson(value);
         case 'InvocationView':
           return InvocationView.fromJson(value);
-        case 'InvoiceLineIn':
-          return InvoiceLineIn.fromJson(value);
-        case 'InvoiceOut':
-          return InvoiceOut.fromJson(value);
-        case 'InvoiceRow':
-          return InvoiceRow.fromJson(value);
-        case 'InvoicesOut':
-          return InvoicesOut.fromJson(value);
+        case 'Invoice':
+          return Invoice.fromJson(value);
+        case 'InvoiceLine':
+          return InvoiceLine.fromJson(value);
+        case 'InvoiceLineItem':
+          return InvoiceLineItem.fromJson(value);
+        case 'Invoices':
+          return Invoices.fromJson(value);
         case 'InvokeReq':
           return InvokeReq.fromJson(value);
         case 'IssueEdit':
@@ -1856,8 +1687,6 @@ class ApiClient {
           return JobCanceled.fromJson(value);
         case 'JobList':
           return JobList.fromJson(value);
-        case 'JournalEntry':
-          return JournalEntry.fromJson(value);
         case 'JourneyStep':
           return JourneyStep.fromJson(value);
         case 'JudgeSpec':
@@ -1874,10 +1703,22 @@ class ApiClient {
           return KeyTypeIn.fromJson(value);
         case 'KeyView':
           return KeyView.fromJson(value);
-        case 'KindTotal':
-          return KindTotal.fromJson(value);
         case 'KitList':
           return KitList.fromJson(value);
+        case 'KmsConfig':
+          return KmsConfig.fromJson(value);
+        case 'KmsHealth':
+          return KmsHealth.fromJson(value);
+        case 'KmsLogin':
+          return KmsLogin.fromJson(value);
+        case 'KmsPut':
+          return KmsPut.fromJson(value);
+        case 'KmsSecrets':
+          return KmsSecrets.fromJson(value);
+        case 'KmsStored':
+          return KmsStored.fromJson(value);
+        case 'KmsToken':
+          return KmsToken.fromJson(value);
         case 'KvAck':
           return KvAck.fromJson(value);
         case 'KvEntry':
@@ -1896,16 +1737,10 @@ class ApiClient {
           return LLM.fromJson(value);
         case 'LLMOverview':
           return LLMOverview.fromJson(value);
-        case 'Label':
-          return Label.fromJson(value);
         case 'LastEventView':
           return LastEventView.fromJson(value);
         case 'LatencyStat':
           return LatencyStat.fromJson(value);
-        case 'LbList':
-          return LbList.fromJson(value);
-        case 'LbView':
-          return LbView.fromJson(value);
         case 'LeaderRow':
           return LeaderRow.fromJson(value);
         case 'Leaderboard':
@@ -1928,8 +1763,6 @@ class ApiClient {
           return LegalSigner.fromJson(value);
         case 'LegalTemplate':
           return LegalTemplate.fromJson(value);
-        case 'LevelSplit':
-          return LevelSplit.fromJson(value);
         case 'LevelView':
           return LevelView.fromJson(value);
         case 'LicensingDeviceSignals':
@@ -1970,6 +1803,8 @@ class ApiClient {
           return LimitsView.fromJson(value);
         case 'LineItem':
           return LineItem.fromJson(value);
+        case 'Link':
+          return Link.fromJson(value);
         case 'LinkList':
           return LinkList.fromJson(value);
         case 'LinkMint':
@@ -1984,8 +1819,6 @@ class ApiClient {
           return ListingPage.fromJson(value);
         case 'Liveness':
           return Liveness.fromJson(value);
-        case 'LoadBalancer':
-          return LoadBalancer.fromJson(value);
         case 'Location':
           return Location.fromJson(value);
         case 'LogBody':
@@ -1994,16 +1827,20 @@ class ApiClient {
           return LogLines.fromJson(value);
         case 'Loss':
           return Loss.fromJson(value);
+        case 'MCPError':
+          return MCPError.fromJson(value);
         case 'MCPListing':
           return MCPListing.fromJson(value);
         case 'MCPPackage':
           return MCPPackage.fromJson(value);
         case 'MCPRemote':
           return MCPRemote.fromJson(value);
+        case 'MCPRequest':
+          return MCPRequest.fromJson(value);
+        case 'MCPResponse':
+          return MCPResponse.fromJson(value);
         case 'MCPServer':
           return MCPServer.fromJson(value);
-        case 'Machine':
-          return Machine.fromJson(value);
         case 'MachineList':
           return MachineList.fromJson(value);
         case 'MachineView':
@@ -2014,14 +1851,14 @@ class ApiClient {
           return MarketCatalog.fromJson(value);
         case 'MarketItem':
           return MarketItem.fromJson(value);
+        case 'Match':
+          return Match.fromJson(value);
         case 'McpCatalog':
           return McpCatalog.fromJson(value);
         case 'McpCatalogSync':
           return McpCatalogSync.fromJson(value);
         case 'McpServerList':
           return McpServerList.fromJson(value);
-        case 'MeOut':
-          return MeOut.fromJson(value);
         case 'MeetHealth':
           return MeetHealth.fromJson(value);
         case 'MemoryEntry':
@@ -2032,14 +1869,10 @@ class ApiClient {
           return MeshServiceList.fromJson(value);
         case 'MeshView':
           return MeshView.fromJson(value);
-        case 'Message':
-          return Message.fromJson(value);
         case 'MessageInput':
           return MessageInput.fromJson(value);
         case 'MessageList':
           return MessageList.fromJson(value);
-        case 'MessagePage':
-          return MessagePage.fromJson(value);
         case 'MetricBody':
           return MetricBody.fromJson(value);
         case 'MetricList':
@@ -2048,10 +1881,6 @@ class ApiClient {
           return MetricRow.fromJson(value);
         case 'Metrics':
           return Metrics.fromJson(value);
-        case 'MetricsData':
-          return MetricsData.fromJson(value);
-        case 'MetricsOut':
-          return MetricsOut.fromJson(value);
         case 'MetricsResponse':
           return MetricsResponse.fromJson(value);
         case 'MetricsView':
@@ -2068,58 +1897,38 @@ class ApiClient {
           return MirrorTargetReq.fromJson(value);
         case 'MirrorTargetView':
           return MirrorTargetView.fromJson(value);
+        case 'MlCreate':
+          return MlCreate.fromJson(value);
         case 'MlResource':
           return MlResource.fromJson(value);
         case 'MlResourceList':
           return MlResourceList.fromJson(value);
-        case 'ModelFile':
-          return ModelFile.fromJson(value);
-        case 'ModelPatch':
-          return ModelPatch.fromJson(value);
-        case 'ModelRoute':
-          return ModelRoute.fromJson(value);
+        case 'Mode':
+          return Mode.fromJson(value);
+        case 'ModeIn':
+          return ModeIn.fromJson(value);
+        case 'ModelHistory':
+          return ModelHistory.fromJson(value);
         case 'ModelRow':
           return ModelRow.fromJson(value);
-        case 'ModelSearchResult':
-          return ModelSearchResult.fromJson(value);
         case 'ModelSource':
           return ModelSource.fromJson(value);
         case 'ModelStat':
           return ModelStat.fromJson(value);
-        case 'ModelToolCall':
-          return ModelToolCall.fromJson(value);
         case 'ModuleInfo':
           return ModuleInfo.fromJson(value);
         case 'ModuleList':
           return ModuleList.fromJson(value);
         case 'ModuleState':
           return ModuleState.fromJson(value);
-        case 'MoneyBoard':
-          return MoneyBoard.fromJson(value);
-        case 'MoneyCredits':
-          return MoneyCredits.fromJson(value);
-        case 'MoneyInfra':
-          return MoneyInfra.fromJson(value);
-        case 'MoneyMargin':
-          return MoneyMargin.fromJson(value);
-        case 'MoneyOrgRow':
-          return MoneyOrgRow.fromJson(value);
-        case 'MoneyOut':
-          return MoneyOut.fromJson(value);
-        case 'MoneyRevenue':
-          return MoneyRevenue.fromJson(value);
         case 'MqStream':
           return MqStream.fromJson(value);
         case 'MutateReq':
           return MutateReq.fromJson(value);
-        case 'MutationOut':
-          return MutationOut.fromJson(value);
         case 'MyReferralView':
           return MyReferralView.fromJson(value);
         case 'MyReferrals':
           return MyReferrals.fromJson(value);
-        case 'NameIn':
-          return NameIn.fromJson(value);
         case 'NamespaceCreateIn':
           return NamespaceCreateIn.fromJson(value);
         case 'NetworkList':
@@ -2134,12 +1943,8 @@ class ApiClient {
           return NewsResponse.fromJson(value);
         case 'NextIn':
           return NextIn.fromJson(value);
-        case 'Node':
-          return Node.fromJson(value);
         case 'NodeList':
           return NodeList.fromJson(value);
-        case 'NodePool':
-          return NodePool.fromJson(value);
         case 'NodePoolView':
           return NodePoolView.fromJson(value);
         case 'NodeView':
@@ -2380,8 +2185,6 @@ class ApiClient {
           return O11yGettableTraceAggregations.fromJson(value);
         case 'O11yGettableWaterfallTrace':
           return O11yGettableWaterfallTrace.fromJson(value);
-        case 'O11yGlobal':
-          return O11yGlobal.fromJson(value);
         case 'O11yGoogleChatReceiverConfig':
           return O11yGoogleChatReceiverConfig.fromJson(value);
         case 'O11yGroupByKey':
@@ -2450,8 +2253,6 @@ class ApiClient {
           return O11yJobRecord.fromJson(value);
         case 'O11yJobs':
           return O11yJobs.fromJson(value);
-        case 'O11yLLM':
-          return O11yLLM.fromJson(value);
         case 'O11yLabel':
           return O11yLabel.fromJson(value);
         case 'O11yLimit':
@@ -2466,8 +2267,6 @@ class ApiClient {
           return O11yLimitValue.fromJson(value);
         case 'O11yListMeta':
           return O11yListMeta.fromJson(value);
-        case 'O11yLogPoint':
-          return O11yLogPoint.fromJson(value);
         case 'O11yLogsAssets':
           return O11yLogsAssets.fromJson(value);
         case 'O11yLogsConnectionTest':
@@ -2490,6 +2289,8 @@ class ApiClient {
           return O11yMetricsComponentEntry.fromJson(value);
         case 'O11yMetricsResponse':
           return O11yMetricsResponse.fromJson(value);
+        case 'O11yMetricsResponseRange':
+          return O11yMetricsResponseRange.fromJson(value);
         case 'O11yMetricsResponseSeries':
           return O11yMetricsResponseSeries.fromJson(value);
         case 'O11yMetricsResponseSummary':
@@ -2500,8 +2301,6 @@ class ApiClient {
           return O11yMissingAttributesComponentEntry.fromJson(value);
         case 'O11yMissingMetricsComponentEntry':
           return O11yMissingMetricsComponentEntry.fromJson(value);
-        case 'O11yModelStat':
-          return O11yModelStat.fromJson(value);
         case 'O11yNamespaceListRecord':
           return O11yNamespaceListRecord.fromJson(value);
         case 'O11yNamespaceListRequest':
@@ -3490,12 +3289,8 @@ class ApiClient {
           return O11yOrderBy.fromJson(value);
         case 'O11yOrderByKey':
           return O11yOrderByKey.fromJson(value);
-        case 'O11yOrgStat':
-          return O11yOrgStat.fromJson(value);
         case 'O11yOtelSpanRef':
           return O11yOtelSpanRef.fromJson(value);
-        case 'O11yOut':
-          return O11yOut.fromJson(value);
         case 'O11yPagerdutyConfig':
           return O11yPagerdutyConfig.fromJson(value);
         case 'O11yPagerdutyImage':
@@ -3672,8 +3467,6 @@ class ApiClient {
           return O11yStorableIntegrationDashboard.fromJson(value);
         case 'O11ySupportedSignals':
           return O11ySupportedSignals.fromJson(value);
-        case 'O11ySvcStat':
-          return O11ySvcStat.fromJson(value);
         case 'O11yTLSConfig':
           return O11yTLSConfig.fromJson(value);
         case 'O11yTelegramConfig':
@@ -3686,8 +3479,6 @@ class ApiClient {
           return O11yThreadingConfig.fromJson(value);
         case 'O11yTimeSeries':
           return O11yTimeSeries.fromJson(value);
-        case 'O11yTotals':
-          return O11yTotals.fromJson(value);
         case 'O11yTraceRow':
           return O11yTraceRow.fromJson(value);
         case 'O11yTracesOut':
@@ -3732,16 +3523,22 @@ class ApiClient {
           return O11yWechatConfig.fromJson(value);
         case 'OauthBundleIn':
           return OauthBundleIn.fromJson(value);
+        case 'ObjectItem':
+          return ObjectItem.fromJson(value);
+        case 'ObjectList':
+          return ObjectList.fromJson(value);
+        case 'Obligation':
+          return Obligation.fromJson(value);
         case 'Offer':
           return Offer.fromJson(value);
         case 'OnboardReq':
           return OnboardReq.fromJson(value);
         case 'OnboardResp':
           return OnboardResp.fromJson(value);
+        case 'Op':
+          return Op.fromJson(value);
         case 'OpenReq':
           return OpenReq.fromJson(value);
-        case 'OperatorUser':
-          return OperatorUser.fromJson(value);
         case 'OppList':
           return OppList.fromJson(value);
         case 'OppReq':
@@ -3762,22 +3559,12 @@ class ApiClient {
           return OrgOptinReq.fromJson(value);
         case 'OrgOptinView':
           return OrgOptinView.fromJson(value);
-        case 'OrgRow':
-          return OrgRow.fromJson(value);
         case 'OrgView':
           return OrgView.fromJson(value);
-        case 'OrgsOut':
-          return OrgsOut.fromJson(value);
         case 'Outcome':
           return Outcome.fromJson(value);
-        case 'Overlay':
-          return Overlay.fromJson(value);
         case 'Overview':
           return Overview.fromJson(value);
-        case 'OverviewData':
-          return OverviewData.fromJson(value);
-        case 'OverviewOut':
-          return OverviewOut.fromJson(value);
         case 'OverviewView':
           return OverviewView.fromJson(value);
         case 'Page':
@@ -3822,22 +3609,16 @@ class ApiClient {
           return PatchTargetIn.fromJson(value);
         case 'PathIn':
           return PathIn.fromJson(value);
+        case 'PaymentConfig':
+          return PaymentConfig.fromJson(value);
         case 'PaymentIn':
           return PaymentIn.fromJson(value);
         case 'PaymentOut':
           return PaymentOut.fromJson(value);
         case 'PaymentRecord':
           return PaymentRecord.fromJson(value);
-        case 'PayoutData':
-          return PayoutData.fromJson(value);
-        case 'PayoutOut':
-          return PayoutOut.fromJson(value);
-        case 'PayoutRequest':
-          return PayoutRequest.fromJson(value);
-        case 'PayoutResult':
-          return PayoutResult.fromJson(value);
-        case 'PayoutView':
-          return PayoutView.fromJson(value);
+        case 'Payout':
+          return Payout.fromJson(value);
         case 'PeriodEarningView':
           return PeriodEarningView.fromJson(value);
         case 'PickOut':
@@ -3884,12 +3665,8 @@ class ApiClient {
           return PointView.fromJson(value);
         case 'Policy':
           return Policy.fromJson(value);
-        case 'PolicyData':
-          return PolicyData.fromJson(value);
-        case 'PolicyOut':
-          return PolicyOut.fromJson(value);
-        case 'PolicyRequest':
-          return PolicyRequest.fromJson(value);
+        case 'PolicyList':
+          return PolicyList.fromJson(value);
         case 'PoolCreate':
           return PoolCreate.fromJson(value);
         case 'PoolScale':
@@ -3898,58 +3675,12 @@ class ApiClient {
           return PopulatedFlow.fromJson(value);
         case 'Position':
           return Position.fromJson(value);
-        case 'PostAiArticles200Response':
-          return PostAiArticles200Response.fromJson(value);
-        case 'PostAiAssets200Response':
-          return PostAiAssets200Response.fromJson(value);
-        case 'PostAiChats200Response':
-          return PostAiChats200Response.fromJson(value);
-        case 'PostAiDeployments200Response':
-          return PostAiDeployments200Response.fromJson(value);
-        case 'PostAiFiles200Response':
-          return PostAiFiles200Response.fromJson(value);
-        case 'PostAiForms200Response':
-          return PostAiForms200Response.fromJson(value);
-        case 'PostAiGraphs200Response':
-          return PostAiGraphs200Response.fromJson(value);
-        case 'PostAiMessages200Response':
-          return PostAiMessages200Response.fromJson(value);
-        case 'PostAiNodes200Response':
-          return PostAiNodes200Response.fromJson(value);
-        case 'PostAiProviders200Response':
-          return PostAiProviders200Response.fromJson(value);
-        case 'PostAiRecords200Response':
-          return PostAiRecords200Response.fromJson(value);
-        case 'PostAiRemoteConnections200Response':
-          return PostAiRemoteConnections200Response.fromJson(value);
-        case 'PostAiRoutes200Response':
-          return PostAiRoutes200Response.fromJson(value);
-        case 'PostAiScales200Response':
-          return PostAiScales200Response.fromJson(value);
-        case 'PostAiScans200Response':
-          return PostAiScans200Response.fromJson(value);
-        case 'PostAiSigninSessions200Response':
-          return PostAiSigninSessions200Response.fromJson(value);
-        case 'PostAiStores200Response':
-          return PostAiStores200Response.fromJson(value);
-        case 'PostAiTasks200Response':
-          return PostAiTasks200Response.fromJson(value);
-        case 'PostAiTemplates200Response':
-          return PostAiTemplates200Response.fromJson(value);
-        case 'PostAiTreeFiles200Response':
-          return PostAiTreeFiles200Response.fromJson(value);
-        case 'PostAiVectors200Response':
-          return PostAiVectors200Response.fromJson(value);
-        case 'PostAiVideos200Response':
-          return PostAiVideos200Response.fromJson(value);
-        case 'PostAiWorkflows200Response':
-          return PostAiWorkflows200Response.fromJson(value);
         case 'PostEventRequest':
           return PostEventRequest.fromJson(value);
+        case 'PostIndexIndexesByUidDocumentsDeleteBatchRequest':
+          return PostIndexIndexesByUidDocumentsDeleteBatchRequest.fromJson(value);
         case 'PostList':
           return PostList.fromJson(value);
-        case 'Posting':
-          return Posting.fromJson(value);
         case 'PrefsView':
           return PrefsView.fromJson(value);
         case 'Preset':
@@ -3958,6 +3689,8 @@ class ApiClient {
           return PresetAccepted.fromJson(value);
         case 'PresetList':
           return PresetList.fromJson(value);
+        case 'PresignResponse':
+          return PresignResponse.fromJson(value);
         case 'PreviewReq':
           return PreviewReq.fromJson(value);
         case 'PreviewView':
@@ -3988,8 +3721,6 @@ class ApiClient {
           return ProductEvent.fromJson(value);
         case 'ProductRow':
           return ProductRow.fromJson(value);
-        case 'ProductsOut':
-          return ProductsOut.fromJson(value);
         case 'ProfileMetrics':
           return ProfileMetrics.fromJson(value);
         case 'ProfileResponse':
@@ -3998,8 +3729,6 @@ class ApiClient {
           return ProgramApplication.fromJson(value);
         case 'ProgressView':
           return ProgressView.fromJson(value);
-        case 'ProjectSummary':
-          return ProjectSummary.fromJson(value);
         case 'ProjectView':
           return ProjectView.fromJson(value);
         case 'ProjectionView':
@@ -4030,8 +3759,6 @@ class ApiClient {
           return ProjectsFile.fromJson(value);
         case 'ProjectsFork':
           return ProjectsFork.fromJson(value);
-        case 'ProjectsOut':
-          return ProjectsOut.fromJson(value);
         case 'ProjectsProject':
           return ProjectsProject.fromJson(value);
         case 'ProjectsPublish':
@@ -4046,12 +3773,12 @@ class ApiClient {
           return ProjectsSiteDeploy.fromJson(value);
         case 'ProjectsUpdate':
           return ProjectsUpdate.fromJson(value);
+        case 'ProjectsUpdateRepo':
+          return ProjectsUpdateRepo.fromJson(value);
         case 'ProjectsUploadGrant':
           return ProjectsUploadGrant.fromJson(value);
         case 'Promo':
           return Promo.fromJson(value);
-        case 'PromoIn':
-          return PromoIn.fromJson(value);
         case 'PromoList':
           return PromoList.fromJson(value);
         case 'PromoStatus':
@@ -4068,28 +3795,14 @@ class ApiClient {
           return PromptReq.fromJson(value);
         case 'PropSpec':
           return PropSpec.fromJson(value);
-        case 'Properties':
-          return Properties.fromJson(value);
-        case 'Provider':
-          return Provider.fromJson(value);
         case 'ProviderBreakdown':
           return ProviderBreakdown.fromJson(value);
-        case 'ProviderCard':
-          return ProviderCard.fromJson(value);
-        case 'ProviderCredit':
-          return ProviderCredit.fromJson(value);
         case 'ProviderInfo':
           return ProviderInfo.fromJson(value);
-        case 'ProviderPatchIn':
-          return ProviderPatchIn.fromJson(value);
         case 'ProviderRow':
           return ProviderRow.fromJson(value);
         case 'ProviderView':
           return ProviderView.fromJson(value);
-        case 'ProvidersCreditOut':
-          return ProvidersCreditOut.fromJson(value);
-        case 'ProvidersView':
-          return ProvidersView.fromJson(value);
         case 'ProvisionRequest':
           return ProvisionRequest.fromJson(value);
         case 'ProvisionResult':
@@ -4106,6 +3819,8 @@ class ApiClient {
           return PublishReq.fromJson(value);
         case 'PublishResult':
           return PublishResult.fromJson(value);
+        case 'PublishedClaim':
+          return PublishedClaim.fromJson(value);
         case 'PullList':
           return PullList.fromJson(value);
         case 'PullView':
@@ -4128,6 +3843,10 @@ class ApiClient {
           return PushReq.fromJson(value);
         case 'PushResp':
           return PushResp.fromJson(value);
+        case 'PutClaimsIn':
+          return PutClaimsIn.fromJson(value);
+        case 'PutClaimsOut':
+          return PutClaimsOut.fromJson(value);
         case 'Query':
           return Query.fromJson(value);
         case 'Question':
@@ -4138,18 +3857,14 @@ class ApiClient {
           return Quote.fromJson(value);
         case 'QuoteList':
           return QuoteList.fromJson(value);
-        case 'RaiseInvoiceIn':
-          return RaiseInvoiceIn.fromJson(value);
+        case 'RaiseIn':
+          return RaiseIn.fromJson(value);
         case 'Ran':
           return Ran.fromJson(value);
         case 'Range':
           return Range.fromJson(value);
         case 'RateCard':
           return RateCard.fromJson(value);
-        case 'RateSet':
-          return RateSet.fromJson(value);
-        case 'RawOut':
-          return RawOut.fromJson(value);
         case 'Reachability':
           return Reachability.fromJson(value);
         case 'ReadOut':
@@ -4166,8 +3881,6 @@ class ApiClient {
           return Receipt.fromJson(value);
         case 'RecordList':
           return RecordList.fromJson(value);
-        case 'RecordsOut':
-          return RecordsOut.fromJson(value);
         case 'RedeemInput':
           return RedeemInput.fromJson(value);
         case 'RedeemResult':
@@ -4196,12 +3909,6 @@ class ApiClient {
           return ReferenceTaken.fromJson(value);
         case 'ReferenceVersion':
           return ReferenceVersion.fromJson(value);
-        case 'ReferralBoard':
-          return ReferralBoard.fromJson(value);
-        case 'ReferralsOut':
-          return ReferralsOut.fromJson(value);
-        case 'ReferrerRow':
-          return ReferrerRow.fromJson(value);
         case 'RefreshOut':
           return RefreshOut.fromJson(value);
         case 'RefreshReferenceIn':
@@ -4250,16 +3957,8 @@ class ApiClient {
           return ReleaseBoard.fromJson(value);
         case 'ReleaseRow':
           return ReleaseRow.fromJson(value);
-        case 'ReleaseState':
-          return ReleaseState.fromJson(value);
-        case 'ReloadIn':
-          return ReloadIn.fromJson(value);
-        case 'Remark':
-          return Remark.fromJson(value);
         case 'Remittance':
           return Remittance.fromJson(value);
-        case 'RemoteApp':
-          return RemoteApp.fromJson(value);
         case 'RenewReq':
           return RenewReq.fromJson(value);
         case 'RenewResult':
@@ -4284,36 +3983,22 @@ class ApiClient {
           return ReportResp.fromJson(value);
         case 'ReportRunIn':
           return ReportRunIn.fromJson(value);
-        case 'ResearchArtifact':
-          return ResearchArtifact.fromJson(value);
-        case 'ResearchTotals':
-          return ResearchTotals.fromJson(value);
+        case 'Request':
+          return Request.fromJson(value);
         case 'ResolveReferenceIn':
           return ResolveReferenceIn.fromJson(value);
         case 'ResolveReferenceOut':
           return ResolveReferenceOut.fromJson(value);
-        case 'ResourceMetrics':
-          return ResourceMetrics.fromJson(value);
-        case 'ResourceRequests':
-          return ResourceRequests.fromJson(value);
         case 'ResourceUsage':
           return ResourceUsage.fromJson(value);
+        case 'Response':
+          return Response.fromJson(value);
+        case 'Responsible':
+          return Responsible.fromJson(value);
         case 'RestartRef':
           return RestartRef.fromJson(value);
         case 'Restarted':
           return Restarted.fromJson(value);
-        case 'Result':
-          return Result.fromJson(value);
-        case 'RetentionCohort':
-          return RetentionCohort.fromJson(value);
-        case 'RetentionGrid':
-          return RetentionGrid.fromJson(value);
-        case 'RevenueCustomer':
-          return RevenueCustomer.fromJson(value);
-        case 'RevenueData':
-          return RevenueData.fromJson(value);
-        case 'RevenueOut':
-          return RevenueOut.fromJson(value);
         case 'ReviewQueue':
           return ReviewQueue.fromJson(value);
         case 'ReviewRequest':
@@ -4430,6 +4115,14 @@ class ApiClient {
           return RoleList.fromJson(value);
         case 'RollbackReq':
           return RollbackReq.fromJson(value);
+        case 'Rollup':
+          return Rollup.fromJson(value);
+        case 'RollupAllotment':
+          return RollupAllotment.fromJson(value);
+        case 'RollupBalance':
+          return RollupBalance.fromJson(value);
+        case 'Root':
+          return Root.fromJson(value);
         case 'RoundInput':
           return RoundInput.fromJson(value);
         case 'RoundOut':
@@ -4472,6 +4165,8 @@ class ApiClient {
           return RunList.fromJson(value);
         case 'RunPage':
           return RunPage.fromJson(value);
+        case 'RunPoint':
+          return RunPoint.fromJson(value);
         case 'RunRecord':
           return RunRecord.fromJson(value);
         case 'RunReq':
@@ -4490,22 +4185,10 @@ class ApiClient {
           return RunnerBuildResp.fromJson(value);
         case 'Runs':
           return Runs.fromJson(value);
+        case 'S3Health':
+          return S3Health.fromJson(value);
         case 'SMS':
           return SMS.fromJson(value);
-        case 'SaaSCategory':
-          return SaaSCategory.fromJson(value);
-        case 'SaaSCustomer':
-          return SaaSCustomer.fromJson(value);
-        case 'SaaSEvent':
-          return SaaSEvent.fromJson(value);
-        case 'SaaSPlan':
-          return SaaSPlan.fromJson(value);
-        case 'SaaSRevenue':
-          return SaaSRevenue.fromJson(value);
-        case 'SaaSSubs':
-          return SaaSSubs.fromJson(value);
-        case 'SaaSUsage':
-          return SaaSUsage.fromJson(value);
         case 'SafeIn':
           return SafeIn.fromJson(value);
         case 'SafeOut':
@@ -4514,8 +4197,6 @@ class ApiClient {
           return SafeProposal.fromJson(value);
         case 'SafeTxIn':
           return SafeTxIn.fromJson(value);
-        case 'Sample':
-          return Sample.fromJson(value);
         case 'SampleAccepted':
           return SampleAccepted.fromJson(value);
         case 'SampleIngest':
@@ -4526,16 +4207,16 @@ class ApiClient {
           return SampleReq.fromJson(value);
         case 'SampleView':
           return SampleView.fromJson(value);
+        case 'Sandbox':
+          return Sandbox.fromJson(value);
+        case 'SandboxList':
+          return SandboxList.fromJson(value);
         case 'SbomHealth':
           return SbomHealth.fromJson(value);
         case 'SbomIngest':
           return SbomIngest.fromJson(value);
         case 'SbomIngested':
           return SbomIngested.fromJson(value);
-        case 'Scale':
-          return Scale.fromJson(value);
-        case 'ScaleIn':
-          return ScaleIn.fromJson(value);
         case 'Scan':
           return Scan.fromJson(value);
         case 'ScanDetail':
@@ -4566,32 +4247,56 @@ class ApiClient {
           return ScreenResult.fromJson(value);
         case 'SearchIn':
           return SearchIn.fromJson(value);
-        case 'SearchIndex':
-          return SearchIndex.fromJson(value);
-        case 'SearchIndexList':
-          return SearchIndexList.fromJson(value);
         case 'SearchOut':
           return SearchOut.fromJson(value);
         case 'SearchResults':
           return SearchResults.fromJson(value);
-        case 'SearchStats':
-          return SearchStats.fromJson(value);
         case 'SecretList':
           return SecretList.fromJson(value);
+        case 'SecretMeta':
+          return SecretMeta.fromJson(value);
         case 'SecretView':
           return SecretView.fromJson(value);
         case 'Section':
           return Section.fromJson(value);
-        case 'SeedData':
-          return SeedData.fromJson(value);
-        case 'SeedOut':
-          return SeedOut.fromJson(value);
-        case 'SeedRequest':
-          return SeedRequest.fromJson(value);
+        case 'SectionWrite':
+          return SectionWrite.fromJson(value);
         case 'SelfRank':
           return SelfRank.fromJson(value);
-        case 'SelfReleaseList':
-          return SelfReleaseList.fromJson(value);
+        case 'SeoAuditIn':
+          return SeoAuditIn.fromJson(value);
+        case 'SeoAuditOut':
+          return SeoAuditOut.fromJson(value);
+        case 'SeoBacklinkIn':
+          return SeoBacklinkIn.fromJson(value);
+        case 'SeoBacklinkOut':
+          return SeoBacklinkOut.fromJson(value);
+        case 'SeoCharge':
+          return SeoCharge.fromJson(value);
+        case 'SeoCompetitorIn':
+          return SeoCompetitorIn.fromJson(value);
+        case 'SeoCompetitorOut':
+          return SeoCompetitorOut.fromJson(value);
+        case 'SeoDomain':
+          return SeoDomain.fromJson(value);
+        case 'SeoIdeaIn':
+          return SeoIdeaIn.fromJson(value);
+        case 'SeoIdeaOut':
+          return SeoIdeaOut.fromJson(value);
+        case 'SeoKeywordIn':
+          return SeoKeywordIn.fromJson(value);
+        case 'SeoKeywordOut':
+          return SeoKeywordOut.fromJson(value);
+        case 'SeoMetric':
+          return SeoMetric.fromJson(value);
+        case 'SeoRankIn':
+          return SeoRankIn.fromJson(value);
+        case 'SeoRankOut':
+          return SeoRankOut.fromJson(value);
+        case 'SeoRanking':
+          return SeoRanking.fromJson(value);
+        case 'SeoRateOut':
+          return SeoRateOut.fromJson(value);
         case 'Sequence':
           return Sequence.fromJson(value);
         case 'SequenceList':
@@ -4606,28 +4311,6 @@ class ApiClient {
           return SeriesLine.fromJson(value);
         case 'SeriesPoint':
           return SeriesPoint.fromJson(value);
-        case 'Service':
-          return Service.fromJson(value);
-        case 'ServiceDetail':
-          return ServiceDetail.fromJson(value);
-        case 'ServiceInput':
-          return ServiceInput.fromJson(value);
-        case 'ServiceList':
-          return ServiceList.fromJson(value);
-        case 'ServiceModeIn':
-          return ServiceModeIn.fromJson(value);
-        case 'ServiceOne':
-          return ServiceOne.fromJson(value);
-        case 'ServiceOut':
-          return ServiceOut.fromJson(value);
-        case 'ServicePort':
-          return ServicePort.fromJson(value);
-        case 'ServiceView':
-          return ServiceView.fromJson(value);
-        case 'ServicesOut':
-          return ServicesOut.fromJson(value);
-        case 'Session':
-          return Session.fromJson(value);
         case 'SessionDetail':
           return SessionDetail.fromJson(value);
         case 'SessionList':
@@ -4636,12 +4319,8 @@ class ApiClient {
           return SessionUser.fromJson(value);
         case 'SessionView':
           return SessionView.fromJson(value);
-        case 'SetEnablementBody':
-          return SetEnablementBody.fromJson(value);
         case 'SetEnvReq':
           return SetEnvReq.fromJson(value);
-        case 'SetFlagIn':
-          return SetFlagIn.fromJson(value);
         case 'SetReferenceIn':
           return SetReferenceIn.fromJson(value);
         case 'SetReferenceOut':
@@ -4650,8 +4329,6 @@ class ApiClient {
           return SettingsReq.fromJson(value);
         case 'SettingsView':
           return SettingsView.fromJson(value);
-        case 'Settlement':
-          return Settlement.fromJson(value);
         case 'SharePolicy':
           return SharePolicy.fromJson(value);
         case 'ShareView':
@@ -4668,10 +4345,6 @@ class ApiClient {
           return Signature.fromJson(value);
         case 'Signer':
           return Signer.fromJson(value);
-        case 'SignerData':
-          return SignerData.fromJson(value);
-        case 'SignerOut':
-          return SignerOut.fromJson(value);
         case 'Skill':
           return Skill.fromJson(value);
         case 'SkillDeleted':
@@ -4682,14 +4355,32 @@ class ApiClient {
           return SkillWritten.fromJson(value);
         case 'SlotView':
           return SlotView.fromJson(value);
-        case 'Snapshot':
-          return Snapshot.fromJson(value);
+        case 'SocialAccount':
+          return SocialAccount.fromJson(value);
+        case 'SocialAccountBody':
+          return SocialAccountBody.fromJson(value);
+        case 'SocialAccountWrite':
+          return SocialAccountWrite.fromJson(value);
+        case 'SocialAccounts':
+          return SocialAccounts.fromJson(value);
+        case 'SocialPost':
+          return SocialPost.fromJson(value);
+        case 'SocialPostBody':
+          return SocialPostBody.fromJson(value);
+        case 'SocialPostWrite':
+          return SocialPostWrite.fromJson(value);
+        case 'SocialPosts':
+          return SocialPosts.fromJson(value);
+        case 'SocialProvider':
+          return SocialProvider.fromJson(value);
+        case 'SocialProviders':
+          return SocialProviders.fromJson(value);
+        case 'SocialSummary':
+          return SocialSummary.fromJson(value);
         case 'SourceFailure':
           return SourceFailure.fromJson(value);
         case 'SourceState':
           return SourceState.fromJson(value);
-        case 'SourceStatus':
-          return SourceStatus.fromJson(value);
         case 'SourceToolList':
           return SourceToolList.fromJson(value);
         case 'Sources':
@@ -4718,8 +4409,6 @@ class ApiClient {
           return StatsSessions.fromJson(value);
         case 'StatsUser':
           return StatsUser.fromJson(value);
-        case 'Status':
-          return Status.fromJson(value);
         case 'StatusBreakdown':
           return StatusBreakdown.fromJson(value);
         case 'StatusCounts':
@@ -4740,30 +4429,12 @@ class ApiClient {
           return StopIn.fromJson(value);
         case 'Stopped':
           return Stopped.fromJson(value);
-        case 'StorageAlert':
-          return StorageAlert.fromJson(value);
-        case 'StorageFleet':
-          return StorageFleet.fromJson(value);
-        case 'StorageSnapshot':
-          return StorageSnapshot.fromJson(value);
-        case 'StorageVolume':
-          return StorageVolume.fromJson(value);
-        case 'Store':
-          return Store.fromJson(value);
         case 'StorefrontResult':
           return StorefrontResult.fromJson(value);
         case 'Strategy':
           return Strategy.fromJson(value);
         case 'StrategyView':
           return StrategyView.fromJson(value);
-        case 'StreamPage':
-          return StreamPage.fromJson(value);
-        case 'StreamRecord':
-          return StreamRecord.fromJson(value);
-        case 'StreamUpdate':
-          return StreamUpdate.fromJson(value);
-        case 'StreamWrite':
-          return StreamWrite.fromJson(value);
         case 'Streams':
           return Streams.fromJson(value);
         case 'StructureIn':
@@ -4780,24 +4451,22 @@ class ApiClient {
           return SubjectSummary.fromJson(value);
         case 'SubmitReq':
           return SubmitReq.fromJson(value);
+        case 'SubprocessorList':
+          return SubprocessorList.fromJson(value);
         case 'SubscribeReq':
           return SubscribeReq.fromJson(value);
+        case 'Subscription':
+          return Subscription.fromJson(value);
         case 'SubscriptionList':
           return SubscriptionList.fromJson(value);
-        case 'SubscriptionRow':
-          return SubscriptionRow.fromJson(value);
+        case 'SubscriptionPlan':
+          return SubscriptionPlan.fromJson(value);
+        case 'SubscriptionRef':
+          return SubscriptionRef.fromJson(value);
         case 'SubscriptionView':
           return SubscriptionView.fromJson(value);
-        case 'SubscriptionsOut':
-          return SubscriptionsOut.fromJson(value);
-        case 'SubsystemBoard':
-          return SubsystemBoard.fromJson(value);
-        case 'SubsystemRow':
-          return SubsystemRow.fromJson(value);
-        case 'SubsystemTotals':
-          return SubsystemTotals.fromJson(value);
-        case 'SubsystemsOut':
-          return SubsystemsOut.fromJson(value);
+        case 'Subscriptions':
+          return Subscriptions.fromJson(value);
         case 'SuggestResponse':
           return SuggestResponse.fromJson(value);
         case 'Suggestion':
@@ -4814,30 +4483,12 @@ class ApiClient {
           return Suppression.fromJson(value);
         case 'SuppressionList':
           return SuppressionList.fromJson(value);
-        case 'SweepCounts':
-          return SweepCounts.fromJson(value);
-        case 'SweepData':
-          return SweepData.fromJson(value);
-        case 'SweepEnvelope':
-          return SweepEnvelope.fromJson(value);
-        case 'SweepOut':
-          return SweepOut.fromJson(value);
-        case 'SweepRequest':
-          return SweepRequest.fromJson(value);
-        case 'SweepResult':
-          return SweepResult.fromJson(value);
-        case 'SwitchView':
-          return SwitchView.fromJson(value);
         case 'SyncList':
           return SyncList.fromJson(value);
-        case 'SyncOut':
-          return SyncOut.fromJson(value);
         case 'SyncQueued':
           return SyncQueued.fromJson(value);
         case 'SyncReq':
           return SyncReq.fromJson(value);
-        case 'SyncStarted':
-          return SyncStarted.fromJson(value);
         case 'SyncTally':
           return SyncTally.fromJson(value);
         case 'SyncView':
@@ -4846,8 +4497,6 @@ class ApiClient {
           return TLSConfig.fromJson(value);
         case 'TagConfig':
           return TagConfig.fromJson(value);
-        case 'Tally':
-          return Tally.fromJson(value);
         case 'TargetDeleted':
           return TargetDeleted.fromJson(value);
         case 'TargetList':
@@ -4856,20 +4505,18 @@ class ApiClient {
           return TargetReq.fromJson(value);
         case 'TargetView':
           return TargetView.fromJson(value);
-        case 'Task':
-          return Task.fromJson(value);
+        case 'Tariff':
+          return Tariff.fromJson(value);
+        case 'TariffIn':
+          return TariffIn.fromJson(value);
         case 'Taxon':
           return Taxon.fromJson(value);
         case 'TaxonIn':
           return TaxonIn.fromJson(value);
         case 'Taxonomy':
           return Taxonomy.fromJson(value);
-        case 'Template':
-          return Template.fromJson(value);
         case 'TemplateCatalog':
           return TemplateCatalog.fromJson(value);
-        case 'TemplateConfigOption':
-          return TemplateConfigOption.fromJson(value);
         case 'TemplateOverride':
           return TemplateOverride.fromJson(value);
         case 'TemplateReply':
@@ -4878,6 +4525,14 @@ class ApiClient {
           return TemplateView.fromJson(value);
         case 'TestResult':
           return TestResult.fromJson(value);
+        case 'TicketGrant':
+          return TicketGrant.fromJson(value);
+        case 'Tier':
+          return Tier.fromJson(value);
+        case 'TierBalance':
+          return TierBalance.fromJson(value);
+        case 'TierLimits':
+          return TierLimits.fromJson(value);
         case 'Timeseries':
           return Timeseries.fromJson(value);
         case 'TodoProject':
@@ -4898,8 +4553,6 @@ class ApiClient {
           return TopProducts.fromJson(value);
         case 'TotalView':
           return TotalView.fromJson(value);
-        case 'Totals':
-          return Totals.fromJson(value);
         case 'TraceList':
           return TraceList.fromJson(value);
         case 'TraceView':
@@ -4910,6 +4563,10 @@ class ApiClient {
           return TrafficView.fromJson(value);
         case 'TrailPage':
           return TrailPage.fromJson(value);
+        case 'Transaction':
+          return Transaction.fromJson(value);
+        case 'Transactions':
+          return Transactions.fromJson(value);
         case 'TransactionsOut':
           return TransactionsOut.fromJson(value);
         case 'TransferReq':
@@ -4924,8 +4581,6 @@ class ApiClient {
           return TreeEntry.fromJson(value);
         case 'TreeEntryJSON':
           return TreeEntryJSON.fromJson(value);
-        case 'TreeFile':
-          return TreeFile.fromJson(value);
         case 'TreeJSON':
           return TreeJSON.fromJson(value);
         case 'TreeNode':
@@ -4940,12 +4595,44 @@ class ApiClient {
           return TriggerList.fromJson(value);
         case 'TriggerView':
           return TriggerView.fromJson(value);
+        case 'TrustAsk':
+          return TrustAsk.fromJson(value);
+        case 'TrustAskView':
+          return TrustAskView.fromJson(value);
+        case 'TrustAsked':
+          return TrustAsked.fromJson(value);
+        case 'TrustCoverage':
+          return TrustCoverage.fromJson(value);
+        case 'TrustDecision':
+          return TrustDecision.fromJson(value);
+        case 'TrustDesk':
+          return TrustDesk.fromJson(value);
+        case 'TrustDocuments':
+          return TrustDocuments.fromJson(value);
+        case 'TrustEdit':
+          return TrustEdit.fromJson(value);
+        case 'TrustGrantView':
+          return TrustGrantView.fromJson(value);
+        case 'TrustGranted':
+          return TrustGranted.fromJson(value);
+        case 'TrustItem':
+          return TrustItem.fromJson(value);
+        case 'TrustItemView':
+          return TrustItemView.fromJson(value);
+        case 'TrustPage':
+          return TrustPage.fromJson(value);
+        case 'TrustPublish':
+          return TrustPublish.fromJson(value);
+        case 'TrustRefused':
+          return TrustRefused.fromJson(value);
+        case 'TrustSettings':
+          return TrustSettings.fromJson(value);
+        case 'TrustTally':
+          return TrustTally.fromJson(value);
         case 'Txn':
           return Txn.fromJson(value);
         case 'UTM':
           return UTM.fromJson(value);
-        case 'UnlinkedView':
-          return UnlinkedView.fromJson(value);
         case 'UnreconciledOut':
           return UnreconciledOut.fromJson(value);
         case 'Unsubscribed':
@@ -4956,6 +4643,14 @@ class ApiClient {
           return UpdateCampaignIn.fromJson(value);
         case 'UpdateEndpointIn':
           return UpdateEndpointIn.fromJson(value);
+        case 'UpdateList':
+          return UpdateList.fromJson(value);
+        case 'Upkeep':
+          return Upkeep.fromJson(value);
+        case 'UpkeepIn':
+          return UpkeepIn.fromJson(value);
+        case 'UploadIn':
+          return UploadIn.fromJson(value);
         case 'Upstream':
           return Upstream.fromJson(value);
         case 'Usage':
@@ -4966,18 +4661,6 @@ class ApiClient {
           return UsageAnalyticsGrant.fromJson(value);
         case 'UsageAnalyticsView':
           return UsageAnalyticsView.fromJson(value);
-        case 'UsageByModel':
-          return UsageByModel.fromJson(value);
-        case 'UsageData':
-          return UsageData.fromJson(value);
-        case 'UsageFundingOut':
-          return UsageFundingOut.fromJson(value);
-        case 'UsageFundingRow':
-          return UsageFundingRow.fromJson(value);
-        case 'UsageLine':
-          return UsageLine.fromJson(value);
-        case 'UsageOut':
-          return UsageOut.fromJson(value);
         case 'UsagePoint':
           return UsagePoint.fromJson(value);
         case 'UsageRepo':
@@ -4986,8 +4669,6 @@ class ApiClient {
           return UsageScope.fromJson(value);
         case 'UsageSummary':
           return UsageSummary.fromJson(value);
-        case 'UsageTotals':
-          return UsageTotals.fromJson(value);
         case 'UsageView':
           return UsageView.fromJson(value);
         case 'UsageWindowView':
@@ -4998,32 +4679,16 @@ class ApiClient {
           return UserOptinReq.fromJson(value);
         case 'UserOptinView':
           return UserOptinView.fromJson(value);
-        case 'UsersOut':
-          return UsersOut.fromJson(value);
         case 'ValidatorClaim':
           return ValidatorClaim.fromJson(value);
         case 'ValidatorList':
           return ValidatorList.fromJson(value);
         case 'Variant':
           return Variant.fromJson(value);
-        case 'Vector':
-          return Vector.fromJson(value);
-        case 'VectorCollection':
-          return VectorCollection.fromJson(value);
-        case 'VectorCollectionList':
-          return VectorCollectionList.fromJson(value);
-        case 'VectorScore':
-          return VectorScore.fromJson(value);
-        case 'VectorStats':
-          return VectorStats.fromJson(value);
-        case 'Vendor':
-          return Vendor.fromJson(value);
         case 'VendorRow':
           return VendorRow.fromJson(value);
         case 'VendorsOut':
           return VendorsOut.fromJson(value);
-        case 'VenueLinkRequest':
-          return VenueLinkRequest.fromJson(value);
         case 'Verdict':
           return Verdict.fromJson(value);
         case 'VerificationDecision':
@@ -5044,28 +4709,10 @@ class ApiClient {
           return VersionPage.fromJson(value);
         case 'VersionView':
           return VersionView.fromJson(value);
-        case 'Video':
-          return Video.fromJson(value);
-        case 'Volume':
-          return Volume.fromJson(value);
-        case 'VolumeIn':
-          return VolumeIn.fromJson(value);
-        case 'VolumeSnapshotOut':
-          return VolumeSnapshotOut.fromJson(value);
-        case 'VolumesOut':
-          return VolumesOut.fromJson(value);
         case 'Voucher':
           return Voucher.fromJson(value);
-        case 'VpcList':
-          return VpcList.fromJson(value);
-        case 'VpcView':
-          return VpcView.fromJson(value);
         case 'Waiting':
           return Waiting.fromJson(value);
-        case 'WaitlistBoostRequest':
-          return WaitlistBoostRequest.fromJson(value);
-        case 'WaitlistModeView':
-          return WaitlistModeView.fromJson(value);
         case 'Wallet':
           return Wallet.fromJson(value);
         case 'WalletAccount':
@@ -5084,20 +4731,26 @@ class ApiClient {
           return WebSearchQuery.fromJson(value);
         case 'WebSearchResults':
           return WebSearchResults.fromJson(value);
+        case 'Window':
+          return Window.fromJson(value);
         case 'Wire':
           return Wire.fromJson(value);
+        case 'WireFact':
+          return WireFact.fromJson(value);
+        case 'WireInstructions':
+          return WireInstructions.fromJson(value);
         case 'WorkerList':
           return WorkerList.fromJson(value);
         case 'WorkerScriptPut':
           return WorkerScriptPut.fromJson(value);
-        case 'Workflow':
-          return Workflow.fromJson(value);
         case 'WorldIndex':
           return WorldIndex.fromJson(value);
         case 'WorldWire':
           return WorldWire.fromJson(value);
         case 'WriteIn':
           return WriteIn.fromJson(value);
+        case 'Written':
+          return Written.fromJson(value);
         case 'Wrote':
           return Wrote.fromJson(value);
         case 'ZapProcReq':

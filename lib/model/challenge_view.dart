@@ -19,7 +19,6 @@ class ChallengeView {
     this.tokenId,
     this.ttlSeconds,
   });
-
   /// ExpiresAt is when the nonce stops being redeemable, as a Unix timestamp.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class PricingRegionList {
   PricingRegionList({
     this.regions = const [],
   });
-
   /// Regions are the regions cloud instances can be placed in, each an opaque object exactly as the pricing source emits it — typically id, name and location.
   List<Map<String, Object>> regions;
 

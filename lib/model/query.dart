@@ -20,7 +20,6 @@ class Query {
     this.repo,
     this.rev,
   });
-
   /// Character is a 0-based UTF-16 code-unit offset within Line, per the LSP specification — not a byte offset and not a rune index.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

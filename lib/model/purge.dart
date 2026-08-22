@@ -17,7 +17,6 @@ class Purge {
     this.keep,
     this.name,
   });
-
   /// Filter purges only messages on this org-relative subject (wildcards supported).
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

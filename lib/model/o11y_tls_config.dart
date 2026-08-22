@@ -27,7 +27,6 @@ class O11yTLSConfig {
     this.minVersion,
     this.serverName,
   });
-
   /// Text of the CA cert to use for the targets.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

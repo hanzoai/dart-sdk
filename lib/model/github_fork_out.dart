@@ -19,7 +19,7 @@ class GithubForkOut {
     this.fullName,
     this.htmlUrl,
   });
-
+  /// CloneURL is the fork's https git remote. GitHub populates a new fork in the background, so a clone issued the moment this answers can still find it empty.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -28,6 +28,7 @@ class GithubForkOut {
   ///
   String? cloneUrl;
 
+  /// DefaultBranch is the branch the fork checks out, inherited from upstream.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -45,6 +46,7 @@ class GithubForkOut {
   ///
   bool? existing;
 
+  /// FullName is the fork's \"owner/repo\". The owner is the account it landed in — the request's org, or the installation's own account when none was named.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -53,6 +55,7 @@ class GithubForkOut {
   ///
   String? fullName;
 
+  /// HTMLURL is the fork's page on github.com.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

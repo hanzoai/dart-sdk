@@ -29,7 +29,6 @@ class RiskLabelCoverage {
     this.unmatured,
     this.unproductive,
   });
-
   /// Contested is how many matured events have two visible assertions that disagree. It is the number that says whether the precedence rule is load-bearing or decorative, and it is the one to watch after wiring a new source.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

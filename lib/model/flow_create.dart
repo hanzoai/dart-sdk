@@ -17,7 +17,6 @@ class FlowCreate {
     this.description,
     this.name,
   });
-
   Object? data;
 
   /// Description says what the workflow does.

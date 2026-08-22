@@ -16,7 +16,6 @@ class CredentialOut {
     this.connected,
     this.connector,
   });
-
   /// Connected is always true — a failed verification is a 400 and stores nothing.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

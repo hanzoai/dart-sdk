@@ -29,7 +29,6 @@ class LinkView {
     this.usage,
     this.user,
   });
-
   /// Account is the provider-side account identifier, when the collector knows it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

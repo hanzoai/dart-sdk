@@ -15,7 +15,6 @@ class O11yO11yLLMUpdatablePricingRules {
   O11yO11yLLMUpdatablePricingRules({
     this.rules = const [],
   });
-
   /// Rules are the rules to create or update, matched per rule.
   List<O11yO11yLLMUpdatablePricingRule> rules;
 

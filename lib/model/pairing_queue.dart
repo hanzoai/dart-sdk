@@ -15,7 +15,6 @@ class PairingQueue {
   PairingQueue({
     this.pending = const [],
   });
-
   /// Pending is every unexpired pairing request waiting on an org admin, each carrying the channel, the requesting sender and the code to approve it with.
   List<PairingView> pending;
 

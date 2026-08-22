@@ -21,7 +21,6 @@ class O11yO11yListError {
     this.lastSeen,
     this.serviceName,
   });
-
   /// ExceptionCount is how many instances the group holds in the window.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

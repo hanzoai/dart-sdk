@@ -17,7 +17,6 @@ class O11yAlertStatus {
     this.silencedBy = const [],
     this.state,
   });
-
   List<String> inhibitedBy;
 
   List<String> silencedBy;

@@ -16,7 +16,6 @@ class GithubPagesUpdatedOut {
     this.repo,
     this.updated,
   });
-
   /// Repo is the repository that was updated.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

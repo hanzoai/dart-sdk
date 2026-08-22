@@ -21,7 +21,6 @@ class Timeseries {
     this.source_,
     this.start,
   });
-
   /// End is the window's exclusive upper bound, RFC3339 UTC.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -19,7 +19,6 @@ class O11yO11yNextPrevErrorIDs {
     this.prevErrorID,
     this.prevTimestamp,
   });
-
   /// GroupID is the group both belong to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

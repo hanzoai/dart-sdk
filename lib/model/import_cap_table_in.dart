@@ -16,7 +16,6 @@ class ImportCapTableIn {
     this.range,
     this.spreadsheetId,
   });
-
   /// Range is an optional A1 range within the sheet; empty reads the default range.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

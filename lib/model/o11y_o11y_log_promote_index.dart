@@ -17,7 +17,6 @@ class O11yO11yLogPromoteIndex {
     this.granularity,
     this.type,
   });
-
   /// FieldDataType is the path's data type, e.g. string, number, bool.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

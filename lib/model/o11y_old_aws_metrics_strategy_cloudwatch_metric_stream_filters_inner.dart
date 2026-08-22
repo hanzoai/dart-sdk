@@ -16,7 +16,6 @@ class O11yOldAWSMetricsStrategyCloudwatchMetricStreamFiltersInner {
     this.metricNames = const [],
     this.namespace,
   });
-
   List<String> metricNames;
 
   ///

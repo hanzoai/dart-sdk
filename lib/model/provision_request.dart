@@ -16,7 +16,7 @@ class ProvisionRequest {
     this.instance,
     this.name,
   });
-
+  /// Instance binds a DEDICATED add-on to the app instance whose <instance>-addons Secret receives the <KIND>_URL (e.g. \"commerce\"). Optional: empty means \"not instance-bound\" — the DSN is returned once and wired by the caller.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -25,6 +25,7 @@ class ProvisionRequest {
   ///
   String? instance;
 
+  /// Name is the org-unique slug for the new resource, matching ^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$. Every physical name derives from it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

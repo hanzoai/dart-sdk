@@ -15,7 +15,6 @@ class PricingPlanList {
   PricingPlanList({
     this.plans = const [],
   });
-
   /// Plans are the plans in this section, each an opaque object exactly as the pricing source emits it — typically id, name, description, price and a feature list.
   List<Map<String, Object>> plans;
 

@@ -16,7 +16,6 @@ class BotStopped {
     this.runId,
     this.status,
   });
-
   /// RunID is the run that was stopped.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

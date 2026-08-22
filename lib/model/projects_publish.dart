@@ -16,7 +16,6 @@ class ProjectsPublish {
     this.slug,
     this.source_,
   });
-
   /// Slug is the site to publish, from the path.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

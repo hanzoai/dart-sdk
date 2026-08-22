@@ -20,7 +20,6 @@ class RiskValue {
     this.unit,
     this.x,
   });
-
   /// Baseline is what Observed was measured against: this organisation's own history for this subject.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

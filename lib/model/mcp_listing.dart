@@ -31,7 +31,6 @@ class MCPListing {
     this.vendor,
     this.version,
   });
-
   /// Description is the publisher's one-line summary.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

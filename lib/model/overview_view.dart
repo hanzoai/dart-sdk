@@ -20,7 +20,7 @@ class OverviewView {
     this.title,
     this.version,
   });
-
+  /// Custom is true when the org replaced the shared playbook with one of its own — the difference between \"everyone's checklist\" and \"the one you authored\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -29,6 +29,7 @@ class OverviewView {
   ///
   bool? custom;
 
+  /// Funnel is the org's analytics lens, present only where the read asked for it — absent means it was not requested, never that the org has no traffic.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -37,6 +38,7 @@ class OverviewView {
   ///
   Funnel? funnel;
 
+  /// Progress is how far through the journey the org is.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -45,8 +47,10 @@ class OverviewView {
   ///
   ProgressView? progress;
 
+  /// Steps are every enabled step with the org's own state folded in, in authoring order.
   List<StepView> steps;
 
+  /// Title is the playbook's name as it heads the checklist.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -55,6 +59,7 @@ class OverviewView {
   ///
   String? title;
 
+  /// Version identifies the playbook this journey came from, so a caller can tell that the checklist itself changed under them.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

@@ -24,7 +24,7 @@ class Strategy {
     this.tags = const [],
     this.workload,
   });
-
+  /// Action is the tactic itself: the thing to go and do, stated imperatively.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -33,7 +33,7 @@ class Strategy {
   ///
   String? action;
 
-  /// long-form explainer (nil for un-blogged tactics)
+  /// Blog is the tactic's long-form explainer; absent for tactics that have none.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -42,6 +42,7 @@ class Strategy {
   ///
   Blog? blog;
 
+  /// Category is the growth discipline the tactic belongs to — the axis `?category=` narrows the corpus on, and one of the facets a caller browses by.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -50,6 +51,7 @@ class Strategy {
   ///
   String? category;
 
+  /// Enabled is the admin lever. Absent reads as ON; an explicit false drops the tactic from every org-facing corpus read while leaving it in the document.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -58,7 +60,7 @@ class Strategy {
   ///
   bool? enabled;
 
-  /// modern | heritage
+  /// Era separates an AI-era tactic (`modern`) from a classical one (`heritage`).
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -67,6 +69,7 @@ class Strategy {
   ///
   String? era;
 
+  /// ID is the tactic's stable slug, unique across the corpus.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -75,7 +78,7 @@ class Strategy {
   ///
   String? id;
 
-  /// the spine slug this tactic files under
+  /// Principle is the spine slug this tactic files under (a Principle.Slug).
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -84,7 +87,7 @@ class Strategy {
   ///
   String? principle;
 
-  /// provenance / attribution
+  /// Source is where the tactic came from — the attribution a reader is owed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -93,8 +96,10 @@ class Strategy {
   ///
   String? source_;
 
+  /// Tags are PRECONDITIONS, not labels — every one must be satisfied by the org's observed profile before the tactic surfaces, so an untagged tactic is universally applicable. Two vocabularies: `stage:<research|formed|launched| activated|scaling>` reads the org's growth stage, `has:<capability>` reads an observed signal.
   List<String> tags;
 
+  /// Workload is how much effort running the tactic costs, so a corpus can be narrowed to what an org has the hands for right now.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

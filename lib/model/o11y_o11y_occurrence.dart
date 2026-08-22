@@ -32,7 +32,6 @@ class O11yO11yOccurrence {
     this.user,
     this.value,
   });
-
   /// Culprit is where it came from.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

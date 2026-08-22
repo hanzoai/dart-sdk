@@ -15,7 +15,6 @@ class RunList {
   RunList({
     this.runs = const [],
   });
-
   /// Runs is the agent's executions, newest first.
   List<AgentRunView> runs;
 

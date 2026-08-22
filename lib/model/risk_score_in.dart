@@ -15,7 +15,6 @@ class RiskScoreIn {
   RiskScoreIn({
     this.event,
   });
-
   /// Event is the thing to judge. It is judged against the caller's OWN model and nothing is learned from it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

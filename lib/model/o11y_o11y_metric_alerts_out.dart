@@ -16,7 +16,6 @@ class O11yO11yMetricAlertsOut {
     this.data,
     this.status,
   });
-
   /// Data holds the alerts.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

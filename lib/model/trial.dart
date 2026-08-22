@@ -28,7 +28,6 @@ class Trial {
     this.variants = const [],
     this.winner,
   });
-
   /// when it started assigning
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -22,7 +22,6 @@ class LLM {
     this.source_,
     this.tokens,
   });
-
   /// Available is false when the warehouse was not connected or a query blipped. The totals below are then honest zeros, NOT measured ones.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

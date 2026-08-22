@@ -17,7 +17,6 @@ class O11yO11yLogFilterItem {
     this.op,
     this.value,
   });
-
   /// Key is the field the predicate tests.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

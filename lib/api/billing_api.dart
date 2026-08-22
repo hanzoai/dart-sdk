@@ -16,6 +16,67 @@ class BillingApi {
 
   final ApiClient apiClient;
 
+  /// End a subscription
+  ///
+  /// Ends a subscription.  It cancels at the END OF THE PAID PERIOD by default, because a customer who cancels has already paid for the period they are in and taking it away is taking money for nothing. `atPeriodEnd: false` ends it at once, which is the caller asking for that.  A subscription from another org is not found rather than refused, so an id cannot be probed for existence.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///
+  /// * [SubscriptionRef] subscriptionRef (required):
+  Future<Response> cancelSubscriptionWithHttpInfo(String id, SubscriptionRef subscriptionRef,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/billing/subscriptions/{id}/cancel'
+      .replaceAll('{id}', id);
+
+    // ignore: prefer_final_locals
+    Object? postBody = subscriptionRef;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// End a subscription
+  ///
+  /// Ends a subscription.  It cancels at the END OF THE PAID PERIOD by default, because a customer who cancels has already paid for the period they are in and taking it away is taking money for nothing. `atPeriodEnd: false` ends it at once, which is the caller asking for that.  A subscription from another org is not found rather than refused, so an id cannot be probed for existence.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///
+  /// * [SubscriptionRef] subscriptionRef (required):
+  Future<Subscription?> cancelSubscription(String id, SubscriptionRef subscriptionRef,) async {
+    final response = await cancelSubscriptionWithHttpInfo(id, subscriptionRef,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Subscription',) as Subscription;
+    
+    }
+    return null;
+  }
+
   /// Collect an issued invoice from credits, balance, then card
   ///
   /// Collects an issued invoice: credit grants first, then prepaid balance, then the card on file — the same waterfall the dunning workflow runs.  A DECLINE IS NOT AN ERROR. It answers with paid=false, a reason, and the invoice still open, because a declined collection is a normal business outcome that must remain retryable — and because sealing it as a failure would wedge dunning behind a replayed decline. Only a successful collection is sealed, so a retry of a paid invoice replays the receipt instead of charging again.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
@@ -60,7 +121,7 @@ class BillingApi {
   ///
   /// * [String] id (required):
   ///   ID is the invoice id.
-  Future<CollectOut?> collectInvoice(String id,) async {
+  Future<Collected?> collectInvoice(String id,) async {
     final response = await collectInvoiceWithHttpInfo(id,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
@@ -69,15 +130,15 @@ class BillingApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'CollectOut',) as CollectOut;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Collected',) as Collected;
     
     }
     return null;
   }
 
-  /// Remove one of your org's spend caps
+  /// Remove one spend cap
   ///
-  /// Deletes the addressed cap and answers 204. Requires an ORG ADMIN, a platform admin, or the internal service token — deleting a cap uncaps the org's spend, so a plain member is refused 403. Ownership is checked per row and a cap the caller does not own is refused as 404 rather than 403, so the response cannot confirm that another org's id exists.
+  /// Deletes a budget the caller's org owns and answers 204.  Removing a cap REMOVES A CEILING, so it takes the same bar as setting one: a validated org admin, the platform SuperAdmin, or the trusted in-process service token. A member who could delete the org's cap would have unbounded spend.  A cap this org does not own is NOT FOUND rather than refused — the same answer whether the id is unknown or belongs to another customer — so an id cannot be probed for existence by trying to delete it.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -110,9 +171,9 @@ class BillingApi {
     );
   }
 
-  /// Remove one of your org's spend caps
+  /// Remove one spend cap
   ///
-  /// Deletes the addressed cap and answers 204. Requires an ORG ADMIN, a platform admin, or the internal service token — deleting a cap uncaps the org's spend, so a plain member is refused 403. Ownership is checked per row and a cap the caller does not own is refused as 404 rather than 403, so the response cannot confirm that another org's id exists.
+  /// Deletes a budget the caller's org owns and answers 204.  Removing a cap REMOVES A CEILING, so it takes the same bar as setting one: a validated org admin, the platform SuperAdmin, or the trusted in-process service token. A member who could delete the org's cap would have unbounded spend.  A cap this org does not own is NOT FOUND rather than refused — the same answer whether the id is unknown or belongs to another customer — so an id cannot be probed for existence by trying to delete it.
   ///
   /// Parameters:
   ///
@@ -124,9 +185,9 @@ class BillingApi {
     }
   }
 
-  /// Remove one of your saved cards
+  /// Remove one saved card or account
   ///
-  /// Detaches the addressed card: the stored reference is removed here AND withdrawn from the processor's vault, so nothing is left that a later charge could bill.  The customer twin of DELETE /v1/billing/portal/methods/{id}. The id is resolved INSIDE your own org namespace, so a card that is not yours is simply not found there and answers 404 — never 403, which would confirm the id exists.  Removing the card an auto-recharge or a running lease bills leaves that arrangement with nothing to charge; that is yours to decide.
+  /// Detaches the method at the processor and drops the row.  A method the caller does not own is NOT FOUND rather than refused — the same answer whether the id names nothing or names somebody else's card — so an id cannot be probed for existence.  A platform operator or the trusted in-process service token may act on any subject inside the org; everyone else may only remove their own.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -159,9 +220,9 @@ class BillingApi {
     );
   }
 
-  /// Remove one of your saved cards
+  /// Remove one saved card or account
   ///
-  /// Detaches the addressed card: the stored reference is removed here AND withdrawn from the processor's vault, so nothing is left that a later charge could bill.  The customer twin of DELETE /v1/billing/portal/methods/{id}. The id is resolved INSIDE your own org namespace, so a card that is not yours is simply not found there and answers 404 — never 403, which would confirm the id exists.  Removing the card an auto-recharge or a running lease bills leaves that arrangement with nothing to charge; that is yours to decide.
+  /// Detaches the method at the processor and drops the row.  A method the caller does not own is NOT FOUND rather than refused — the same answer whether the id names nothing or names somebody else's card — so an id cannot be probed for existence.  A platform operator or the trusted in-process service token may act on any subject inside the org; everyone else may only remove their own.
   ///
   /// Parameters:
   ///
@@ -173,9 +234,9 @@ class BillingApi {
     }
   }
 
-  /// Remove a saved card — the portal detach
+  /// Remove one saved card or account
   ///
-  /// Detaches the addressed card: the stored reference is removed here AND withdrawn from the processor's vault, so nothing is left that a later charge could bill.  The service-token twin of the customer's DELETE /v1/billing/methods/{id}, at its own address for the same reason the portal list is — a different principal, on the same rows, in this same process.  The id is resolved INSIDE the caller's org namespace, so another tenant's card is not found there and answers 404 — never 403, which would confirm the id exists. That bound holds for the service token too: it may act for any subject within the org the gateway pinned, and for no subject outside it.  Removing the card an auto-recharge or a running lease bills leaves that arrangement with nothing to charge; that is the customer's call to make.
+  /// Detaches the method at the processor and drops the row.  A method the caller does not own is NOT FOUND rather than refused — the same answer whether the id names nothing or names somebody else's card — so an id cannot be probed for existence.  A platform operator or the trusted in-process service token may act on any subject inside the org; everyone else may only remove their own.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -208,9 +269,9 @@ class BillingApi {
     );
   }
 
-  /// Remove a saved card — the portal detach
+  /// Remove one saved card or account
   ///
-  /// Detaches the addressed card: the stored reference is removed here AND withdrawn from the processor's vault, so nothing is left that a later charge could bill.  The service-token twin of the customer's DELETE /v1/billing/methods/{id}, at its own address for the same reason the portal list is — a different principal, on the same rows, in this same process.  The id is resolved INSIDE the caller's org namespace, so another tenant's card is not found there and answers 404 — never 403, which would confirm the id exists. That bound holds for the service token too: it may act for any subject within the org the gateway pinned, and for no subject outside it.  Removing the card an auto-recharge or a running lease bills leaves that arrangement with nothing to charge; that is the customer's call to make.
+  /// Detaches the method at the processor and drops the row.  A method the caller does not own is NOT FOUND rather than refused — the same answer whether the id names nothing or names somebody else's card — so an id cannot be probed for existence.  A platform operator or the trusted in-process service token may act on any subject inside the org; everyone else may only remove their own.
   ///
   /// Parameters:
   ///
@@ -222,9 +283,9 @@ class BillingApi {
     }
   }
 
-  /// The billing account you are signed in to
+  /// Answers the caller's billing accounts: the org itself, its currency, when it was opened, and the caller's own standing in it.
   ///
-  /// Returns the billing accounts visible to the caller. One organisation is exactly one billing account here, so an authenticated caller sees precisely one: their own. The list shape is the honest one — it is what a caller with access to several would receive — rather than a promise that more will ever appear for a token scoped to a single org.  The account is derived from the validated org claim and from nothing the caller sends, so there is no account parameter and a cross-tenant read is not expressible. An unauthenticated call is 401.
+  /// Answers the caller's billing accounts: the org itself, its currency, when it was opened, and the caller's own standing in it.  The standing is the caller's, resolved from the validated principal here and sent to the store rather than looked up there — the membership roster is IAM's and commerce keeps none, so a callee that answered \"what role is this\" would be inventing it. An anonymous read gets the account with no role rather than an implied membership.  Scoped to the caller's own org, which is the whole tenancy story: there is no org field on the wire and none on the input.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getBillingAccountsWithHttpInfo() async {
@@ -252,25 +313,37 @@ class BillingApi {
     );
   }
 
-  /// The billing account you are signed in to
+  /// Answers the caller's billing accounts: the org itself, its currency, when it was opened, and the caller's own standing in it.
   ///
-  /// Returns the billing accounts visible to the caller. One organisation is exactly one billing account here, so an authenticated caller sees precisely one: their own. The list shape is the honest one — it is what a caller with access to several would receive — rather than a promise that more will ever appear for a token scoped to a single org.  The account is derived from the validated org claim and from nothing the caller sends, so there is no account parameter and a cross-tenant read is not expressible. An unauthenticated call is 401.
-  Future<void> getBillingAccounts() async {
+  /// Answers the caller's billing accounts: the org itself, its currency, when it was opened, and the caller's own standing in it.  The standing is the caller's, resolved from the validated principal here and sent to the store rather than looked up there — the membership roster is IAM's and commerce keeps none, so a callee that answered \"what role is this\" would be inventing it. An anonymous read gets the account with no role rather than an implied membership.  Scoped to the caller's own org, which is the whole tenancy story: there is no org field on the wire and none on the input.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+  Future<List<BillingAccount>?> getBillingAccounts() async {
     final response = await getBillingAccountsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      final responseBody = await _decodeBodyBytes(response);
+      return (await apiClient.deserializeAsync(responseBody, 'List<BillingAccount>') as List)
+        .cast<BillingAccount>()
+        .toList(growable: false);
+
+    }
+    return null;
   }
 
-  /// Who is on a billing account
+  /// Answers one billing account's roster.
   ///
-  /// Returns the members of one billing account. The id must be the caller's OWN account — the handler compares it against the org resolved from the token and answers 403 when they differ, which is what guards this route: unlike its siblings it carries no subject key for the pin to overwrite, so it checks the path segment itself.  The roster it can answer is currently the requesting user alone. Membership lives in IAM, not in the ledger, and this operation reports what commerce actually holds rather than inventing a roster from a source it does not read. An unauthenticated call is 401.
+  /// Answers one billing account's roster.  commerce stores no roster — that is IAM's — so the only member it can name is the caller, and that is what comes back. What it does enforce is that the account named in the path is the caller's own: a foreign id is 403, not an empty list, because \"no members\" and \"not your account\" are different answers.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
+  ///   ID is the billing account id, which for this store is the org's own id.
   Future<Response> getBillingAccountsByIdMembersWithHttpInfo(String id,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/billing/accounts/{id}/members'
@@ -297,23 +370,35 @@ class BillingApi {
     );
   }
 
-  /// Who is on a billing account
+  /// Answers one billing account's roster.
   ///
-  /// Returns the members of one billing account. The id must be the caller's OWN account — the handler compares it against the org resolved from the token and answers 403 when they differ, which is what guards this route: unlike its siblings it carries no subject key for the pin to overwrite, so it checks the path segment itself.  The roster it can answer is currently the requesting user alone. Membership lives in IAM, not in the ledger, and this operation reports what commerce actually holds rather than inventing a roster from a source it does not read. An unauthenticated call is 401.
+  /// Answers one billing account's roster.  commerce stores no roster — that is IAM's — so the only member it can name is the caller, and that is what comes back. What it does enforce is that the account named in the path is the caller's own: a foreign id is 403, not an empty list, because \"no members\" and \"not your account\" are different answers.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
-  Future<void> getBillingAccountsByIdMembers(String id,) async {
+  ///   ID is the billing account id, which for this store is the org's own id.
+  Future<List<Holder>?> getBillingAccountsByIdMembers(String id,) async {
     final response = await getBillingAccountsByIdMembersWithHttpInfo(id,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      final responseBody = await _decodeBodyBytes(response);
+      return (await apiClient.deserializeAsync(responseBody, 'List<Holder>') as List)
+        .cast<Holder>()
+        .toList(growable: false);
+
+    }
+    return null;
   }
 
-  /// List your org's spend caps and rate limits
+  /// Lists this org's spend caps: the ceiling, its scope, whether it enforces, and how much of it has been spent this period.
   ///
-  /// Returns the caps and alerts keyed to the caller's own billing subject, each with its threshold, enforcement flag, soft-warning percentage and current period spend. Any authenticated member of the org may read them — only the writes require an admin. The rows are keyed on the org subject the enforcement gate itself reads, which is why a cap created here is the one that actually binds. A caller with no resolvable org or subject gets an empty list, never another tenant's caps.
+  /// Lists this org's spend caps: the ceiling, its scope, whether it enforces, and how much of it has been spent this period.  `periodSpentCents`, `over` and `warn` are ABSENT rather than zero when the spend could not be read, because \"nothing spent\" and \"spend unknown\" are different answers and a customer acting on the first when the second is true would be reading a ceiling that is not there. The policy row is reported either way.  The period is the UTC calendar month and `resetsAt` is when the count starts again, so a surface can say \"resets on\" without a second call.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getBillingAlertsWithHttpInfo() async {
@@ -341,22 +426,47 @@ class BillingApi {
     );
   }
 
-  /// List your org's spend caps and rate limits
+  /// Lists this org's spend caps: the ceiling, its scope, whether it enforces, and how much of it has been spent this period.
   ///
-  /// Returns the caps and alerts keyed to the caller's own billing subject, each with its threshold, enforcement flag, soft-warning percentage and current period spend. Any authenticated member of the org may read them — only the writes require an admin. The rows are keyed on the org subject the enforcement gate itself reads, which is why a cap created here is the one that actually binds. A caller with no resolvable org or subject gets an empty list, never another tenant's caps.
-  Future<void> getBillingAlerts() async {
+  /// Lists this org's spend caps: the ceiling, its scope, whether it enforces, and how much of it has been spent this period.  `periodSpentCents`, `over` and `warn` are ABSENT rather than zero when the spend could not be read, because \"nothing spent\" and \"spend unknown\" are different answers and a customer acting on the first when the second is true would be reading a ceiling that is not there. The policy row is reported either way.  The period is the UTC calendar month and `resetsAt` is when the count starts again, so a surface can say \"resets on\" without a second call.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+  Future<List<Alert>?> getBillingAlerts() async {
     final response = await getBillingAlertsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      final responseBody = await _decodeBodyBytes(response);
+      return (await apiClient.deserializeAsync(responseBody, 'List<Alert>') as List)
+        .cast<Alert>()
+        .toList(growable: false);
+
+    }
+    return null;
   }
 
-  /// The per-request spend-cap verdict the metering gate consumes
+  /// Answers whether one proposed spend fits inside this org's caps.
   ///
-  /// Answers allow, reason, capCents, spentCents and warnPct for a proposed amount against a (project, service) scope — the verdict the request-edge metering gate reads before admitting a call. It evaluates EVERY covering cap and the most restrictive enforcing one wins; soft caps and an enforcing project cap whose project axis is not validated never block, they only raise the warning utilization. It is a service-to-service read authenticated by the internal service token with the org pinned by the gateway, not a browser call. Two rules matter: the spend it scores comes from the finance ledger's current-month total, and it FAILS OPEN on unknown spend — a transient read failure allows rather than denies, so a backend blip never bills-blocks an under-cap customer, while a known overage still denies.
+  /// Answers whether one proposed spend fits inside this org's caps.  It is the per-request verdict the metering edge consumes before every priced call, and its caller is a SERVICE rather than a person: a service token plus the gateway-pinned org, with no user behind it. So this admits that principal where the CRUD beside it does not.  Every covering row is evaluated, most-restrictive-wins, and the tightest one is what `capCents`, `spentCents` and `reason` describe. Soft rows never deny; nor does a project-scoped enforcing row whose project axis the caller could not establish — `pv=1` is how a caller states that it did, and an unproven claim must not be able to refuse traffic.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
   ///
   /// Note: This method returns the HTTP [Response].
-  Future<Response> getBillingAlertsAuthorizeWithHttpInfo() async {
+  ///
+  /// Parameters:
+  ///
+  /// * [String] project:
+  ///   Project narrows the verdict to one project's caps. Empty is the org-wide row.
+  ///
+  /// * [String] service:
+  ///   Service narrows it to one service's caps. Empty is every service.
+  ///
+  /// * [String] amount:
+  ///   Amount is the proposed spend in cents.
+  ///
+  /// * [String] pv:
+  ///   PV is \"1\" when the caller ESTABLISHED the project rather than merely carrying a claim of one. An unproven project may not deny traffic.
+  Future<Response> getBillingAlertsAuthorizeWithHttpInfo({ String? project, String? service, String? amount, String? pv, }) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/billing/alerts/authorize';
 
@@ -366,6 +476,19 @@ class BillingApi {
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
+
+    if (project != null) {
+      queryParams.addAll(_queryParams('', 'project', project));
+    }
+    if (service != null) {
+      queryParams.addAll(_queryParams('', 'service', service));
+    }
+    if (amount != null) {
+      queryParams.addAll(_queryParams('', 'amount', amount));
+    }
+    if (pv != null) {
+      queryParams.addAll(_queryParams('', 'pv', pv));
+    }
 
     const contentTypes = <String>[];
 
@@ -381,14 +504,36 @@ class BillingApi {
     );
   }
 
-  /// The per-request spend-cap verdict the metering gate consumes
+  /// Answers whether one proposed spend fits inside this org's caps.
   ///
-  /// Answers allow, reason, capCents, spentCents and warnPct for a proposed amount against a (project, service) scope — the verdict the request-edge metering gate reads before admitting a call. It evaluates EVERY covering cap and the most restrictive enforcing one wins; soft caps and an enforcing project cap whose project axis is not validated never block, they only raise the warning utilization. It is a service-to-service read authenticated by the internal service token with the org pinned by the gateway, not a browser call. Two rules matter: the spend it scores comes from the finance ledger's current-month total, and it FAILS OPEN on unknown spend — a transient read failure allows rather than denies, so a backend blip never bills-blocks an under-cap customer, while a known overage still denies.
-  Future<void> getBillingAlertsAuthorize() async {
-    final response = await getBillingAlertsAuthorizeWithHttpInfo();
+  /// Answers whether one proposed spend fits inside this org's caps.  It is the per-request verdict the metering edge consumes before every priced call, and its caller is a SERVICE rather than a person: a service token plus the gateway-pinned org, with no user behind it. So this admits that principal where the CRUD beside it does not.  Every covering row is evaluated, most-restrictive-wins, and the tightest one is what `capCents`, `spentCents` and `reason` describe. Soft rows never deny; nor does a project-scoped enforcing row whose project axis the caller could not establish — `pv=1` is how a caller states that it did, and an unproven claim must not be able to refuse traffic.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] project:
+  ///   Project narrows the verdict to one project's caps. Empty is the org-wide row.
+  ///
+  /// * [String] service:
+  ///   Service narrows it to one service's caps. Empty is every service.
+  ///
+  /// * [String] amount:
+  ///   Amount is the proposed spend in cents.
+  ///
+  /// * [String] pv:
+  ///   PV is \"1\" when the caller ESTABLISHED the project rather than merely carrying a claim of one. An unproven project may not deny traffic.
+  Future<CapVerdict?> getBillingAlertsAuthorize({ String? project, String? service, String? amount, String? pv, }) async {
+    final response = await getBillingAlertsAuthorizeWithHttpInfo( project: project, service: service, amount: amount, pv: pv, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'CapVerdict',) as CapVerdict;
+    
+    }
+    return null;
   }
 
   /// Prepaid credit the caller's org can still spend
@@ -431,9 +576,9 @@ class BillingApi {
     }
   }
 
-  /// What is left of your credit, as one number
+  /// Answers what the caller can spend right now, one entry per currency.
   ///
-  /// Returns the total credit still available to the caller's own subject — the sum of what the grants have left, which is the figure the console shows above the usage meter. It is the balance a metered act draws down, so it answers the one question a customer asks before spending: how much is there.  Like every read in this family the subject is pinned to the caller before the handler runs, so the userId parameter the handler reads can never name another tenant. For the grants BEHIND this number — each with its original amount and its expiry — read /v1/billing/credits. A subject with no credit is zero, which is an answer and not an error.
+  /// Answers what the caller can spend right now, one entry per currency.  Only ACTIVE grants count: a voided, exhausted or lapsed grant contributes nothing, which is why this number can be smaller than the grant list suggests and why the two reads exist separately. It is credit, not prepaid balance — /v1/billing/balance is the wallet, and the two are added by the gate, never by a reader.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getBillingCreditBalanceWithHttpInfo() async {
@@ -461,19 +606,75 @@ class BillingApi {
     );
   }
 
-  /// What is left of your credit, as one number
+  /// Answers what the caller can spend right now, one entry per currency.
   ///
-  /// Returns the total credit still available to the caller's own subject — the sum of what the grants have left, which is the figure the console shows above the usage meter. It is the balance a metered act draws down, so it answers the one question a customer asks before spending: how much is there.  Like every read in this family the subject is pinned to the caller before the handler runs, so the userId parameter the handler reads can never name another tenant. For the grants BEHIND this number — each with its original amount and its expiry — read /v1/billing/credits. A subject with no credit is zero, which is an answer and not an error.
-  Future<void> getBillingCreditBalance() async {
+  /// Answers what the caller can spend right now, one entry per currency.  Only ACTIVE grants count: a voided, exhausted or lapsed grant contributes nothing, which is why this number can be smaller than the grant list suggests and why the two reads exist separately. It is credit, not prepaid balance — /v1/billing/balance is the wallet, and the two are added by the gate, never by a reader.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+  Future<CreditBalance?> getBillingCreditBalance() async {
     final response = await getBillingCreditBalanceWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'CreditBalance',) as CreditBalance;
+    
+    }
+    return null;
   }
 
-  /// List the credit grants on your org's balance
+  /// Answers that same spendable credit split by grant tag, with the earliest expiry under each and the total across all of them.
   ///
-  /// Returns the caller org's credit grants — each with its original amount, what remains and when it expires — so a customer can see what was given and what is left before metered spend draws it down. It is a READ of the caller's own subject, pinned before the handler runs, so a grant belonging to another tenant is simply absent. Granting credit is not this route and never has been: minting lands on the mint-gated POST /v1/billing/credit, which no browser can reach. Reading an empty balance is an empty array, not an error.
+  /// Answers that same spendable credit split by grant tag, with the earliest expiry under each and the total across all of them.  The split is the point: it is how trial credit is told apart from bought credit, which is what a surface asks before it decides whether to spend any. An unregistered address answers 404 and a caller reads that as \"no credit\", so this being served is the difference between a customer with a trial grant being offered their trial and being told they have none.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> getBillingCreditBalanceBreakdownWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/billing/credit-balance/breakdown';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Answers that same spendable credit split by grant tag, with the earliest expiry under each and the total across all of them.
+  ///
+  /// Answers that same spendable credit split by grant tag, with the earliest expiry under each and the total across all of them.  The split is the point: it is how trial credit is told apart from bought credit, which is what a surface asks before it decides whether to spend any. An unregistered address answers 404 and a caller reads that as \"no credit\", so this being served is the difference between a customer with a trial grant being offered their trial and being told they have none.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+  Future<Object?> getBillingCreditBalanceBreakdown() async {
+    final response = await getBillingCreditBalanceBreakdownWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Object',) as Object;
+    
+    }
+    return null;
+  }
+
+  /// Lists the caller's credit grants — every one of them, spent and lapsed and voided included.
+  ///
+  /// Lists the caller's credit grants — every one of them, spent and lapsed and voided included.  That is deliberate and it is what makes the list useful: a grant list is a LEDGER, and one that hid its spent rows could not be reconciled against a burn-down. What is spendable right now is the sibling read, /v1/billing/ credit-balance, and the two are different questions.  Scoped to the caller's own wallet, resolved server-side.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getBillingCreditsWithHttpInfo() async {
@@ -501,25 +702,34 @@ class BillingApi {
     );
   }
 
-  /// List the credit grants on your org's balance
+  /// Lists the caller's credit grants — every one of them, spent and lapsed and voided included.
   ///
-  /// Returns the caller org's credit grants — each with its original amount, what remains and when it expires — so a customer can see what was given and what is left before metered spend draws it down. It is a READ of the caller's own subject, pinned before the handler runs, so a grant belonging to another tenant is simply absent. Granting credit is not this route and never has been: minting lands on the mint-gated POST /v1/billing/credit, which no browser can reach. Reading an empty balance is an empty array, not an error.
-  Future<void> getBillingCredits() async {
+  /// Lists the caller's credit grants — every one of them, spent and lapsed and voided included.  That is deliberate and it is what makes the list useful: a grant list is a LEDGER, and one that hid its spent rows could not be reconciled against a burn-down. What is spendable right now is the sibling read, /v1/billing/ credit-balance, and the two are different questions.  Scoped to the caller's own wallet, resolved server-side.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+  Future<CreditGrants?> getBillingCredits() async {
     final response = await getBillingCreditsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'CreditGrants',) as CreditGrants;
+    
+    }
+    return null;
   }
 
-  /// Follow one crypto deposit to settlement
+  /// Reads one of the caller's own deposit intents back — pending, confirming, or succeeded.
   ///
-  /// Answers the addressed deposit intent's current state — pending until a transfer is seen, confirming while the chain buries it, succeeded once it is credited — so a payment page can poll one deposit rather than the whole balance.  Scoped to the caller: an intent belonging to another payer is not found and answers 404, never another account's state. The credit itself is the chain watcher's to make; this read reports it and never performs it.
+  /// Reads one of the caller's own deposit intents back — pending, confirming, or succeeded.  An intent belonging to another payer answers 404, exactly as an id that names nothing, so a guessed id cannot confirm that somebody else's deposit exists.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
+  ///   ID is the deposit intent id.
   Future<Response> getBillingCryptoDepositByIdWithHttpInfo(String id,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/billing/crypto/deposit/{id}'
@@ -546,23 +756,32 @@ class BillingApi {
     );
   }
 
-  /// Follow one crypto deposit to settlement
+  /// Reads one of the caller's own deposit intents back — pending, confirming, or succeeded.
   ///
-  /// Answers the addressed deposit intent's current state — pending until a transfer is seen, confirming while the chain buries it, succeeded once it is credited — so a payment page can poll one deposit rather than the whole balance.  Scoped to the caller: an intent belonging to another payer is not found and answers 404, never another account's state. The credit itself is the chain watcher's to make; this read reports it and never performs it.
+  /// Reads one of the caller's own deposit intents back — pending, confirming, or succeeded.  An intent belonging to another payer answers 404, exactly as an id that names nothing, so a guessed id cannot confirm that somebody else's deposit exists.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
-  Future<void> getBillingCryptoDepositById(String id,) async {
+  ///   ID is the deposit intent id.
+  Future<CryptoDeposit?> getBillingCryptoDepositById(String id,) async {
     final response = await getBillingCryptoDepositByIdWithHttpInfo(id,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'CryptoDeposit',) as CryptoDeposit;
+    
+    }
+    return null;
   }
 
-  /// Which chains and tokens a crypto top-up can use
+  /// Answers which chains and tokens the crypto rail accepts — what an asset picker renders.
   ///
-  /// Answers the custody processor's LIVE capability list — the chains and the tokens on each that this deployment can actually take a deposit on. A payment page renders its asset picker straight from it rather than from a list of its own, so a chain the processor stops supporting disappears from the picker instead of minting an address nothing watches.  It is a capability read, not an account read: it says what may be paid with, never anything about this caller's balance or deposits.
+  /// Answers which chains and tokens the crypto rail accepts — what an asset picker renders.  It is the intersection of two live facts rather than a configured list: an asset appears only if something is WATCHING it and the custody processor supports it. An address nobody watches credits nobody, so offering one would take a customer's money and lose it. A rail with nothing armed answers 503, not an empty menu — \"no rail\" and \"no assets\" are different, and only one of them means try again later.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getBillingCryptoOptionsWithHttpInfo() async {
@@ -590,19 +809,27 @@ class BillingApi {
     );
   }
 
-  /// Which chains and tokens a crypto top-up can use
+  /// Answers which chains and tokens the crypto rail accepts — what an asset picker renders.
   ///
-  /// Answers the custody processor's LIVE capability list — the chains and the tokens on each that this deployment can actually take a deposit on. A payment page renders its asset picker straight from it rather than from a list of its own, so a chain the processor stops supporting disappears from the picker instead of minting an address nothing watches.  It is a capability read, not an account read: it says what may be paid with, never anything about this caller's balance or deposits.
-  Future<void> getBillingCryptoOptions() async {
+  /// Answers which chains and tokens the crypto rail accepts — what an asset picker renders.  It is the intersection of two live facts rather than a configured list: an asset appears only if something is WATCHING it and the custody processor supports it. An address nobody watches credits nobody, so offering one would take a customer's money and lose it. A rail with nothing armed answers 503, not an empty menu — \"no rail\" and \"no assets\" are different, and only one of them means try again later.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+  Future<CryptoOptions?> getBillingCryptoOptions() async {
     final response = await getBillingCryptoOptionsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'CryptoOptions',) as CryptoOptions;
+    
+    }
+    return null;
   }
 
-  /// List your org's billing invoices
+  /// Lists the caller's invoices, newest first, with the count beside them.
   ///
-  /// Returns the caller org's invoices with a count, read from that org's own namespaced store, narrowable by userId, status or subscriptionId. The org is the one the gateway validated and the caller's billing subject is pinned into the query before the handler runs, so a read can never widen past the caller. A request that carries no resolvable org gets an honest empty list rather than an error or another tenant's rows.
+  /// Lists the caller's invoices, newest first, with the count beside them.  It is scoped to the caller's own billing subject — the wallet this request bills from, resolved server-side — so a query cannot widen it to another customer of the same org. An org with no invoices is an empty list, not a refusal.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getBillingInvoicesWithHttpInfo() async {
@@ -630,19 +857,27 @@ class BillingApi {
     );
   }
 
-  /// List your org's billing invoices
+  /// Lists the caller's invoices, newest first, with the count beside them.
   ///
-  /// Returns the caller org's invoices with a count, read from that org's own namespaced store, narrowable by userId, status or subscriptionId. The org is the one the gateway validated and the caller's billing subject is pinned into the query before the handler runs, so a read can never widen past the caller. A request that carries no resolvable org gets an honest empty list rather than an error or another tenant's rows.
-  Future<void> getBillingInvoices() async {
+  /// Lists the caller's invoices, newest first, with the count beside them.  It is scoped to the caller's own billing subject — the wallet this request bills from, resolved server-side — so a query cannot widen it to another customer of the same org. An org with no invoices is an empty list, not a refusal.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+  Future<Invoices?> getBillingInvoices() async {
     final response = await getBillingInvoicesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Invoices',) as Invoices;
+    
+    }
+    return null;
   }
 
-  /// Download one invoice as a PDF attachment
+  /// Download one invoice as a PDF
   ///
-  /// Renders the addressed invoice as a single-page PDF and answers it as an attachment named after the invoice number. The render is a pure function of the invoice — no timestamps, no random ids — so the same invoice always produces identical bytes and a re-download is stable. The invoice is resolved inside the caller org's own namespace, so an id belonging to another tenant is simply absent and reads as 404; a caller with no validated org gets 401 rather than a document.
+  /// Answers the invoice as an attachment — `application/pdf` under a Content-Disposition naming the invoice number — rather than as a JSON value, which is why this one route is untyped where its five siblings are typed: a PDF is bytes with a filename, and the two headers are the whole contract.  The render is a PURE function of the invoice: one page, no timestamps and no random ids, so the same invoice renders the same bytes however often it is asked for and a retry after a dropped connection costs a re-render and nothing else.  The invoice is read from the caller's own org, taken from the VALIDATED IAM owner claim and never from a client header, and the lookup is scoped at the storage layer — so an id belonging to another customer resolves to nothing and answers 404 rather than being found and then refused.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -675,9 +910,9 @@ class BillingApi {
     );
   }
 
-  /// Download one invoice as a PDF attachment
+  /// Download one invoice as a PDF
   ///
-  /// Renders the addressed invoice as a single-page PDF and answers it as an attachment named after the invoice number. The render is a pure function of the invoice — no timestamps, no random ids — so the same invoice always produces identical bytes and a re-download is stable. The invoice is resolved inside the caller org's own namespace, so an id belonging to another tenant is simply absent and reads as 404; a caller with no validated org gets 401 rather than a document.
+  /// Answers the invoice as an attachment — `application/pdf` under a Content-Disposition naming the invoice number — rather than as a JSON value, which is why this one route is untyped where its five siblings are typed: a PDF is bytes with a filename, and the two headers are the whole contract.  The render is a PURE function of the invoice: one page, no timestamps and no random ids, so the same invoice renders the same bytes however often it is asked for and a retry after a dropped connection costs a re-render and nothing else.  The invoice is read from the caller's own org, taken from the VALIDATED IAM owner claim and never from a client header, and the lookup is scoped at the storage layer — so an id belonging to another customer resolves to nothing and answers 404 rather than being found and then refused.
   ///
   /// Parameters:
   ///
@@ -689,9 +924,74 @@ class BillingApi {
     }
   }
 
-  /// Your saved cards, masked — the customer read
+  /// Answers the org's own postings inside `range=`, each as a signed entry: a DEPOSIT CREDITS the wallet (positive, account `credits:<org>`) and every other posting DEBITS it (negative, account `usage:<org>`), described by its notes or its tags.
   ///
-  /// Answers the cards saved against your own account as masked descriptors: brand, last four, expiry and the processor's reusable reference. No card number and no security code exist here to return; both live at the processor and never enter this system. It is what a checkout prefills its payment step from.  The customer face of the list a service token reads at /v1/billing/portal/methods — same rows, different principal, no hop between them.  The subject filter is pinned to the VALIDATED caller before the handler runs, so the answer is your own account's cards whatever customerId the request carries, and another org's rows are outside the namespace entirely. A caller who is not signed in is refused before the read.
+  /// Answers the org's own postings inside `range=`, each as a signed entry: a DEPOSIT CREDITS the wallet (positive, account `credits:<org>`) and every other posting DEBITS it (negative, account `usage:<org>`), described by its notes or its tags. The sign is the posting's own meaning, read through ONE vocabulary shared with the ledger that wrote it — a reader with its own spelling for `deposit` rendered a customer's grant as a charge.  This is the closest projection of the truth. The org's double-entry postings are the source of record — balanced, only ever appended, one file per org — and this lane is that list, wider than either half of it: the deposits are the grants /v1/billing/credits lists and the debits are the spend /v1/billing/usage rolls up. It answers 503 where this deployment runs no ledger, rather than reporting an empty wallet.  A row whose timestamp will not parse is KEPT rather than dropped — a malformed date must show up in a money list, not vanish from it. `balanceCents` is omitted: these are MOVEMENTS, and the standing balance is /v1/billing/balance.  Cents are ROUNDED from the ledger's exact 18-decimal USD. Scoped to the caller's own org, where the org's ledger file is the tenant boundary; 401 without a validated principal.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] range:
+  ///   Range is the window: 24h, 7d, 30d or 90d. Anything else — including absent — is 30d, so a typo silently widens the window to a month rather than failing.
+  Future<Response> getBillingLedgerWithHttpInfo({ String? range, }) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/billing/ledger';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    if (range != null) {
+      queryParams.addAll(_queryParams('', 'range', range));
+    }
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Answers the org's own postings inside `range=`, each as a signed entry: a DEPOSIT CREDITS the wallet (positive, account `credits:<org>`) and every other posting DEBITS it (negative, account `usage:<org>`), described by its notes or its tags.
+  ///
+  /// Answers the org's own postings inside `range=`, each as a signed entry: a DEPOSIT CREDITS the wallet (positive, account `credits:<org>`) and every other posting DEBITS it (negative, account `usage:<org>`), described by its notes or its tags. The sign is the posting's own meaning, read through ONE vocabulary shared with the ledger that wrote it — a reader with its own spelling for `deposit` rendered a customer's grant as a charge.  This is the closest projection of the truth. The org's double-entry postings are the source of record — balanced, only ever appended, one file per org — and this lane is that list, wider than either half of it: the deposits are the grants /v1/billing/credits lists and the debits are the spend /v1/billing/usage rolls up. It answers 503 where this deployment runs no ledger, rather than reporting an empty wallet.  A row whose timestamp will not parse is KEPT rather than dropped — a malformed date must show up in a money list, not vanish from it. `balanceCents` is omitted: these are MOVEMENTS, and the standing balance is /v1/billing/balance.  Cents are ROUNDED from the ledger's exact 18-decimal USD. Scoped to the caller's own org, where the org's ledger file is the tenant boundary; 401 without a validated principal.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] range:
+  ///   Range is the window: 24h, 7d, 30d or 90d. Anything else — including absent — is 30d, so a typo silently widens the window to a month rather than failing.
+  Future<List<FinanceLedgerEntry>?> getBillingLedger({ String? range, }) async {
+    final response = await getBillingLedgerWithHttpInfo( range: range, );
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      final responseBody = await _decodeBodyBytes(response);
+      return (await apiClient.deserializeAsync(responseBody, 'List<FinanceLedgerEntry>') as List)
+        .cast<FinanceLedgerEntry>()
+        .toList(growable: false);
+
+    }
+    return null;
+  }
+
+  /// Cards and accounts on file for the caller
+  ///
+  /// Answers every payment method the caller has saved, newest first.  A saved method is a card or account VAULTED at the processor: what is stored here is the processor's token for it plus the last four digits and the expiry a customer recognises it by, never a card number.  The list is the caller's OWN — the wallet this request bills from, resolved server-side — so a query cannot widen it to another customer of the same org.  `/v1/billing/portal/methods` answers the same list under the name a hosted checkout addresses it by. One set of rows, two spellings; a card added at either is present at both.  A store that cannot be read answers an EMPTY LIST rather than a failure: the saved-cards panel renders empty instead of breaking the page around it.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getBillingMethodsWithHttpInfo() async {
@@ -719,9 +1019,9 @@ class BillingApi {
     );
   }
 
-  /// Your saved cards, masked — the customer read
+  /// Cards and accounts on file for the caller
   ///
-  /// Answers the cards saved against your own account as masked descriptors: brand, last four, expiry and the processor's reusable reference. No card number and no security code exist here to return; both live at the processor and never enter this system. It is what a checkout prefills its payment step from.  The customer face of the list a service token reads at /v1/billing/portal/methods — same rows, different principal, no hop between them.  The subject filter is pinned to the VALIDATED caller before the handler runs, so the answer is your own account's cards whatever customerId the request carries, and another org's rows are outside the namespace entirely. A caller who is not signed in is refused before the read.
+  /// Answers every payment method the caller has saved, newest first.  A saved method is a card or account VAULTED at the processor: what is stored here is the processor's token for it plus the last four digits and the expiry a customer recognises it by, never a card number.  The list is the caller's OWN — the wallet this request bills from, resolved server-side — so a query cannot widen it to another customer of the same org.  `/v1/billing/portal/methods` answers the same list under the name a hosted checkout addresses it by. One set of rows, two spellings; a card added at either is present at both.  A store that cannot be read answers an EMPTY LIST rather than a failure: the saved-cards panel renders empty instead of breaking the page around it.
   Future<void> getBillingMethods() async {
     final response = await getBillingMethodsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -729,9 +1029,9 @@ class BillingApi {
     }
   }
 
-  /// List your org's payouts, newest first
+  /// Answers the org's outbound payouts, newest first — amount, destination, status, and the failure reason where one applies.
   ///
-  /// Returns the caller org's payout records ordered by creation time descending, read from that org's own namespaced store. The org is the gateway-validated one and the caller's billing subject is pinned before the handler runs, so the list is the caller's own and cannot be widened. A request with no resolvable org gets an empty array rather than an error.
+  /// Answers the org's outbound payouts, newest first — amount, destination, status, and the failure reason where one applies.  A payout is ORG-scoped rather than subject-scoped, so there is nothing to pin beyond the tenant the caller already is, and no query can widen it.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getBillingPayoutsWithHttpInfo() async {
@@ -759,19 +1059,30 @@ class BillingApi {
     );
   }
 
-  /// List your org's payouts, newest first
+  /// Answers the org's outbound payouts, newest first — amount, destination, status, and the failure reason where one applies.
   ///
-  /// Returns the caller org's payout records ordered by creation time descending, read from that org's own namespaced store. The org is the gateway-validated one and the caller's billing subject is pinned before the handler runs, so the list is the caller's own and cannot be widened. A request with no resolvable org gets an empty array rather than an error.
-  Future<void> getBillingPayouts() async {
+  /// Answers the org's outbound payouts, newest first — amount, destination, status, and the failure reason where one applies.  A payout is ORG-scoped rather than subject-scoped, so there is nothing to pin beyond the tenant the caller already is, and no query can widen it.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+  Future<List<Payout>?> getBillingPayouts() async {
     final response = await getBillingPayoutsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      final responseBody = await _decodeBodyBytes(response);
+      return (await apiClient.deserializeAsync(responseBody, 'List<Payout>') as List)
+        .cast<Payout>()
+        .toList(growable: false);
+
+    }
+    return null;
   }
 
-  /// The public plan catalog, annotated with the active platform promotion
+  /// The plan catalog, priced with whatever offer is in force
   ///
-  /// Returns every subscription tier a buyer can choose, each carrying the platform promo currently in effect, optionally narrowed with the category query. Prices come from the admin-editable plan authority in the database; the embedded catalog is only a loud-failing fallback, so a failed seed or a query error serves the known plans rather than a silently blank list. It is a catalog read, not an entitlement read — it says what may be bought, never what this caller has.
+  /// Answers every plan on sale — its price, what it includes, and the limits it carries — optionally narrowed to one `?category=`.  The prices are what the CHECKOUT will charge: any active promotion is applied before they leave the store, so a reader never applies a discount a second time and a quote can never disagree with the sale.  It is the public catalog and needs no tenant: this is what anyone may buy.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getBillingPlansWithHttpInfo() async {
@@ -799,9 +1110,9 @@ class BillingApi {
     );
   }
 
-  /// The public plan catalog, annotated with the active platform promotion
+  /// The plan catalog, priced with whatever offer is in force
   ///
-  /// Returns every subscription tier a buyer can choose, each carrying the platform promo currently in effect, optionally narrowed with the category query. Prices come from the admin-editable plan authority in the database; the embedded catalog is only a loud-failing fallback, so a failed seed or a query error serves the known plans rather than a silently blank list. It is a catalog read, not an entitlement read — it says what may be bought, never what this caller has.
+  /// Answers every plan on sale — its price, what it includes, and the limits it carries — optionally narrowed to one `?category=`.  The prices are what the CHECKOUT will charge: any active promotion is applied before they leave the store, so a reader never applies a discount a second time and a quote can never disagree with the sale.  It is the public catalog and needs no tenant: this is what anyone may buy.
   Future<void> getBillingPlans() async {
     final response = await getBillingPlansWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -809,9 +1120,9 @@ class BillingApi {
     }
   }
 
-  /// Cards saved against the caller's org, masked — the portal read
+  /// Cards and accounts on file for the caller
   ///
-  /// Answers the org's saved payment methods as masked descriptors: brand, last four, expiry and the processor's reusable reference. No card number and no security code exist here to return; both live at the processor and never enter this system.  This is the SERVICE-TOKEN face of the same list a customer reads at /v1/billing/methods. Both are served here, in this process, and answer the same rows; they are two addresses because they admit two different principals, not because either forwards to the other.  The customer filter is pinned to the VALIDATED caller before the handler runs, so a browser sees only its own subject's cards whatever customerId it sends; only a caller holding the internal service token may name the subject, and the org it may name it within is fixed by the gateway. Cross-tenant is closed by the org namespace for both, so an id or a subject from another org resolves to nothing. A caller who is neither is refused before the read.
+  /// Answers every payment method the caller has saved, newest first.  A saved method is a card or account VAULTED at the processor: what is stored here is the processor's token for it plus the last four digits and the expiry a customer recognises it by, never a card number.  The list is the caller's OWN — the wallet this request bills from, resolved server-side — so a query cannot widen it to another customer of the same org.  `/v1/billing/portal/methods` answers the same list under the name a hosted checkout addresses it by. One set of rows, two spellings; a card added at either is present at both.  A store that cannot be read answers an EMPTY LIST rather than a failure: the saved-cards panel renders empty instead of breaking the page around it.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getBillingPortalMethodsWithHttpInfo() async {
@@ -839,9 +1150,9 @@ class BillingApi {
     );
   }
 
-  /// Cards saved against the caller's org, masked — the portal read
+  /// Cards and accounts on file for the caller
   ///
-  /// Answers the org's saved payment methods as masked descriptors: brand, last four, expiry and the processor's reusable reference. No card number and no security code exist here to return; both live at the processor and never enter this system.  This is the SERVICE-TOKEN face of the same list a customer reads at /v1/billing/methods. Both are served here, in this process, and answer the same rows; they are two addresses because they admit two different principals, not because either forwards to the other.  The customer filter is pinned to the VALIDATED caller before the handler runs, so a browser sees only its own subject's cards whatever customerId it sends; only a caller holding the internal service token may name the subject, and the org it may name it within is fixed by the gateway. Cross-tenant is closed by the org namespace for both, so an id or a subject from another org resolves to nothing. A caller who is neither is refused before the read.
+  /// Answers every payment method the caller has saved, newest first.  A saved method is a card or account VAULTED at the processor: what is stored here is the processor's token for it plus the last four digits and the expiry a customer recognises it by, never a card number.  The list is the caller's OWN — the wallet this request bills from, resolved server-side — so a query cannot widen it to another customer of the same org.  `/v1/billing/portal/methods` answers the same list under the name a hosted checkout addresses it by. One set of rows, two spellings; a card added at either is present at both.  A store that cannot be read answers an EMPTY LIST rather than a failure: the saved-cards panel renders empty instead of breaking the page around it.
   Future<void> getBillingPortalMethods() async {
     final response = await getBillingPortalMethodsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -849,9 +1160,9 @@ class BillingApi {
     }
   }
 
-  /// The public payment-provider config your card form needs to initialize
+  /// Answers the PUBLIC half of this org's processor configuration — the ids a browser needs to tokenize a card, and the environment it must tokenize against.
   ///
-  /// Answers the Square application id, location id, environment and live flag the browser's card iframe boots against — public values only, never a secret. Resolution lives in one place shared with the public tenant projection, so the card form can never initialize against a different Square application than the one commerce will actually charge. It deliberately does NOT hydrate credentials from KMS: the dialog blocks on this call, so it answers from the org and the deployment environment without a round trip, and an org with no per-org credentials gets the deployment's own public app id.
+  /// Answers the PUBLIC half of this org's processor configuration — the ids a browser needs to tokenize a card, and the environment it must tokenize against.  It carries no secret: an application id is published to every checkout page by design. What matters is that it names the SAME processor account the charge will be made on, because a card vaulted against one account and charged against another is a card that saves and then cannot be used.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getBillingSettingsWithHttpInfo() async {
@@ -879,19 +1190,27 @@ class BillingApi {
     );
   }
 
-  /// The public payment-provider config your card form needs to initialize
+  /// Answers the PUBLIC half of this org's processor configuration — the ids a browser needs to tokenize a card, and the environment it must tokenize against.
   ///
-  /// Answers the Square application id, location id, environment and live flag the browser's card iframe boots against — public values only, never a secret. Resolution lives in one place shared with the public tenant projection, so the card form can never initialize against a different Square application than the one commerce will actually charge. It deliberately does NOT hydrate credentials from KMS: the dialog blocks on this call, so it answers from the org and the deployment environment without a round trip, and an org with no per-org credentials gets the deployment's own public app id.
-  Future<void> getBillingSettings() async {
+  /// Answers the PUBLIC half of this org's processor configuration — the ids a browser needs to tokenize a card, and the environment it must tokenize against.  It carries no secret: an application id is published to every checkout page by design. What matters is that it names the SAME processor account the charge will be made on, because a card vaulted against one account and charged against another is a card that saves and then cannot be used.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+  Future<PaymentConfig?> getBillingSettings() async {
     final response = await getBillingSettingsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PaymentConfig',) as PaymentConfig;
+    
+    }
+    return null;
   }
 
-  /// List your org's subscriptions
+  /// Lists the plans the caller holds, with the count beside them.
   ///
-  /// Returns the caller org's subscriptions with a count, narrowable by userId or status, read from that org's own namespaced store. The org is the gateway-validated one and the caller's billing subject is pinned before the handler runs. A request with no resolvable org gets an empty list and a zero count rather than an error.
+  /// Lists the plans the caller holds, with the count beside them.  It is scoped to the caller's own org, so a query cannot widen it to another customer's. An org on nothing is an empty list, not a refusal — being on no plan is an answer.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getBillingSubscriptionsWithHttpInfo() async {
@@ -919,19 +1238,27 @@ class BillingApi {
     );
   }
 
-  /// List your org's subscriptions
+  /// Lists the plans the caller holds, with the count beside them.
   ///
-  /// Returns the caller org's subscriptions with a count, narrowable by userId or status, read from that org's own namespaced store. The org is the gateway-validated one and the caller's billing subject is pinned before the handler runs. A request with no resolvable org gets an empty list and a zero count rather than an error.
-  Future<void> getBillingSubscriptions() async {
+  /// Lists the plans the caller holds, with the count beside them.  It is scoped to the caller's own org, so a query cannot widen it to another customer's. An org on nothing is an empty list, not a refusal — being on no plan is an answer.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+  Future<Subscriptions?> getBillingSubscriptions() async {
     final response = await getBillingSubscriptionsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Subscriptions',) as Subscriptions;
+    
+    }
+    return null;
   }
 
-  /// The subject's plan tier and the balance a metered call is admitted on
+  /// Answers which tier the caller is on, what it allows, and what is left to spend.
   ///
-  /// Answers one subject's resolved tier — name, display name, agent ceiling and allowed models — with the balance that admits their next metered call: prepaidAvailable, creditsRemaining, dailyRemaining and the effectiveAvailable those fold into. The ai router reads it per request to pick that caller's rate-limit tier. It sits on the org-resolving chain because a tier is org state, and the subject keys are pinned to the validated caller before the handler runs, so a browser read is always the caller's own; user is required, which only a service-to-service caller can omit and be refused 400 for. The tier is an upstream tier claim, or an explicit tier override, when either is present — that is the service-to-service contract — and is otherwise DERIVED from the org's active and trialing subscriptions, the highest one winning, its paid-ness read from the plan catalog by slug rather than from the subscription's own stored copy. The rule to get right is effectiveAvailable and not prepaidAvailable: granted credits spend too, credits first, so an account funded only by a grant reads zero prepaid while holding real spendable credit — and with the daily term zero on every tier there is no free allowance behind it, so a zero-balance account is gated. A subscription-store error answers 500 rather than downgrading to free, so a transient failure never reports a paid subscriber as unsubscribed.
+  /// Answers which tier the caller is on, what it allows, and what is left to spend.  `effectiveAvailable` is the ONLY figure to compare against zero. The others are its parts — prepaid money, granted credits and the daily term are three sources of one spend, not three balances to add up a second time.  A tier that cannot be READ is an error, never Free. The router in front of the models maps any non-2xx to Free, so answering Free from a question nobody could answer would pin every paying customer to the most restrictive row with nothing anywhere to find.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getBillingTierWithHttpInfo() async {
@@ -959,22 +1286,41 @@ class BillingApi {
     );
   }
 
-  /// The subject's plan tier and the balance a metered call is admitted on
+  /// Answers which tier the caller is on, what it allows, and what is left to spend.
   ///
-  /// Answers one subject's resolved tier — name, display name, agent ceiling and allowed models — with the balance that admits their next metered call: prepaidAvailable, creditsRemaining, dailyRemaining and the effectiveAvailable those fold into. The ai router reads it per request to pick that caller's rate-limit tier. It sits on the org-resolving chain because a tier is org state, and the subject keys are pinned to the validated caller before the handler runs, so a browser read is always the caller's own; user is required, which only a service-to-service caller can omit and be refused 400 for. The tier is an upstream tier claim, or an explicit tier override, when either is present — that is the service-to-service contract — and is otherwise DERIVED from the org's active and trialing subscriptions, the highest one winning, its paid-ness read from the plan catalog by slug rather than from the subscription's own stored copy. The rule to get right is effectiveAvailable and not prepaidAvailable: granted credits spend too, credits first, so an account funded only by a grant reads zero prepaid while holding real spendable credit — and with the daily term zero on every tier there is no free allowance behind it, so a zero-balance account is gated. A subscription-store error answers 500 rather than downgrading to free, so a transient failure never reports a paid subscriber as unsubscribed.
-  Future<void> getBillingTier() async {
+  /// Answers which tier the caller is on, what it allows, and what is left to spend.  `effectiveAvailable` is the ONLY figure to compare against zero. The others are its parts — prepaid money, granted credits and the daily term are three sources of one spend, not three balances to add up a second time.  A tier that cannot be READ is an error, never Free. The router in front of the models maps any non-2xx to Free, so answering Free from a question nobody could answer would pin every paying customer to the most restrictive row with nothing anywhere to find.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+  Future<Tier?> getBillingTier() async {
     final response = await getBillingTierWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Tier',) as Tier;
+    
+    }
+    return null;
   }
 
-  /// List the movements on your own balance, newest first
+  /// Answers one page of the caller's own ledger, newest first: what moved, how much, when, and what it was tagged with.
   ///
-  /// Returns the caller's own ledger movements — every credit and debit against the subject the usage gate charges — newest first, with a count and the subject they belong to, so a customer can reconcile a bill against the acts that produced it. Paging is limit and offset, and the currency can be narrowed.  The subject is NOT the caller's to choose. The handler filters on a user parameter, and that parameter is overwritten with the caller's own billing subject before the handler runs — so naming another subject returns your own rows rather than theirs, and the read can never disagree with the wallet it describes. An unauthenticated call is 401 rather than 403, because a browser re-authenticates on the first and only reports the second. No movements is an empty list, not an error.
+  /// Answers one page of the caller's own ledger, newest first: what moved, how much, when, and what it was tagged with.  `count` is the size of the WHOLE history rather than of the page, which is how a reader knows there is more to ask for, and `user` echoes the wallet the page was read for — the same subject the spend gate debits, so a customer can see which account answered rather than guessing from their own token.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
   ///
   /// Note: This method returns the HTTP [Response].
-  Future<Response> getBillingTransactionsWithHttpInfo() async {
+  ///
+  /// Parameters:
+  ///
+  /// * [String] currency:
+  ///   Currency filters to one currency. Empty reads every currency.
+  ///
+  /// * [String] limit:
+  ///   Limit is the page size; absent or non-positive takes the default 100.
+  ///
+  /// * [String] offset:
+  ///   Offset is how far into the history the page starts.
+  Future<Response> getBillingTransactionsWithHttpInfo({ String? currency, String? limit, String? offset, }) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/billing/transactions';
 
@@ -984,6 +1330,16 @@ class BillingApi {
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
+
+    if (currency != null) {
+      queryParams.addAll(_queryParams('', 'currency', currency));
+    }
+    if (limit != null) {
+      queryParams.addAll(_queryParams('', 'limit', limit));
+    }
+    if (offset != null) {
+      queryParams.addAll(_queryParams('', 'offset', offset));
+    }
 
     const contentTypes = <String>[];
 
@@ -999,14 +1355,33 @@ class BillingApi {
     );
   }
 
-  /// List the movements on your own balance, newest first
+  /// Answers one page of the caller's own ledger, newest first: what moved, how much, when, and what it was tagged with.
   ///
-  /// Returns the caller's own ledger movements — every credit and debit against the subject the usage gate charges — newest first, with a count and the subject they belong to, so a customer can reconcile a bill against the acts that produced it. Paging is limit and offset, and the currency can be narrowed.  The subject is NOT the caller's to choose. The handler filters on a user parameter, and that parameter is overwritten with the caller's own billing subject before the handler runs — so naming another subject returns your own rows rather than theirs, and the read can never disagree with the wallet it describes. An unauthenticated call is 401 rather than 403, because a browser re-authenticates on the first and only reports the second. No movements is an empty list, not an error.
-  Future<void> getBillingTransactions() async {
-    final response = await getBillingTransactionsWithHttpInfo();
+  /// Answers one page of the caller's own ledger, newest first: what moved, how much, when, and what it was tagged with.  `count` is the size of the WHOLE history rather than of the page, which is how a reader knows there is more to ask for, and `user` echoes the wallet the page was read for — the same subject the spend gate debits, so a customer can see which account answered rather than guessing from their own token.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] currency:
+  ///   Currency filters to one currency. Empty reads every currency.
+  ///
+  /// * [String] limit:
+  ///   Limit is the page size; absent or non-positive takes the default 100.
+  ///
+  /// * [String] offset:
+  ///   Offset is how far into the history the page starts.
+  Future<Transactions?> getBillingTransactions({ String? currency, String? limit, String? offset, }) async {
+    final response = await getBillingTransactionsWithHttpInfo( currency: currency, limit: limit, offset: offset, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Transactions',) as Transactions;
+    
+    }
+    return null;
   }
 
   /// Every billed call the caller's org made, attributed to a product
@@ -1097,9 +1472,57 @@ class BillingApi {
     return null;
   }
 
-  /// Where to wire funds, and the reference that credits them to you
+  /// Answers the caller's month: what their plan includes, what has been consumed against it, and the wallet beside it.
   ///
-  /// Answers the receiving bank details for the brand this deployment serves — the account the funds actually land in, hydrated per brand rather than hard-coded — together with the payment reference to put on the transfer.  THE REFERENCE IS THE POINT. It carries your own billing key, and it is how an arriving wire is attributed to your account; a transfer sent without it arrives as an unidentified receipt. That is why this read is gated at all: an unpinned caller would be handed an unattributable reference.  Reading it credits nothing and reserves nothing. A wire is settled by an operator when the bank shows the funds, so the balance moves on receipt, not on this call.
+  /// Answers the caller's month: what their plan includes, what has been consumed against it, and the wallet beside it.  The two blocks are SEPARATE monies and are never added. One is usage a plan granted; the other is prepaid credit bought with a card. Their sum is not a number anyone holds, and a reader that formed it would be inventing a balance.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> getBillingUsageRollupWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/billing/usage/rollup';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Answers the caller's month: what their plan includes, what has been consumed against it, and the wallet beside it.
+  ///
+  /// Answers the caller's month: what their plan includes, what has been consumed against it, and the wallet beside it.  The two blocks are SEPARATE monies and are never added. One is usage a plan granted; the other is prepaid credit bought with a card. Their sum is not a number anyone holds, and a reader that formed it would be inventing a balance.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+  Future<Rollup?> getBillingUsageRollup() async {
+    final response = await getBillingUsageRollupWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Rollup',) as Rollup;
+    
+    }
+    return null;
+  }
+
+  /// Answers where to send a wire top-up: the receiving bank details, with the caller's own payment reference.
+  ///
+  /// Answers where to send a wire top-up: the receiving bank details, with the caller's own payment reference.  The account is the SERVING BRAND'S — resolved from the host the customer is paying on, so paying on one brand never shows another's bank — and the reference carries the caller's billing key, which is how an arriving wire names who it credits. Nothing mints here; a receipt is settled by an operator once the bank confirms it.  It is all-or-nothing: no configured account is 503 rather than a partial form, because nobody can wire to three fields out of five.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getBillingWireWithHttpInfo() async {
@@ -1127,14 +1550,22 @@ class BillingApi {
     );
   }
 
-  /// Where to wire funds, and the reference that credits them to you
+  /// Answers where to send a wire top-up: the receiving bank details, with the caller's own payment reference.
   ///
-  /// Answers the receiving bank details for the brand this deployment serves — the account the funds actually land in, hydrated per brand rather than hard-coded — together with the payment reference to put on the transfer.  THE REFERENCE IS THE POINT. It carries your own billing key, and it is how an arriving wire is attributed to your account; a transfer sent without it arrives as an unidentified receipt. That is why this read is gated at all: an unpinned caller would be handed an unattributable reference.  Reading it credits nothing and reserves nothing. A wire is settled by an operator when the bank shows the funds, so the balance moves on receipt, not on this call.
-  Future<void> getBillingWire() async {
+  /// Answers where to send a wire top-up: the receiving bank details, with the caller's own payment reference.  The account is the SERVING BRAND'S — resolved from the host the customer is paying on, so paying on one brand never shows another's bank — and the reference carries the caller's billing key, which is how an arriving wire names who it credits. Nothing mints here; a receipt is settled by an operator once the bank confirms it.  It is all-or-nothing: no configured account is 503 rather than a partial form, because nobody can wire to three fields out of five.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+  Future<WireInstructions?> getBillingWire() async {
     final response = await getBillingWireWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'WireInstructions',) as WireInstructions;
+    
+    }
+    return null;
   }
 
   /// Read one invoice
@@ -1181,7 +1612,7 @@ class BillingApi {
   ///
   /// * [String] id (required):
   ///   ID is the invoice id.
-  Future<InvoiceOut?> getInvoice(String id,) async {
+  Future<Invoice?> getInvoice(String id,) async {
     final response = await getInvoiceWithHttpInfo(id,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
@@ -1190,7 +1621,7 @@ class BillingApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'InvoiceOut',) as InvoiceOut;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Invoice',) as Invoice;
     
     }
     return null;
@@ -1240,7 +1671,7 @@ class BillingApi {
   ///
   /// * [String] id (required):
   ///   ID is the invoice id.
-  Future<InvoiceOut?> issueInvoice(String id,) async {
+  Future<Invoice?> issueInvoice(String id,) async {
     final response = await issueInvoiceWithHttpInfo(id,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
@@ -1249,34 +1680,36 @@ class BillingApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'InvoiceOut',) as InvoiceOut;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Invoice',) as Invoice;
     
     }
     return null;
   }
 
-  /// Change one of your org's spend caps
+  /// Changes one spend cap: raise or lower the ceiling, flip enforcement, retune the rate limit.
   ///
-  /// Applies only the fields the body actually carries — title, threshold, project, service, enforce, softPct, rateLimitRpm — and leaves the rest as stored, answering the merged row with its current period spend. Requires an ORG ADMIN, a platform admin, or the internal service token, for the same reason creation does: a member who could edit the cap could raise it to nothing or drop it to a punitive floor. Ownership is checked per row and a cap the caller does not own is refused as 404, never 403, so the id space cannot be probed.
+  /// Changes one spend cap: raise or lower the ceiling, flip enforcement, retune the rate limit.  Only the fields the body carries move. Every mutable field is optional, and an absent one is PRESERVED rather than reset — so a change that flips enforcement cannot silently wipe the threshold it enforces.  A cap belonging to another org is a 404, not a 403: a guessed id must not become an oracle for what anyone else holds.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
-  Future<Response> patchBillingAlertsByIdWithHttpInfo(String id,) async {
+  ///
+  /// * [AlertPatch] alertPatch (required):
+  Future<Response> patchBillingAlertsByIdWithHttpInfo(String id, AlertPatch alertPatch,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/billing/alerts/{id}'
       .replaceAll('{id}', id);
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = alertPatch;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -1290,37 +1723,51 @@ class BillingApi {
     );
   }
 
-  /// Change one of your org's spend caps
+  /// Changes one spend cap: raise or lower the ceiling, flip enforcement, retune the rate limit.
   ///
-  /// Applies only the fields the body actually carries — title, threshold, project, service, enforce, softPct, rateLimitRpm — and leaves the rest as stored, answering the merged row with its current period spend. Requires an ORG ADMIN, a platform admin, or the internal service token, for the same reason creation does: a member who could edit the cap could raise it to nothing or drop it to a punitive floor. Ownership is checked per row and a cap the caller does not own is refused as 404, never 403, so the id space cannot be probed.
+  /// Changes one spend cap: raise or lower the ceiling, flip enforcement, retune the rate limit.  Only the fields the body carries move. Every mutable field is optional, and an absent one is PRESERVED rather than reset — so a change that flips enforcement cannot silently wipe the threshold it enforces.  A cap belonging to another org is a 404, not a 403: a guessed id must not become an oracle for what anyone else holds.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
-  Future<void> patchBillingAlertsById(String id,) async {
-    final response = await patchBillingAlertsByIdWithHttpInfo(id,);
+  ///
+  /// * [AlertPatch] alertPatch (required):
+  Future<Alert?> patchBillingAlertsById(String id, AlertPatch alertPatch,) async {
+    final response = await patchBillingAlertsByIdWithHttpInfo(id, alertPatch,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Alert',) as Alert;
+    
+    }
+    return null;
   }
 
-  /// Set a spend cap or rate limit on your org
+  /// Opens a spend cap on the caller's own org.
   ///
-  /// Creates a cap for the caller's own org and answers the stored row with its current period spend. A spend cap is a FINANCIAL SAFETY control, so writing one requires an ORG ADMIN, a platform admin, or the internal service token — a plain authenticated member is refused 403, because a member who could delete the cap could uncap the org's spend and a member who could set a one-cent enforcing cap could deny the whole org. The cap is always keyed to the caller's own billing subject: a userId in the body is overwritten, never honored, so a cap cannot be planted on another subject. At least one of a positive threshold or a positive rateLimitRpm is required, softPct must be within 0 to 100, and an org that has reached its row limit is refused 400.
+  /// Opens a spend cap on the caller's own org.  At least one limit must mean something: a threshold above zero (a spend cap) or a requests-per-minute above zero (a rate limit). A row that bounds neither is refused rather than stored, because a ceiling nothing measures against is a ceiling a customer believes in and does not have.  The cap is keyed on the caller's own billing subject, resolved server-side — the SAME key the verdict looks it up under, which is what makes enforcement bind rather than merely record.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
   ///
   /// Note: This method returns the HTTP [Response].
-  Future<Response> postBillingAlertsWithHttpInfo() async {
+  ///
+  /// Parameters:
+  ///
+  /// * [AlertSpec] alertSpec (required):
+  Future<Response> postBillingAlertsWithHttpInfo(AlertSpec alertSpec,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/billing/alerts';
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = alertSpec;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -1334,33 +1781,49 @@ class BillingApi {
     );
   }
 
-  /// Set a spend cap or rate limit on your org
+  /// Opens a spend cap on the caller's own org.
   ///
-  /// Creates a cap for the caller's own org and answers the stored row with its current period spend. A spend cap is a FINANCIAL SAFETY control, so writing one requires an ORG ADMIN, a platform admin, or the internal service token — a plain authenticated member is refused 403, because a member who could delete the cap could uncap the org's spend and a member who could set a one-cent enforcing cap could deny the whole org. The cap is always keyed to the caller's own billing subject: a userId in the body is overwritten, never honored, so a cap cannot be planted on another subject. At least one of a positive threshold or a positive rateLimitRpm is required, softPct must be within 0 to 100, and an org that has reached its row limit is refused 400.
-  Future<void> postBillingAlerts() async {
-    final response = await postBillingAlertsWithHttpInfo();
+  /// Opens a spend cap on the caller's own org.  At least one limit must mean something: a threshold above zero (a spend cap) or a requests-per-minute above zero (a rate limit). A row that bounds neither is refused rather than stored, because a ceiling nothing measures against is a ceiling a customer believes in and does not have.  The cap is keyed on the caller's own billing subject, resolved server-side — the SAME key the verdict looks it up under, which is what makes enforcement bind rather than merely record.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+  ///
+  /// Parameters:
+  ///
+  /// * [AlertSpec] alertSpec (required):
+  Future<Alert?> postBillingAlerts(AlertSpec alertSpec,) async {
+    final response = await postBillingAlertsWithHttpInfo(alertSpec,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Alert',) as Alert;
+    
+    }
+    return null;
   }
 
-  /// Get a deposit address for a crypto top-up
+  /// Issues a deposit address the caller can send crypto to, on the asset they ask for.
   ///
-  /// Mints a deposit address held by the MPC signer fleet — no single party holds the key — on the chain and token you name, and returns it with the intent that tracks it.  The account credited is the PINNED caller's, never a value in the body, so a deposit cannot be aimed at someone else's balance. A caller who already has an open intent gets that same address back rather than a new one, so reloading the page cannot spray keygens across the signer fleet.  NO BALANCE MOVES HERE. This hands out an address; the chain watcher credits the account when a real transfer confirms, which is also why an address handed out and never funded costs nothing and expires nothing.
+  /// Issues a deposit address the caller can send crypto to, on the asset they ask for.  The address credits the CALLER'S own wallet and nobody else's: the payer is the validated principal, never a body value. Asking again reuses the caller's open intent rather than minting a second address, so a refresh cannot spray key generations — and a payer who sent to the address they saw earlier is still credited.  No balance moves here. The chain watcher credits on real confirmations, so what comes back is an address and a status, not a receipt.  An asset this rail cannot mint on is 400 — ask for another. A rail that is shut for that asset is 503 — nothing sent now can be credited.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
   ///
   /// Note: This method returns the HTTP [Response].
-  Future<Response> postBillingCryptoDepositWithHttpInfo() async {
+  ///
+  /// Parameters:
+  ///
+  /// * [CryptoAsset] cryptoAsset (required):
+  Future<Response> postBillingCryptoDepositWithHttpInfo(CryptoAsset cryptoAsset,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/billing/crypto/deposit';
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = cryptoAsset;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -1374,19 +1837,31 @@ class BillingApi {
     );
   }
 
-  /// Get a deposit address for a crypto top-up
+  /// Issues a deposit address the caller can send crypto to, on the asset they ask for.
   ///
-  /// Mints a deposit address held by the MPC signer fleet — no single party holds the key — on the chain and token you name, and returns it with the intent that tracks it.  The account credited is the PINNED caller's, never a value in the body, so a deposit cannot be aimed at someone else's balance. A caller who already has an open intent gets that same address back rather than a new one, so reloading the page cannot spray keygens across the signer fleet.  NO BALANCE MOVES HERE. This hands out an address; the chain watcher credits the account when a real transfer confirms, which is also why an address handed out and never funded costs nothing and expires nothing.
-  Future<void> postBillingCryptoDeposit() async {
-    final response = await postBillingCryptoDepositWithHttpInfo();
+  /// Issues a deposit address the caller can send crypto to, on the asset they ask for.  The address credits the CALLER'S own wallet and nobody else's: the payer is the validated principal, never a body value. Asking again reuses the caller's open intent rather than minting a second address, so a refresh cannot spray key generations — and a payer who sent to the address they saw earlier is still credited.  No balance moves here. The chain watcher credits on real confirmations, so what comes back is an address and a status, not a receipt.  An asset this rail cannot mint on is 400 — ask for another. A rail that is shut for that asset is 503 — nothing sent now can be credited.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+  ///
+  /// Parameters:
+  ///
+  /// * [CryptoAsset] cryptoAsset (required):
+  Future<CryptoDeposit?> postBillingCryptoDeposit(CryptoAsset cryptoAsset,) async {
+    final response = await postBillingCryptoDepositWithHttpInfo(cryptoAsset,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'CryptoDeposit',) as CryptoDeposit;
+    
+    }
+    return null;
   }
 
-  /// Save a card for later charges
+  /// Save a card or account for the caller
   ///
-  /// Vaults the card the processor already holds — you send its one-time reference, never a card number — as a reusable card on file, and stores the billing address with it. That vaulted card is what a subscription renewal or an auto-recharge charges later, which is why saving one is the step that makes a monthly plan billable at all.  It charges nothing. Saving a card moves no money; the first charge is whatever arrangement you then attach it to.  The subject is pinned from the validated caller and OVERWRITES the customerId in the body while leaving the card fields untouched, so a card can only ever be attached to the caller's OWN account whatever the body claims. That pin is the whole control on this write, not decoration: this is the one handler in the family that reads its subject from the body.
+  /// Vaults the instrument at the processor and stores the row.  A saved method is a card or account VAULTED at the processor: what is stored here is the processor's token for it plus the last four digits and the expiry a customer recognises it by, never a card number.  The list is the caller's OWN — the wallet this request bills from, resolved server-side — so a query cannot widen it to another customer of the same org.  `/v1/billing/portal/methods` answers the same list under the name a hosted checkout addresses it by. One set of rows, two spellings; a card added at either is present at both.  Saving a card ALREADY on file answers with the row that already holds it rather than stacking a duplicate — 200 for that, 201 for a genuinely new row, so a client can tell which happened. A card the processor declines is 402 and nothing is stored.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> postBillingMethodsWithHttpInfo() async {
@@ -1414,9 +1889,9 @@ class BillingApi {
     );
   }
 
-  /// Save a card for later charges
+  /// Save a card or account for the caller
   ///
-  /// Vaults the card the processor already holds — you send its one-time reference, never a card number — as a reusable card on file, and stores the billing address with it. That vaulted card is what a subscription renewal or an auto-recharge charges later, which is why saving one is the step that makes a monthly plan billable at all.  It charges nothing. Saving a card moves no money; the first charge is whatever arrangement you then attach it to.  The subject is pinned from the validated caller and OVERWRITES the customerId in the body while leaving the card fields untouched, so a card can only ever be attached to the caller's OWN account whatever the body claims. That pin is the whole control on this write, not decoration: this is the one handler in the family that reads its subject from the body.
+  /// Vaults the instrument at the processor and stores the row.  A saved method is a card or account VAULTED at the processor: what is stored here is the processor's token for it plus the last four digits and the expiry a customer recognises it by, never a card number.  The list is the caller's OWN — the wallet this request bills from, resolved server-side — so a query cannot widen it to another customer of the same org.  `/v1/billing/portal/methods` answers the same list under the name a hosted checkout addresses it by. One set of rows, two spellings; a card added at either is present at both.  Saving a card ALREADY on file answers with the row that already holds it rather than stacking a duplicate — 200 for that, 201 for a genuinely new row, so a client can tell which happened. A card the processor declines is 402 and nothing is stored.
   Future<void> postBillingMethods() async {
     final response = await postBillingMethodsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -1424,23 +1899,27 @@ class BillingApi {
     }
   }
 
-  /// Move an org between sandbox and live billing
+  /// Moves this org between sandbox money and real money.
   ///
-  /// Flips the org's live flag, which is the single authority for both the payment environment and the ledger bucket its transactions land in. This is a money-MINT control, not a customer action: it is gated on the internal service token AND platform scope, so an ORG ADMIN CANNOT move their own org — otherwise a tenant could drop itself into sandbox and stop paying. The rule most callers get wrong is the default: an org that has never been flipped transacts in SANDBOX, which is why a production-credentialled deployment can still hand a buyer a sandbox card form. When the deployment pins the payment environment explicitly, that pin governs and this flag only marks the transactions.
+  /// Moves this org between sandbox money and real money.  It decides whether a charge hits a real card, so it is the one posture change that is not self-service: the platform bar, never an org owner, because an org that could put itself in test mode could take priced work for free.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
   ///
   /// Note: This method returns the HTTP [Response].
-  Future<Response> postBillingModeWithHttpInfo() async {
+  ///
+  /// Parameters:
+  ///
+  /// * [ModeIn] modeIn (required):
+  Future<Response> postBillingModeWithHttpInfo(ModeIn modeIn,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/billing/mode';
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = modeIn;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -1454,19 +1933,31 @@ class BillingApi {
     );
   }
 
-  /// Move an org between sandbox and live billing
+  /// Moves this org between sandbox money and real money.
   ///
-  /// Flips the org's live flag, which is the single authority for both the payment environment and the ledger bucket its transactions land in. This is a money-MINT control, not a customer action: it is gated on the internal service token AND platform scope, so an ORG ADMIN CANNOT move their own org — otherwise a tenant could drop itself into sandbox and stop paying. The rule most callers get wrong is the default: an org that has never been flipped transacts in SANDBOX, which is why a production-credentialled deployment can still hand a buyer a sandbox card form. When the deployment pins the payment environment explicitly, that pin governs and this flag only marks the transactions.
-  Future<void> postBillingMode() async {
-    final response = await postBillingModeWithHttpInfo();
+  /// Moves this org between sandbox money and real money.  It decides whether a charge hits a real card, so it is the one posture change that is not self-service: the platform bar, never an org owner, because an org that could put itself in test mode could take priced work for free.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+  ///
+  /// Parameters:
+  ///
+  /// * [ModeIn] modeIn (required):
+  Future<Mode?> postBillingMode(ModeIn modeIn,) async {
+    final response = await postBillingModeWithHttpInfo(modeIn,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Mode',) as Mode;
+    
+    }
+    return null;
   }
 
-  /// Save a card on a subject's behalf — the portal attach
+  /// Save a card or account for the caller
   ///
-  /// The service-token twin of POST /v1/billing/methods: it vaults the processor's one-time reference as a reusable card on file for the named subject, with its billing address, and moves no money doing it.  It exists so an internal caller can complete the family it can already read and detach. The subject it may name is pinned to the org the gateway fixed, so the service token acts WITHIN one tenant and never across tenants; a caller holding no service token is refused before the write.
+  /// Vaults the instrument at the processor and stores the row.  A saved method is a card or account VAULTED at the processor: what is stored here is the processor's token for it plus the last four digits and the expiry a customer recognises it by, never a card number.  The list is the caller's OWN — the wallet this request bills from, resolved server-side — so a query cannot widen it to another customer of the same org.  `/v1/billing/portal/methods` answers the same list under the name a hosted checkout addresses it by. One set of rows, two spellings; a card added at either is present at both.  Saving a card ALREADY on file answers with the row that already holds it rather than stacking a duplicate — 200 for that, 201 for a genuinely new row, so a client can tell which happened. A card the processor declines is 402 and nothing is stored.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> postBillingPortalMethodsWithHttpInfo() async {
@@ -1494,9 +1985,9 @@ class BillingApi {
     );
   }
 
-  /// Save a card on a subject's behalf — the portal attach
+  /// Save a card or account for the caller
   ///
-  /// The service-token twin of POST /v1/billing/methods: it vaults the processor's one-time reference as a reusable card on file for the named subject, with its billing address, and moves no money doing it.  It exists so an internal caller can complete the family it can already read and detach. The subject it may name is pinned to the org the gateway fixed, so the service token acts WITHIN one tenant and never across tenants; a caller holding no service token is refused before the write.
+  /// Vaults the instrument at the processor and stores the row.  A saved method is a card or account VAULTED at the processor: what is stored here is the processor's token for it plus the last four digits and the expiry a customer recognises it by, never a card number.  The list is the caller's OWN — the wallet this request bills from, resolved server-side — so a query cannot widen it to another customer of the same org.  `/v1/billing/portal/methods` answers the same list under the name a hosted checkout addresses it by. One set of rows, two spellings; a card added at either is present at both.  Saving a card ALREADY on file answers with the row that already holds it rather than stacking a duplicate — 200 for that, 201 for a genuinely new row, so a client can tell which happened. A card the processor declines is 402 and nothing is stored.
   Future<void> postBillingPortalMethods() async {
     final response = await postBillingPortalMethodsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -1504,9 +1995,9 @@ class BillingApi {
     }
   }
 
-  /// Platform sweep: top up every org whose balance has fallen below its own threshold
+  /// Recharge every org that has fallen below its threshold
   ///
-  /// Walks every organization and, for those that enabled auto-recharge and whose available balance (balance minus holds) has fallen under their configured threshold, charges their default payment method off-session and credits the balance, answering a per-org result row for each one it touched. This is the platform cron's door, not a customer's: it is gated on the internal service token AND platform scope, so an org admin cannot run the fleet-wide sweep. An org above its threshold is skipped silently; an org with no default payment method is reported as an uncharged row with the reason rather than failing the whole run.
+  /// Sweeps every organization and, for those with auto-recharge on whose available balance has dropped below their own threshold, charges the default card and credits the balance.  It charges cards across EVERY tenant, so it is platform authority only — never an org owner, who could otherwise sweep-charge saved cards estate-wide. Its caller is a schedule, not a person.  `orgs` is the population considered, not the row count: that difference is how a reader tells 'nobody was below threshold' from 'the sweep never ran'. One org's failure is reported in its own row and does not stop the rest.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> postBillingRechargeRunAllWithHttpInfo() async {
@@ -1534,9 +2025,9 @@ class BillingApi {
     );
   }
 
-  /// Platform sweep: top up every org whose balance has fallen below its own threshold
+  /// Recharge every org that has fallen below its threshold
   ///
-  /// Walks every organization and, for those that enabled auto-recharge and whose available balance (balance minus holds) has fallen under their configured threshold, charges their default payment method off-session and credits the balance, answering a per-org result row for each one it touched. This is the platform cron's door, not a customer's: it is gated on the internal service token AND platform scope, so an org admin cannot run the fleet-wide sweep. An org above its threshold is skipped silently; an org with no default payment method is reported as an uncharged row with the reason rather than failing the whole run.
+  /// Sweeps every organization and, for those with auto-recharge on whose available balance has dropped below their own threshold, charges the default card and credits the balance.  It charges cards across EVERY tenant, so it is platform authority only — never an org owner, who could otherwise sweep-charge saved cards estate-wide. Its caller is a schedule, not a person.  `orgs` is the population considered, not the row count: that difference is how a reader tells 'nobody was below threshold' from 'the sweep never ran'. One org's failure is reported in its own row and does not stop the rest.
   Future<void> postBillingRechargeRunAll() async {
     final response = await postBillingRechargeRunAllWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -1544,9 +2035,9 @@ class BillingApi {
     }
   }
 
-  /// Subscribe to a paid plan with a card, charged for the first period immediately
+  /// Buy a plan with a card
   ///
-  /// Vaults the tokenized card as a reusable card-on-file, charges the first period, and creates the subscription — answering the subscription and invoice ids with the amount charged. The price is SERVER-AUTHORITATIVE: it is the plan's catalog price times billable seats and a client-supplied amount is never consulted, so a scripted request cannot underpay; a per-seat plan below its minimum seats is refused, and a free plan is refused outright because this address is the paid path. The card PAN never reaches this service — the browser tokenizes it and only the single-use nonce arrives here. The subject is the caller's own org, with an in-org user honored only inside that bound, and an idempotency key (or, absent one, the nonce itself) makes a retry replay the first result instead of charging twice.
+  /// Vaults the card (or reuses one already on file), charges the plan's FIRST period at the catalog price, and opens the subscription — one act, all of it server-side.  There is NO AMOUNT in the request. `level` picks which of the plan's published prices to buy at — an index, never a number — so what the card is charged is decided by the catalog and underpaying cannot be expressed.  A fresh sale answers 201 with the receipt. An identical retry answers 200 with the FIRST sale's body, byte for byte, so a client cannot read a replay as a second subscription having been opened. A caller already on a paid plan is 409 rather than charged again.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> postBillingSubscribeCardWithHttpInfo() async {
@@ -1574,9 +2065,9 @@ class BillingApi {
     );
   }
 
-  /// Subscribe to a paid plan with a card, charged for the first period immediately
+  /// Buy a plan with a card
   ///
-  /// Vaults the tokenized card as a reusable card-on-file, charges the first period, and creates the subscription — answering the subscription and invoice ids with the amount charged. The price is SERVER-AUTHORITATIVE: it is the plan's catalog price times billable seats and a client-supplied amount is never consulted, so a scripted request cannot underpay; a per-seat plan below its minimum seats is refused, and a free plan is refused outright because this address is the paid path. The card PAN never reaches this service — the browser tokenizes it and only the single-use nonce arrives here. The subject is the caller's own org, with an in-org user honored only inside that bound, and an idempotency key (or, absent one, the nonce itself) makes a retry replay the first result instead of charging twice.
+  /// Vaults the card (or reuses one already on file), charges the plan's FIRST period at the catalog price, and opens the subscription — one act, all of it server-side.  There is NO AMOUNT in the request. `level` picks which of the plan's published prices to buy at — an index, never a number — so what the card is charged is decided by the catalog and underpaying cannot be expressed.  A fresh sale answers 201 with the receipt. An identical retry answers 200 with the FIRST sale's body, byte for byte, so a client cannot read a replay as a second subscription having been opened. A caller already on a paid plan is 409 rather than charged again.
   Future<void> postBillingSubscribeCard() async {
     final response = await postBillingSubscribeCardWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -1584,107 +2075,9 @@ class BillingApi {
     }
   }
 
-  /// Cancel a subscription, at period end by default
+  /// Add funds with a card already on file
   ///
-  /// Cancels the addressed subscription and answers its updated state, emitting the cancellation event the rest of the platform keys on. The default is to cancel AT PERIOD END — a body that fails to parse falls back to it — so the customer keeps what they paid for unless atPeriodEnd is explicitly false. The subscription is resolved inside the caller's own org namespace, so another tenant's id is a 404, and the write carries the browser anti-CSRF gate because it is reachable with an ambient cookie.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [String] id (required):
-  Future<Response> postBillingSubscriptionsByIdCancelWithHttpInfo(String id,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/billing/subscriptions/{id}/cancel'
-      .replaceAll('{id}', id);
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Cancel a subscription, at period end by default
-  ///
-  /// Cancels the addressed subscription and answers its updated state, emitting the cancellation event the rest of the platform keys on. The default is to cancel AT PERIOD END — a body that fails to parse falls back to it — so the customer keeps what they paid for unless atPeriodEnd is explicitly false. The subscription is resolved inside the caller's own org namespace, so another tenant's id is a 404, and the write carries the browser anti-CSRF gate because it is reachable with an ambient cookie.
-  ///
-  /// Parameters:
-  ///
-  /// * [String] id (required):
-  Future<void> postBillingSubscriptionsByIdCancel(String id,) async {
-    final response = await postBillingSubscriptionsByIdCancelWithHttpInfo(id,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
-  /// Undo a pending cancellation and keep the subscription running
-  ///
-  /// Clears the scheduled cancellation on the addressed subscription and answers its updated state. It is the inverse of cancel and applies to a subscription that is still within its period; one the engine will not reactivate is refused 400 with the reason. The subscription is resolved inside the caller's own org namespace, so another tenant's id reads as 404, and the write carries the browser anti-CSRF gate.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [String] id (required):
-  Future<Response> postBillingSubscriptionsByIdReactivateWithHttpInfo(String id,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/billing/subscriptions/{id}/reactivate'
-      .replaceAll('{id}', id);
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Undo a pending cancellation and keep the subscription running
-  ///
-  /// Clears the scheduled cancellation on the addressed subscription and answers its updated state. It is the inverse of cancel and applies to a subscription that is still within its period; one the engine will not reactivate is refused 400 with the reason. The subscription is resolved inside the caller's own org namespace, so another tenant's id reads as 404, and the write carries the browser anti-CSRF gate.
-  ///
-  /// Parameters:
-  ///
-  /// * [String] id (required):
-  Future<void> postBillingSubscriptionsByIdReactivate(String id,) async {
-    final response = await postBillingSubscriptionsByIdReactivateWithHttpInfo(id,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
-  /// Add credit to your balance by charging one of your saved cards
-  ///
-  /// Charges a card the caller already has on file, named by paymentMethodId, and credits the caller's own balance — the SAVED-card twin of topup/token, sharing the one charge-and-credit core the auto-recharge cron runs on. The credit lands on the caller's OWN billing subject: the request body's subject field is pinned to the caller before the handler sees it, so a top-up can never be redirected to another subject or outside the caller's org. It is screened for risk before any money moves, exactly as the token path is, because both credit the SPENDABLE wallet. The rule most callers get wrong is that paymentMethodId is NOT covered by that subject pin — it is a card id, not a subject key — so it is checked separately, and a card belonging to any other subject answers 404 rather than 403: a permission error would confirm the id exists, which is an ownership oracle over other people's cards.
+  /// Charges a saved card and credits the caller's prepaid wallet.  The method must belong to the caller: one that does not is NOT FOUND rather than refused, so an id cannot be probed for existence. A saved row whose card is no longer chargeable is 422 — add the card again — which is a different thing to do than a decline (402) or a bad amount (400).  Retries behave exactly as they do for a token top-up: same key, same replay, same exactly-once at the processor.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> postBillingTopupWithHttpInfo() async {
@@ -1712,9 +2105,9 @@ class BillingApi {
     );
   }
 
-  /// Add credit to your balance by charging one of your saved cards
+  /// Add funds with a card already on file
   ///
-  /// Charges a card the caller already has on file, named by paymentMethodId, and credits the caller's own balance — the SAVED-card twin of topup/token, sharing the one charge-and-credit core the auto-recharge cron runs on. The credit lands on the caller's OWN billing subject: the request body's subject field is pinned to the caller before the handler sees it, so a top-up can never be redirected to another subject or outside the caller's org. It is screened for risk before any money moves, exactly as the token path is, because both credit the SPENDABLE wallet. The rule most callers get wrong is that paymentMethodId is NOT covered by that subject pin — it is a card id, not a subject key — so it is checked separately, and a card belonging to any other subject answers 404 rather than 403: a permission error would confirm the id exists, which is an ownership oracle over other people's cards.
+  /// Charges a saved card and credits the caller's prepaid wallet.  The method must belong to the caller: one that does not is NOT FOUND rather than refused, so an id cannot be probed for existence. A saved row whose card is no longer chargeable is 422 — add the card again — which is a different thing to do than a decline (402) or a bad amount (400).  Retries behave exactly as they do for a token top-up: same key, same replay, same exactly-once at the processor.
   Future<void> postBillingTopup() async {
     final response = await postBillingTopupWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -1722,9 +2115,9 @@ class BillingApi {
     }
   }
 
-  /// Add credit to your balance by charging a tokenized card once
+  /// Add funds with a single-use card token
   ///
-  /// Charges the single-use card token for the given amount and credits the caller's own balance, answering the transaction id and the new balance — the one-time top-up path, with no payment method saved. The amount is bounded SERVER-SIDE (roughly a one dollar floor and a five thousand dollar ceiling by deployment policy) and the check runs before any money moves, because the browser cap is not a control against a scripted request. The credit lands on the caller's OWN billing subject — the same key the usage gate debits — and can never be redirected outside the caller's org. Retries are safe: an idempotency key, or absent one the amount within a short window, replays the first result, and if that guard store is unreachable the call is refused with 503 rather than risking a second real charge.
+  /// Charges a card token from the browser's payment SDK and credits the caller's prepaid wallet — the cold-customer path, where nothing has to be saved first.  The wallet credited is the CALLER'S OWN, resolved from their signed identity. It is never a value in the request: a client-set selector is how a customer once topped up one account while their usage drew from another.  `X-Idempotency-Key` makes a retry safe. With one, a repeat replays the first result; without one, the same amount from the same subject inside a short window does too. The key reaches the processor as well as our own guard, so the charge is exactly-once at the gateway even if our guard store is down.  The amount is bounded server-side. A decline is 402 and nothing is credited.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> postBillingTopupTokenWithHttpInfo() async {
@@ -1752,60 +2145,11 @@ class BillingApi {
     );
   }
 
-  /// Add credit to your balance by charging a tokenized card once
+  /// Add funds with a single-use card token
   ///
-  /// Charges the single-use card token for the given amount and credits the caller's own balance, answering the transaction id and the new balance — the one-time top-up path, with no payment method saved. The amount is bounded SERVER-SIDE (roughly a one dollar floor and a five thousand dollar ceiling by deployment policy) and the check runs before any money moves, because the browser cap is not a control against a scripted request. The credit lands on the caller's OWN billing subject — the same key the usage gate debits — and can never be redirected outside the caller's org. Retries are safe: an idempotency key, or absent one the amount within a short window, replays the first result, and if that guard store is unreachable the call is refused with 503 rather than risking a second real charge.
+  /// Charges a card token from the browser's payment SDK and credits the caller's prepaid wallet — the cold-customer path, where nothing has to be saved first.  The wallet credited is the CALLER'S OWN, resolved from their signed identity. It is never a value in the request: a client-set selector is how a customer once topped up one account while their usage drew from another.  `X-Idempotency-Key` makes a retry safe. With one, a repeat replays the first result; without one, the same amount from the same subject inside a short window does too. The key reaches the processor as well as our own guard, so the charge is exactly-once at the gateway even if our guard store is down.  The amount is bounded server-side. A decline is 402 and nothing is credited.
   Future<void> postBillingTopupToken() async {
     final response = await postBillingTopupTokenWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
-  /// Payment-provider webhook intake for settlement and subscription lifecycle events
-  ///
-  /// Accepts a payment provider's event, verifies it, records it for audit, and applies subscription lifecycle changes to the matching local row. There is no bearer here and there cannot be: the provider's SIGNATURE over the body IS the authentication, so a request with no recognized signature header is 400 and one whose signature does not verify is 401. The provider path segment is only a hint for dashboard configuration — verification picks the processor regardless of what the URL says. Redelivery is safe: an event id already recorded is acknowledged as a duplicate without re-applying any side effect, which matters because providers retry for days until they see a 2xx.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [String] provider (required):
-  Future<Response> postBillingWebhooksByProviderWithHttpInfo(String provider,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/billing/webhooks/{provider}'
-      .replaceAll('{provider}', provider);
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Payment-provider webhook intake for settlement and subscription lifecycle events
-  ///
-  /// Accepts a payment provider's event, verifies it, records it for audit, and applies subscription lifecycle changes to the matching local row. There is no bearer here and there cannot be: the provider's SIGNATURE over the body IS the authentication, so a request with no recognized signature header is 400 and one whose signature does not verify is 401. The provider path segment is only a hint for dashboard configuration — verification picks the processor regardless of what the URL says. Redelivery is safe: an event id already recorded is acknowledged as a duplicate without re-applying any side effect, which matters because providers retry for days until they see a 2xx.
-  ///
-  /// Parameters:
-  ///
-  /// * [String] provider (required):
-  Future<void> postBillingWebhooksByProvider(String provider,) async {
-    final response = await postBillingWebhooksByProviderWithHttpInfo(provider,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -1819,13 +2163,13 @@ class BillingApi {
   ///
   /// Parameters:
   ///
-  /// * [RaiseInvoiceIn] raiseInvoiceIn (required):
-  Future<Response> raiseInvoiceWithHttpInfo(RaiseInvoiceIn raiseInvoiceIn,) async {
+  /// * [RaiseIn] raiseIn (required):
+  Future<Response> raiseInvoiceWithHttpInfo(RaiseIn raiseIn,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/billing/invoices';
 
     // ignore: prefer_final_locals
-    Object? postBody = raiseInvoiceIn;
+    Object? postBody = raiseIn;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
@@ -1851,9 +2195,9 @@ class BillingApi {
   ///
   /// Parameters:
   ///
-  /// * [RaiseInvoiceIn] raiseInvoiceIn (required):
-  Future<InvoiceOut?> raiseInvoice(RaiseInvoiceIn raiseInvoiceIn,) async {
-    final response = await raiseInvoiceWithHttpInfo(raiseInvoiceIn,);
+  /// * [RaiseIn] raiseIn (required):
+  Future<Invoice?> raiseInvoice(RaiseIn raiseIn,) async {
+    final response = await raiseInvoiceWithHttpInfo(raiseIn,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -1861,7 +2205,68 @@ class BillingApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'InvoiceOut',) as InvoiceOut;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Invoice',) as Invoice;
+    
+    }
+    return null;
+  }
+
+  /// Put a canceled subscription back on its plan
+  ///
+  /// Puts a canceled subscription back on its plan.  What asks for this is usually a recovered payment method or a support tool rather than a browser, which is most of the argument for it having an address at all. The engine decides whether the move is legal; a row it will not reactivate comes back with its own reason.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///
+  /// * [SubscriptionRef] subscriptionRef (required):
+  Future<Response> reactivateSubscriptionWithHttpInfo(String id, SubscriptionRef subscriptionRef,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/billing/subscriptions/{id}/reactivate'
+      .replaceAll('{id}', id);
+
+    // ignore: prefer_final_locals
+    Object? postBody = subscriptionRef;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Put a canceled subscription back on its plan
+  ///
+  /// Puts a canceled subscription back on its plan.  What asks for this is usually a recovered payment method or a support tool rather than a browser, which is most of the argument for it having an address at all. The engine decides whether the move is legal; a row it will not reactivate comes back with its own reason.  A named handler, not a closure, so zipdoc can lift this prose into the registry.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///
+  /// * [SubscriptionRef] subscriptionRef (required):
+  Future<Subscription?> reactivateSubscription(String id, SubscriptionRef subscriptionRef,) async {
+    final response = await reactivateSubscriptionWithHttpInfo(id, subscriptionRef,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Subscription',) as Subscription;
     
     }
     return null;
@@ -1911,7 +2316,7 @@ class BillingApi {
   ///
   /// * [String] id (required):
   ///   ID is the invoice id.
-  Future<InvoiceOut?> voidInvoice(String id,) async {
+  Future<Invoice?> voidInvoice(String id,) async {
     final response = await voidInvoiceWithHttpInfo(id,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
@@ -1920,7 +2325,7 @@ class BillingApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'InvoiceOut',) as InvoiceOut;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Invoice',) as Invoice;
     
     }
     return null;

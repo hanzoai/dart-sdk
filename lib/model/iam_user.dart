@@ -201,7 +201,6 @@ class IamUser {
     this.yandex,
     this.zoom,
   });
-
   /// API credentials. AccessSecret / AccessSecretHash / the OAuth tokens are bearer material. AccessSecretHash MUST persist (orm stores via JSON; a json:\"-\" field is never saved), so it carries a real json tag and the handler's redact() strips it (and AccessSecret + the token fields) before responding.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

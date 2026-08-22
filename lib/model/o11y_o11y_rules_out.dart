@@ -16,7 +16,6 @@ class O11yO11yRulesOut {
     this.data = const [],
     this.status,
   });
-
   /// Data holds the rules.
   List<Object> data;
 

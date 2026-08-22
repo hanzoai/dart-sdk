@@ -18,7 +18,6 @@ class RiskHoldOut {
     this.hold,
     this.missing,
   });
-
   /// Changed is how many records moved into that state. A record already in it is not counted and is not an error: the op is idempotent, so a retry after a network failure is safe.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

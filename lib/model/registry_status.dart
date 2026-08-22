@@ -20,7 +20,6 @@ class RegistryStatus {
     this.realm,
     this.service,
   });
-
   /// Host is the OCI registry host clients push to and pull from.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

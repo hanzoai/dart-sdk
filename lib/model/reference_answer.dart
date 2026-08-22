@@ -27,7 +27,6 @@ class ReferenceAnswer {
     this.verdict,
     this.version,
   });
-
   /// Age is how old that is, as a duration.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

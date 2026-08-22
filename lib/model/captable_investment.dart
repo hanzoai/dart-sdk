@@ -22,7 +22,6 @@ class CaptableInvestment {
     this.stakeholderId,
     this.stakeholderName,
   });
-
   /// Amount is the cash invested.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

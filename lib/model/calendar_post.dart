@@ -24,7 +24,6 @@ class CalendarPost {
     this.title,
     this.updatedAt,
   });
-
   /// Body is the post text. Required.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -43,7 +42,7 @@ class CalendarPost {
   ///
   String? channel;
 
-  /// CreatedAt and UpdatedAt are unix seconds, both server-assigned.
+  /// CreatedAt is unix seconds when the post was added, server-assigned and never rewritten.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -106,6 +105,7 @@ class CalendarPost {
   ///
   String? title;
 
+  /// UpdatedAt is unix seconds of the last write, server-assigned. The durable sweep writes too — claiming a due post, publishing it and recording a failure each bump it — so this moves without anyone editing the post.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

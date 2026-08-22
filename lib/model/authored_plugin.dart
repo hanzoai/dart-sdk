@@ -20,7 +20,6 @@ class AuthoredPlugin {
     this.provider,
     this.source_,
   });
-
   /// CreatedAt is when the plugin was last built, Unix seconds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -18,7 +18,6 @@ class DataroomPageStat {
     this.totalDuration,
     this.views,
   });
-
   /// AvgDuration is totalDuration divided by views, rounded; 0 when unviewed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

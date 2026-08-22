@@ -15,7 +15,6 @@ class O11yLogsAssets {
   O11yLogsAssets({
     this.pipelines = const [],
   });
-
   List<O11yPostablePipeline> pipelines;
 
   @override

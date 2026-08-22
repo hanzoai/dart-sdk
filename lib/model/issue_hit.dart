@@ -24,7 +24,7 @@ class IssueHit {
     this.title,
     this.url,
   });
-
+  /// Assignee is who holds the work. EMPTY MEANS UNHELD, which is what makes the issue claimable: claiming one already held by someone else is refused with 409 rather than quietly taken.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -33,6 +33,7 @@ class IssueHit {
   ///
   String? assignee;
 
+  /// Kind is what the row IS: issue, pr or epic.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -41,6 +42,7 @@ class IssueHit {
   ///
   String? kind;
 
+  /// Number is the issue's number on that board, from 1 and monotonic there. Unique per board, never across the org — so it addresses an issue only together with Project.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -49,6 +51,7 @@ class IssueHit {
   ///
   int? number;
 
+  /// Priority is urgent, high, medium, low or none. Never empty — an unset priority is the value \"none\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -57,6 +60,7 @@ class IssueHit {
   ///
   String? priority;
 
+  /// Project is the board key the issue is on. It and Number are the issue's address in every other route on this surface, which is why a hit carries it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -65,6 +69,7 @@ class IssueHit {
   ///
   String? project;
 
+  /// Repo is the git repository the issue is bound to, empty when it is not repo-bound.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -73,6 +78,7 @@ class IssueHit {
   ///
   String? repo;
 
+  /// Source is which surface opened it: team, git, crm, helpdesk, cms or agent. \"git\" is how the mirrored forge and GitHub rows are spelled.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -81,6 +87,7 @@ class IssueHit {
   ///
   String? source_;
 
+  /// Status is the board column: backlog, todo, in_progress, done or canceled. Claiming moves backlog and todo to in_progress and leaves the other three where they are.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -89,6 +96,7 @@ class IssueHit {
   ///
   String? status;
 
+  /// Title is the issue's one-line summary — what the q filter matched, along with the description.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -97,6 +105,7 @@ class IssueHit {
   ///
   String? title;
 
+  /// URL is the row's external anchor — its extRef — which is a link only when the feeder sent one. A mirrored GitHub issue carries \"github:owner/repo#123\" and an agent's PR row carries the pushed branch. Empty for a row opened here.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

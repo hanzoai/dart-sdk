@@ -16,7 +16,6 @@ class GithubClaimIn {
     this.accounts = const [],
     this.all,
   });
-
   /// Accounts names GitHub logins the App is installed on (\"hanzoai\"). Matched case-insensitively, since GitHub logins are. Ignored when all is true.
   List<String> accounts;
 

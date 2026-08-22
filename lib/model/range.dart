@@ -16,7 +16,7 @@ class Range {
     this.end,
     this.start,
   });
-
+  /// End is the position just past the span, excluded — the range is half-open, so an empty range has Start equal to End.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -25,6 +25,7 @@ class Range {
   ///
   Position? end;
 
+  /// Start is the first position in the span, included.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

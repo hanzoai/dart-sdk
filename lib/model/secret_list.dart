@@ -15,7 +15,6 @@ class SecretList {
   SecretList({
     this.secrets = const [],
   });
-
   /// Secrets is one row per distinct (namespace, name) a function mounts. Values are NEVER read or returned.
   List<SecretView> secrets;
 

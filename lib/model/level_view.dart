@@ -17,7 +17,6 @@ class LevelView {
     this.level,
     this.rateBps,
   });
-
   /// DownlineCount is how many orgs sit exactly this many hops below the caller. It is 0 in the schedule quoted to a caller that has not applied, which has no downline to count.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

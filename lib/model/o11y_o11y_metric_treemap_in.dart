@@ -19,7 +19,6 @@ class O11yO11yMetricTreemapIn {
     required this.mode,
     required this.start,
   });
-
   /// End is the end of the window as a Unix timestamp in milliseconds. Required.
   int end;
 

@@ -20,7 +20,7 @@ class Call {
     this.status,
     this.to,
   });
-
+  /// Agent names the Hanzo assistant handling the call. Set means the call was answered by that assistant rather than connected to a person.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -29,6 +29,7 @@ class Call {
   ///
   String? agent;
 
+  /// From is the calling number in E.164. It must be one this org holds: a carrier refuses an origination from a number nobody proved they own.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -37,6 +38,7 @@ class Call {
   ///
   String? from;
 
+  /// ID is the carrier's handle for the call — what a hangup or a lookup names.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -45,6 +47,7 @@ class Call {
   ///
   String? id;
 
+  /// Org is the tenant the call was placed for or received by.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -53,7 +56,7 @@ class Call {
   ///
   String? org;
 
-  /// queued | ringing | answered | completed | failed
+  /// Status is where the call is: \"queued\", \"ringing\", \"answered\", \"completed\" or \"failed\". Only the last two are terminal.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -62,6 +65,7 @@ class Call {
   ///
   String? status;
 
+  /// To is the called number in E.164.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

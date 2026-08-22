@@ -16,7 +16,6 @@ class O11yO11yAnalyzeIn {
     required this.query,
     required this.queryType,
   });
-
   /// Query is the query text. Required.
   String query;
 

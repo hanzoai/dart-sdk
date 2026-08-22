@@ -18,7 +18,7 @@ class ControlCommandView {
     this.payload,
     this.seq,
   });
-
+  /// Command is what was asked, from a closed four: pause, resume, stop, message. It is an INTENT — the poller decides what to do about it, and the session's status changes only when the poller reports back that it did.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -27,6 +27,7 @@ class ControlCommandView {
   ///
   String? command;
 
+  /// Message is the text that came with the command: what to say into the run for `message`, and the cancellation reason for `stop`. Up to 16 KiB. Empty on a bare pause or resume.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -37,6 +38,7 @@ class ControlCommandView {
 
   Object? payload;
 
+  /// Seq is this command's position in the session's log — the same monotonic number every other turn is ordered by, so a command sits in the transcript where it was issued. Send the highest one you applied back as `after` and it is never redelivered.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

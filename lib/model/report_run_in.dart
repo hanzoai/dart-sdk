@@ -22,7 +22,6 @@ class ReportRunIn {
     this.ok,
     this.runId,
   });
-
   /// Branch, CommitSha and Diffstat describe what the run produced; Error is the failure when OK is false. Each is clamped, never rejected.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -32,6 +31,7 @@ class ReportRunIn {
   ///
   String? branch;
 
+  /// Changed says whether the run produced any commit. It is INDEPENDENT of OK: a run can succeed and change nothing (there was nothing to do), and a run can fail after committing some of its work. Two questions, two booleans.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -40,6 +40,7 @@ class ReportRunIn {
   ///
   bool? changed;
 
+  /// CommitSha is the tip the run pushed, clamped to 128 characters. Empty when it pushed nothing, which is the same case Changed reports false for.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -48,6 +49,7 @@ class ReportRunIn {
   ///
   String? commitSha;
 
+  /// Diffstat is the run's own summary of what it changed, as text, clamped to 64 KiB. Free-form: it is shown, never parsed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -56,6 +58,7 @@ class ReportRunIn {
   ///
   String? diffstat;
 
+  /// Error is why the run failed, clamped to 64 KiB. It is CLAMPED rather than refused — a truncated reason is worth more than a rejected report, because a rejected report leaves the durable workflow waiting forever.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

@@ -15,7 +15,6 @@ class O11yO11yMetricSeriesSet {
   O11yO11yMetricSeriesSet({
     this.series = const [],
   });
-
   /// Series are the time series.
   List<O11yO11yMetricSeries> series;
 

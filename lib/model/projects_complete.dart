@@ -23,7 +23,7 @@ class ProjectsComplete {
     this.slug,
     this.status,
   });
-
+  /// Bytes is their total size in bytes.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -32,6 +32,7 @@ class ProjectsComplete {
   ///
   int? bytes;
 
+  /// Commit is the revision that was built, recorded on the deployment.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -40,6 +41,7 @@ class ProjectsComplete {
   ///
   String? commit;
 
+  /// Files is how many objects CI published.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -60,6 +62,7 @@ class ProjectsComplete {
   /// Keys is the manifest CI just uploaded, RELATIVE to the deployment prefix. It is what replaces `aws s3 sync --delete`: an upload grant authorizes writes only, so CI cannot remove a file, and cloud reconciles the prefix against this list instead (grant.go). Omit it and nothing is deleted — the prefix only grows, which is the old pre-grant behaviour and a safe default.
   List<String> keys;
 
+  /// LiveURL is a HINT at the address the site should serve at. The public host is claimed by cloud first, so this can refine the URL a deployment reports but can never assert a subdomain another tenant holds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -68,6 +71,7 @@ class ProjectsComplete {
   ///
   String? liveUrl;
 
+  /// Message is what happened, in words — on an error completion, why it failed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -85,7 +89,7 @@ class ProjectsComplete {
   ///
   String? slug;
 
-  /// live | error
+  /// Status is how the build ended: `live` if it succeeded, `error` if it did not. Nothing else is accepted.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

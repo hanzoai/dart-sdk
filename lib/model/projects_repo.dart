@@ -17,7 +17,7 @@ class ProjectsRepo {
     this.provider,
     this.url,
   });
-
+  /// Branch is the ref a push has to touch for this project to rebuild. Pushes to any other branch are ignored.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -26,6 +26,7 @@ class ProjectsRepo {
   ///
   String? branch;
 
+  /// Provider is the forge the URL was recognised as — it decides which webhook and which credential reach the repository, and is DERIVED from the URL rather than chosen by the caller.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -34,6 +35,7 @@ class ProjectsRepo {
   ///
   String? provider;
 
+  /// URL is the clone address of the repository this project builds from.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

@@ -18,7 +18,7 @@ class ProgressView {
     this.percent,
     this.total,
   });
-
+  /// Done counts steps that are FINISHED — done and skipped alike, since a step the org deliberately passed over is not still owed. It therefore rises when somebody skips, which is the intended reading of a checklist.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -27,6 +27,7 @@ class ProgressView {
   ///
   int? done;
 
+  /// Next is the id of the step to do next: the first available, unfinished step in authoring order. Empty when the journey is complete, and also empty when every remaining step is blocked by a dependency.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -35,6 +36,7 @@ class ProgressView {
   ///
   String? next;
 
+  /// Percent is done/total as a whole number 0-100, rounded, so a caller renders a bar without recomputing it. Total zero reads as 0.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -43,6 +45,7 @@ class ProgressView {
   ///
   int? percent;
 
+  /// Total is how many steps this org's journey holds — the ENABLED steps of the playbook, so it shrinks when an operator disables one and does not match the authored step count.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

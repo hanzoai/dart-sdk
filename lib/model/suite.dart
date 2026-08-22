@@ -18,7 +18,6 @@ class Suite {
     this.endpoint,
     this.model,
   });
-
   /// Attempts is how many times to try each item; the harness's default applies when it is omitted.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

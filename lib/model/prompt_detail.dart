@@ -23,7 +23,6 @@ class PromptDetail {
     this.version,
     this.versionHistory = const [],
   });
-
   /// CreatedAt is when version 1 was written, RFC 3339 UTC. Appending a version does not move it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

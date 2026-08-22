@@ -17,7 +17,6 @@ class O11yO11yForgotPasswordIn {
     this.frontendBaseURL,
     this.orgId,
   });
-
   /// Email is the address to mail the reset link to. Required.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

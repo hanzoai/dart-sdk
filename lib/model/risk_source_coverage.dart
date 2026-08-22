@@ -17,7 +17,6 @@ class RiskSourceCoverage {
     this.source_,
     this.won,
   });
-
   /// Facts is how many assertions this source filed; Won is how many judged events it was the assertion in force for. A source with many facts and few wins is one that is being outranked, which is worth knowing before concluding it is wired correctly.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

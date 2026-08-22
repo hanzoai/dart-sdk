@@ -15,7 +15,6 @@ class NodesView {
   NodesView({
     this.nodes = const [],
   });
-
   /// Nodes is every node of the caller's org with a live socket to THIS replica, ordered by id. A node connected to a different replica is not in it.
   List<NodeView> nodes;
 

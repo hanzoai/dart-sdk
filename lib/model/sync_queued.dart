@@ -16,7 +16,6 @@ class SyncQueued {
     this.id,
     this.queued,
   });
-
   /// ID is the sync the reconcile was queued for.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

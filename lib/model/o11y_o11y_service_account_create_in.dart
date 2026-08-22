@@ -15,7 +15,6 @@ class O11yO11yServiceAccountCreateIn {
   O11yO11yServiceAccountCreateIn({
     this.name,
   });
-
   /// Name is the account's name: a lowercase letter followed by lowercase letters, digits or hyphens, at most 50 characters. Required.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

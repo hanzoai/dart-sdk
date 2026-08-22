@@ -28,7 +28,6 @@ class DataroomLink {
     this.name,
     this.updatedAt,
   });
-
   /// AllowDownload is whether a visitor may download, rather than only view.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

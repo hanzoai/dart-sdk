@@ -17,7 +17,6 @@ class GithubPagesBuildOut {
     this.status,
     this.url,
   });
-
   /// Repo is the repository the build was queued for.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

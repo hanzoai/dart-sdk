@@ -18,7 +18,6 @@ class UpdateEndpointIn {
     this.status,
     this.url,
   });
-
   /// Description is a free-text label for the console. Optional, clipped to 1024 bytes.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

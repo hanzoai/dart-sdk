@@ -15,7 +15,6 @@ class IamApplicationListResult {
   IamApplicationListResult({
     this.applications = const [],
   });
-
   List<IamApplication> applications;
 
   @override

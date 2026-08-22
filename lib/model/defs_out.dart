@@ -15,7 +15,6 @@ class DefsOut {
   DefsOut({
     this.data = const [],
   });
-
   /// Data is every definition in the caller's (org, project) store, by key.
   List<DefRow> data;
 

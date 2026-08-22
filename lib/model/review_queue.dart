@@ -16,7 +16,6 @@ class ReviewQueue {
     this.count,
     this.queue = const [],
   });
-
   /// Count is how many founders are waiting.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

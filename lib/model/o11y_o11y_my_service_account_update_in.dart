@@ -15,7 +15,6 @@ class O11yO11yMyServiceAccountUpdateIn {
   O11yO11yMyServiceAccountUpdateIn({
     this.name,
   });
-
   /// Name is the account's new name, under the same rules it was created with. Required.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

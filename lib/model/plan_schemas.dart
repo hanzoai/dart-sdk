@@ -16,7 +16,6 @@ class PlanSchemas {
     this.entitlements,
     this.plan,
   });
-
   Object? entitlements;
 
   Object? plan;

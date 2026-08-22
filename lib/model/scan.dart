@@ -16,7 +16,6 @@ class Scan {
     this.content,
     this.path,
   });
-
   /// Content is the source to scan. It is NEVER stored: what persists is the finding, with a masked preview and a fingerprint.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

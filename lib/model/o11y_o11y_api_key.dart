@@ -21,7 +21,6 @@ class O11yO11yAPIKey {
     this.serviceAccountId,
     this.updatedAt,
   });
-
   /// CreatedAt is when the key was minted.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -30,7 +30,6 @@ class FunctionView {
     this.target,
     this.timeoutSec,
   });
-
   /// mean wall-clock of those runs
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

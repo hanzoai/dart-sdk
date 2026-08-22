@@ -17,7 +17,6 @@ class AccountsOut {
     this.scope,
     this.tenant,
   });
-
   /// Accounts are the ledger accounts in scope with their balances.
   List<AccountView> accounts;
 

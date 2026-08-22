@@ -16,7 +16,6 @@ class O11yO11yOrgStatsOut {
     this.data = const {},
     this.status,
   });
-
   /// Data are the statistics, keyed by the reporter's own counter names.
   Map<String, Object> data;
 

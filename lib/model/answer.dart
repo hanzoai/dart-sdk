@@ -25,7 +25,6 @@ class Answer {
     this.rev,
     this.symbols = const [],
   });
-
   /// Cold reports that this request paid to PREPARE the revision — the tree write, the dependency fetch and the language server's first index. It is the billed event, surfaced so a caller can see what it was charged for.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -35,10 +34,13 @@ class Answer {
   ///
   bool? cold;
 
+  /// Completions is complete's answer: the candidates at the position, typed and resolved through the repository's dependencies rather than guessed from text.
   List<Completion> completions;
 
+  /// Diagnostics is diagnostics' answer: every problem the server finds in the whole file, position ignored. Empty means it found none.
   List<Diagnostic> diagnostics;
 
+  /// Hover is hover's answer: the type and documentation as the language server itself renders them, so it is prose meant to be shown, not parsed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -47,6 +49,7 @@ class Answer {
   ///
   String? hover;
 
+  /// Lang is the language the server that answered speaks (\"go\"), as the daemon reports it. Empty when the daemon named none.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -55,8 +58,10 @@ class Answer {
   ///
   String? lang;
 
+  /// Locations is locate's answer: where the symbol is defined, referenced, typed or implemented, per the relation asked for. Empty means the server resolved nothing there, which is an answer.
   List<Location> locations;
 
+  /// Op is the question that was asked: hover, locate, symbols, diagnostics or complete. It names which result field below is the populated one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -65,6 +70,7 @@ class Answer {
   ///
   String? op;
 
+  /// Path is the repo-relative file the question was about, echoed back.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -73,6 +79,7 @@ class Answer {
   ///
   String? path;
 
+  /// Repo is the repository the question was about, echoed back.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -81,6 +88,7 @@ class Answer {
   ///
   String? repo;
 
+  /// Rev is the RESOLVED commit sha, never the branch or tag that was asked for. It is what makes an answer re-askable: a branch moves, this does not.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -89,6 +97,7 @@ class Answer {
   ///
   String? rev;
 
+  /// Symbols is symbols' answer: the file's whole outline, position ignored.
   List<CodeSymbol> symbols;
 
   @override

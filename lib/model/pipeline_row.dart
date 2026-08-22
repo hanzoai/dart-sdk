@@ -20,7 +20,6 @@ class PipelineRow {
     this.repo,
     this.status,
   });
-
   /// Duration is how long that run took; empty while it is still queued or building.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -16,7 +16,6 @@ class O11yO11yErrorGettableIssue {
     this.issue,
     this.latestEvent,
   });
-
   /// Issue is the lifecycle row.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -23,7 +23,7 @@ class Blueprint {
     this.title,
     this.version,
   });
-
+  /// Brand is the white-label key this playbook serves. Empty is the shared default every unbranded deployment falls back to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -32,6 +32,7 @@ class Blueprint {
   ///
   String? brand;
 
+  /// Enabled is the whole-playbook lever. Absent reads as ON; an explicit false makes resolution skip this playbook entirely and fall through to the next tier, rather than serving an empty journey.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -40,17 +41,22 @@ class Blueprint {
   ///
   bool? enabled;
 
-  /// the 64-principle spine (Zen of Hanzo archetypes)
+  /// Principles are the fixed 64-archetype spine a tactic files under. It is authored data an operator organises the corpus by; nothing in the checklist engine reads it.
   List<Principle> principles;
 
+  /// Sections are the journey's ordered phases.
   List<Section> sections;
 
+  /// Steps are every checklist item, disabled ones included — this is the authored document, not the projection an org runs.
   List<JourneyStep> steps;
 
+  /// Strategies are the tactics corpus the recommendation reads narrow.
   List<Strategy> strategies;
 
+  /// Templates are the reusable prompts and snippets steps reference by id.
   List<Page> templates;
 
+  /// Title is the playbook's name as a person reads it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -59,6 +65,7 @@ class Blueprint {
   ///
   String? title;
 
+  /// Version is the playbook's own name for this edition of its content, chosen by whoever authored it. It travels onto every journey projected from it. The store's numeric revision is a separate value and lives beside it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

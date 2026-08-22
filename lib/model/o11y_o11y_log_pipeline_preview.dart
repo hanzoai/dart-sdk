@@ -16,7 +16,6 @@ class O11yO11yLogPipelinePreview {
     this.collectorLogs = const [],
     this.logs = const [],
   });
-
   /// CollectorLogs is what the collector logged while simulating.
   List<String> collectorLogs;
 

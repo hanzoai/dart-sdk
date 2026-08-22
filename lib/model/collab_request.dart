@@ -17,7 +17,6 @@ class CollabRequest {
     this.method,
     this.payload,
   });
-
   /// DocumentID addresses the document field, as \"<workspaceUuid>|<objectClass>|<objectId>|<objectAttr>\" — the collaborator-client encodeDocumentId shape, from the path.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

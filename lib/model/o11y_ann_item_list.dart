@@ -16,7 +16,6 @@ class O11yAnnItemList {
     this.data = const [],
     this.meta,
   });
-
   /// Data is the page of items.
   List<O11yAnnItemView> data;
 

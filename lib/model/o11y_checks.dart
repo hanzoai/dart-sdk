@@ -22,7 +22,6 @@ class O11yChecks {
     this.ready,
     this.type,
   });
-
   List<O11yMissingMetricsComponentEntry> missingDefaultEnabledMetrics;
 
   List<O11yMissingMetricsComponentEntry> missingOptionalMetrics;

@@ -17,7 +17,6 @@ class CrmSummary {
     this.contacts,
     this.opportunities,
   });
-
   /// Companies is how many companies the org has.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

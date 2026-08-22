@@ -29,13 +29,11 @@ class IamCert {
     this.id,
     this.name,
     this.owner,
-    this.privateKey,
     this.provider,
     this.scope,
     this.type,
     this.updatedAt,
   });
-
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -170,14 +168,6 @@ class IamCert {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? privateKey;
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
   String? provider;
 
   ///
@@ -222,7 +212,6 @@ class IamCert {
     other.id == id &&
     other.name == name &&
     other.owner == owner &&
-    other.privateKey == privateKey &&
     other.provider == provider &&
     other.scope == scope &&
     other.type == type &&
@@ -247,14 +236,13 @@ class IamCert {
     (id == null ? 0 : id!.hashCode) +
     (name == null ? 0 : name!.hashCode) +
     (owner == null ? 0 : owner!.hashCode) +
-    (privateKey == null ? 0 : privateKey!.hashCode) +
     (provider == null ? 0 : provider!.hashCode) +
     (scope == null ? 0 : scope!.hashCode) +
     (type == null ? 0 : type!.hashCode) +
     (updatedAt == null ? 0 : updatedAt!.hashCode);
 
   @override
-  String toString() => 'IamCert[accessKey=$accessKey, accessSecret=$accessSecret, account=$account, bitSize=$bitSize, certificate=$certificate, createdAt=$createdAt, createdTime=$createdTime, cryptoAlgorithm=$cryptoAlgorithm, deleted=$deleted, displayName=$displayName, domainExpireTime=$domainExpireTime, expireInYears=$expireInYears, expireTime=$expireTime, id=$id, name=$name, owner=$owner, privateKey=$privateKey, provider=$provider, scope=$scope, type=$type, updatedAt=$updatedAt]';
+  String toString() => 'IamCert[accessKey=$accessKey, accessSecret=$accessSecret, account=$account, bitSize=$bitSize, certificate=$certificate, createdAt=$createdAt, createdTime=$createdTime, cryptoAlgorithm=$cryptoAlgorithm, deleted=$deleted, displayName=$displayName, domainExpireTime=$domainExpireTime, expireInYears=$expireInYears, expireTime=$expireTime, id=$id, name=$name, owner=$owner, provider=$provider, scope=$scope, type=$type, updatedAt=$updatedAt]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -338,11 +326,6 @@ class IamCert {
     } else {
       json[r'owner'] = null;
     }
-    if (this.privateKey != null) {
-      json[r'privateKey'] = this.privateKey;
-    } else {
-      json[r'privateKey'] = null;
-    }
     if (this.provider != null) {
       json[r'provider'] = this.provider;
     } else {
@@ -401,7 +384,6 @@ class IamCert {
         id: mapValueOfType<String>(json, r'id'),
         name: mapValueOfType<String>(json, r'name'),
         owner: mapValueOfType<String>(json, r'owner'),
-        privateKey: mapValueOfType<String>(json, r'privateKey'),
         provider: mapValueOfType<String>(json, r'provider'),
         scope: mapValueOfType<String>(json, r'scope'),
         type: mapValueOfType<String>(json, r'type'),

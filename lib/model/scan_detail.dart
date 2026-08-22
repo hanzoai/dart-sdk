@@ -16,7 +16,6 @@ class ScanDetail {
     this.findings = const [],
     this.scan,
   });
-
   /// Findings is every finding on that scan, so the detail view is one round-trip.
   List<FindingView> findings;
 

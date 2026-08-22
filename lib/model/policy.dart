@@ -24,7 +24,6 @@ class Policy {
     this.updatedBy,
     this.windowSec,
   });
-
   /// CachePaths overrides CacheTTLSec per path PREFIX (key \"/v1/models\" → seconds). The longest matching prefix wins.
   Map<String, int> cachePaths;
 

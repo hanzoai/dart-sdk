@@ -15,7 +15,6 @@ class O11yGettableServicesMetadata {
   O11yGettableServicesMetadata({
     this.services = const [],
   });
-
   List<O11yServiceMetadata> services;
 
   @override

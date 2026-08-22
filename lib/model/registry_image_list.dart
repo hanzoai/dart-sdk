@@ -16,7 +16,6 @@ class RegistryImageList {
     this.data = const [],
     this.truncated,
   });
-
   /// Data is the org's repositories.
   List<RegistryImage> data;
 

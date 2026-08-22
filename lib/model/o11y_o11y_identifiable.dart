@@ -15,7 +15,6 @@ class O11yO11yIdentifiable {
   O11yO11yIdentifiable({
     this.id,
   });
-
   /// ID is the created resource's id.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

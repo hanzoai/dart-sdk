@@ -21,7 +21,6 @@ class Offer {
     this.renewalPriceCents,
     this.tld,
   });
-
   /// whether it can be bought right now
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -17,7 +17,6 @@ class ReferenceOut {
     this.overrides = const [],
     this.set_,
   });
-
   /// Next is the key to page from, empty when this is the last page.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

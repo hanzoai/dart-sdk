@@ -18,7 +18,6 @@ class BusRequest {
     this.subject,
     this.timeoutMs,
   });
-
   /// Data is the request payload, carried verbatim as UTF-8 text.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

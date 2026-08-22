@@ -16,7 +16,6 @@ class GithubSearchReq {
     this.limit,
     this.q,
   });
-
   /// Limit caps the answer; 0 takes the default and anything above the ceiling is clamped rather than refused.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -17,7 +17,6 @@ class TLSConfig {
     this.extraHosts = const [],
     this.staging,
   });
-
   /// ACMEEmail is the ACME account email. It binds an account for the lifetime of an edge process, so it applies only when the edge (re)starts.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

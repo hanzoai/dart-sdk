@@ -20,7 +20,6 @@ class BotRun {
     this.surface,
     this.task,
   });
-
   /// RunID is the run's id in the bot runtime, and the node id its live VNC session is registered under.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

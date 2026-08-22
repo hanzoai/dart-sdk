@@ -15,6 +15,7 @@ class IamWebauthnCredential {
   IamWebauthnCredential({
     this.aaguid,
     this.attachment,
+    this.attestationFormat,
     this.attestationType,
     this.backupEligible,
     this.backupState,
@@ -34,7 +35,6 @@ class IamWebauthnCredential {
     this.userPresent,
     this.userVerified,
   });
-
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -50,6 +50,15 @@ class IamWebauthnCredential {
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
   String? attachment;
+
+  /// AttestationFormat is the statement format the authenticator attested in (\"packed\", \"apple\", \"none\", …), which is a DIFFERENT value from the attestation type above. The library reads it back when resolving the FIDO AppID extension, so a row that dropped it would round-trip a credential the verifier no longer recognises as the one it stored.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? attestationFormat;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -193,6 +202,7 @@ class IamWebauthnCredential {
   bool operator ==(Object other) => identical(this, other) || other is IamWebauthnCredential &&
     other.aaguid == aaguid &&
     other.attachment == attachment &&
+    other.attestationFormat == attestationFormat &&
     other.attestationType == attestationType &&
     other.backupEligible == backupEligible &&
     other.backupState == backupState &&
@@ -217,6 +227,7 @@ class IamWebauthnCredential {
     // ignore: unnecessary_parenthesis
     (aaguid == null ? 0 : aaguid!.hashCode) +
     (attachment == null ? 0 : attachment!.hashCode) +
+    (attestationFormat == null ? 0 : attestationFormat!.hashCode) +
     (attestationType == null ? 0 : attestationType!.hashCode) +
     (backupEligible == null ? 0 : backupEligible!.hashCode) +
     (backupState == null ? 0 : backupState!.hashCode) +
@@ -237,7 +248,7 @@ class IamWebauthnCredential {
     (userVerified == null ? 0 : userVerified!.hashCode);
 
   @override
-  String toString() => 'IamWebauthnCredential[aaguid=$aaguid, attachment=$attachment, attestationType=$attestationType, backupEligible=$backupEligible, backupState=$backupState, cloneWarning=$cloneWarning, createdAt=$createdAt, createdTime=$createdTime, credentialId=$credentialId, deleted=$deleted, id=$id, name=$name, owner=$owner, publicKey=$publicKey, signCount=$signCount, transport=$transport, updatedAt=$updatedAt, user=$user, userPresent=$userPresent, userVerified=$userVerified]';
+  String toString() => 'IamWebauthnCredential[aaguid=$aaguid, attachment=$attachment, attestationFormat=$attestationFormat, attestationType=$attestationType, backupEligible=$backupEligible, backupState=$backupState, cloneWarning=$cloneWarning, createdAt=$createdAt, createdTime=$createdTime, credentialId=$credentialId, deleted=$deleted, id=$id, name=$name, owner=$owner, publicKey=$publicKey, signCount=$signCount, transport=$transport, updatedAt=$updatedAt, user=$user, userPresent=$userPresent, userVerified=$userVerified]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -250,6 +261,11 @@ class IamWebauthnCredential {
       json[r'attachment'] = this.attachment;
     } else {
       json[r'attachment'] = null;
+    }
+    if (this.attestationFormat != null) {
+      json[r'attestationFormat'] = this.attestationFormat;
+    } else {
+      json[r'attestationFormat'] = null;
     }
     if (this.attestationType != null) {
       json[r'attestationType'] = this.attestationType;
@@ -361,6 +377,7 @@ class IamWebauthnCredential {
       return IamWebauthnCredential(
         aaguid: mapValueOfType<String>(json, r'aaguid'),
         attachment: mapValueOfType<String>(json, r'attachment'),
+        attestationFormat: mapValueOfType<String>(json, r'attestationFormat'),
         attestationType: mapValueOfType<String>(json, r'attestationType'),
         backupEligible: mapValueOfType<bool>(json, r'backupEligible'),
         backupState: mapValueOfType<bool>(json, r'backupState'),

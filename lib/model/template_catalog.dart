@@ -16,7 +16,6 @@ class TemplateCatalog {
     this.data = const [],
     this.disclaimer,
   });
-
   /// Data is the catalog, metadata and merge fields only — never the template bodies, which are fetched one at a time.
   List<TemplateView> data;
 

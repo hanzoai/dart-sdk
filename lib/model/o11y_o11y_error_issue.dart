@@ -33,7 +33,6 @@ class O11yO11yErrorIssue {
     this.updatedAt,
     this.value,
   });
-
   /// Assignee is who the issue is assigned to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

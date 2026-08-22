@@ -15,7 +15,6 @@ class O11yAWSAccountConfig {
   O11yAWSAccountConfig({
     this.regions = const [],
   });
-
   List<String> regions;
 
   @override

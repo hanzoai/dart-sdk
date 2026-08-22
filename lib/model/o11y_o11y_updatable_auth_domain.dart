@@ -15,7 +15,6 @@ class O11yO11yUpdatableAuthDomain {
   O11yO11yUpdatableAuthDomain({
     this.config,
   });
-
   /// Config is the SSO configuration to store.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

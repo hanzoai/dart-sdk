@@ -15,7 +15,6 @@ class RouterList {
   RouterList({
     this.routers = const [],
   });
-
   /// Routers is one row per ZT edge-router tagged with the caller's org role.
   List<RouterView> routers;
 

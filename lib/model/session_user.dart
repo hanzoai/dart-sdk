@@ -20,7 +20,6 @@ class SessionUser {
     this.logoutUrl,
     this.username,
   });
-
   /// Groups is the caller's group list, always empty here: this console authorizes on the platform SuperAdmin fact alone, not on argocd RBAC groups. Absent for an anonymous caller.
   List<String> groups;
 

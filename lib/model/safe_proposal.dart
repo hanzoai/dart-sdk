@@ -19,7 +19,6 @@ class SafeProposal {
     this.safeTxHash,
     this.walletId,
   });
-
   /// R is the r component of the MPC threshold signature over the Safe-tx hash.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

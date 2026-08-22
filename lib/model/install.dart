@@ -17,7 +17,6 @@ class Install {
     this.existing = const [],
     this.module,
   });
-
   List<String> created;
 
   List<String> existing;

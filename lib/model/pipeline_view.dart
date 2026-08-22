@@ -21,7 +21,6 @@ class PipelineView {
     this.project,
     this.updatedAt,
   });
-
   /// CreatedAt is when the pipeline was first stored, RFC3339 UTC. Absent on the default.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

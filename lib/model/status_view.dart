@@ -17,7 +17,6 @@ class StatusView {
     this.provider,
     this.verifications,
   });
-
   /// Disclaimer states that statuses are provider-reported, never a platform assertion of legal or regulatory compliance.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -16,7 +16,6 @@ class O11yO11yTestRuleOut {
     this.data,
     this.status,
   });
-
   /// Data holds how many series would alert.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

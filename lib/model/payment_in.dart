@@ -18,7 +18,6 @@ class PaymentIn {
     this.idempotencyKey,
     this.sourceId,
   });
-
   /// AmountCents is the amount to charge, in whole cents (5000 is $50.00). Server-side bounds apply and are authoritative — the default floor is $1 and the ceiling $5,000, so a fat-fingered or hostile amount is refused before any money moves.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

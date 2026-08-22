@@ -16,7 +16,6 @@ class O11yO11yMetricLabel {
     this.key,
     this.value,
   });
-
   /// Key is the label's field.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

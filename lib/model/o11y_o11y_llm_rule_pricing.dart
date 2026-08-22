@@ -17,7 +17,6 @@ class O11yO11yLLMRulePricing {
     this.input,
     this.output,
   });
-
   /// Cache is the cost of cached tokens, when the model prices them.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

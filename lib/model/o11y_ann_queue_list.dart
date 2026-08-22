@@ -16,7 +16,6 @@ class O11yAnnQueueList {
     this.data = const [],
     this.meta,
   });
-
   /// Data is the page of queues.
   List<O11yAnnQueueView> data;
 

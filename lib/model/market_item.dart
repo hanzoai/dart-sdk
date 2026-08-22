@@ -24,7 +24,6 @@ class MarketItem {
     this.source_,
     this.title,
   });
-
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -33,6 +32,7 @@ class MarketItem {
   ///
   bool? activated;
 
+  /// Category is that same listing's grouping. Free text chosen by the publisher, absent when there is no public listing or the publisher left it blank.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -59,6 +59,7 @@ class MarketItem {
 
   Object? inputSchema;
 
+  /// Installed is whether the tool is activated for THIS caller's (org, project): the same bit as Activated, under the shop's name for it, which install and uninstall are the writes for. It is per caller, so one listing reads installed for one org and not for another.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -91,6 +92,7 @@ class MarketItem {
   ///
   String? source_;
 
+  /// Title is the shop-window name, painted over the registry Name from the CHEAPEST public listing for this tool — several orgs may list the same one, and the row shown is the one a buyer would pay. Absent when no org has listed the tool publicly: that row is a plain capability, not an offer.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

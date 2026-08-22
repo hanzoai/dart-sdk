@@ -16,7 +16,6 @@ class O11yO11yRuleStateContributorsOut {
     this.data = const [],
     this.status,
   });
-
   /// Data holds the contributors.
   List<O11yRuleStateHistoryContributor> data;
 

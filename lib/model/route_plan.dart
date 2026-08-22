@@ -17,7 +17,6 @@ class RoutePlan {
     this.generatedAt,
     this.primary,
   });
-
   /// Candidates is every linked account in preference order: subscriptions first, then metered api-key accounts as the backstop.
   List<RouteCandidate> candidates;
 

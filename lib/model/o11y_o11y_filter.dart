@@ -17,7 +17,6 @@ class O11yO11yFilter {
     this.op,
     this.value,
   });
-
   /// Field is the column to test.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

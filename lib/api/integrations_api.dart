@@ -16,6 +16,65 @@ class IntegrationsApi {
 
   final ApiClient apiClient;
 
+  /// Forgets a connector: every custodied secret, then the row.
+  ///
+  /// Forgets a connector: every custodied secret, then the row. Idempotent — dropping a never-connected id still answers {disconnected:true} (disconnect() parity). No provider Revoke: none of the user-plane providers exposes a revoke endpoint.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the connector id, provider + \":\" + label (\"openai:default\") — the auth-profile-id shape. Another user's id is simply no row, so 404.
+  Future<Response> deleteIntegrationsConnectorsByIdWithHttpInfo(String id,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/integrations/connectors/{id}'
+      .replaceAll('{id}', id);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'DELETE',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Forgets a connector: every custodied secret, then the row.
+  ///
+  /// Forgets a connector: every custodied secret, then the row. Idempotent — dropping a never-connected id still answers {disconnected:true} (disconnect() parity). No provider Revoke: none of the user-plane providers exposes a revoke endpoint.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the connector id, provider + \":\" + label (\"openai:default\") — the auth-profile-id shape. Another user's id is simply no row, so 404.
+  Future<DisconnectOut?> deleteIntegrationsConnectorsById(String id,) async {
+    final response = await deleteIntegrationsConnectorsByIdWithHttpInfo(id,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'DisconnectOut',) as DisconnectOut;
+    
+    }
+    return null;
+  }
+
   /// Deletes the repo's Pages site.
   ///
   /// Deletes the repo's Pages site. 404 when there is none, so a caller can tell \"turned it off\" from \"there was nothing on\".
@@ -77,7 +136,7 @@ class IntegrationsApi {
 
   /// Returns every registered integration provider together with THIS org's connection status for it — the catalog the console's Integrations page renders.
   ///
-  /// Returns every registered integration provider together with THIS org's connection status for it — the catalog the console's Integrations page renders. Org-authed: a caller with no validated principal is 403, because the status is per-org and there is no org-less answer. User-plane providers (the /v1/connectors surface) are omitted; the two planes are disjoint.
+  /// Returns every registered integration provider together with THIS org's connection status for it — the catalog the console's Integrations page renders. Org-authed: a caller with no validated principal is 403, because the status is per-org and there is no org-less answer. User-plane providers (the /v1/integrations/connectors surface) are omitted; the two planes are disjoint.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getIntegrationsWithHttpInfo() async {
@@ -107,7 +166,7 @@ class IntegrationsApi {
 
   /// Returns every registered integration provider together with THIS org's connection status for it — the catalog the console's Integrations page renders.
   ///
-  /// Returns every registered integration provider together with THIS org's connection status for it — the catalog the console's Integrations page renders. Org-authed: a caller with no validated principal is 403, because the status is per-org and there is no org-less answer. User-plane providers (the /v1/connectors surface) are omitted; the two planes are disjoint.
+  /// Returns every registered integration provider together with THIS org's connection status for it — the catalog the console's Integrations page renders. Org-authed: a caller with no validated principal is 403, because the status is per-org and there is no org-less answer. User-plane providers (the /v1/integrations/connectors surface) are omitted; the two planes are disjoint.
   Future<ListOut?> getIntegrations() async {
     final response = await getIntegrationsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -132,7 +191,7 @@ class IntegrationsApi {
   /// Parameters:
   ///
   /// * [String] provider (required):
-  ///   Provider is the registry id of the connector — \"slack\", \"github\", \"cloudflare\". Unknown ids are 404, as are the user-plane (/v1/connectors) providers, which this surface never resolves.
+  ///   Provider is the registry id of the connector — \"slack\", \"github\", \"cloudflare\". Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves.
   Future<Response> getIntegrationsByProviderWithHttpInfo(String provider,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/integrations/{provider}'
@@ -166,7 +225,7 @@ class IntegrationsApi {
   /// Parameters:
   ///
   /// * [String] provider (required):
-  ///   Provider is the registry id of the connector — \"slack\", \"github\", \"cloudflare\". Unknown ids are 404, as are the user-plane (/v1/connectors) providers, which this surface never resolves.
+  ///   Provider is the registry id of the connector — \"slack\", \"github\", \"cloudflare\". Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves.
   Future<ProviderView?> getIntegrationsByProvider(String provider,) async {
     final response = await getIntegrationsByProviderWithHttpInfo(provider,);
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -229,6 +288,161 @@ class IntegrationsApi {
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+  }
+
+  /// Lists the caller's OWN connectors across every provider — the set `hanzo connector ls` prints.
+  ///
+  /// Lists the caller's OWN connectors across every provider — the set `hanzo connector ls` prints. Rows are keyed (org,user), so this can never surface another user's connector, and no secret is in the view.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> getIntegrationsConnectorsWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/integrations/connectors';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Lists the caller's OWN connectors across every provider — the set `hanzo connector ls` prints.
+  ///
+  /// Lists the caller's OWN connectors across every provider — the set `hanzo connector ls` prints. Rows are keyed (org,user), so this can never surface another user's connector, and no secret is in the view.
+  Future<ConnectorsOut?> getIntegrationsConnectors() async {
+    final response = await getIntegrationsConnectorsWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'ConnectorsOut',) as ConnectorsOut;
+    
+    }
+    return null;
+  }
+
+  /// Hands the custodied access token to its owner — the ONE place custody exits.
+  ///
+  /// Hands the custodied access token to its owner — the ONE place custody exits. The (org,user)-keyed row IS the same-user gate: another user's id is simply \"no row\" → 404. fresh() auto-rotates within the refreshSkew window; static providers degenerate to a plain kmsGet of Secrets[0]. Refresh tokens are NEVER returned — custody keeps the sink. The token is never logged.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the connector id, provider + \":\" + label (\"openai:default\") — the auth-profile-id shape. Another user's id is simply no row, so 404.
+  Future<Response> getIntegrationsConnectorsByIdTokenWithHttpInfo(String id,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/integrations/connectors/{id}/token'
+      .replaceAll('{id}', id);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Hands the custodied access token to its owner — the ONE place custody exits.
+  ///
+  /// Hands the custodied access token to its owner — the ONE place custody exits. The (org,user)-keyed row IS the same-user gate: another user's id is simply \"no row\" → 404. fresh() auto-rotates within the refreshSkew window; static providers degenerate to a plain kmsGet of Secrets[0]. Refresh tokens are NEVER returned — custody keeps the sink. The token is never logged.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the connector id, provider + \":\" + label (\"openai:default\") — the auth-profile-id shape. Another user's id is simply no row, so 404.
+  Future<ConnectorTokenOut?> getIntegrationsConnectorsByIdToken(String id,) async {
+    final response = await getIntegrationsConnectorsByIdTokenWithHttpInfo(id,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'ConnectorTokenOut',) as ConnectorTokenOut;
+    
+    }
+    return null;
+  }
+
+  /// Lists the user-scoped provider cards — the catalog of what a user can connect, and how.
+  ///
+  /// Lists the user-scoped provider cards — the catalog of what a user can connect, and how. Methods derive from capabilities (Device/Adopt/Verify — Mount asserts at least one), never from a parallel kind enum.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> getIntegrationsConnectorsProvidersWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/integrations/connectors/providers';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Lists the user-scoped provider cards — the catalog of what a user can connect, and how.
+  ///
+  /// Lists the user-scoped provider cards — the catalog of what a user can connect, and how. Methods derive from capabilities (Device/Adopt/Verify — Mount asserts at least one), never from a parallel kind enum.
+  Future<ConnectorProvidersOut?> getIntegrationsConnectorsProviders() async {
+    final response = await getIntegrationsConnectorsProvidersWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'ConnectorProvidersOut',) as ConnectorProvidersOut;
+    
+    }
+    return null;
   }
 
   /// Begin linking a Hanzo account from Discord
@@ -501,6 +715,54 @@ class IntegrationsApi {
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
       return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GithubPagesView',) as GithubPagesView;
+    
+    }
+    return null;
+  }
+
+  /// Lists the projects the org's GitLab connection can reach — membership projects, most recently active first.
+  ///
+  /// Lists the projects the org's GitLab connection can reach — membership projects, most recently active first.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> getIntegrationsGitlabProjectsWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/integrations/gitlab/projects';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Lists the projects the org's GitLab connection can reach — membership projects, most recently active first.
+  ///
+  /// Lists the projects the org's GitLab connection can reach — membership projects, most recently active first.
+  Future<GitlabProjectsOut?> getIntegrationsGitlabProjects() async {
+    final response = await getIntegrationsGitlabProjectsWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GitlabProjectsOut',) as GitlabProjectsOut;
     
     }
     return null;
@@ -978,7 +1240,7 @@ class IntegrationsApi {
   /// Parameters:
   ///
   /// * [String] provider (required):
-  ///   Provider is the registry id of the connector — \"slack\", \"github\", \"cloudflare\". Unknown ids are 404, as are the user-plane (/v1/connectors) providers, which this surface never resolves.
+  ///   Provider is the registry id of the connector — \"slack\", \"github\", \"cloudflare\". Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves.
   Future<Response> postIntegrationsByProviderDisconnectWithHttpInfo(String provider,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/integrations/{provider}/disconnect'
@@ -1012,7 +1274,7 @@ class IntegrationsApi {
   /// Parameters:
   ///
   /// * [String] provider (required):
-  ///   Provider is the registry id of the connector — \"slack\", \"github\", \"cloudflare\". Unknown ids are 404, as are the user-plane (/v1/connectors) providers, which this surface never resolves.
+  ///   Provider is the registry id of the connector — \"slack\", \"github\", \"cloudflare\". Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves.
   Future<DisconnectOut?> postIntegrationsByProviderDisconnect(String provider,) async {
     final response = await postIntegrationsByProviderDisconnectWithHttpInfo(provider,);
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -1037,7 +1299,7 @@ class IntegrationsApi {
   /// Parameters:
   ///
   /// * [String] provider (required):
-  ///   Provider is the registry id of the connector — \"slack\", \"github\", \"cloudflare\". Unknown ids are 404, as are the user-plane (/v1/connectors) providers, which this surface never resolves.
+  ///   Provider is the registry id of the connector — \"slack\", \"github\", \"cloudflare\". Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves.
   Future<Response> postIntegrationsByProviderVerifyWithHttpInfo(String provider,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/integrations/{provider}/verify'
@@ -1071,7 +1333,7 @@ class IntegrationsApi {
   /// Parameters:
   ///
   /// * [String] provider (required):
-  ///   Provider is the registry id of the connector — \"slack\", \"github\", \"cloudflare\". Unknown ids are 404, as are the user-plane (/v1/connectors) providers, which this surface never resolves.
+  ///   Provider is the registry id of the connector — \"slack\", \"github\", \"cloudflare\". Unknown ids are 404, as are the user-plane (/v1/integrations/connectors) providers, which this surface never resolves.
   Future<VerifyOut?> postIntegrationsByProviderVerify(String provider,) async {
     final response = await postIntegrationsByProviderVerifyWithHttpInfo(provider,);
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -1082,6 +1344,257 @@ class IntegrationsApi {
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
       return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'VerifyOut',) as VerifyOut;
+    
+    }
+    return null;
+  }
+
+  /// Forces a token rotation for a connected connector, ahead of the automatic rotation a token read would do inside the expiry window.
+  ///
+  /// Forces a token rotation for a connected connector, ahead of the automatic rotation a token read would do inside the expiry window. Only providers that declare a Refresh support it.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the connector id, provider + \":\" + label (\"openai:default\") — the auth-profile-id shape. Another user's id is simply no row, so 404.
+  Future<Response> postIntegrationsConnectorsByIdRefreshWithHttpInfo(String id,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/integrations/connectors/{id}/refresh'
+      .replaceAll('{id}', id);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Forces a token rotation for a connected connector, ahead of the automatic rotation a token read would do inside the expiry window.
+  ///
+  /// Forces a token rotation for a connected connector, ahead of the automatic rotation a token read would do inside the expiry window. Only providers that declare a Refresh support it.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the connector id, provider + \":\" + label (\"openai:default\") — the auth-profile-id shape. Another user's id is simply no row, so 404.
+  Future<RefreshOut?> postIntegrationsConnectorsByIdRefresh(String id,) async {
+    final response = await postIntegrationsConnectorsByIdRefreshWithHttpInfo(id,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'RefreshOut',) as RefreshOut;
+    
+    }
+    return null;
+  }
+
+  /// Is the direct intake path: a customer-held token/setup-token (Verify) or an externally obtained OAuth bundle from the CLI's local PKCE (Adopt).
+  ///
+  /// Is the direct intake path: a customer-held token/setup-token (Verify) or an externally obtained OAuth bundle from the CLI's local PKCE (Adopt). ALWAYS verify-before-store: a bad credential is refused and NOTHING is persisted (connectByCredential's fail-closed order).
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] provider (required):
+  ///   Provider is the user-scoped provider's registry id, from the path.
+  ///
+  /// * [CredentialIn] credentialIn (required):
+  Future<Response> postIntegrationsConnectorsByProviderCredentialWithHttpInfo(String provider, CredentialIn credentialIn,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/integrations/connectors/{provider}/credential'
+      .replaceAll('{provider}', provider);
+
+    // ignore: prefer_final_locals
+    Object? postBody = credentialIn;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Is the direct intake path: a customer-held token/setup-token (Verify) or an externally obtained OAuth bundle from the CLI's local PKCE (Adopt).
+  ///
+  /// Is the direct intake path: a customer-held token/setup-token (Verify) or an externally obtained OAuth bundle from the CLI's local PKCE (Adopt). ALWAYS verify-before-store: a bad credential is refused and NOTHING is persisted (connectByCredential's fail-closed order).
+  ///
+  /// Parameters:
+  ///
+  /// * [String] provider (required):
+  ///   Provider is the user-scoped provider's registry id, from the path.
+  ///
+  /// * [CredentialIn] credentialIn (required):
+  Future<CredentialOut?> postIntegrationsConnectorsByProviderCredential(String provider, CredentialIn credentialIn,) async {
+    final response = await postIntegrationsConnectorsByProviderCredentialWithHttpInfo(provider, credentialIn,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'CredentialOut',) as CredentialOut;
+    
+    }
+    return null;
+  }
+
+  /// Begins a device sign-in and returns the code to show the user plus how to poll for completion.
+  ///
+  /// Begins a device sign-in and returns the code to show the user plus how to poll for completion. KMS readiness is checked NOW rather than dead-ending the user at poll-done (connect() parity), and the per-provider connector cap is checked before the provider is called. The provider's device code is persisted only in the encrypted grants table and is NEVER returned.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] provider (required):
+  ///   Provider is the user-scoped provider's registry id, from the path.
+  ///
+  /// * [DeviceStartIn] deviceStartIn (required):
+  Future<Response> postIntegrationsConnectorsByProviderDeviceWithHttpInfo(String provider, DeviceStartIn deviceStartIn,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/integrations/connectors/{provider}/device'
+      .replaceAll('{provider}', provider);
+
+    // ignore: prefer_final_locals
+    Object? postBody = deviceStartIn;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Begins a device sign-in and returns the code to show the user plus how to poll for completion.
+  ///
+  /// Begins a device sign-in and returns the code to show the user plus how to poll for completion. KMS readiness is checked NOW rather than dead-ending the user at poll-done (connect() parity), and the per-provider connector cap is checked before the provider is called. The provider's device code is persisted only in the encrypted grants table and is NEVER returned.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] provider (required):
+  ///   Provider is the user-scoped provider's registry id, from the path.
+  ///
+  /// * [DeviceStartIn] deviceStartIn (required):
+  Future<DeviceStartOut?> postIntegrationsConnectorsByProviderDevice(String provider, DeviceStartIn deviceStartIn,) async {
+    final response = await postIntegrationsConnectorsByProviderDeviceWithHttpInfo(provider, deviceStartIn,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'DeviceStartOut',) as DeviceStartOut;
+    
+    }
+    return null;
+  }
+
+  /// Advances a device sign-in.
+  ///
+  /// Advances a device sign-in. Terminal outcomes are DATA, not errors (verifyConn {active:false} discipline) — the status set is closed: pending|connected|denied|expired. pollSlow collapses to \"pending\" on the wire; the raised cadence rides interval.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] provider (required):
+  ///   Provider is the user-scoped provider's registry id, from the path.
+  ///
+  /// * [String] flow (required):
+  ///   Flow is the id deviceStartOut returned. Expired or another user's flow is indistinguishable from an unknown one: 404.
+  Future<Response> postIntegrationsConnectorsByProviderDeviceByFlowPollWithHttpInfo(String provider, String flow,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/integrations/connectors/{provider}/device/{flow}/poll'
+      .replaceAll('{provider}', provider)
+      .replaceAll('{flow}', flow);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Advances a device sign-in.
+  ///
+  /// Advances a device sign-in. Terminal outcomes are DATA, not errors (verifyConn {active:false} discipline) — the status set is closed: pending|connected|denied|expired. pollSlow collapses to \"pending\" on the wire; the raised cadence rides interval.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] provider (required):
+  ///   Provider is the user-scoped provider's registry id, from the path.
+  ///
+  /// * [String] flow (required):
+  ///   Flow is the id deviceStartOut returned. Expired or another user's flow is indistinguishable from an unknown one: 404.
+  Future<DevicePollOut?> postIntegrationsConnectorsByProviderDeviceByFlowPoll(String provider, String flow,) async {
+    final response = await postIntegrationsConnectorsByProviderDeviceByFlowPollWithHttpInfo(provider, flow,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'DevicePollOut',) as DevicePollOut;
     
     }
     return null;

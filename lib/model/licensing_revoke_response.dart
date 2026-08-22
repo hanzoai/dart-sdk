@@ -16,7 +16,6 @@ class LicensingRevokeResponse {
     this.entry,
     this.revoked,
   });
-
   /// Entry is the stored revocation, including who recorded it and when.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

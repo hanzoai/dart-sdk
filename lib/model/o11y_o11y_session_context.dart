@@ -16,7 +16,6 @@ class O11yO11ySessionContext {
     this.exists,
     this.orgs = const [],
   });
-
   /// Exists says whether any account carries the address.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

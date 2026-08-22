@@ -15,7 +15,6 @@ class PricingTierList {
   PricingTierList({
     this.tiers = const [],
   });
-
   /// Tiers are the rentable GPU configurations, each an opaque object exactly as the pricing source emits it — typically id, name, accelerator count and model, VRAM, vCPU, memory and hourly price.
   List<Map<String, Object>> tiers;
 

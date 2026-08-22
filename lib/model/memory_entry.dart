@@ -22,7 +22,6 @@ class MemoryEntry {
     this.tier,
     this.updatedAt,
   });
-
   /// Actor is the validated user id that last wrote this entry by hand. Empty on an entry an engine produced, and on one written before attribution existed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

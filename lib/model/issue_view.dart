@@ -32,7 +32,7 @@ class IssueView {
     this.title,
     this.updatedAt,
   });
-
+  /// Assignee is who holds the work — an IAM username, or the login of the FIRST assignee when a forge issue has several. Absent when nobody holds it, which is exactly the state a claim needs.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -41,6 +41,7 @@ class IssueView {
   ///
   String? assignee;
 
+  /// CreatedAt is when the item was opened, in unix seconds. 0 when the source gave no parseable timestamp.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -49,6 +50,7 @@ class IssueView {
   ///
   int? createdAt;
 
+  /// Description is the body, markdown as its author wrote it. Absent when empty.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -57,7 +59,7 @@ class IssueView {
   ///
   String? description;
 
-  /// unix seconds; absent = no due date
+  /// DueAt is when the work is due, in unix seconds; absent means no due date. A forge row takes it from its MILESTONE's due date, since a forge issue has no deadline of its own. Never before StartAt, and never past 2200-01-01.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -66,7 +68,7 @@ class IssueView {
   ///
   int? dueAt;
 
-  /// external anchor
+  /// ExtRef anchors the item to something outside the todo — a mirrored issue (\"github:owner/repo#123\"), a pushed PR branch, or a record on another plane. It is the idempotency key the mirror upsert matches on. Absent when the item has no external origin.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -75,6 +77,7 @@ class IssueView {
   ///
   String? extRef;
 
+  /// ID is the work item's opaque handle, and it is NOT how you address it — ProjectKey plus Number is. Its shape says which source answered: a forge issue's is the forge's own numeric id in decimal, an index row's a minted \"issue_\" id.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -83,7 +86,7 @@ class IssueView {
   ///
   String? id;
 
-  /// KEY-<number>, the human handle
+  /// Identifier is the human handle, \"<key>#<number>\" — the board and the number on it, joined. ONE spelling whichever source answered, because a list where forge rows read cli#1 and index rows read OPS-3 is two products in one list.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -92,7 +95,7 @@ class IssueView {
   ///
   String? identifier;
 
-  /// issue | pr | epic
+  /// Kind is what the item IS: issue, pr or epic. Set once at create and never changed, so a row does not migrate between surfaces. Deliberately not \"task\" — that word is the async plane (contract.go).
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -101,8 +104,10 @@ class IssueView {
   ///
   String? kind;
 
+  /// Labels are the item's remaining tags, with the status and priority labels lifted OUT — a column that stayed here would render twice, once as the card's column and once as a chip on the card. Always present; empty is [].
   List<String> labels;
 
+  /// Number is the item's number ON ITS BOARD, from 1 and monotonic there — the forge's own issue number for a forge row, allocated inside the create transaction for an index row so it cannot race. Unique per board, never across the org.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -111,6 +116,7 @@ class IssueView {
   ///
   int? number;
 
+  /// Priority is urgent, high, medium, low or none. Also a label on a forge row. Never empty: \"none\" when nothing names one, so callers compare a value rather than test for absence.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -119,6 +125,7 @@ class IssueView {
   ///
   String? priority;
 
+  /// ProjectKey is the board this item is on: the repository name for a forge issue, the index board's key otherwise. With Number it is the item's address in every other route.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -127,7 +134,7 @@ class IssueView {
   ///
   String? projectKey;
 
-  /// git repo binding
+  /// Repo is the git repository the item is bound to, so a repository's Issues and PRs tabs are filters over this one table. Absent when the item is not repo-bound.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -136,7 +143,7 @@ class IssueView {
   ///
   String? repo;
 
-  /// team | git | crm | helpdesk | cms | agent
+  /// Source is which surface OPENED it: team, git, crm, helpdesk, cms or agent. Also set once. It is the ORIGIN, not the subject — source=helpdesk is an engineering issue opened from a support escalation, not a support ticket.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -145,7 +152,7 @@ class IssueView {
   ///
   String? source_;
 
-  /// unix seconds; absent = unscheduled
+  /// StartAt is when the work starts, in unix seconds; absent means unscheduled. A forge row takes it from when the issue was opened, but only once the issue has a due date — an interval needs both ends.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -154,6 +161,7 @@ class IssueView {
   ///
   int? startAt;
 
+  /// Status is the board column: backlog, todo, in_progress, done or canceled, and nothing else. On a forge row it is read off a LABEL, so relabelling in the forge web UI moves the card here and vice versa — and a CLOSED forge issue reads done whatever its labels say. Never empty: \"backlog\" when nothing names a column.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -162,6 +170,7 @@ class IssueView {
   ///
   String? status;
 
+  /// Title is the item's one-line summary.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -170,6 +179,7 @@ class IssueView {
   ///
   String? title;
 
+  /// UpdatedAt is when it last changed, in unix seconds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

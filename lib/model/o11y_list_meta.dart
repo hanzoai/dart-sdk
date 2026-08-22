@@ -18,7 +18,6 @@ class O11yListMeta {
     this.totalItems,
     this.totalPages,
   });
-
   /// Limit is how many rows one page holds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

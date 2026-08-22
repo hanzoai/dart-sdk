@@ -15,7 +15,6 @@ class O11yO11yMetricFilter {
   O11yO11yMetricFilter({
     this.expression,
   });
-
   /// Expression is the filter, in the query-builder filter syntax.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

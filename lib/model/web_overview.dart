@@ -20,7 +20,6 @@ class WebOverview {
     this.source_,
     this.visitors,
   });
-
   /// Available is false when the product-event table could not be read — the lens is reported missing rather than as zeros that look like real traffic.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -18,7 +18,6 @@ class BoardRange {
     this.range,
     this.start,
   });
-
   /// RFC3339 (UTC)
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

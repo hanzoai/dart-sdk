@@ -16,7 +16,6 @@ class KycRefreshOut {
     this.formation,
     this.provider,
   });
-
   /// Formation is the org's incorporation record with each founder's reconciled status.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

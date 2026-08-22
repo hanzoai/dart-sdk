@@ -15,7 +15,6 @@ class CampaignList {
   CampaignList({
     this.data = const [],
   });
-
   /// Data is the matching campaigns, newest-updated first.
   List<AdCampaign> data;
 

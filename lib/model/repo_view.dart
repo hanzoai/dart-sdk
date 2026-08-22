@@ -28,7 +28,6 @@ class RepoView {
     this.sshUrl,
     this.updatedAt,
   });
-
   /// Branches are the repo's branch names. Read live, so the detail view carries them and a list row does not.
   List<String> branches;
 

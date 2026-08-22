@@ -16,7 +16,6 @@ class IamInvitationsListOutput {
     this.invitations = const [],
     this.total,
   });
-
   List<IamInvitation> invitations;
 
   ///

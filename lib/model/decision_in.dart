@@ -16,7 +16,6 @@ class DecisionIn {
     this.email,
     this.status,
   });
-
   /// Email identifies the founder on the formation.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

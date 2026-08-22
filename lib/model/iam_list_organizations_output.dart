@@ -13,40 +13,39 @@ part of hanzoai.cloud;
 class IamListOrganizationsOutput {
   /// Returns a new [IamListOrganizationsOutput] instance.
   IamListOrganizationsOutput({
-    this.count,
+    this.cursor,
     this.organizations = const [],
   });
-
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  int? count;
+  String? cursor;
 
   List<IamOrganization> organizations;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is IamListOrganizationsOutput &&
-    other.count == count &&
+    other.cursor == cursor &&
     _deepEquality.equals(other.organizations, organizations);
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (count == null ? 0 : count!.hashCode) +
+    (cursor == null ? 0 : cursor!.hashCode) +
     (organizations.hashCode);
 
   @override
-  String toString() => 'IamListOrganizationsOutput[count=$count, organizations=$organizations]';
+  String toString() => 'IamListOrganizationsOutput[cursor=$cursor, organizations=$organizations]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.count != null) {
-      json[r'count'] = this.count;
+    if (this.cursor != null) {
+      json[r'cursor'] = this.cursor;
     } else {
-      json[r'count'] = null;
+      json[r'cursor'] = null;
     }
       json[r'organizations'] = this.organizations;
     return json;
@@ -71,7 +70,7 @@ class IamListOrganizationsOutput {
       }());
 
       return IamListOrganizationsOutput(
-        count: mapValueOfType<int>(json, r'count'),
+        cursor: mapValueOfType<String>(json, r'cursor'),
         organizations: IamOrganization.listFromJson(json[r'organizations']),
       );
     }

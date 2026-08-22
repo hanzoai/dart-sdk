@@ -16,7 +16,6 @@ class FileInput {
     this.content,
     this.path,
   });
-
   /// Content is the file's full text. Max 1 MiB per file; binary files should simply be omitted rather than sent.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

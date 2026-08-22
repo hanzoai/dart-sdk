@@ -15,7 +15,6 @@ class ItemList {
   ItemList({
     this.data = const [],
   });
-
   /// Data is the examples of the one dataset named in the path, archived ones included, so the caller sees the whole set rather than what a run would use.
   List<ItemView> data;
 

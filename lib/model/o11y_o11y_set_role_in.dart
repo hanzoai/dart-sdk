@@ -15,7 +15,6 @@ class O11yO11ySetRoleIn {
   O11yO11ySetRoleIn({
     this.name,
   });
-
   /// Name is the role name to assign.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

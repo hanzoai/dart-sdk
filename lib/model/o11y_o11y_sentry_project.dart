@@ -22,7 +22,6 @@ class O11yO11ySentryProject {
     this.status,
     this.updatedAt,
   });
-
   /// CreatedAt is when the project was created.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

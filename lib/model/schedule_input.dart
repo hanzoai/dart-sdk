@@ -16,7 +16,6 @@ class ScheduleInput {
     this.id,
     this.scheduledAt,
   });
-
   /// ID is the campaign id from the path.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

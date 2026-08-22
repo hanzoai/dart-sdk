@@ -16,7 +16,6 @@ class O11yO11yColumnInfo {
     this.columnAlias,
     this.columnName,
   });
-
   /// Alias is the column's alias in the query, when it has one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

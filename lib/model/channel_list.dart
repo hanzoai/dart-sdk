@@ -15,7 +15,6 @@ class ChannelList {
   ChannelList({
     this.data = const [],
   });
-
   /// Data is every social channel the caller's org has connected, disabled ones included (Disabled says which).
   List<Channel> data;
 

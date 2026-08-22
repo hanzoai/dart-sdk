@@ -16,7 +16,6 @@ class O11yO11yTestNotificationOut {
     this.data,
     this.status,
   });
-
   /// Data holds the fired-series count and a status message.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

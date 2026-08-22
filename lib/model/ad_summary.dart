@@ -18,7 +18,6 @@ class AdSummary {
     this.campaigns,
     this.spend,
   });
-
   /// Active is how many of those campaigns are in the active state.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

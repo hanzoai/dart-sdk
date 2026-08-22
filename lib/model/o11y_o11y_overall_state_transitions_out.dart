@@ -16,7 +16,6 @@ class O11yO11yOverallStateTransitionsOut {
     this.data = const [],
     this.status,
   });
-
   /// Data holds the windows.
   List<O11yReleStateItem> data;
 

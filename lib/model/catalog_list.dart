@@ -15,8 +15,7 @@ class CatalogList {
   CatalogList({
     this.data = const [],
   });
-
-  /// Data is every starter prompt, each importable as-is with POST /v1/prompts.
+  /// Data is every starter prompt, each importable as-is with POST /v1/prompt.
   List<CatalogEntry> data;
 
   @override

@@ -15,7 +15,6 @@ class RoundOut {
   RoundOut({
     this.roundId,
   });
-
   /// RoundID is the cap table's id for the recorded round.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

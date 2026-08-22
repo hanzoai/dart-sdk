@@ -21,7 +21,6 @@ class SyncReq {
     this.target,
     this.trigger,
   });
-
   /// Actor is the identity the sync writes as, used as the loop guard so its own writes do not re-trigger it. Defaults to the deployment's GIT_SYNC_ACTOR.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

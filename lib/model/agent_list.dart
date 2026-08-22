@@ -15,7 +15,6 @@ class AgentList {
   AgentList({
     this.agents = const [],
   });
-
   /// Agents is the org's agents, each carrying its recorded run count.
   List<AgentView> agents;
 

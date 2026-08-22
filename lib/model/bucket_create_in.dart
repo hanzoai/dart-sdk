@@ -15,7 +15,6 @@ class BucketCreateIn {
   BucketCreateIn({
     this.name,
   });
-
   /// Name is the bucket name to create.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

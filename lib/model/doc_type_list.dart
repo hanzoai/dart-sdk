@@ -15,7 +15,6 @@ class DocTypeList {
   DocTypeList({
     this.data = const [],
   });
-
   /// Data is every DocType defined in the caller's org.
   List<DocType> data;
 

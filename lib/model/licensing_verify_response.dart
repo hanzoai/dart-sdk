@@ -23,7 +23,6 @@ class LicensingVerifyResponse {
     this.revoked,
     this.valid,
   });
-
   /// AppID is the brand the token runs under.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

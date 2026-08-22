@@ -18,7 +18,6 @@ class RedeemResult {
     this.discountCents,
     this.redemption,
   });
-
   /// AlreadyRedeemed is true when this org had already taken the promo and the call was an idempotent replay.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -37,6 +36,7 @@ class RedeemResult {
   ///
   int? chargeCents;
 
+  /// DiscountCents is the discount claimed for month one, in USD cents, at the single-seat floor. It is the same figure recorded on the Redemption, and it is evidence an admin may later grant against — not a balance.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -45,6 +45,7 @@ class RedeemResult {
   ///
   int? discountCents;
 
+  /// Redemption is the row that was recorded — the org's claim on this promo, with the server-derived plan and seat count. On a replay it is the ORIGINAL row, so its redeemedAt is when the org first took the promo, not now.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

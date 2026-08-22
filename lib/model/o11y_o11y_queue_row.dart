@@ -16,7 +16,6 @@ class O11yO11yQueueRow {
     this.data = const {},
     this.timestamp,
   });
-
   /// Data holds the row's cells keyed by column name; each cell's JSON type is the column's own, so the bytes pass through verbatim.
   Map<String, Object> data;
 

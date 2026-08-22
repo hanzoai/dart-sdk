@@ -18,7 +18,6 @@ class LatencyStat {
     this.p95Ms,
     this.p99Ms,
   });
-
   /// false when no GenAI spans carry timing; the percentiles are then null
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -23,9 +23,10 @@ class O11yStatusMaintenance {
     this.status,
     this.url,
   });
-
+  /// AffectedComponents is what the window touches.
   List<O11yStatusComponent> affectedComponents;
 
+  /// EndsAt is when it is expected to finish, RFC3339 UTC.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -34,6 +35,7 @@ class O11yStatusMaintenance {
   ///
   String? endsAt;
 
+  /// ID is the window's handle.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -42,6 +44,7 @@ class O11yStatusMaintenance {
   ///
   String? id;
 
+  /// LastUpdateAt is when the window was last revised, RFC3339 UTC.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -50,6 +53,7 @@ class O11yStatusMaintenance {
   ///
   String? lastUpdateAt;
 
+  /// LastUpdateMessage is the text of that revision.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -58,6 +62,7 @@ class O11yStatusMaintenance {
   ///
   String? lastUpdateMessage;
 
+  /// Name is its one-line headline.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -66,6 +71,7 @@ class O11yStatusMaintenance {
   ///
   String? name;
 
+  /// StartsAt is when work begins, RFC3339 UTC.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -74,6 +80,7 @@ class O11yStatusMaintenance {
   ///
   String? startsAt;
 
+  /// Status is where the window is in its life, in the client's own vocabulary.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -82,6 +89,7 @@ class O11yStatusMaintenance {
   ///
   String? status;
 
+  /// URL points at the human status page, as every link in this document does.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

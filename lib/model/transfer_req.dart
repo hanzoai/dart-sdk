@@ -17,7 +17,6 @@ class TransferReq {
     required this.domain,
     this.years,
   });
-
   /// AuthCode is the transfer authorization the losing registrar issued. It is required.
   String authCode;
 

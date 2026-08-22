@@ -15,7 +15,6 @@ class SessionList {
   SessionList({
     this.sessions = const [],
   });
-
   /// Sessions is the matching sessions, each with its event and child counts and a one-line preview of its latest event.
   List<SessionView> sessions;
 

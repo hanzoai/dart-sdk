@@ -19,7 +19,6 @@ class OpenReq {
     this.name,
     this.title,
   });
-
   /// Base is the branch the work is proposed INTO, by short name. Defaults to the repo's default branch, which is where a proposal goes when nobody says otherwise.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

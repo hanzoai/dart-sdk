@@ -18,7 +18,6 @@ class RegisterPage {
     this.limit,
     this.offset,
   });
-
   /// Count is how many rows this page holds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

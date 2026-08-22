@@ -16,7 +16,6 @@ class O11yO11yQuickFiltersOut {
     this.data = const [],
     this.status,
   });
-
   /// Data holds one entry per signal.
   List<O11yO11ySignalFilters> data;
 

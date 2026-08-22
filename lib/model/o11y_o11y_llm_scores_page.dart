@@ -18,7 +18,6 @@ class O11yO11yLLMScoresPage {
     this.offset,
     this.total,
   });
-
   /// Items are the scores, newest first.
   List<O11yO11yLLMScore> items;
 

@@ -15,7 +15,6 @@ class O11yO11yCreated {
   O11yO11yCreated({
     this.id,
   });
-
   /// ID is the new record's id.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

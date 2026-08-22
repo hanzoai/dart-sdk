@@ -21,7 +21,6 @@ class Route {
     this.service,
     this.tls,
   });
-
   /// Host is the exact hostname this route matches, lowercased with any trailing dot stripped. It is a GLOBALLY unique claim — one route across the whole edge may hold a host, so no tenant can hijack another's.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

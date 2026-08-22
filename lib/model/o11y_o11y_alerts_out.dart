@@ -16,7 +16,6 @@ class O11yO11yAlertsOut {
     this.data = const [],
     this.status,
   });
-
   /// Data holds the alerts.
   List<O11yDeprecatedGettableAlert> data;
 

@@ -17,7 +17,6 @@ class Rule {
     this.pattern,
     this.priority,
   });
-
   /// Category is the COA expense account a matching bill books to. An upsert normalizes a slug (\"cloud\") to its account number.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

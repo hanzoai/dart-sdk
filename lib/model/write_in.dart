@@ -17,7 +17,6 @@ class WriteIn {
     this.id,
     this.path,
   });
-
   /// Data is the file's bytes, and replaces whatever was there.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class ChatRequest {
   ChatRequest({
     this.message,
   });
-
   /// Message is the founder's question for the Business AI. Required; trimmed, and clipped to 4 KiB so a caller cannot amplify the AI prompt.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

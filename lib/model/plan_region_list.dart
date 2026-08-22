@@ -15,7 +15,6 @@ class PlanRegionList {
   PlanRegionList({
     this.regions = const [],
   });
-
   /// Regions are the regions cloud capacity is offered in, each an opaque object exactly as the catalog emits it — typically id, name, location and flag.
   List<Object> regions;
 

@@ -19,7 +19,6 @@ class ErrorBody {
     this.stack,
     this.type,
   });
-
   List<Frame> frames;
 
   ///

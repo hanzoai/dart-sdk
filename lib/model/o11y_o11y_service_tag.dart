@@ -20,7 +20,6 @@ class O11yO11yServiceTag {
     this.stringValues = const [],
     this.tagType,
   });
-
   /// BoolValues are the boolean operands, when the attribute is a bool.
   List<bool> boolValues;
 

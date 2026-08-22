@@ -18,8 +18,7 @@ class CodeFile {
     this.sessionId,
     this.storageSessionId,
   });
-
-  /// ID is the file's path RELATIVE to its session's artifact directory, which is also how it is fetched: GET /v1/download/{session}/{id}.
+  /// ID is the file's path RELATIVE to its session's artifact directory, which is also how it is fetched: GET /v1/exec/download/{session}/{id}.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

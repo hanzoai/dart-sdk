@@ -15,7 +15,6 @@ class O11yO11yEvents {
   O11yO11yEvents({
     this.items = const [],
   });
-
   /// Items are the events, newest first.
   List<O11yO11yEvent> items;
 

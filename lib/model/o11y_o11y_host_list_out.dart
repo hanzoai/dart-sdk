@@ -16,7 +16,6 @@ class O11yO11yHostListOut {
     this.data,
     this.status,
   });
-
   /// Data holds the host records and the fleet's reporting state.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -16,7 +16,6 @@ class ClaimKeyOut {
     this.claimKey,
     this.targetId,
   });
-
   /// ClaimKey is the capability itself. It is returned ONCE and never again — only its SHA-256 hash is stored — so a daemon that loses it mints a new one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

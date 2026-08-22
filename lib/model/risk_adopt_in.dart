@@ -15,7 +15,6 @@ class RiskAdoptIn {
   RiskAdoptIn({
     this.address,
   });
-
   /// Address is one of YOUR organisation's own published values (GET /v1/risk/state reports them, and a search reports the one it fitted for you). An address your organisation has not published is NOT FOUND — including one another organisation published, because an address names a value and never authorises reading it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

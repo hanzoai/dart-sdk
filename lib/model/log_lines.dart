@@ -15,7 +15,6 @@ class LogLines {
   LogLines({
     this.logs,
   });
-
   /// Logs is that run's error text when it failed, else its output. It is empty when the function has never run.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

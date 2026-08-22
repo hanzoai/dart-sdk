@@ -16,7 +16,6 @@ class O11yO11yConnectionStatusOut {
     this.data,
     this.status,
   });
-
   /// Data holds the logs and metrics connection status.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

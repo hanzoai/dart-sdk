@@ -18,7 +18,6 @@ class O11yO11ySessionOrg {
     this.name,
     this.warning,
   });
-
   /// AuthNSupport lists the org's open sign-in routes.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

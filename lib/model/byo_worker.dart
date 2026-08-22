@@ -35,8 +35,7 @@ class ByoWorker {
     this.status,
     this.version,
   });
-
-  /// Arch/CPUs/Memory are the connecting host's static CPU spec, mirrored from the registration: Arch is runtime.GOARCH (amd64 | arm64), Memory is total RAM in BYTES — the same fields a code-linked run-target carries, so the /v1/fleet board renders a linked node's arch + cores + RAM like any other unit.
+  /// Arch/CPUs/Memory are the connecting host's static CPU spec, mirrored from the registration: Arch is runtime.GOARCH (amd64 | arm64), Memory is total RAM in BYTES — the same fields a code-linked run-target carries, so the /v1/visor/fleet board renders a linked node's arch + cores + RAM like any other unit.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -45,9 +44,10 @@ class ByoWorker {
   ///
   String? arch;
 
-  /// Capabilities the worker advertises (\"studio.render\", \"engine.serve\"); Engine is present when it runs a hanzo-engine model server. Both additive + omitempty.
+  /// Capabilities is what this worker offers the org: \"studio.render\" when the node can render, \"engine.serve\" when it serves a model endpoint. A node advertises one only once it can honour it, so an absent list means a node that has dialed in but is not ready to serve any of them yet.
   List<String> capabilities;
 
+  /// CPUModel is the processor as the host names it (\"Apple M3 Max\"), for display.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -56,6 +56,7 @@ class ByoWorker {
   ///
   String? cpuModel;
 
+  /// CPUs is the host's logical core count.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -64,6 +65,7 @@ class ByoWorker {
   ///
   int? cpus;
 
+  /// Cuda is the host's CUDA toolkit version. NVIDIA hosts report it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -72,6 +74,7 @@ class ByoWorker {
   ///
   String? cuda;
 
+  /// Driver is the host's NVIDIA kernel driver version — distinct from Cuda, and the one that bounds which CUDA versions can run on this box.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -80,6 +83,7 @@ class ByoWorker {
   ///
   String? driver;
 
+  /// Engine is the hanzo-engine model server this node runs, when it runs one (`hanzo link --serve-engine`). Absent means the node takes jobs but serves no model endpoint.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -88,6 +92,7 @@ class ByoWorker {
   ///
   EngineAdvertisement? engine;
 
+  /// FirstSeen is when this node first dialed in, RFC 3339 — the start of its presence record, which `hanzo unlink` ends.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -96,8 +101,10 @@ class ByoWorker {
   ///
   String? firstSeen;
 
+  /// GPUs are the accelerators the host found on itself. Empty is a real answer: a CPU-only machine can dial in and take non-GPU work.
   List<ByoGPU> gpus;
 
+  /// Hip is the host's HIP runtime version, the AMD counterpart to Cuda.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -106,6 +113,7 @@ class ByoWorker {
   ///
   String? hip;
 
+  /// Hostname is what the host calls itself. It equals ID for any hostname already in the [a-z0-9-] alphabet, and differs when sanitizing had to change it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -114,6 +122,7 @@ class ByoWorker {
   ///
   String? hostname;
 
+  /// ID is the node's id in the fleet — the sanitized hostname it registered under, which is also the `unit` its samples and its gpu-jobs lane key on. This is the id to use everywhere else on the compute surface.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -122,6 +131,7 @@ class ByoWorker {
   ///
   String? id;
 
+  /// JobQueue is the tasks NAMESPACE this worker claims render jobs out of — \"gpu-jobs\" unless `hanzo link` was pointed at another. Within it, a job aimed at this node alone rides the task-queue value \"gpu:<id>\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -130,6 +140,7 @@ class ByoWorker {
   ///
   String? jobQueue;
 
+  /// LastHeartbeat is the most recent beat this node sent, RFC 3339. It is what Status is computed from, so a reader can check the judgement.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -138,7 +149,7 @@ class ByoWorker {
   ///
   String? lastHeartbeat;
 
-  /// \"on-prem\" (BYO has no cloud region)
+  /// Location is always \"on-prem\" — a machine that dialed in has no cloud region, and inventing one would put it somewhere it is not.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -147,6 +158,7 @@ class ByoWorker {
   ///
   String? location;
 
+  /// Memory is the host's total RAM in BYTES.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -155,6 +167,7 @@ class ByoWorker {
   ///
   int? memory;
 
+  /// Os is the host's operating system: linux, darwin or windows.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -163,7 +176,7 @@ class ByoWorker {
   ///
   String? os;
 
-  /// always \"byo\"
+  /// Provider is always \"byo\": this machine is the operator's, not one Hanzo provisioned. It exists so a fold into the machines/GPUs pages says which rows are rented and which are the customer's own.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -172,6 +185,7 @@ class ByoWorker {
   ///
   String? provider;
 
+  /// Rocm is the host's ROCm version. AMD hosts report it; empty otherwise.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -180,7 +194,7 @@ class ByoWorker {
   ///
   String? rocm;
 
-  /// online | offline
+  /// Status is \"online\" when the last heartbeat landed within 90s, else \"offline\" — so it is a fact about heartbeat freshness, not about the box being powered on. A worker that has never beaten reads offline.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -189,6 +203,7 @@ class ByoWorker {
   ///
   String? status;
 
+  /// Version is the `hanzo` CLI version running on the node. It is what to check when a worker is missing a field a newer registration reports.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

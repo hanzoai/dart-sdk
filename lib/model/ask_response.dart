@@ -18,7 +18,6 @@ class AskResponse {
     this.followups = const [],
     this.sources = const [],
   });
-
   /// Answer is one or two sentences answering the question, every number in it taken from Figures.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

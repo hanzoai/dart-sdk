@@ -15,7 +15,6 @@ class ConnectorsOut {
   ConnectorsOut({
     this.connectors = const [],
   });
-
   /// Connectors is the caller's own set. Never null; [] when they have none.
   List<ConnView> connectors;
 

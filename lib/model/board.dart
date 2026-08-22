@@ -21,7 +21,6 @@ class Board {
     this.series = const [],
     this.totals,
   });
-
   /// the top models by spend
   List<ModelStat> byModel;
 

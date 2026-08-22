@@ -16,7 +16,6 @@ class DriftBoard {
     this.apps = const [],
     this.summary,
   });
-
   /// Apps are the service rows, ordered by org, then app, then env.
   List<AppView> apps;
 

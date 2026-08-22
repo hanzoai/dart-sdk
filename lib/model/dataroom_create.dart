@@ -16,7 +16,6 @@ class DataroomCreate {
     this.description,
     this.name,
   });
-
   Object? description;
 
   Object? name;

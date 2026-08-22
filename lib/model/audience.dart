@@ -20,8 +20,7 @@ class Audience {
     this.updatedAt,
     this.windowDays,
   });
-
-  /// CreatedAt and UpdatedAt are unix seconds, both server-assigned.
+  /// CreatedAt is unix seconds when the filter was saved, server-assigned.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -57,6 +56,7 @@ class Audience {
   ///
   String? name;
 
+  /// UpdatedAt is unix seconds of the last write, server-assigned, and the key the audience list is ordered by (newest first). A saved audience has no update route, so in practice it stays equal to CreatedAt: to change a filter you save another one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

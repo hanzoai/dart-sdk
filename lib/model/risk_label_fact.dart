@@ -22,7 +22,6 @@ class RiskLabelFact {
     this.source_,
     this.subject,
   });
-
   /// At is when the judged event happened, RFC 3339.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

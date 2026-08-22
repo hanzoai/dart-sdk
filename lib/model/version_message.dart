@@ -19,7 +19,6 @@ class VersionMessage {
     this.platform,
     this.version,
   });
-
   /// BuildDate is the time THIS RESPONSE was generated, in RFC 3339 — not a build timestamp. There is no argocd build here to report one for.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

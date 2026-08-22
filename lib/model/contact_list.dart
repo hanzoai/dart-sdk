@@ -15,7 +15,6 @@ class ContactList {
   ContactList({
     this.data = const [],
   });
-
   /// Data is the page of contacts, most recently updated first.
   List<Contact> data;
 

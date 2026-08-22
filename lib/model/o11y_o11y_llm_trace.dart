@@ -24,7 +24,6 @@ class O11yO11yLLMTrace {
     this.totalTokens,
     this.userId,
   });
-
   /// CompletionTokens is the trace's total output tokens.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

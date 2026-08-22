@@ -22,7 +22,6 @@ class PublishReq {
     this.title,
     this.tool,
   });
-
   /// Category groups the listing in the shop window.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

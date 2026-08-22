@@ -17,7 +17,6 @@ class ConnectIn {
     this.provider,
     this.token,
   });
-
   /// AccountID is the provider account the credential should be scoped to, for the providers whose Verify needs one (Cloudflare). Ignored by the OAuth path.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

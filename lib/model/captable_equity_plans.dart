@@ -15,7 +15,6 @@ class CaptableEquityPlans {
   CaptableEquityPlans({
     this.data = const [],
   });
-
   /// Data is every equity plan on the caller org's cap table, newest first.
   List<CaptableEquityPlan> data;
 

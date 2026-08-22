@@ -16,7 +16,6 @@ class O11yQueryEnvelope {
     this.spec,
     this.type,
   });
-
   /// Spec is the deferred decoding of the query if any.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -30,7 +30,7 @@ class RegisterReq {
     this.terminal,
     this.title,
   });
-
+  /// Account is which subscription or API account under that provider served the run, up to 256 characters. It is what lets a revoke of that login stop exactly the sessions it was paying for.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -39,6 +39,7 @@ class RegisterReq {
   ///
   String? account;
 
+  /// Actor is the \"org/sub\" identity to record the session under, up to 256 characters. Omit it and the calling principal is used, which is almost always what you want: it is what a login revoke matches on to stop this session.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -47,6 +48,7 @@ class RegisterReq {
   ///
   String? actor;
 
+  /// Agent is the label the surface opening this session calls itself by (\"hanzo-dev\"). REQUIRED, up to 128 characters, and free text — nothing resolves it against a defined agent.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -55,6 +57,7 @@ class RegisterReq {
   ///
   String? agent;
 
+  /// Cwd is the directory the session starts in, up to 1024 characters. It can be moved later, because a linked shell walks around.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -72,6 +75,7 @@ class RegisterReq {
   ///
   String? host;
 
+  /// ParentSessionID makes this a subagent of that session: it inherits the parent's root, so one flow stays one tree. The parent must exist IN THE SAME ORG — a foreign or unknown id is a 400, never a tree across tenants. Empty opens a root session.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -98,6 +102,7 @@ class RegisterReq {
   ///
   String? provider;
 
+  /// Published opens this session's story to the public build route. It is refused without a Project, because that route is keyed on (org, project) — a build with no product is not a story anyone can open. False keeps it org-only.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -106,6 +111,7 @@ class RegisterReq {
   ///
   bool? published;
 
+  /// Repo is the code being worked on, up to 512 characters. A label the surface states; nothing resolves it against the forge.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -114,6 +120,7 @@ class RegisterReq {
   ///
   String? repo;
 
+  /// Status opens the session in one of running, paused, done or error. Empty means running. A TERMINAL status here (done, error) records a session that has already finished — its end time is stamped now — and nothing can move it afterwards.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -122,6 +129,7 @@ class RegisterReq {
   ///
   String? status;
 
+  /// Target names a run-target the org has registered. Unlike Host and Repo it IS resolved: a target that does not exist in this org is a 400, so a session can never claim to run on another tenant's machine. Empty names no machine.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -130,6 +138,7 @@ class RegisterReq {
   ///
   String? target;
 
+  /// TaskRunID is that workflow's particular run, same bound. Recorded, not resolved: this surface does not check the workflow exists.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -138,6 +147,7 @@ class RegisterReq {
   ///
   String? taskRunId;
 
+  /// TaskWorkflowID links this session to the hanzoai/tasks workflow that executes it, up to 256 characters. Set it and control commands are forwarded to that engine; leave it and the running surface polls for them instead.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -155,6 +165,7 @@ class RegisterReq {
   ///
   String? terminal;
 
+  /// Title is the human line a card shows, up to 512 characters. Optional, and changeable later.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

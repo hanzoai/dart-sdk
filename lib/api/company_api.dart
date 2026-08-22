@@ -423,6 +423,62 @@ class CompanyApi {
     return null;
   }
 
+  /// Opens the EIN application and answers what it owes.
+  ///
+  /// Opens the EIN application and answers what it owes.  The answer states whether it can be filed ONLINE, because that is the fact deciding whether the customer waits a sitting or several weeks — and it names each form with what that form is for, so nobody has to already know what an SS-4 is to understand why they are signing one.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [EinIn] einIn (required):
+  Future<Response> postCompanyEinWithHttpInfo(EinIn einIn,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/company/ein';
+
+    // ignore: prefer_final_locals
+    Object? postBody = einIn;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Opens the EIN application and answers what it owes.
+  ///
+  /// Opens the EIN application and answers what it owes.  The answer states whether it can be filed ONLINE, because that is the fact deciding whether the customer waits a sitting or several weeks — and it names each form with what that form is for, so nobody has to already know what an SS-4 is to understand why they are signing one.
+  ///
+  /// Parameters:
+  ///
+  /// * [EinIn] einIn (required):
+  Future<EIN?> postCompanyEin(EinIn einIn,) async {
+    final response = await postCompanyEinWithHttpInfo(einIn,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'EIN',) as EIN;
+    
+    }
+    return null;
+  }
+
   /// Sends the generated formation documents for signature by every founder and records the provider's reference on the formation.
   ///
   /// Sends the generated formation documents for signature by every founder and records the provider's reference on the formation. Available only at the esign stage.
@@ -1063,9 +1119,9 @@ class CompanyApi {
     return null;
   }
 
-  /// Charge the one-time formation fee and mark the formation paid
+  /// Charges the caller's own org the one-time Hanzo Company formation fee.
   ///
-  /// Bills the caller's own org the one-time Hanzo Company formation fee — $999 unless the deployment sets another — and answers with the formation record carrying its paid flag and the charge reference. Takes no body: the org is the validated tenant and the amount is the platform's, never the caller's to assert.  IDEMPOTENT on the formation rather than on the request: an already-paid formation answers 200 with the same record and is not charged again, so a retry or a double-clicked button costs nothing. Available only at the `payment` stage (409 anywhere else) and only for an org that has begun a formation (404 otherwise).  A refused charge answers the fleet-wide billing contract, not a formation error — 402 when the org cannot pay, 503 when metering is unavailable — which is exactly why this route is not a typed op.
+  /// Charges the caller's own org the one-time Hanzo Company formation fee.  It is $999 unless the deployment sets another, and the answer is the formation record carrying its paid flag and the charge reference. It takes no body: the org is the validated tenant and the amount is the platform's, never the caller's to assert.  IDEMPOTENT on the formation rather than on the request: an already-paid formation answers 200 with the same record and is not charged again, so a retry or a double-clicked button costs nothing. Available only at the `payment` stage (409 anywhere else) and only for an org that has begun a formation (404 otherwise).  A denial answers the fleet-wide billing contract — 402 insufficient_balance, 402 spend_cap_exceeded, 503 balance_unavailable — carried by cloud.Denied, which is the money wire's own {\"error\":{\"code\",\"message\"}} body rather than a second vocabulary invented for this surface.  The gate is the LAST thing it does, after the stage check and the paid short-circuit, so a caller the machine is about to refuse is never charged. That ordering is why the gate cannot lift into middleware, where it would run first. Both facts are pinned: TestPaymentDenialWire, TestPaymentChargesLast.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> postCompanyPaymentWithHttpInfo() async {
@@ -1093,9 +1149,9 @@ class CompanyApi {
     );
   }
 
-  /// Charge the one-time formation fee and mark the formation paid
+  /// Charges the caller's own org the one-time Hanzo Company formation fee.
   ///
-  /// Bills the caller's own org the one-time Hanzo Company formation fee — $999 unless the deployment sets another — and answers with the formation record carrying its paid flag and the charge reference. Takes no body: the org is the validated tenant and the amount is the platform's, never the caller's to assert.  IDEMPOTENT on the formation rather than on the request: an already-paid formation answers 200 with the same record and is not charged again, so a retry or a double-clicked button costs nothing. Available only at the `payment` stage (409 anywhere else) and only for an org that has begun a formation (404 otherwise).  A refused charge answers the fleet-wide billing contract, not a formation error — 402 when the org cannot pay, 503 when metering is unavailable — which is exactly why this route is not a typed op.
+  /// Charges the caller's own org the one-time Hanzo Company formation fee.  It is $999 unless the deployment sets another, and the answer is the formation record carrying its paid flag and the charge reference. It takes no body: the org is the validated tenant and the amount is the platform's, never the caller's to assert.  IDEMPOTENT on the formation rather than on the request: an already-paid formation answers 200 with the same record and is not charged again, so a retry or a double-clicked button costs nothing. Available only at the `payment` stage (409 anywhere else) and only for an org that has begun a formation (404 otherwise).  A denial answers the fleet-wide billing contract — 402 insufficient_balance, 402 spend_cap_exceeded, 503 balance_unavailable — carried by cloud.Denied, which is the money wire's own {\"error\":{\"code\",\"message\"}} body rather than a second vocabulary invented for this surface.  The gate is the LAST thing it does, after the stage check and the paid short-circuit, so a caller the machine is about to refuse is never charged. That ordering is why the gate cannot lift into middleware, where it would run first. Both facts are pinned: TestPaymentDenialWire, TestPaymentChargesLast.
   Future<FormationView?> postCompanyPayment() async {
     final response = await postCompanyPaymentWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -1154,6 +1210,62 @@ class CompanyApi {
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
       return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'FormationView',) as FormationView;
+    
+    }
+    return null;
+  }
+
+  /// Itemises what a formation costs before anyone commits to it.
+  ///
+  /// Itemises what a formation costs before anyone commits to it.  It answers what is due now and what recurs, as separate figures, and marks the state's filing fee as money we collect and remit rather than keep. A caller can therefore show a payer the whole bill — which is the point of quoting at all, and was impossible while the fee was one number in an error string.  A jurisdiction whose filing fee this deployment has not been told REFUSES, naming the setting that fixes it. Quoting our half as though it were the total is the one answer that would be worse than no answer.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [TariffIn] tariffIn (required):
+  Future<Response> postCompanyTariffWithHttpInfo(TariffIn tariffIn,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/company/tariff';
+
+    // ignore: prefer_final_locals
+    Object? postBody = tariffIn;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Itemises what a formation costs before anyone commits to it.
+  ///
+  /// Itemises what a formation costs before anyone commits to it.  It answers what is due now and what recurs, as separate figures, and marks the state's filing fee as money we collect and remit rather than keep. A caller can therefore show a payer the whole bill — which is the point of quoting at all, and was impossible while the fee was one number in an error string.  A jurisdiction whose filing fee this deployment has not been told REFUSES, naming the setting that fixes it. Quoting our half as though it were the total is the one answer that would be worse than no answer.
+  ///
+  /// Parameters:
+  ///
+  /// * [TariffIn] tariffIn (required):
+  Future<Tariff?> postCompanyTariff(TariffIn tariffIn,) async {
+    final response = await postCompanyTariffWithHttpInfo(tariffIn,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Tariff',) as Tariff;
     
     }
     return null;

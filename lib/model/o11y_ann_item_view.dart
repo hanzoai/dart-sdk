@@ -26,7 +26,6 @@ class O11yAnnItemView {
     this.traceId,
     this.updatedAt,
   });
-
   /// Assignee is the reviewer it is for, omitted when unassigned.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

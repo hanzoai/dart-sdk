@@ -24,8 +24,7 @@ class Campaign {
     this.status,
     this.updatedAt,
   });
-
-  /// Budget and Spend are minor units (USD cents), clamped to >= 0.
+  /// Budget is what the campaign is allowed to cost, in USD cents. A negative value is clamped to 0; nothing enforces the ceiling here.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -43,7 +42,7 @@ class Campaign {
   ///
   String? channel;
 
-  /// CreatedAt and UpdatedAt are unix seconds, both server-assigned.
+  /// CreatedAt is unix seconds when the campaign was registered. Server-assigned and never rewritten — an update leaves it as it was.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -88,6 +87,7 @@ class Campaign {
   ///
   int? scheduledAt;
 
+  /// Spend is what the campaign has cost so far, in USD cents, clamped to >= 0. The CALLER owns it: no send, ad buy or invoice moves it, so it changes only when create or update carries a new value. It is summed across the org's campaigns into GET /v1/marketing/summary.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -105,6 +105,7 @@ class Campaign {
   ///
   String? status;
 
+  /// UpdatedAt is unix seconds of the last write. Server-assigned on create and on every update or schedule change, and the campaign list is ordered by it, newest first.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

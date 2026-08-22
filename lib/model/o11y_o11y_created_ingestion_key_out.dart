@@ -16,7 +16,6 @@ class O11yO11yCreatedIngestionKeyOut {
     this.data,
     this.status,
   });
-
   /// Data holds the created ingestion key.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

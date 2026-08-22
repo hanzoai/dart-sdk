@@ -16,7 +16,6 @@ class O11yO11yRegisterOut {
     this.data,
     this.status,
   });
-
   /// Data is the user. The runtime answers register with the same user shape the identity face reads, so it is the ONE O11yUser (identity.go) — a created user is a user, and the document names it once.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

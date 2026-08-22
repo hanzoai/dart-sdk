@@ -15,7 +15,6 @@ class ReleaseBoard {
   ReleaseBoard({
     this.releases = const [],
   });
-
   /// Releases are the deployments that genuinely reached the cluster.
   List<ReleaseRow> releases;
 

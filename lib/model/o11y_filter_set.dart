@@ -16,7 +16,6 @@ class O11yFilterSet {
     this.items = const [],
     this.op,
   });
-
   List<O11yFilterItem> items;
 
   ///

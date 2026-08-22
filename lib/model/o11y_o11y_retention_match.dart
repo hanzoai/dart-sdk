@@ -16,7 +16,6 @@ class O11yO11yRetentionMatch {
     this.key,
     this.values = const [],
   });
-
   /// Key is the label to test.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

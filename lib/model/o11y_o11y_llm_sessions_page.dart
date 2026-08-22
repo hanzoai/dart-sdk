@@ -17,7 +17,6 @@ class O11yO11yLLMSessionsPage {
     this.limit,
     this.offset,
   });
-
   /// Items are the conversations, newest first.
   List<O11yO11yLLMSession> items;
 

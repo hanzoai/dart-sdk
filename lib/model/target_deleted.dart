@@ -16,7 +16,6 @@ class TargetDeleted {
     this.deleted,
     this.id,
   });
-
   /// Deleted is true when the target was removed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

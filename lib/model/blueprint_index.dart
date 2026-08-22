@@ -15,7 +15,6 @@ class BlueprintIndex {
   BlueprintIndex({
     this.data = const [],
   });
-
   /// Data is one row per embedded blueprint, sorted by template id.
   List<BlueprintRow> data;
 

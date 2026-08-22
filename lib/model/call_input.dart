@@ -19,7 +19,7 @@ class CallInput {
     this.to,
     this.webhook,
   });
-
+  /// Agent hands the answered call to a Hanzo assistant by name instead of connecting it to a person. Empty places an ordinary call.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -28,6 +28,7 @@ class CallInput {
   ///
   String? agent;
 
+  /// From is the number to call FROM, in E.164. It must be one this org holds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -45,6 +46,7 @@ class CallInput {
   ///
   bool? record;
 
+  /// To is the number to call, in E.164.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -53,6 +55,7 @@ class CallInput {
   ///
   String? to;
 
+  /// Webhook is a URL the carrier posts this call's events to as it progresses. Empty means the call's outcome is only visible by reading it back.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

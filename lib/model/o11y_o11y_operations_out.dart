@@ -16,7 +16,6 @@ class O11yO11yOperationsOut {
     this.data = const [],
     this.status,
   });
-
   /// Data holds one entry per operation.
   List<O11yO11yOperation> data;
 

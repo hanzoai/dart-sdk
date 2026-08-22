@@ -16,7 +16,6 @@ class O11yO11yIntegrationsListOut {
     this.data,
     this.status,
   });
-
   /// Data holds the available integrations and their installed state.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

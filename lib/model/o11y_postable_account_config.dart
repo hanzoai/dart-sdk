@@ -18,7 +18,6 @@ class O11yPostableAccountConfig {
     this.azure,
     this.gcp,
   });
-
   /// as agent version is common for all providers, we can keep it at top level of this struct
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

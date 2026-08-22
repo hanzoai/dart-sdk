@@ -20,7 +20,6 @@ class ProjectsSiteDeploy {
     this.status,
     this.url,
   });
-
   /// DeploymentID is the deployment this publish recorded, for the history.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

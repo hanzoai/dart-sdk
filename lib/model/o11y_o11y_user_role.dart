@@ -20,7 +20,6 @@ class O11yO11yUserRole {
     this.updatedAt,
     this.userId,
   });
-
   /// CreatedAt is when it was assigned.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

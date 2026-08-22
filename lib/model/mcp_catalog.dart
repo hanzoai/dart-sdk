@@ -18,7 +18,6 @@ class McpCatalog {
     this.offset,
     this.total,
   });
-
   /// Catalog is this page of listings, featured first, then by name.
   List<MCPListing> catalog;
 

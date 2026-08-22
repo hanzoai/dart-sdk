@@ -16,7 +16,6 @@ class FilingRequest {
     this.documentIds = const [],
     this.jurisdiction,
   });
-
   /// DocumentIDs are the documents to file. At least one is required, and every one must belong to the caller's org — a filing can never reach across orgs.
   List<String> documentIds;
 

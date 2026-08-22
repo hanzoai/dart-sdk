@@ -17,7 +17,6 @@ class O11yAvailabilityPoint {
     this.total,
     this.up,
   });
-
   /// T is the bucket start, RFC3339 in UTC.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

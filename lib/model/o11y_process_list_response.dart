@@ -17,7 +17,6 @@ class O11yProcessListResponse {
     this.total,
     this.type,
   });
-
   List<O11yProcessListRecord> records;
 
   ///

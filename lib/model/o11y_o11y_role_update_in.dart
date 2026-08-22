@@ -16,7 +16,6 @@ class O11yO11yRoleUpdateIn {
     this.description,
     this.transactionGroups = const [],
   });
-
   /// Description says what the role is for. Required — send an empty string to clear it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

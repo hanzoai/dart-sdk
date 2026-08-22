@@ -20,7 +20,6 @@ class CampaignWrite {
     this.name,
     this.scheduleAt,
   });
-
   /// Audience is the segment or audience selector this campaign targets.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

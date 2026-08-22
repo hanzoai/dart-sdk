@@ -18,7 +18,6 @@ class WebSearchResults {
     this.query,
     this.results = const [],
   });
-
   /// Engines is one entry per engine asked, in the order they were asked. It is ADDITIVE to the SearXNG contract, which the LibreChat client ignores as an unknown field exactly as it ignores `engine` on a result.
   List<WebEngine> engines;
 

@@ -16,7 +16,6 @@ class HealthLens {
     this.available,
     this.table,
   });
-
   /// Available reports whether that table exists in the warehouse right now.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

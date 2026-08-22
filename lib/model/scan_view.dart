@@ -23,7 +23,6 @@ class ScanView {
     this.medium,
     this.project,
   });
-
   /// CreatedAt is when the scan ran, in Unix milliseconds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

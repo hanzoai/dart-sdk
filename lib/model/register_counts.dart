@@ -16,7 +16,6 @@ class RegisterCounts {
     this.byStage = const {},
     this.total,
   });
-
   /// ByStage counts formations per stage, keyed by the stage name.
   Map<String, int> byStage;
 

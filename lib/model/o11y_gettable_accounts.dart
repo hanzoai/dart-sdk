@@ -15,7 +15,6 @@ class O11yGettableAccounts {
   O11yGettableAccounts({
     this.accounts = const [],
   });
-
   List<O11yAccount> accounts;
 
   @override

@@ -15,7 +15,6 @@ class VersionPage {
   VersionPage({
     this.data = const [],
   });
-
   /// Data is the page of versions, newest first.
   List<FlowVersion> data;
 

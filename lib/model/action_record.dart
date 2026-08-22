@@ -22,7 +22,7 @@ class ActionRecord {
     this.stepId,
     this.tool,
   });
-
+  /// Args is the JSON the tool was called with, recorded as TEXT exactly as sent — including whatever the AI drafted into it — so a run can be read back and reproduced. It is a string, not an object.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -31,6 +31,7 @@ class ActionRecord {
   ///
   String? args;
 
+  /// CreatedAt is when the run was recorded, as Unix seconds. The ledger is read newest-first on this column.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -39,6 +40,7 @@ class ActionRecord {
   ///
   int? createdAt;
 
+  /// Err is why the run failed, when it did. Empty on a successful run.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -47,6 +49,7 @@ class ActionRecord {
   ///
   String? err;
 
+  /// ID identifies this one execution. The ledger is append-only, so an id is never reused and never updated.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -55,6 +58,7 @@ class ActionRecord {
   ///
   String? id;
 
+  /// OK is whether the tool ran to completion. It is the ledger's own verdict, not the tool's opinion of the outcome — a tool that succeeded at reporting bad news is ok.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -63,6 +67,7 @@ class ActionRecord {
   ///
   bool? ok;
 
+  /// Result is the tool's own answer, likewise recorded as JSON text. Present on a failed run too, where the tool answered but the answer was a refusal.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -71,6 +76,7 @@ class ActionRecord {
   ///
   String? result;
 
+  /// StepID is the checklist step the Business AI was acting on.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -79,6 +85,7 @@ class ActionRecord {
   ///
   String? stepId;
 
+  /// Tool is the MCP tool that was dispatched, by name.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

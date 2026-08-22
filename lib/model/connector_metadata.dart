@@ -23,7 +23,6 @@ class ConnectorMetadata {
     this.triggers = const [],
     this.version,
   });
-
   List<ConnectorAction> actions;
 
   ///

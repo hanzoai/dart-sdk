@@ -16,7 +16,6 @@ class PatchIn {
     this.name,
     this.public,
   });
-
   /// Name is the repo to update, from the :name path segment.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -22,7 +22,6 @@ class GithubPagesView {
     this.status,
     this.url,
   });
-
   /// BuildType is the builder in use: \"legacy\" (branch source) or \"workflow\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

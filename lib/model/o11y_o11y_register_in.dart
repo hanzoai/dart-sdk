@@ -19,7 +19,6 @@ class O11yO11yRegisterIn {
     this.orgName,
     this.password,
   });
-
   /// Email is the admin's email. Required.
   String email;
 

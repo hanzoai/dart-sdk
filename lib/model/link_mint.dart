@@ -15,7 +15,6 @@ class LinkMint {
   LinkMint({
     this.link,
   });
-
   /// Link is the link just minted, with its full shareable URL. Its funnel counters all start at zero — nothing has clicked or signed up through it yet.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

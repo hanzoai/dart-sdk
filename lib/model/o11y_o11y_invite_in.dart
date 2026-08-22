@@ -18,7 +18,6 @@ class O11yO11yInviteIn {
     this.name,
     this.role,
   });
-
   /// Email is the address the invitation goes to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -16,7 +16,6 @@ class O11yO11yMetricStats {
     this.metrics = const [],
     this.total,
   });
-
   /// Metrics are the counted metrics.
   List<O11yO11yMetricStat> metrics;
 

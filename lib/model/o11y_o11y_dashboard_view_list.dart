@@ -15,7 +15,6 @@ class O11yO11yDashboardViewList {
   O11yO11yDashboardViewList({
     this.views = const [],
   });
-
   /// Views are the saved views, shared org-wide.
   List<O11yO11yDashboardView> views;
 

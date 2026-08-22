@@ -16,7 +16,6 @@ class HealthOut {
     this.engine,
     this.ok,
   });
-
   /// Engine names the evaluator this deployment runs.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

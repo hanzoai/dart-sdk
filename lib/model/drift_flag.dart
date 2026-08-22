@@ -17,7 +17,7 @@ class DriftFlag {
     this.message,
     this.severity,
   });
-
+  /// Kind is which finding this is, one of stale, un-rolled, floating-declared, floating-running, no-release or zero-assets. It is what code matches on, and the kinds are independent — one row can carry several at once.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -26,6 +26,7 @@ class DriftFlag {
   ///
   String? kind;
 
+  /// Message is the finding in words, naming the tags that produced it (\"running v1.2.3 has not rolled to declared v1.2.4\"). For display: match on Kind.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -34,6 +35,7 @@ class DriftFlag {
   ///
   String? message;
 
+  /// Severity is this ONE finding's weight — yellow for stale and un-rolled, red for the other four. It is a constant of the kind (severityOf), never a judgement about the row, so the same kind always weighs the same.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

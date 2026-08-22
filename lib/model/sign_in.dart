@@ -16,7 +16,6 @@ class SignIn {
     this.digest,
     this.message,
   });
-
   /// Digest is a pre-computed 32-byte digest as hex, with or without the 0x prefix. When present it is signed verbatim and message is ignored.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

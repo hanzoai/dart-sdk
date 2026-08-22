@@ -19,7 +19,6 @@ class O11yO11yLogFilterKey {
     this.key,
     this.type,
   });
-
   /// DataType is the field's data type, e.g. string, int64, float64, bool.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

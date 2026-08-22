@@ -18,7 +18,6 @@ class O11yAuthorization {
     this.credentialsRef,
     this.type,
   });
-
   Object? credentials;
 
   ///

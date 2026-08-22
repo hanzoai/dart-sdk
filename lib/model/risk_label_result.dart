@@ -17,7 +17,6 @@ class RiskLabelResult {
     this.refusal,
     this.status,
   });
-
   /// ID is the content digest of the assertion — the id a redelivery of the same fact resolves to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

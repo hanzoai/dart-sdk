@@ -15,7 +15,7 @@ class StepList {
   StepList({
     this.data = const [],
   });
-
+  /// Data is every step of the sequence, idx ascending — the order they send in. It is not paged: a sequence's steps are a handful, and a partial list would misstate the drip. An empty array for a sequence with no messages yet, which enrolls fine and completes immediately.
   List<Step> data;
 
   @override

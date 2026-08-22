@@ -18,7 +18,6 @@ class RunIn {
     this.id,
     this.props = const {},
   });
-
   /// Action is the name of the connector action to invoke.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

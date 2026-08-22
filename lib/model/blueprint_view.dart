@@ -18,7 +18,6 @@ class BlueprintView {
     this.counts,
     this.version,
   });
-
   /// Blueprint is the whole authored document, including items disabled for the org-facing reads, with every enabled flag written out explicitly.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -16,7 +16,6 @@ class SafeIn {
     this.documentIds = const [],
     this.signers = const [],
   });
-
   /// DocumentIDs are data room document ids to raise a signature request over. Required.
   List<String> documentIds;
 

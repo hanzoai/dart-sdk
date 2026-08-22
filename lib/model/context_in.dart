@@ -17,7 +17,6 @@ class ContextIn {
     this.query,
     this.repo,
   });
-
   /// BudgetTokens caps the bundle's size. Clamped to [256, 32000]; 0 or absent uses 4000.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

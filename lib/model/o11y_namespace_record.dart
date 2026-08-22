@@ -19,7 +19,6 @@ class O11yNamespaceRecord {
     this.namespaceName,
     this.podCountsByPhase,
   });
-
   Map<String, String> meta;
 
   ///

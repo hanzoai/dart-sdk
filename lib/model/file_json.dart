@@ -19,7 +19,6 @@ class FileJSON {
     this.size,
     this.truncated,
   });
-
   /// Content is the file's bytes, empty when Truncated.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

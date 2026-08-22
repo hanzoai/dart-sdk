@@ -19,7 +19,6 @@ class GraphNode {
     this.title,
     this.type,
   });
-
   /// \"<doctype>:<name>\" — globally unique, click-to-open key
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -38,6 +37,7 @@ class GraphNode {
   ///
   String? name;
 
+  /// Project is the project scope the underlying document was saved under. Absent for a document saved with none, and for the synthetic nodes — unresolved link targets and connectors belong to no project. When ?project= narrows the graph, every page, memory and source node carries that value.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

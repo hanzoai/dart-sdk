@@ -19,7 +19,6 @@ class FlowUpdate {
     this.name,
     this.workflow,
   });
-
   Object? data;
 
   /// Description replaces the description when present.

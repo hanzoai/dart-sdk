@@ -16,7 +16,6 @@ class O11yO11yMetricAlert {
     this.alertId,
     this.alertName,
   });
-
   /// AlertID is the alert rule's id.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

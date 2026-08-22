@@ -16,7 +16,6 @@ class O11yO11yRuleOut {
     this.data,
     this.status,
   });
-
   Object? data;
 
   /// Status is \"success\".

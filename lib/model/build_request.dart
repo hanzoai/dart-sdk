@@ -18,7 +18,7 @@ class BuildRequest {
     this.source_,
     this.spec,
   });
-
+  /// Name is the plugin's name: one lowercase path segment (a-z0-9, _ or -), and the id the runtime loads it by.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -27,6 +27,7 @@ class BuildRequest {
   ///
   String? name;
 
+  /// Provider is the connectors provider whose credential the plugin reads at run time. Empty for a plugin that needs none.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -35,6 +36,7 @@ class BuildRequest {
   ///
   String? provider;
 
+  /// Source is TypeScript to build as-is. Exactly one of Source or Spec.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -43,6 +45,7 @@ class BuildRequest {
   ///
   String? source_;
 
+  /// Spec is API documentation — an OpenAPI document, or prose describing the endpoints — that the generator turns into Source. The generated source is returned in the response, so a caller can read what will run before it runs.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

@@ -17,7 +17,6 @@ class DeployLogs {
     this.logs,
     this.source_,
   });
-
   /// DeploymentID is the deployment these logs belong to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

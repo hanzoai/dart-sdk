@@ -18,7 +18,6 @@ class DataroomStats {
     this.totalPageViews,
     this.totalViews,
   });
-
   /// DataroomId is the room these counts are for.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

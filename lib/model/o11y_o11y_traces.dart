@@ -15,7 +15,6 @@ class O11yO11yTraces {
   O11yO11yTraces({
     this.items = const [],
   });
-
   /// Items are the traces, most recent first.
   List<O11yO11yTrace> items;
 

@@ -16,7 +16,6 @@ class SbomIngested {
     this.componentCount,
     this.imageDigest,
   });
-
   /// ComponentCount is how many components the CycloneDX document yielded and this call persisted.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

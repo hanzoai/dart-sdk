@@ -20,7 +20,6 @@ class O11yO11yTagFilter {
     this.stringValues = const [],
     this.tagType,
   });
-
   /// BoolValues are the values matched when the tag holds booleans.
   List<bool> boolValues;
 

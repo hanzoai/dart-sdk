@@ -19,7 +19,6 @@ class O11yO11yFunnelStepsUpdateIn {
     this.steps = const [],
     this.timestamp,
   });
-
   /// Description replaces the funnel's description. Empty leaves it as it was.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

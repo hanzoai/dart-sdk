@@ -20,7 +20,6 @@ class CreateWalletIn {
     this.name,
     this.tier,
   });
-
   /// AccountID is the account this wallet belongs to. Required, and it must be an account of the caller's own org — an unknown one is a 404.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

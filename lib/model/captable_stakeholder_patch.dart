@@ -25,7 +25,6 @@ class CaptableStakeholderPatch {
     this.taxId,
     this.zipcode,
   });
-
   Object? city;
 
   Object? currentRelationship;

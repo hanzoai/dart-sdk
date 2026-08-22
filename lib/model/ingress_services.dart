@@ -15,7 +15,6 @@ class IngressServices {
   IngressServices({
     this.services = const [],
   });
-
   /// Services is the org's services, ordered by id.
   List<Upstream> services;
 

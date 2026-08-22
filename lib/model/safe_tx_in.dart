@@ -19,7 +19,6 @@ class SafeTxIn {
     this.to,
     this.value,
   });
-
   /// ChainID is the EVM chain the Safe transaction is bound to. 0 uses the wallet's own chain, or the Hanzo L1 (36963) when it is chain-agnostic.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

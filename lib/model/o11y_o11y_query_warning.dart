@@ -17,7 +17,6 @@ class O11yO11yQueryWarning {
     this.url,
     this.warnings = const [],
   });
-
   /// Message is the warning.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

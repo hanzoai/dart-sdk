@@ -15,7 +15,7 @@ class Stopped {
   Stopped({
     this.stopped,
   });
-
+  /// Stopped counts the commands that were still running and were interrupted. Zero says the sandbox was idle, not that the stop failed — see above.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

@@ -21,9 +21,10 @@ class PnL {
     this.totalExpense,
     this.totalIncome,
   });
-
+  /// Expense is the cost lines that moved in the period, one per account.
   List<PnLLine> expense;
 
+  /// From opens the period and is EXCLUSIVE — movement strictly after it, matching the trial balance's opening boundary so the two reports agree on what belongs to a period. Absent means from the beginning of the ledger.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -32,9 +33,10 @@ class PnL {
   ///
   String? from;
 
+  /// Income is the revenue lines that moved in the period, one per account. Accounts that did not move are omitted rather than listed at zero.
   List<PnLLine> income;
 
-  /// TotalIncome − TotalExpense
+  /// NetIncome is totalIncome minus totalExpense, in cents. Negative is a loss.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -43,6 +45,7 @@ class PnL {
   ///
   int? netIncome;
 
+  /// To closes the period and is inclusive. Absent means up to now.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -51,6 +54,7 @@ class PnL {
   ///
   String? to;
 
+  /// TotalExpense is cost MATCHED to that revenue, in cents, including accrued infrastructure that has not been billed yet.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -59,6 +63,7 @@ class PnL {
   ///
   int? totalExpense;
 
+  /// TotalIncome is revenue RECOGNIZED in the period, in cents — accrual, not cash, so a prepaid top-up is not in it until the credit is consumed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

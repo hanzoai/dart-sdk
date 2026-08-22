@@ -15,7 +15,6 @@ class AdvanceIn {
   AdvanceIn({
     this.to,
   });
-
   /// To is the target stage: structure, founders, payment, documents, esign, genesis, import or company.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

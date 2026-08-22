@@ -16,7 +16,6 @@ class O11yO11yIntegrationOut {
     this.data,
     this.status,
   });
-
   /// Data holds the integration and its installation record.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

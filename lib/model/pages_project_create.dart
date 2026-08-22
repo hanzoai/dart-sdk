@@ -18,7 +18,7 @@ class PagesProjectCreate {
     this.name,
     this.productionBranch,
   });
-
+  /// BuildConfig says how to build the site. Omitted means no build step.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -27,6 +27,7 @@ class PagesProjectCreate {
   ///
   PagesBuildConfig? buildConfig;
 
+  /// DeploymentConfigs carries the preview and production runtime configs — the bindings and variables the built site's functions run with.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -35,6 +36,7 @@ class PagesProjectCreate {
   ///
   PagesDeploymentConfigs? deploymentConfigs;
 
+  /// Name is the project name, and it is also the address: the site answers at <name>.pages.dev. Cloudflare will not rename a project afterwards.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -43,6 +45,7 @@ class PagesProjectCreate {
   ///
   String? name;
 
+  /// ProductionBranch is which git branch builds to production; every other branch builds a preview. Omitted leaves Cloudflare's own default.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

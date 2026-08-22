@@ -19,7 +19,6 @@ class PatchFlowIn {
     this.metadata,
     this.publishedVersionId,
   });
-
   /// ExternalID sets the caller's own id for this flow.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

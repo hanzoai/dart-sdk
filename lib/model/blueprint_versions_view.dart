@@ -16,7 +16,6 @@ class BlueprintVersionsView {
     this.brand,
     this.versions = const [],
   });
-
   /// Brand is the blueprint key the history belongs to — this deployment's brand, or \"\" (the base blueprint) when the brand has no row of its own.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

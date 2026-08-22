@@ -20,7 +20,6 @@ class ReleaseRow {
     this.status,
     this.version,
   });
-
   /// Environment is the deploy target the application names.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

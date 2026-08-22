@@ -20,7 +20,6 @@ class O11yO11yTagQuery {
     this.stringValues = const [],
     this.tagType,
   });
-
   /// BoolValues are the boolean values to test against.
   List<bool> boolValues;
 

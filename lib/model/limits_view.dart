@@ -17,7 +17,6 @@ class LimitsView {
     this.plan,
     this.unit,
   });
-
   /// Limits is the plan's decision.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

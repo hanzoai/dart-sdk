@@ -16,7 +16,6 @@ class O11yO11yFunnelOut {
     this.data,
     this.status,
   });
-
   /// Data is the funnel with its steps.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

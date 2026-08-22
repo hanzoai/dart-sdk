@@ -15,7 +15,7 @@ class PagesKVBinding {
   PagesKVBinding({
     this.namespaceId,
   });
-
+  /// NamespaceID is the KV namespace this binding points at, by Cloudflare's id rather than its title. The BINDING NAME — what the Worker code reads it as — is the map key this value sits under, not a field here.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

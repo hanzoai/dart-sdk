@@ -15,7 +15,6 @@ class O11yO11yUserUpdate {
   O11yO11yUserUpdate({
     this.displayName,
   });
-
   /// DisplayName is the new display name.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

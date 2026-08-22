@@ -17,7 +17,6 @@ class O11yJobListResponse {
     this.total,
     this.type,
   });
-
   List<O11yJobListRecord> records;
 
   ///

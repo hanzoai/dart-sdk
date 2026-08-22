@@ -15,7 +15,6 @@ class O11yIntegrationsListResponse {
   O11yIntegrationsListResponse({
     this.integrations = const [],
   });
-
   List<O11yIntegrationsListItem> integrations;
 
   @override

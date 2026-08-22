@@ -20,7 +20,6 @@ class O11yBasicAuth {
     this.usernameFile,
     this.usernameRef,
   });
-
   Object? password;
 
   ///

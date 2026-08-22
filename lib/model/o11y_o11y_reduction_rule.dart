@@ -28,7 +28,6 @@ class O11yO11yReductionRule {
     this.updatedAt,
     this.updatedBy,
   });
-
   /// Active says whether the rule is in force.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

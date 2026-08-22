@@ -25,7 +25,6 @@ class IamProviderItem {
     this.rule,
     this.signupGroup,
   });
-
   List<String> bindingRule;
 
   ///

@@ -16,7 +16,6 @@ class RegisterResult {
     this.quote,
     this.record,
   });
-
   /// the price it was bought at
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

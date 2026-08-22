@@ -15,7 +15,6 @@ class RegistryProjectList {
   RegistryProjectList({
     this.data = const [],
   });
-
   /// Data is the namespaces visible to the caller.
   List<RegistryProject> data;
 

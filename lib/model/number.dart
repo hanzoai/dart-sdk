@@ -22,10 +22,10 @@ class Number {
     this.org,
     this.type,
   });
-
-  /// voice | sms | mms | fax
+  /// Capable is what the number can carry: any of \"voice\", \"sms\", \"mms\", \"fax\". A number missing \"sms\" cannot send one no matter what this platform does.
   List<String> capable;
 
+  /// Country is the ISO 3166-1 alpha-2 code the number is issued under. Numbering is national, so this is what makes a search answerable at all.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -34,6 +34,7 @@ class Number {
   ///
   String? country;
 
+  /// Currency is the ISO 4217 code Monthly is denominated in. Without it the number beside it means nothing, so the two are always read together.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -42,6 +43,7 @@ class Number {
   ///
   String? currency;
 
+  /// E164 is the number in E.164: a leading + and digits only, no spaces or dashes. That is what a carrier accepts and what a search result must be bought by.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -50,6 +52,7 @@ class Number {
   ///
   String? e164;
 
+  /// ID is the carrier's handle for the number, and the id every route here addresses it by. It is not the number itself — see E164.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -58,7 +61,7 @@ class Number {
   ///
   String? id;
 
-  /// minor units, as the carrier quoted it
+  /// Monthly is the recurring rental in the MINOR unit of Currency (cents for USD), exactly as the carrier quoted it. It is a price, not a charge: nothing is billed by this field.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -67,6 +70,7 @@ class Number {
   ///
   int? monthly;
 
+  /// Org is the tenant holding the number. A search result carries none — nobody holds it yet — which is how an available number is told from a held one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -75,6 +79,7 @@ class Number {
   ///
   String? org;
 
+  /// Type is what kind of number it is: \"local\", \"national\", \"tollfree\" or \"mobile\". It decides both price and what a carrier will let it originate.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

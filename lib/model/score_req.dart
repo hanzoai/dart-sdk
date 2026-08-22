@@ -23,7 +23,6 @@ class ScoreReq {
     this.traceId,
     this.value,
   });
-
   /// Comment is the grader's reasoning, truncated at 2000 characters.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

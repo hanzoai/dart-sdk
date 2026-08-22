@@ -15,7 +15,6 @@ class RegistryPackageList {
   RegistryPackageList({
     this.data = const [],
   });
-
   /// Data is the packages in the org's scope.
   List<RegistryPackage> data;
 

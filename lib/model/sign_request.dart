@@ -16,7 +16,6 @@ class SignRequest {
     this.id,
     this.signers = const [],
   });
-
   /// ID is the document to send for signature, from the path.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

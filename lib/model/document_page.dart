@@ -16,7 +16,6 @@ class DocumentPage {
     this.data = const [],
     this.disclaimer,
   });
-
   /// Data are the documents, WITHOUT their rendered content — fetch one to read it.
   List<DocumentSummary> data;
 

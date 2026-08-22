@@ -15,7 +15,6 @@ class BindingList {
   BindingList({
     this.agentBindings = const [],
   });
-
   /// AgentBindings is one row per bound machine, emitted verbatim as vm reports it.
   List<AgentBinding> agentBindings;
 

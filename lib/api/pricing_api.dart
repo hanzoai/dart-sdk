@@ -496,6 +496,54 @@ class PricingApi {
     return null;
   }
 
+  /// Returns what the caller's org can actually use: every managed item with its global state, whether it is effective here, whether this org is already opted into its beta, and whether it may still opt in.
+  ///
+  /// Returns what the caller's org can actually use: every managed item with its global state, whether it is effective here, whether this org is already opted into its beta, and whether it may still opt in. Read-only and safe for any caller — one without a validated principal simply sees the generally-available items and no opt-in affordance, never another org's state.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> getPricingEnablementWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/pricing/enablement';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Returns what the caller's org can actually use: every managed item with its global state, whether it is effective here, whether this org is already opted into its beta, and whether it may still opt in.
+  ///
+  /// Returns what the caller's org can actually use: every managed item with its global state, whether it is effective here, whether this org is already opted into its beta, and whether it may still opt in. Read-only and safe for any caller — one without a validated principal simply sees the generally-available items and no opt-in affordance, never another org's state.
+  Future<EnablementBoard?> getPricingEnablement() async {
+    final response = await getPricingEnablementWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'EnablementBoard',) as EnablementBoard;
+    
+    }
+    return null;
+  }
+
   /// Returns the models the catalog highlights, filtered to what the caller's org may see.
   ///
   /// Returns the models the catalog highlights, filtered to what the caller's org may see. It is the same catalog as ListModels narrowed to entries the pricing source marks featured.
@@ -1174,6 +1222,118 @@ class PricingApi {
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
       return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PricingToolList',) as PricingToolList;
+    
+    }
+    return null;
+  }
+
+  /// Opts the caller's OWN org into a beta item.
+  ///
+  /// Opts the caller's OWN org into a beta item. The org is the caller's validated one, so this can never target another org, and the registry refuses anything not in beta — so it can neither re-open an item an operator turned off nor touch one that is already generally available. Requires a signed-in caller with an org.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [EnablementOptRef] enablementOptRef (required):
+  Future<Response> postPricingEnablementOptinWithHttpInfo(EnablementOptRef enablementOptRef,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/pricing/enablement/optin';
+
+    // ignore: prefer_final_locals
+    Object? postBody = enablementOptRef;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Opts the caller's OWN org into a beta item.
+  ///
+  /// Opts the caller's OWN org into a beta item. The org is the caller's validated one, so this can never target another org, and the registry refuses anything not in beta — so it can neither re-open an item an operator turned off nor touch one that is already generally available. Requires a signed-in caller with an org.
+  ///
+  /// Parameters:
+  ///
+  /// * [EnablementOptRef] enablementOptRef (required):
+  Future<UserEnablementItem?> postPricingEnablementOptin(EnablementOptRef enablementOptRef,) async {
+    final response = await postPricingEnablementOptinWithHttpInfo(enablementOptRef,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'UserEnablementItem',) as UserEnablementItem;
+    
+    }
+    return null;
+  }
+
+  /// Removes the caller's OWN org from a beta item's grant list, the reverse of OptIntoBeta and idempotent.
+  ///
+  /// Removes the caller's OWN org from a beta item's grant list, the reverse of OptIntoBeta and idempotent. The org is the caller's validated one, so this can never revoke another org's grant. Requires a signed-in caller with an org.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [EnablementOptRef] enablementOptRef (required):
+  Future<Response> postPricingEnablementOptoutWithHttpInfo(EnablementOptRef enablementOptRef,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/pricing/enablement/optout';
+
+    // ignore: prefer_final_locals
+    Object? postBody = enablementOptRef;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Removes the caller's OWN org from a beta item's grant list, the reverse of OptIntoBeta and idempotent.
+  ///
+  /// Removes the caller's OWN org from a beta item's grant list, the reverse of OptIntoBeta and idempotent. The org is the caller's validated one, so this can never revoke another org's grant. Requires a signed-in caller with an org.
+  ///
+  /// Parameters:
+  ///
+  /// * [EnablementOptRef] enablementOptRef (required):
+  Future<UserEnablementItem?> postPricingEnablementOptout(EnablementOptRef enablementOptRef,) async {
+    final response = await postPricingEnablementOptoutWithHttpInfo(enablementOptRef,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'UserEnablementItem',) as UserEnablementItem;
     
     }
     return null;

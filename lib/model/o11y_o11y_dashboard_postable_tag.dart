@@ -16,7 +16,6 @@ class O11yO11yDashboardPostableTag {
     this.key,
     this.value,
   });
-
   /// Key is the tag key.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

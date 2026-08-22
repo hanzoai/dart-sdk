@@ -15,7 +15,6 @@ class QuoteList {
   QuoteList({
     this.results = const [],
   });
-
   /// Results is one quote per name, priced RETAIL — this deployment's markup is already applied and the wholesale cost is never on the wire.
   List<Offer> results;
 

@@ -15,7 +15,6 @@ class IndexersOut {
   IndexersOut({
     this.indexers = const [],
   });
-
   /// Indexers is one row per reachable chain indexer, or an empty list when the indexer is unreachable — never a fabricated row.
   List<IndexerView> indexers;
 

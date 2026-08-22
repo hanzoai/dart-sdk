@@ -17,7 +17,6 @@ class O11yDeploymentListResponse {
     this.total,
     this.type,
   });
-
   List<O11yDeploymentListRecord> records;
 
   ///

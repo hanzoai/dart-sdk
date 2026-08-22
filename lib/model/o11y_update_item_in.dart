@@ -18,7 +18,6 @@ class O11yUpdateItemIn {
     this.itemId,
     this.status,
   });
-
   /// Assignee replaces the reviewer this item is for, up to 512 characters.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

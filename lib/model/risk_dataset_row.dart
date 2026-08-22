@@ -20,7 +20,6 @@ class RiskDatasetRow {
     this.split,
     this.subject,
   });
-
   /// At is the row's instant.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -39,7 +38,7 @@ class RiskDatasetRow {
   ///
   String? id;
 
-  /// Kind and Subject name whose row this is.
+  /// Kind is the subject kind: person, session or account.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -60,6 +59,7 @@ class RiskDatasetRow {
   ///
   String? split;
 
+  /// Subject is the identity within that kind — whose row this is. Every row of one subject is in ONE split, decided by that subject's earliest instant, so a subject is never on both sides of a cut.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

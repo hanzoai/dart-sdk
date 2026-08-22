@@ -16,7 +16,6 @@ class O11yO11yServiceAccountCreateOut {
     this.data,
     this.status,
   });
-
   /// Data carries the new account's id.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

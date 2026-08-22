@@ -18,7 +18,6 @@ class RegistryPackage {
     this.updated,
     this.version,
   });
-
   /// Description says what the package is, as published.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -24,7 +24,6 @@ class CheckView {
     this.updatedAt,
     this.verifyUrl,
   });
-
   /// CreatedAt is the unix second the verification was started.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

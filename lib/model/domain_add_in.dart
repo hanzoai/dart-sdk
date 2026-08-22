@@ -16,7 +16,6 @@ class DomainAddIn {
     this.name,
     this.project,
   });
-
   /// Name is the custom domain to attach, e.g. \"www.acme.com\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

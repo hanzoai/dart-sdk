@@ -16,7 +16,6 @@ class O11yO11yReductionRules {
     this.rules = const [],
     this.total,
   });
-
   /// Rules are the rules.
   List<O11yO11yReductionRule> rules;
 

@@ -27,7 +27,6 @@ class O11yHTTPClientConfig {
     this.proxyUrl,
     this.tlsConfig,
   });
-
   /// The HTTP authorization credentials for the targets.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -16,7 +16,6 @@ class ModuleInfo {
     this.doctypes = const [],
     this.module,
   });
-
   List<String> doctypes;
 
   ///

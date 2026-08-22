@@ -19,7 +19,6 @@ class O11yO11yApdexSettings {
     this.serviceName,
     this.threshold,
   });
-
   /// ExcludeStatusCodes are status codes excluded from the score, comma separated.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

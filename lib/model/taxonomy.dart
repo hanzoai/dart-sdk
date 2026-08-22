@@ -15,7 +15,6 @@ class Taxonomy {
   Taxonomy({
     this.categories = const [],
   });
-
   /// Categories are the groupings, in display order, each with its own taxa.
   List<Category> categories;
 

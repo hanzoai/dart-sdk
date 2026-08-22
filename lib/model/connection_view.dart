@@ -18,7 +18,6 @@ class ConnectionView {
     this.externalId,
     this.scopes = const [],
   });
-
   /// Account is the human label of the connected third-party account (the Slack team name, the GitHub org login). Provider-supplied and sanitized on ingest.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class O11yO11yTraceAggregationsIn {
   O11yO11yTraceAggregationsIn({
     this.aggregations = const [],
   });
-
   List<O11ySpanAggregation> aggregations;
 
   @override

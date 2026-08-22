@@ -16,7 +16,6 @@ class O11yO11yOrganizationOut {
     this.data,
     this.status,
   });
-
   /// Data is the organization.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -18,7 +18,7 @@ class Page {
     this.id,
     this.title,
   });
-
+  /// Body is the reusable prompt or snippet itself. It may carry {placeholder} tokens for the client-specific bits — {client_name}, {domain}, {product} — which are substituted where the template is used, not here.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -27,6 +27,7 @@ class Page {
   ///
   String? body;
 
+  /// Enabled is the admin lever. Absent reads as ON; an explicit false withdraws the template from org-facing reads.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -35,6 +36,7 @@ class Page {
   ///
   bool? enabled;
 
+  /// ID is the slug a step references to pull this template in.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -43,6 +45,7 @@ class Page {
   ///
   String? id;
 
+  /// Title names the template in the authoring plane and in a picker.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

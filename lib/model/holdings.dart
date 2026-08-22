@@ -15,7 +15,6 @@ class Holdings {
   Holdings({
     this.domains = const [],
   });
-
   /// Domains is the caller org's domains, newest registration first.
   List<Holding> domains;
 

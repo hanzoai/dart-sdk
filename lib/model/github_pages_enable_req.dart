@@ -18,7 +18,6 @@ class GithubPagesEnableReq {
     this.path,
     this.repo,
   });
-
   /// Branch is the legacy source branch; empty defaults to the repo's own default branch. Ignored when buildType is \"workflow\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

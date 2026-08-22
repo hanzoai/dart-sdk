@@ -22,7 +22,6 @@ class O11yO11yLLMUser {
     this.totalTokens,
     this.traces,
   });
-
   /// CompletionTokens is their total output tokens.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

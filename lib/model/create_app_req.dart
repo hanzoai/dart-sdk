@@ -29,7 +29,6 @@ class CreateAppReq {
     this.source_,
     this.storageGb,
   });
-
   /// BuildType is `pack` — the zero-config default that detects any project — or `dockerfile`, the explicit escape hatch. An image app never builds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -16,7 +16,6 @@ class O11yO11yDashboardPatchIn {
     this.id,
     this.ops = const [],
   });
-
   /// ID is the dashboard id from the path.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -17,7 +17,6 @@ class MirrorReq {
     this.project,
     this.source_,
   });
-
   /// Name is the local repo to mirror into, from the :name path segment. It is CREATED on first use.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

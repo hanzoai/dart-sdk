@@ -20,7 +20,6 @@ class Skill {
     this.name,
     this.org,
   });
-
   /// Content is the SKILL.md body, markdown.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class CampaignPage {
   CampaignPage({
     this.data = const [],
   });
-
   /// Data are the campaigns on this page.
   List<CampaignRecord> data;
 

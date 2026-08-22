@@ -16,7 +16,6 @@ class PointView {
     this.t,
     this.v,
   });
-
   /// the bucket's start, RFC3339 (UTC)
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

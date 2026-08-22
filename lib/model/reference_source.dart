@@ -22,7 +22,6 @@ class ReferenceSource {
     this.terms,
     this.version,
   });
-
   /// AsOf is when this publisher was current, RFC 3339.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

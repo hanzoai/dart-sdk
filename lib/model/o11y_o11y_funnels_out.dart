@@ -16,7 +16,6 @@ class O11yO11yFunnelsOut {
     this.data = const [],
     this.status,
   });
-
   /// Data are the funnels.
   List<O11yGettableFunnel> data;
 

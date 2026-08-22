@@ -16,7 +16,6 @@ class RefJSON {
     this.name,
     this.sha,
   });
-
   /// Name is the short ref name (\"main\", \"v1.2.0\"), not the full refs/… path.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

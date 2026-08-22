@@ -15,7 +15,6 @@ class EntitlementsView {
   EntitlementsView({
     this.enabled = const [],
   });
-
   /// Enabled is the org's turned-on product ids, sorted. Always an array, never null.
   List<String> enabled;
 

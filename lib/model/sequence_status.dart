@@ -16,7 +16,6 @@ class SequenceStatus {
     this.id,
     this.status,
   });
-
   /// ID is the sequence id from the path.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

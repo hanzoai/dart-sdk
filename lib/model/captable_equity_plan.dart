@@ -23,7 +23,6 @@ class CaptableEquityPlan {
     this.planEffectiveDate,
     this.shareClassId,
   });
-
   /// BoardApprovalDate is the ISO date the board approved the plan.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

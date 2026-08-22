@@ -17,7 +17,6 @@ class OauthBundleIn {
     this.account,
     this.refresh,
   });
-
   /// Access is the access token.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

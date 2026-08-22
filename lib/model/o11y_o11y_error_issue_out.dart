@@ -16,7 +16,6 @@ class O11yO11yErrorIssueOut {
     this.data,
     this.status,
   });
-
   /// Data is the issue.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -20,7 +20,7 @@ class TransitionResult {
     this.storefront,
     this.to,
   });
-
+  /// Distribution is the channel fan-out this move triggered. Present ONLY on the move to published, the single edge that distributes — so its absence means no fan-out was attempted, never that one failed quietly. A fan-out that DID fail is present carrying its own honest status, because distribution never rolls the status change back.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -29,6 +29,7 @@ class TransitionResult {
   ///
   PublishResult? distribution;
 
+  /// DocType is the content type that moved — Campaign, SocialPost or Asset — echoed from the path.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -37,6 +38,7 @@ class TransitionResult {
   ///
   String? doctype;
 
+  /// From is the state the item held when it was read. A document carrying no status yet reads as \"draft\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -45,6 +47,7 @@ class TransitionResult {
   ///
   String? from;
 
+  /// Name is the document that moved, echoed from the path.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -53,6 +56,7 @@ class TransitionResult {
   ///
   String? name;
 
+  /// Storefront is the catalog side effect, present only when a published Asset was product imagery — it carries a design and a kind of ecom, product or lifestyle. Absent for everything else, so absence reads as \"not catalog imagery\" rather than \"the catalog failed\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -61,6 +65,7 @@ class TransitionResult {
   ///
   StorefrontResult? storefront;
 
+  /// To is the state it holds now. From == To on an idempotent re-transition, which is legal and is where a caller that lost a publish race lands.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

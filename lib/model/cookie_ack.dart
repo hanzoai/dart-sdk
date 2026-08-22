@@ -15,7 +15,6 @@ class CookieAck {
   CookieAck({
     this.result,
   });
-
   /// Result is true when the cookie was written or cleared.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

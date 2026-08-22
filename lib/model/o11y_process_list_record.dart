@@ -21,7 +21,6 @@ class O11yProcessListRecord {
     this.processMemory,
     this.processName,
   });
-
   Map<String, String> meta;
 
   ///

@@ -18,7 +18,6 @@ class O11yO11yQueryStats {
     this.rowsScanned,
     this.stepIntervals = const {},
   });
-
   /// BytesScanned is how many bytes the query read.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

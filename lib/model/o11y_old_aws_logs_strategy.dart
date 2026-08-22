@@ -15,7 +15,6 @@ class O11yOldAWSLogsStrategy {
   O11yOldAWSLogsStrategy({
     this.cloudwatchLogsSubscriptions = const [],
   });
-
   List<O11yOldAWSLogsStrategyCloudwatchLogsSubscriptionsInner> cloudwatchLogsSubscriptions;
 
   @override

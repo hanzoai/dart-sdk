@@ -15,7 +15,6 @@ class PricingToolList {
   PricingToolList({
     this.tools = const [],
   });
-
   /// Tools are the metered tools, each an opaque object exactly as the pricing source emits it — typically name, billing unit and price.
   List<Map<String, Object>> tools;
 

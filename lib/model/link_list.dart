@@ -16,7 +16,6 @@ class LinkList {
     this.devices = const [],
     this.links = const [],
   });
-
   /// Devices is the same rows folded per machine — the cross-machine \"AI Providers / Accounts\" view.
   List<DeviceView> devices;
 

@@ -18,7 +18,6 @@ class PresetAccepted {
     this.servedAs,
     this.status,
   });
-
   /// Note explains what acceptance does and does not promise.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

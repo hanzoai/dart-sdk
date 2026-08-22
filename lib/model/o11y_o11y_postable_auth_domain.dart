@@ -16,7 +16,6 @@ class O11yO11yPostableAuthDomain {
     this.config,
     this.name,
   });
-
   /// Config is the domain's SSO configuration.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -17,7 +17,6 @@ class O11yO11yMetricAttribute {
     this.valueCount,
     this.values = const [],
   });
-
   /// Key is the attribute's name.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -17,7 +17,6 @@ class BusPublish {
     this.headers = const {},
     this.subject,
   });
-
   /// Data is the payload, carried verbatim as UTF-8 text (typically JSON). Binary payloads belong on the NATS port.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -16,7 +16,6 @@ class O11yO11yDisk {
     this.name,
     this.type,
   });
-
   /// Name is the disk's name.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

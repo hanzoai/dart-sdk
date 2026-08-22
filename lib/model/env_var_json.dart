@@ -17,7 +17,7 @@ class EnvVarJSON {
     this.secret,
     this.value,
   });
-
+  /// Key is the variable's name in the container, which must match `^[A-Za-z_][A-Za-z0-9_]*$`. For a sealed value it is also the last segment of the KMS ref, so it is what identifies the value across a round trip.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -26,6 +26,7 @@ class EnvVarJSON {
   ///
   String? key;
 
+  /// Secret says the value lives in KMS and never in the database. A caller may only ADD secrecy: the server seals a value whose key or shape looks like a credential anyway (secretshape.go), so an entry can come back secret that was not sent that way.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -34,6 +35,7 @@ class EnvVarJSON {
   ///
   bool? secret;
 
+  /// Value is the plaintext, and it is WRITE-ONLY once the entry is secret: a sealed value reads back as \"\", and sending \"\" again KEEPS what is sealed rather than wiping it. Only a non-empty value seals a new one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

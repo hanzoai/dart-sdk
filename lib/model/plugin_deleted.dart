@@ -15,7 +15,6 @@ class PluginDeleted {
   PluginDeleted({
     this.deleted,
   });
-
   /// Deleted is the plugin id that is now gone.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -20,7 +20,6 @@ class MetricRow {
     this.type,
     this.versions,
   });
-
   /// CreatedAt is when version 1 was written, RFC 3339 UTC.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -19,7 +19,6 @@ class O11yO11yReductionStats {
     this.retainedSamples,
     this.retainedSeries,
   });
-
   /// EstimatedMonthlySavingsUsd is the estimated monthly savings, in USD.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

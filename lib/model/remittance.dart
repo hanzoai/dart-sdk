@@ -20,7 +20,6 @@ class Remittance {
     this.reference,
     this.txn,
   });
-
   /// AmountCents is the amount disbursed, in cents. It was reserved against pending commission atomically when recorded, so it never exceeds what was owed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

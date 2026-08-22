@@ -17,7 +17,6 @@ class O11yO11yLLMTracesPage {
     this.limit,
     this.offset,
   });
-
   /// Items are the traces, newest first.
   List<O11yO11yLLMTrace> items;
 

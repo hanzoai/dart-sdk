@@ -15,7 +15,6 @@ class DestinationList {
   DestinationList({
     this.destinations = const [],
   });
-
   /// Destinations is one card per registered platform, in slug order.
   List<DestinationStatus> destinations;
 

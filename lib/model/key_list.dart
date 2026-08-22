@@ -15,7 +15,6 @@ class KeyList {
   KeyList({
     this.data = const [],
   });
-
   /// Data holds the org's keys.
   List<KeyView> data;
 

@@ -21,7 +21,6 @@ class AudiencePreview {
     this.source_,
     this.unmatched,
   });
-
   /// Available is false when the roster or the warehouse could not be read; the counts are then zero because nothing was measured, not because the cohort is empty, and Reason says which read failed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -40,7 +39,7 @@ class AudiencePreview {
   ///
   int? count;
 
-  /// Deliverable is how many de-duplicated addresses a send would reach, and Unmatched how many cohort identifiers named no customer. Unmatched is reported rather than hidden: it is the honest explanation for a cohort of 500 that mails 3.
+  /// Deliverable is how many de-duplicated mailboxes a send would reach. Two customers sharing an address count once, so it is <= Count.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -49,6 +48,7 @@ class AudiencePreview {
   ///
   int? deliverable;
 
+  /// Reason is the error text of the read that failed: the org's roster could not be loaded (\"identity store unavailable…\"), or the cohort query had no warehouse to run against (\"analytics warehouse not configured\"). Absent when the evaluation succeeded, so its presence and Available=false are one fact seen twice.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -69,6 +69,7 @@ class AudiencePreview {
   ///
   String? source_;
 
+  /// Unmatched is how many cohort identifiers named nobody on the org's roster and so have no address to mail. It is reported rather than hidden: it is the honest explanation for a cohort of 500 that mails 3. Always 0 for an event-less (whole-org) audience, which starts from the roster and has nothing to match.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

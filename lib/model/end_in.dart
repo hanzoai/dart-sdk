@@ -16,7 +16,6 @@ class EndIn {
     this.id,
     this.purge,
   });
-
   /// ID is the sandbox whose lease ends, from an earlier lease.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

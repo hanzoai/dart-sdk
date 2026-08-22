@@ -21,7 +21,6 @@ class Tool {
     this.price,
     this.source_,
   });
-
   /// Activated is filled by the registry from the activation store for the requesting (org,project); providers leave it zero. An unactivated tool is discoverable but refused 403 at dispatch.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

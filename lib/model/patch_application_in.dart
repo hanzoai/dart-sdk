@@ -18,7 +18,6 @@ class PatchApplicationIn {
     this.reason,
     this.stage,
   });
-
   /// ID is the application to move, from the path.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

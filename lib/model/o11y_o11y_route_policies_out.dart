@@ -16,7 +16,6 @@ class O11yO11yRoutePoliciesOut {
     this.data = const [],
     this.status,
   });
-
   /// Data holds the policies.
   List<O11yGettableRoutePolicy> data;
 

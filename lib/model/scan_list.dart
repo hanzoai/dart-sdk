@@ -15,7 +15,6 @@ class ScanList {
   ScanList({
     this.data = const [],
   });
-
   /// Data is the caller org's scans, newest first.
   List<ScanView> data;
 

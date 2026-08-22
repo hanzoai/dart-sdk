@@ -16,7 +16,6 @@ class O11yO11yAuthDomainsOut {
     this.data = const [],
     this.status,
   });
-
   /// Data holds the domains.
   List<O11yO11yAuthDomain> data;
 

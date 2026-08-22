@@ -16,7 +16,6 @@ class O11yO11yAffectedWidget {
     this.id,
     this.name,
   });
-
   /// ID is the panel's id.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

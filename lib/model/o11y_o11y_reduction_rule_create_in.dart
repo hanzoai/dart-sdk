@@ -17,7 +17,6 @@ class O11yO11yReductionRuleCreateIn {
     required this.matchType,
     required this.metricName,
   });
-
   /// Labels are the label names the rule matches. Required, at least one.
   List<String> labels;
 

@@ -17,7 +17,6 @@ class GraphOut {
     this.edges = const [],
     this.nodes = const [],
   });
-
   /// Degraded is true when the store was unreachable and this graph is honestly empty rather than wrong. Absent on a normal answer.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

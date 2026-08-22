@@ -15,7 +15,6 @@ class EnvironmentBoard {
   EnvironmentBoard({
     this.environments = const [],
   });
-
   /// Environments are the org's deploy targets, in first-seen order.
   List<EnvironmentRow> environments;
 

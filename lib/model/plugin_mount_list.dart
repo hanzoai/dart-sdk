@@ -15,7 +15,6 @@ class PluginMountList {
   PluginMountList({
     this.plugins = const [],
   });
-
   /// Plugins is every subsystem the composition root declared, filtered to the enabled ones unless all=true.
   List<PluginMount> plugins;
 

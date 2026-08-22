@@ -21,7 +21,7 @@ class TargetReq {
     this.spec,
     this.status,
   });
-
+  /// Capacity is a human summary of the machine's size, up to 256 characters. Prose only; a scheduler reads Spec.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -30,6 +30,7 @@ class TargetReq {
   ///
   String? capacity;
 
+  /// Host is the hostname sessions on this machine will report. It is what makes a re-link IDEMPOTENT: the same (org, host, owner) refreshes the existing row and answers 200, while a request with no host always creates a new target and answers 201. It never adopts a row owned by somebody else.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -38,6 +39,7 @@ class TargetReq {
   ///
   String? host;
 
+  /// Kind is laptop | cloud | gpu | cluster | machine. Empty registers a `machine`; anything outside the five is a 400.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -46,6 +48,7 @@ class TargetReq {
   ///
   String? kind;
 
+  /// Label is the name to show for this machine, up to 128 characters. REQUIRED — it is the only field here a person reads.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -54,6 +57,7 @@ class TargetReq {
   ///
   String? label;
 
+  /// Metrics is a live sample, and sending one IS A HEARTBEAT: it refreshes the row and starts the 90-second liveness window, and it is appended to the fleet series as one point. Its own `at` is ignored — the server stamps the time, so a client can never age or backdate its own machine. Omit it to register a machine without claiming it is alive.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -62,6 +66,7 @@ class TargetReq {
   ///
   Metrics? metrics;
 
+  /// Spec is the machine's static capability — os, arch, cores, RAM, accelerators. Every field is bounded on write and at most 32 accelerators are accepted, so what comes back may be clamped. Omit it for a destination nothing probes.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -70,6 +75,7 @@ class TargetReq {
   ///
   Spec? spec;
 
+  /// Status is online | offline | draining. Empty registers `online`. It states INTENT — a heartbeat is what decides whether an online machine is actually reachable, so declaring online does not make it so.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

@@ -19,7 +19,6 @@ class WorldWire {
     this.protocol,
     this.spec,
   });
-
   /// Auth states what the wire asks of the caller, including which parts of it answer without a token.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

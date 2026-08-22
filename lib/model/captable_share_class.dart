@@ -28,7 +28,6 @@ class CaptableShareClass {
     this.seniority,
     this.votesPerShare,
   });
-
   /// ClassType is COMMON or PREFERRED.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

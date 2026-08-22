@@ -20,7 +20,6 @@ class Preset {
     this.panel,
     this.rank = const [],
   });
-
   /// the blend — model ids from the arena
   List<String> arms;
 

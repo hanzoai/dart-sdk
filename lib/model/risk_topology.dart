@@ -20,7 +20,6 @@ class RiskTopology {
     this.trees,
     this.window,
   });
-
   /// Blend is how much of a closing window folds into the reference: 1 replaces it outright, less makes the reference expensive to move.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

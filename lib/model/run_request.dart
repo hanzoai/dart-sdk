@@ -19,7 +19,6 @@ class RunRequest {
     required this.model,
     this.runName,
   });
-
   /// Dataset is the set to score, which must belong to the caller's org and hold at least one ACTIVE example.
   String dataset;
 

@@ -15,7 +15,6 @@ class GpuList {
   GpuList({
     this.gpus = const [],
   });
-
   /// GPUs is every accelerator the org has, from Visor GPU droplets and from BYO workers alike.
   List<GpuView> gpus;
 

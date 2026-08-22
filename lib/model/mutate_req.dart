@@ -16,7 +16,6 @@ class MutateReq {
     this.add = const [],
     this.remove = const [],
   });
-
   /// Add is the product ids to turn ON. Each must already be an ACTIVE entitlement of the org's plan, unless the caller is a platform super admin.
   List<String> add;
 

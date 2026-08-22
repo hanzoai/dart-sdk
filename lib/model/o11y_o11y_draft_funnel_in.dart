@@ -19,7 +19,6 @@ class O11yO11yDraftFunnelIn {
     this.stepStart,
     this.steps = const [],
   });
-
   /// EndTime is the end of the window, as a millisecond epoch.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class O11yServiceAssets {
   O11yServiceAssets({
     this.dashboards = const [],
   });
-
   List<O11yServiceDashboard> dashboards;
 
   @override

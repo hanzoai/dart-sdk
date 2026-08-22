@@ -19,7 +19,7 @@ class BankQuestion {
     this.prompt,
     this.status,
   });
-
+  /// Connector names the feed the unplaceable line arrived on. With externalId it identifies both the question and the bank line it is about, so re-syncing the same deposit never asks twice.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -28,6 +28,7 @@ class BankQuestion {
   ///
   String? connector;
 
+  /// CreatedAt is when the question was raised.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -36,6 +37,7 @@ class BankQuestion {
   ///
   String? createdAt;
 
+  /// ExternalID is the bank's own id for the line in question.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -44,6 +46,7 @@ class BankQuestion {
   ///
   String? externalId;
 
+  /// Prompt is the question put to the founder in plain language — what this money was, since the books cannot place it on their own.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -52,6 +55,7 @@ class BankQuestion {
   ///
   String? prompt;
 
+  /// Status is whether the question is still open or has been answered.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

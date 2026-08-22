@@ -20,7 +20,6 @@ class EmbedStatusResp {
     this.phase,
     this.reachable,
   });
-
   /// App is the app this verdict is about.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

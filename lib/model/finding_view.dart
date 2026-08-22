@@ -24,7 +24,6 @@ class FindingView {
     this.scanId,
     this.severity,
   });
-
   /// CreatedAt is when the finding was recorded, in Unix milliseconds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

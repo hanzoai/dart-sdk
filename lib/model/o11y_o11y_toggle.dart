@@ -15,7 +15,6 @@ class O11yO11yToggle {
   O11yO11yToggle({
     this.enabled,
   });
-
   /// Enabled says whether the feature is on.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

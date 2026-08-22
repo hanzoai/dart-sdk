@@ -22,7 +22,7 @@ class InboxItem {
     this.status,
     this.vendor,
   });
-
+  /// Category is the expense account the scanner proposed, as a chart number — a PROPOSAL, not a posting: nothing is booked until it is accepted.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -31,6 +31,7 @@ class InboxItem {
   ///
   String? category;
 
+  /// Confidence is how sure the scanner is of that reading, and is the signal for whether a person needs to check it before it is booked.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -39,6 +40,7 @@ class InboxItem {
   ///
   String? confidence;
 
+  /// CreatedAt is when the document was uploaded.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -47,6 +49,7 @@ class InboxItem {
   ///
   String? createdAt;
 
+  /// Extracted is what the scanner read off the document. Absent until it has been scanned, so its absence is \"not read yet\", never \"nothing on it\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -55,6 +58,7 @@ class InboxItem {
   ///
   Extracted? extracted;
 
+  /// Filename is the name the document was uploaded under, for a person to recognise it by. It is not part of the item's identity.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -63,7 +67,7 @@ class InboxItem {
   ///
   String? filename;
 
-  /// the file hash (== a scan's ScanID)
+  /// ID is the CONTENT HASH of the uploaded bytes, which is what makes the queue idempotent: re-uploading the same document returns this item rather than adding a second one. It is also the id the scan of this document carries.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -72,6 +76,7 @@ class InboxItem {
   ///
   String? id;
 
+  /// Status is where the document is in the queue — unsorted until the scanner has read it, and thereafter whether it is waiting on a person or has been booked.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -80,6 +85,7 @@ class InboxItem {
   ///
   String? status;
 
+  /// Vendor is the supplier the scanner identified, surfaced beside the item so a queue renders without opening each document.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

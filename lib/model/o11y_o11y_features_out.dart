@@ -16,7 +16,6 @@ class O11yO11yFeaturesOut {
     this.data = const [],
     this.status,
   });
-
   /// Data are the features.
   List<O11yO11yFeature> data;
 

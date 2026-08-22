@@ -21,7 +21,6 @@ class Reachability {
     this.service,
     this.status,
   });
-
   /// Configured is whether the wholesale credentials are present at all.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

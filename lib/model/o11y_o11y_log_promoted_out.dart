@@ -16,7 +16,6 @@ class O11yO11yLogPromotedOut {
     this.data = const [],
     this.status,
   });
-
   /// Data holds the paths.
   List<O11yO11yLogPromotePath> data;
 

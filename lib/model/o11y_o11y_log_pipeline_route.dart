@@ -16,7 +16,6 @@ class O11yO11yLogPipelineRoute {
     this.expr,
     this.output,
   });
-
   /// Expr is the expression that selects the route.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

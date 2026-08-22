@@ -18,7 +18,6 @@ class ClusterAttach {
     this.name,
     this.provider,
   });
-
   /// Default marks this the org's default cluster for scheduling.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

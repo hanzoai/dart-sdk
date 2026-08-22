@@ -22,7 +22,6 @@ class O11yGettableAgentCheckIn {
     this.removedAtLegacy,
     this.removedAt,
   });
-
   /// Older fields for backward compatibility with existing AWS agents
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

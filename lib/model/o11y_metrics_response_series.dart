@@ -18,7 +18,6 @@ class O11yMetricsResponseSeries {
     this.latencyP95Ms = const [],
     this.requests = const [],
   });
-
   List<O11yPoint> errors;
 
   List<O11yPoint> latencyP50Ms;

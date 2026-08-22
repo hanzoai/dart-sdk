@@ -430,9 +430,9 @@ class MarketingApi {
     return null;
   }
 
-  /// Returns the org's calendar, soonest scheduled first, optionally narrowed to one status.
+  /// Returns the org's calendar, latest scheduled first, optionally narrowed to one status.
   ///
-  /// Returns the org's calendar, soonest scheduled first, optionally narrowed to one status.
+  /// Returns the org's calendar, latest scheduled first, optionally narrowed to one status.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -475,9 +475,9 @@ class MarketingApi {
     );
   }
 
-  /// Returns the org's calendar, soonest scheduled first, optionally narrowed to one status.
+  /// Returns the org's calendar, latest scheduled first, optionally narrowed to one status.
   ///
-  /// Returns the org's calendar, soonest scheduled first, optionally narrowed to one status.
+  /// Returns the org's calendar, latest scheduled first, optionally narrowed to one status.
   ///
   /// Parameters:
   ///

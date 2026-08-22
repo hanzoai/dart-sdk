@@ -18,7 +18,6 @@ class EnableResp {
     this.namespace,
     this.urlTemplate,
   });
-
   /// AccountToken is the org's own tunnel-account credential. Treat it as a secret: it is what the CLI enables an environment with.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -22,7 +22,6 @@ class O11yO11yDiscoverIn {
     this.period,
     required this.project,
   });
-
   /// Aggregations are the measures to compute per group. Empty means a count.
   List<String> aggregations;
 

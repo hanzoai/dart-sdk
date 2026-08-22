@@ -18,7 +18,6 @@ class O11yO11yToken {
     this.refreshToken,
     this.tokenType,
   });
-
   /// AccessToken authenticates requests until it expires.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

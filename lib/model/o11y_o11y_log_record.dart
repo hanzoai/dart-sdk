@@ -27,7 +27,6 @@ class O11yO11yLogRecord {
     this.traceFlags,
     this.traceId,
   });
-
   /// AttributesBool are the record's boolean attributes.
   Map<String, bool> attributesBool;
 

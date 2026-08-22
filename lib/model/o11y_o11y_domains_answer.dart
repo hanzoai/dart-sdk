@@ -18,7 +18,6 @@ class O11yO11yDomainsAnswer {
     this.type,
     this.warning,
   });
-
   /// Data holds the per-query results, emitted LAST — see the field-order note on the type.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

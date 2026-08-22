@@ -19,7 +19,6 @@ class CreateServerReq {
     this.secret,
     this.url,
   });
-
   /// AuthHeader is the request header the credential is injected into, e.g. \"Authorization\". Empty means the server needs no credential.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

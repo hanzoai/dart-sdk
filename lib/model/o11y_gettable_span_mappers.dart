@@ -15,7 +15,6 @@ class O11yGettableSpanMappers {
   O11yGettableSpanMappers({
     this.items = const [],
   });
-
   List<O11ySpanMapper> items;
 
   @override

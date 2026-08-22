@@ -17,7 +17,7 @@ class Location {
     this.path,
     this.range,
   });
-
+  /// External is true when the answer left the repository — the case a static index cannot answer, and the reason this service resolves through dependencies.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -26,6 +26,7 @@ class Location {
   ///
   bool? external_;
 
+  /// Path is repo-relative while External is false, and the module coordinate (\"golang.org/x/mod@v0.14.0/semver/semver.go\") once it is true.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -34,6 +35,7 @@ class Location {
   ///
   String? path;
 
+  /// Range is the span inside that file, in LSP positions.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

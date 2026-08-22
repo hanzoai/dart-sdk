@@ -16,7 +16,6 @@ class O11yO11yRoleCreateOut {
     this.data,
     this.status,
   });
-
   /// Data carries the new role's id.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

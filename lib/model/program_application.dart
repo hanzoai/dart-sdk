@@ -30,7 +30,6 @@ class ProgramApplication {
     this.updatedAt,
     this.website,
   });
-
   /// Company is the applicant's company name.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -17,7 +17,6 @@ class EvaluateIn {
     this.groups,
     this.personProperties,
   });
-
   /// DistinctID is the identity the flags are evaluated for. Required.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

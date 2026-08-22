@@ -29,7 +29,6 @@ class AffiliateStanding {
     this.requestedCode,
     this.status,
   });
-
   /// AccruedCents is lifetime commission accrued, in cents.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

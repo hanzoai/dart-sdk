@@ -17,7 +17,6 @@ class SecretView {
     this.name,
     this.namespace,
   });
-
   /// MountedBy is a function that mounts it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

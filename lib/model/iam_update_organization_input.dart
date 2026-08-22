@@ -15,6 +15,7 @@ class IamUpdateOrganizationInput {
   IamUpdateOrganizationInput({
     this.accountItems = const [],
     this.accountMenu,
+    this.avatar,
     this.balanceCredit,
     this.balanceCurrency,
     this.countryCodes = const [],
@@ -27,6 +28,7 @@ class IamUpdateOrganizationInput {
     this.deleted,
     this.disableSignin,
     this.displayName,
+    this.emoji,
     this.enableSoftDeletion,
     this.enableTour,
     this.failedSigninFrozenTime,
@@ -73,7 +75,6 @@ class IamUpdateOrganizationInput {
     this.websiteUrl,
     this.widgetItems = const [],
   });
-
   List<IamAccountItem> accountItems;
 
   ///
@@ -83,6 +84,14 @@ class IamUpdateOrganizationInput {
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
   String? accountMenu;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? avatar;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -173,6 +182,14 @@ class IamUpdateOrganizationInput {
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
   String? displayName;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? emoji;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -484,6 +501,7 @@ class IamUpdateOrganizationInput {
   bool operator ==(Object other) => identical(this, other) || other is IamUpdateOrganizationInput &&
     _deepEquality.equals(other.accountItems, accountItems) &&
     other.accountMenu == accountMenu &&
+    other.avatar == avatar &&
     other.balanceCredit == balanceCredit &&
     other.balanceCurrency == balanceCurrency &&
     _deepEquality.equals(other.countryCodes, countryCodes) &&
@@ -496,6 +514,7 @@ class IamUpdateOrganizationInput {
     other.deleted == deleted &&
     other.disableSignin == disableSignin &&
     other.displayName == displayName &&
+    other.emoji == emoji &&
     other.enableSoftDeletion == enableSoftDeletion &&
     other.enableTour == enableTour &&
     other.failedSigninFrozenTime == failedSigninFrozenTime &&
@@ -547,6 +566,7 @@ class IamUpdateOrganizationInput {
     // ignore: unnecessary_parenthesis
     (accountItems.hashCode) +
     (accountMenu == null ? 0 : accountMenu!.hashCode) +
+    (avatar == null ? 0 : avatar!.hashCode) +
     (balanceCredit == null ? 0 : balanceCredit!.hashCode) +
     (balanceCurrency == null ? 0 : balanceCurrency!.hashCode) +
     (countryCodes.hashCode) +
@@ -559,6 +579,7 @@ class IamUpdateOrganizationInput {
     (deleted == null ? 0 : deleted!.hashCode) +
     (disableSignin == null ? 0 : disableSignin!.hashCode) +
     (displayName == null ? 0 : displayName!.hashCode) +
+    (emoji == null ? 0 : emoji!.hashCode) +
     (enableSoftDeletion == null ? 0 : enableSoftDeletion!.hashCode) +
     (enableTour == null ? 0 : enableTour!.hashCode) +
     (failedSigninFrozenTime == null ? 0 : failedSigninFrozenTime!.hashCode) +
@@ -606,7 +627,7 @@ class IamUpdateOrganizationInput {
     (widgetItems.hashCode);
 
   @override
-  String toString() => 'IamUpdateOrganizationInput[accountItems=$accountItems, accountMenu=$accountMenu, balanceCredit=$balanceCredit, balanceCurrency=$balanceCurrency, countryCodes=$countryCodes, createdAt=$createdAt, createdTime=$createdTime, dcrPolicy=$dcrPolicy, defaultApplication=$defaultApplication, defaultAvatar=$defaultAvatar, defaultPassword=$defaultPassword, deleted=$deleted, disableSignin=$disableSignin, displayName=$displayName, enableSoftDeletion=$enableSoftDeletion, enableTour=$enableTour, failedSigninFrozenTime=$failedSigninFrozenTime, failedSigninLimit=$failedSigninLimit, favicon=$favicon, founder=$founder, hasPrivilegeConsent=$hasPrivilegeConsent, id=$id, initScore=$initScore, ipRestriction=$ipRestriction, ipWhitelist=$ipWhitelist, isPersonal=$isPersonal, isProfilePublic=$isProfilePublic, kerberosKdcHost=$kerberosKdcHost, kerberosKeytab=$kerberosKeytab, kerberosRealm=$kerberosRealm, kerberosServiceName=$kerberosServiceName, languages=$languages, ldapAttributes=$ldapAttributes, logo=$logo, logoDark=$logoDark, masterPassword=$masterPassword, masterVerificationCode=$masterVerificationCode, mfaItems=$mfaItems, mfaRememberInHours=$mfaRememberInHours, name=$name, navItems=$navItems, orgBalance=$orgBalance, owner=$owner, passwordExpireDays=$passwordExpireDays, passwordObfuscatorKey=$passwordObfuscatorKey, passwordObfuscatorType=$passwordObfuscatorType, passwordOptions=$passwordOptions, passwordSalt=$passwordSalt, passwordType=$passwordType, tags=$tags, themeData=$themeData, updatedAt=$updatedAt, useEmailAsUsername=$useEmailAsUsername, usePermanentAvatar=$usePermanentAvatar, userBalance=$userBalance, userNavItems=$userNavItems, userTypes=$userTypes, websiteUrl=$websiteUrl, widgetItems=$widgetItems]';
+  String toString() => 'IamUpdateOrganizationInput[accountItems=$accountItems, accountMenu=$accountMenu, avatar=$avatar, balanceCredit=$balanceCredit, balanceCurrency=$balanceCurrency, countryCodes=$countryCodes, createdAt=$createdAt, createdTime=$createdTime, dcrPolicy=$dcrPolicy, defaultApplication=$defaultApplication, defaultAvatar=$defaultAvatar, defaultPassword=$defaultPassword, deleted=$deleted, disableSignin=$disableSignin, displayName=$displayName, emoji=$emoji, enableSoftDeletion=$enableSoftDeletion, enableTour=$enableTour, failedSigninFrozenTime=$failedSigninFrozenTime, failedSigninLimit=$failedSigninLimit, favicon=$favicon, founder=$founder, hasPrivilegeConsent=$hasPrivilegeConsent, id=$id, initScore=$initScore, ipRestriction=$ipRestriction, ipWhitelist=$ipWhitelist, isPersonal=$isPersonal, isProfilePublic=$isProfilePublic, kerberosKdcHost=$kerberosKdcHost, kerberosKeytab=$kerberosKeytab, kerberosRealm=$kerberosRealm, kerberosServiceName=$kerberosServiceName, languages=$languages, ldapAttributes=$ldapAttributes, logo=$logo, logoDark=$logoDark, masterPassword=$masterPassword, masterVerificationCode=$masterVerificationCode, mfaItems=$mfaItems, mfaRememberInHours=$mfaRememberInHours, name=$name, navItems=$navItems, orgBalance=$orgBalance, owner=$owner, passwordExpireDays=$passwordExpireDays, passwordObfuscatorKey=$passwordObfuscatorKey, passwordObfuscatorType=$passwordObfuscatorType, passwordOptions=$passwordOptions, passwordSalt=$passwordSalt, passwordType=$passwordType, tags=$tags, themeData=$themeData, updatedAt=$updatedAt, useEmailAsUsername=$useEmailAsUsername, usePermanentAvatar=$usePermanentAvatar, userBalance=$userBalance, userNavItems=$userNavItems, userTypes=$userTypes, websiteUrl=$websiteUrl, widgetItems=$widgetItems]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -615,6 +636,11 @@ class IamUpdateOrganizationInput {
       json[r'accountMenu'] = this.accountMenu;
     } else {
       json[r'accountMenu'] = null;
+    }
+    if (this.avatar != null) {
+      json[r'avatar'] = this.avatar;
+    } else {
+      json[r'avatar'] = null;
     }
     if (this.balanceCredit != null) {
       json[r'balanceCredit'] = this.balanceCredit;
@@ -671,6 +697,11 @@ class IamUpdateOrganizationInput {
       json[r'displayName'] = this.displayName;
     } else {
       json[r'displayName'] = null;
+    }
+    if (this.emoji != null) {
+      json[r'emoji'] = this.emoji;
+    } else {
+      json[r'emoji'] = null;
     }
     if (this.enableSoftDeletion != null) {
       json[r'enableSoftDeletion'] = this.enableSoftDeletion;
@@ -885,6 +916,7 @@ class IamUpdateOrganizationInput {
       return IamUpdateOrganizationInput(
         accountItems: IamAccountItem.listFromJson(json[r'accountItems']),
         accountMenu: mapValueOfType<String>(json, r'accountMenu'),
+        avatar: mapValueOfType<String>(json, r'avatar'),
         balanceCredit: num.parse('${json[r'balanceCredit']}'),
         balanceCurrency: mapValueOfType<String>(json, r'balanceCurrency'),
         countryCodes: json[r'countryCodes'] is Iterable
@@ -899,6 +931,7 @@ class IamUpdateOrganizationInput {
         deleted: mapValueOfType<bool>(json, r'deleted'),
         disableSignin: mapValueOfType<bool>(json, r'disableSignin'),
         displayName: mapValueOfType<String>(json, r'displayName'),
+        emoji: mapValueOfType<String>(json, r'emoji'),
         enableSoftDeletion: mapValueOfType<bool>(json, r'enableSoftDeletion'),
         enableTour: mapValueOfType<bool>(json, r'enableTour'),
         failedSigninFrozenTime: mapValueOfType<int>(json, r'failedSigninFrozenTime'),

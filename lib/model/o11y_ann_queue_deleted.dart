@@ -15,7 +15,6 @@ class O11yAnnQueueDeleted {
   O11yAnnQueueDeleted({
     this.deleted,
   });
-
   /// Deleted is true when the queue (and its items) were removed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

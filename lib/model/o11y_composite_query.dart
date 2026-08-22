@@ -22,7 +22,6 @@ class O11yCompositeQuery {
     this.queryType,
     this.unit,
   });
-
   Map<String, O11yBuilderQuery> builderQueries;
 
   Map<String, O11yDatastoreQuery> chQueries;

@@ -15,7 +15,6 @@ class SetReferenceIn {
   SetReferenceIn({
     this.entries = const [],
   });
-
   /// Entries are the overrides to write, up to 1000 per call.
   List<ReferenceOverrideIn> entries;
 

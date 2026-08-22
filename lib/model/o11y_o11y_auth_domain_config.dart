@@ -20,7 +20,6 @@ class O11yO11yAuthDomainConfig {
     this.ssoEnabled,
     this.ssoType,
   });
-
   /// Google is the Google provider's settings, when SSOType is google_auth.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

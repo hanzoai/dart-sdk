@@ -17,7 +17,6 @@ class DatasetReq {
     this.metadata = const {},
     required this.name,
   });
-
   /// Description is free text about what this set measures; over 64 KiB is refused.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -26,7 +26,7 @@ class BuildView {
     this.turns = const [],
     this.verify,
   });
-
+  /// Agent is the label the surface that did the work calls itself by.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -35,6 +35,7 @@ class BuildView {
   ///
   String? agent;
 
+  /// EndedAt is when it finished, same format. Empty means it has not — the build is still going.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -43,6 +44,7 @@ class BuildView {
   ///
   String? endedAt;
 
+  /// Model is the model that did the work, taken from the FIRST turn whose body names one — a transcript states it, this route does not resolve it. Empty when no turn said.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -51,6 +53,7 @@ class BuildView {
   ///
   String? model;
 
+  /// Org is the org that published this build, echoed from the URL. It is part of the build's public ADDRESS and not a tenant key — this route is anonymous, and the only rows it can reach are ones an author explicitly published.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -59,6 +62,7 @@ class BuildView {
   ///
   String? org;
 
+  /// Project is the product's slug, the other half of that address.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -67,6 +71,7 @@ class BuildView {
   ///
   String? project;
 
+  /// Repo is the repository the work was done in, as the session reported it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -75,6 +80,7 @@ class BuildView {
   ///
   String? repo;
 
+  /// Session is the id of the agent session this story IS — the same value a produced commit carries in its `Hanzo-Session:` trailer, which is what ties the repository's history to this page.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -83,6 +89,7 @@ class BuildView {
   ///
   String? session;
 
+  /// StartedAt is when the session opened, RFC 3339 in UTC.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -91,6 +98,7 @@ class BuildView {
   ///
   String? startedAt;
 
+  /// Status is the session's own: running, paused, done or error. A build can be read while it is still being written, so this is not always terminal — and an `error` build is still a readable story, not a missing page.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -99,6 +107,7 @@ class BuildView {
   ///
   String? status;
 
+  /// Title is the human line the session was opened or renamed with. Empty when nobody gave it one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -107,6 +116,7 @@ class BuildView {
   ///
   String? title;
 
+  /// Turns is the whole transcript, oldest first, capped at 1000: a published build is a story to read down, not an archive to page.
   List<BuildTurn> turns;
 
   /// Verify is the exact command that re-derives every commit binding below straight from git, so nothing here has to be taken on trust.

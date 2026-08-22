@@ -19,7 +19,6 @@ class O11yO11yFrame {
     this.line,
     this.own,
   });
-
   /// Column is the column number.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

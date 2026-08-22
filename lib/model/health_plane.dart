@@ -18,7 +18,6 @@ class HealthPlane {
     this.reason,
     this.stream,
   });
-
   /// Bus is the address this process reaches the plane at.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

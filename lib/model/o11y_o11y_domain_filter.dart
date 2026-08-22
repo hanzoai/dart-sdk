@@ -15,7 +15,6 @@ class O11yO11yDomainFilter {
   O11yO11yDomainFilter({
     this.expression,
   });
-
   /// Expression is the predicate, e.g. `http.status_code >= 500`.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

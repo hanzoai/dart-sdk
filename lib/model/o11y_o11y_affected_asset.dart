@@ -19,7 +19,6 @@ class O11yO11yAffectedAsset {
     this.type,
     this.widget,
   });
-
   /// ID is the asset's id.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

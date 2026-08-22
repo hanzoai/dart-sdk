@@ -20,7 +20,6 @@ class O11yStatusSummary {
     this.pageUrl,
     this.scheduledMaintenances = const [],
   });
-
   /// CheckedAt is when the underlying availability read was taken, RFC3339 UTC. Not part of the status-page schema the panel parses (which ignores unknown fields); it is here because a status document with no timestamp cannot be told apart from a stale one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -30,10 +29,13 @@ class O11yStatusSummary {
   ///
   String? checkedAt;
 
+  /// InProgressMaintenances is always empty: this platform has no maintenance scheduling plane, so \"nothing is running\" is a true statement rather than a placeholder.
   List<O11yStatusMaintenance> inProgressMaintenances;
 
+  /// OngoingIncidents is one entry per service that failed its health probe, sorted by name. Empty means every probed service answered — which is a measurement, not an absence of reports.
   List<O11yStatusIncident> ongoingIncidents;
 
+  /// PageTitle is the brand's own status-page title, resolved per request from the Host — a lux caller must never be shown Hanzo's.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -51,6 +53,7 @@ class O11yStatusSummary {
   ///
   String? pageUrl;
 
+  /// ScheduledMaintenances is always empty, for the same reason.
   List<O11yStatusMaintenance> scheduledMaintenances;
 
   @override

@@ -15,7 +15,6 @@ class PlanTierList {
   PlanTierList({
     this.tiers = const [],
   });
-
   /// Tiers are the rentable GPU configurations, each an opaque object exactly as the catalog emits it — typically id, name, GPU count and model, VRAM, vCPUs, host memory and hourly price.
   List<Object> tiers;
 

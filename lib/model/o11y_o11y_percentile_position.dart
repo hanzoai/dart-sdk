@@ -16,7 +16,6 @@ class O11yO11yPercentilePosition {
     this.description,
     this.percentile,
   });
-
   /// Description says the same in words.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

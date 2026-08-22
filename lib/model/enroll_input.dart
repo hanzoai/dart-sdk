@@ -18,7 +18,6 @@ class EnrollInput {
     this.channel,
     this.id,
   });
-
   /// Address is a single recipient, normalized (lower-cased, trimmed) before use. Give this OR audienceId, never both and never neither.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

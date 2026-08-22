@@ -23,7 +23,6 @@ class SelfRank {
     this.requests,
     this.tokens,
   });
-
   /// CostCents is the caller's own spend in whole US cents. Always populated — your own spend is never withheld from you — so here 0 really does mean zero.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

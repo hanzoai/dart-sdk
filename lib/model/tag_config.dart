@@ -15,7 +15,6 @@ class TagConfig {
   TagConfig({
     this.tags = const [],
   });
-
   List<BrowserTagOut> tags;
 
   @override

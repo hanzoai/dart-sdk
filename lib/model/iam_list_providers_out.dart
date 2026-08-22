@@ -15,7 +15,6 @@ class IamListProvidersOut {
   IamListProvidersOut({
     this.providers = const [],
   });
-
   List<IamProvider> providers;
 
   @override

@@ -16,7 +16,6 @@ class O11yO11yClusterListOut {
     this.data,
     this.status,
   });
-
   /// Data holds the cluster records.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

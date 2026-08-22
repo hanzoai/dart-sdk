@@ -15,7 +15,6 @@ class MarketCatalog {
   MarketCatalog({
     this.items = const [],
   });
-
   /// Items is every capability the caller can see in their own (org, project), each carrying any public listing's shop metadata and whether it is installed.
   List<MarketItem> items;
 

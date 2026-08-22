@@ -16,7 +16,6 @@ class O11yO11yDowntimeSchedulesOut {
     this.data = const [],
     this.status,
   });
-
   /// Data holds the schedules.
   List<Object> data;
 

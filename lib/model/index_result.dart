@@ -23,7 +23,6 @@ class IndexResult {
     this.symbols,
     this.vectors,
   });
-
   /// Chunks is how many AST-boundary chunks the repo holds after this pass.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

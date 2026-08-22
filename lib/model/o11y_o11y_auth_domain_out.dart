@@ -16,7 +16,6 @@ class O11yO11yAuthDomainOut {
     this.data,
     this.status,
   });
-
   /// Data is the domain.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -17,7 +17,6 @@ class O11yO11yTopLevelOpsIn {
     this.service,
     this.start,
   });
-
   /// End is the window's end, epoch nanoseconds as a string; empty means unbounded.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

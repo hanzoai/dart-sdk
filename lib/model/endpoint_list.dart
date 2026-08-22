@@ -15,7 +15,6 @@ class EndpointList {
   EndpointList({
     this.data = const [],
   });
-
   /// Data is the org's endpoints, newest first, each with its signing secret REDACTED — the secret leaves the server only on create and on rotate.
   List<Endpoint> data;
 

@@ -17,7 +17,6 @@ class LicensingRevokeRequest {
     required this.scope,
     required this.value,
   });
-
   /// Reason is the operator's note, echoed back by verify so a support agent can explain the refusal.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

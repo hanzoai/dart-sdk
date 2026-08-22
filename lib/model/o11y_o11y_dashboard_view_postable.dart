@@ -16,7 +16,6 @@ class O11yO11yDashboardViewPostable {
     this.data,
     this.name,
   });
-
   /// Data is the listing state the view captures.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

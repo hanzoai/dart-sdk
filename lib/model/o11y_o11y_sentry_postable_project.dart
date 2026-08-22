@@ -17,7 +17,6 @@ class O11yO11ySentryPostableProject {
     this.platform,
     this.slug,
   });
-
   /// Name is the project's display name. Required.
   String name;
 

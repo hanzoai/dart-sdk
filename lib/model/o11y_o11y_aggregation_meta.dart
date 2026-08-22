@@ -15,7 +15,6 @@ class O11yO11yAggregationMeta {
   O11yO11yAggregationMeta({
     this.unit,
   });
-
   /// Unit is the aggregation's unit.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

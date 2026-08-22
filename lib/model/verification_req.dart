@@ -19,7 +19,6 @@ class VerificationReq {
     this.ref,
     this.subjectId,
   });
-
   /// Email is an inline subject's contact email, sealed at rest.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

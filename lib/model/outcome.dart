@@ -23,7 +23,6 @@ class Outcome {
     this.variant,
     this.z,
   });
-
   /// true on the baseline arm; its own lift and stats are zero
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

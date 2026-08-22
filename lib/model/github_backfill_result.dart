@@ -20,7 +20,6 @@ class GithubBackfillResult {
     this.truncated,
     this.updated,
   });
-
   /// Created is how many native issues this pass created.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

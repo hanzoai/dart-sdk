@@ -22,7 +22,6 @@ class O11yO11yLLMSession {
     this.traces,
     this.userId,
   });
-
   /// CompletionTokens is the conversation's total output tokens.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

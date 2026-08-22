@@ -15,7 +15,6 @@ class O11yOldAWSMetricsStrategy {
   O11yOldAWSMetricsStrategy({
     this.cloudwatchMetricStreamFilters = const [],
   });
-
   List<O11yOldAWSMetricsStrategyCloudwatchMetricStreamFiltersInner> cloudwatchMetricStreamFilters;
 
   @override

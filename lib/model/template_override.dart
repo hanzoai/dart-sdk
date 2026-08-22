@@ -20,7 +20,6 @@ class TemplateOverride {
     this.id,
     this.title,
   });
-
   /// Body is the text/template source. Required. Every {{.key}} it references must be declared in Fields, or the save is refused rather than rendering a blank into a contract later.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

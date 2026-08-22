@@ -16,7 +16,6 @@ class O11yDataCollectedForIntegration {
     this.logs = const [],
     this.metrics = const [],
   });
-
   List<O11yIntegrationsCollectedLogAttribute> logs;
 
   List<O11yIntegrationsCollectedMetric> metrics;

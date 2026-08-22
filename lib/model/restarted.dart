@@ -19,7 +19,6 @@ class Restarted {
     this.ok,
     this.restartedAt,
   });
-
   /// App is the service that was restarted.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

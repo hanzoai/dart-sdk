@@ -16,7 +16,6 @@ class O11yO11yErrorGettableIssueOut {
     this.data,
     this.status,
   });
-
   /// Data is the issue and its latest occurrence.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

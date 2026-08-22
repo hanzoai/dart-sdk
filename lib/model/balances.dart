@@ -17,7 +17,6 @@ class Balances {
     this.chain,
     this.native_,
   });
-
   /// Address is the account they belong to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

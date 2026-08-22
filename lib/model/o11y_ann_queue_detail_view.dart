@@ -23,7 +23,6 @@ class O11yAnnQueueDetailView {
     this.scoreConfigIds = const [],
     this.updatedAt,
   });
-
   /// CompletedCount is how many have been reviewed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -20,7 +20,6 @@ class DeployRecord {
     this.recorded,
     this.self,
   });
-
   /// Created reports whether this call recorded a new attribution edge (201) or found an existing one (200). Absent when nothing was recorded.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

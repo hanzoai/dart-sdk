@@ -19,7 +19,7 @@ class ProjectsUploadGrant {
     this.prefix,
     this.url,
   });
-
+  /// ExpiresAt is when the grant stops being accepted, as Unix seconds. It is short-lived by design and is handed out ONCE, on the response that queues the deployment — a later read of that deployment does not carry it, so a grant cannot be fetched again after the build it was minted for.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -28,8 +28,10 @@ class ProjectsUploadGrant {
   ///
   int? expiresAt;
 
+  /// Fields are form values every POST must carry VERBATIM, alongside `key` and `file`. The signature covers them, so altering any one of them — including widening the key to reach outside the prefix — invalidates the grant rather than extending it.
   Map<String, String> fields;
 
+  /// MaxBytes bounds ONE object, not the upload as a whole.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -38,6 +40,7 @@ class ProjectsUploadGrant {
   ///
   int? maxBytes;
 
+  /// Prefix is the only place this grant can write: the deployment's own key prefix. It authorizes WRITES ONLY, which is why completing a deployment reconciles the prefix against a manifest instead of letting CI delete.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -46,6 +49,7 @@ class ProjectsUploadGrant {
   ///
   String? prefix;
 
+  /// URL is the address to POST each object to. It is signed for the PUBLIC endpoint, because the signature covers the host and CI posts from outside the cluster.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

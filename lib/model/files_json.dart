@@ -16,7 +16,6 @@ class FilesJSON {
     this.files = const [],
     this.rev,
   });
-
   /// Files are the selected files, sorted by path. Directories are never returned.
   List<FileJSON> files;
 

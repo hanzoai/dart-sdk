@@ -21,7 +21,6 @@ class TrafficCaller {
     this.reason,
     this.requests,
   });
-
   /// Action is the verdict currently held against it, if any.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

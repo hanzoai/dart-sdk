@@ -25,7 +25,6 @@ class AccView {
     this.subjectId,
     this.updatedAt,
   });
-
   /// Basis is the qualification category: income, net_worth, professional_license, or entity.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

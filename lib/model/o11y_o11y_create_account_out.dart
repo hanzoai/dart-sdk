@@ -16,7 +16,6 @@ class O11yO11yCreateAccountOut {
     this.data,
     this.status,
   });
-
   /// Data holds the account and the connection artifact.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

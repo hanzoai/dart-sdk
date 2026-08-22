@@ -23,7 +23,6 @@ class BoardTotals {
     this.totalTokens,
     this.users,
   });
-
   /// tokens the models answered with
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

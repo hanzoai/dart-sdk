@@ -18,7 +18,6 @@ class McpCatalogSync {
     this.total,
     this.updated,
   });
-
   /// Added is how many listings the catalog did not have before.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class O11yAzureLogsCollectionStrategy {
   O11yAzureLogsCollectionStrategy({
     this.categoryGroups = const [],
   });
-
   /// List of categories to enable for diagnostic settings, to start with it will have 'allLogs' and no filtering.
   List<String> categoryGroups;
 

@@ -17,7 +17,6 @@ class RecordList {
     this.disclaimer,
     this.verifications = const [],
   });
-
   /// Accreditation is the org's tracked accreditation-state records.
   List<AccView> accreditation;
 

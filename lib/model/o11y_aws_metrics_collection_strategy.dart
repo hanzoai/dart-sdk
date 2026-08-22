@@ -15,7 +15,6 @@ class O11yAWSMetricsCollectionStrategy {
   O11yAWSMetricsCollectionStrategy({
     this.streamFilters = const [],
   });
-
   /// to be used as https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudwatch-metricstream.html#cfn-cloudwatch-metricstream-includefilters
   List<O11yAWSCloudWatchMetricStreamFilter> streamFilters;
 

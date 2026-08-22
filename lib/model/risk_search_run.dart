@@ -17,7 +17,6 @@ class RiskSearchRun {
     this.events,
     this.id,
   });
-
   /// Candidates is how many model shapes will be tried.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

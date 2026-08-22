@@ -17,7 +17,7 @@ class BuildOut {
     this.generated,
     this.plugin,
   });
-
+  /// Bytes is the size of the bundled CommonJS the runtime will execute.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -26,6 +26,7 @@ class BuildOut {
   ///
   int? bytes;
 
+  /// Generated is whether a model wrote the source from a spec, rather than the caller posting the source itself.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -34,6 +35,7 @@ class BuildOut {
   ///
   bool? generated;
 
+  /// Plugin is the plugin as stored, with its derived id and build time.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

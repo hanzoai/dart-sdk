@@ -15,7 +15,6 @@ class ChainList {
   ChainList({
     this.chains = const [],
   });
-
   /// Chains is every chain this deployment is configured to reach, sorted by id. Empty when none are configured — never a fabricated entry.
   List<Chain> chains;
 

@@ -18,7 +18,6 @@ class MlResource {
     this.spec = const {},
     this.status = const {},
   });
-
   /// CreatedAt is when Kubernetes admitted the object, RFC 3339 in UTC.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

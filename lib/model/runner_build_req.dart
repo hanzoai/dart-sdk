@@ -22,15 +22,12 @@ class RunnerBuildReq {
     this.dockerTarget,
     this.dockerfile,
     this.image,
-    this.organizationId,
     this.os,
     this.ref,
-    this.release,
     this.repo,
     this.sha,
     this.tag,
   });
-
   /// Arch is the target architecture for the artifact lane.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -100,15 +97,6 @@ class RunnerBuildReq {
   ///
   String? image;
 
-  /// OrgID attributes the build to an org. On the IAM path it defaults to the caller's own validated org, and a foreign one is refused unless the caller is a platform SuperAdmin.
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? organizationId;
-
   /// OS is the target operating system for the artifact lane.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -126,15 +114,6 @@ class RunnerBuildReq {
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
   String? ref;
-
-  /// Release requests native release semantics for cloud's self-publish: compute the next version, build+push ghcr.io/hanzoai/cloud, smoke it, then tag (the receipt) and notify universe. It owns its output image (release.go), and it takes SuperAdmin.
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  bool? release;
 
   /// Repo is the repository clone URL to build. Required on the image lane.
   ///
@@ -174,10 +153,8 @@ class RunnerBuildReq {
     other.dockerTarget == dockerTarget &&
     other.dockerfile == dockerfile &&
     other.image == image &&
-    other.organizationId == organizationId &&
     other.os == os &&
     other.ref == ref &&
-    other.release == release &&
     other.repo == repo &&
     other.sha == sha &&
     other.tag == tag;
@@ -194,16 +171,14 @@ class RunnerBuildReq {
     (dockerTarget == null ? 0 : dockerTarget!.hashCode) +
     (dockerfile == null ? 0 : dockerfile!.hashCode) +
     (image == null ? 0 : image!.hashCode) +
-    (organizationId == null ? 0 : organizationId!.hashCode) +
     (os == null ? 0 : os!.hashCode) +
     (ref == null ? 0 : ref!.hashCode) +
-    (release == null ? 0 : release!.hashCode) +
     (repo == null ? 0 : repo!.hashCode) +
     (sha == null ? 0 : sha!.hashCode) +
     (tag == null ? 0 : tag!.hashCode);
 
   @override
-  String toString() => 'RunnerBuildReq[arch=$arch, args=$args, binaries=$binaries, branch=$branch, bucket=$bucket, context=$context, dockerTarget=$dockerTarget, dockerfile=$dockerfile, image=$image, organizationId=$organizationId, os=$os, ref=$ref, release=$release, repo=$repo, sha=$sha, tag=$tag]';
+  String toString() => 'RunnerBuildReq[arch=$arch, args=$args, binaries=$binaries, branch=$branch, bucket=$bucket, context=$context, dockerTarget=$dockerTarget, dockerfile=$dockerfile, image=$image, os=$os, ref=$ref, repo=$repo, sha=$sha, tag=$tag]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -244,11 +219,6 @@ class RunnerBuildReq {
     } else {
       json[r'image'] = null;
     }
-    if (this.organizationId != null) {
-      json[r'organizationId'] = this.organizationId;
-    } else {
-      json[r'organizationId'] = null;
-    }
     if (this.os != null) {
       json[r'os'] = this.os;
     } else {
@@ -258,11 +228,6 @@ class RunnerBuildReq {
       json[r'ref'] = this.ref;
     } else {
       json[r'ref'] = null;
-    }
-    if (this.release != null) {
-      json[r'release'] = this.release;
-    } else {
-      json[r'release'] = null;
     }
     if (this.repo != null) {
       json[r'repo'] = this.repo;
@@ -310,10 +275,8 @@ class RunnerBuildReq {
         dockerTarget: mapValueOfType<String>(json, r'dockerTarget'),
         dockerfile: mapValueOfType<String>(json, r'dockerfile'),
         image: mapValueOfType<String>(json, r'image'),
-        organizationId: mapValueOfType<String>(json, r'organizationId'),
         os: mapValueOfType<String>(json, r'os'),
         ref: mapValueOfType<String>(json, r'ref'),
-        release: mapValueOfType<bool>(json, r'release'),
         repo: mapValueOfType<String>(json, r'repo'),
         sha: mapValueOfType<String>(json, r'sha'),
         tag: mapValueOfType<String>(json, r'tag'),

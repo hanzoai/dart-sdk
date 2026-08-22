@@ -20,7 +20,6 @@ class RiskPolicyOut {
     this.version,
     this.window,
   });
-
   /// Changes is how many DISTINCT regimes may be adopted per Window. A restatement identical to the regime in force mints no version and is not counted against it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

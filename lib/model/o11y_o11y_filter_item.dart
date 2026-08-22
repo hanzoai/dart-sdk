@@ -17,7 +17,6 @@ class O11yO11yFilterItem {
     this.op,
     this.value,
   });
-
   /// Key is the attribute tested.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

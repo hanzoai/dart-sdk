@@ -16,7 +16,6 @@ class HelpCategory {
     this.description,
     this.name,
   });
-
   /// Description is the section's blurb, or empty.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

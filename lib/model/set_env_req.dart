@@ -17,7 +17,6 @@ class SetEnvReq {
     this.env = const [],
     this.project,
   });
-
   /// App is the application's slug, from the path.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

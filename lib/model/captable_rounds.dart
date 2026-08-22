@@ -15,7 +15,6 @@ class CaptableRounds {
   CaptableRounds({
     this.data = const [],
   });
-
   /// Data is every round, newest first.
   List<CaptableRound> data;
 

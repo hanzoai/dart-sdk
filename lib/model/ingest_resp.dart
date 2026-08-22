@@ -17,7 +17,6 @@ class IngestResp {
     this.links = const [],
     this.stored,
   });
-
   /// Accepted is how many samples this report landed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

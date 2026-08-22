@@ -16,7 +16,6 @@ class ActivationReq {
     this.activate = const [],
     this.deactivate = const [],
   });
-
   /// Activate switches these tool names on for the caller's org and project.
   List<String> activate;
 

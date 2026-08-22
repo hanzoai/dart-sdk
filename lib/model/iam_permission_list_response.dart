@@ -15,7 +15,6 @@ class IamPermissionListResponse {
   IamPermissionListResponse({
     this.permissions = const [],
   });
-
   List<IamPermission> permissions;
 
   @override

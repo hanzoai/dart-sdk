@@ -22,7 +22,7 @@ class ProjectsRelease {
     this.source_,
     this.url,
   });
-
+  /// Active is whether this is the release the site is SERVING right now. Exactly one release of a site is active; the others are kept so they can be activated again, until retention reclaims them.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -31,6 +31,7 @@ class ProjectsRelease {
   ///
   bool? active;
 
+  /// Bytes is their total size in bytes.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -39,6 +40,7 @@ class ProjectsRelease {
   ///
   int? bytes;
 
+  /// CreatedAt is when the release was cut, as Unix seconds — not when it was last activated.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -47,6 +49,7 @@ class ProjectsRelease {
   ///
   int? createdAt;
 
+  /// Objects is how many files the release holds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -55,6 +58,7 @@ class ProjectsRelease {
   ///
   int? objects;
 
+  /// ReleaseID is derived from a DIGEST of the release's own manifest, so identical content is the same release and a release can never be confused with another one. Activating an older id IS the rollback.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -63,6 +67,7 @@ class ProjectsRelease {
   ///
   String? releaseId;
 
+  /// Slug is the site this release belongs to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -71,6 +76,7 @@ class ProjectsRelease {
   ///
   String? slug;
 
+  /// Source is what the release was cut from — the build output or upload it was promoted out of.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -79,6 +85,7 @@ class ProjectsRelease {
   ///
   String? source_;
 
+  /// URL is where the site serves. Present only on the ACTIVE release, since an inactive one is not answering anywhere.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

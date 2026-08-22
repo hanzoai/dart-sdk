@@ -17,7 +17,7 @@ class PublishInput {
     this.name,
     this.scheduleAt,
   });
-
+  /// DocType is the content type holding the item: Campaign, SocialPost or Asset. Any other name is refused as an unknown content type.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -26,6 +26,7 @@ class PublishInput {
   ///
   String? doctype;
 
+  /// Name is the document within that type — the item to distribute. Its caption, media and channel list come off the stored document, so this names WHICH item and says nothing about what goes out.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -34,7 +35,7 @@ class PublishInput {
   ///
   String? name;
 
-  /// \"\" = now
+  /// ScheduleAt hands a future go-live to the channel's own scheduler, as an ISO-8601 time. Empty posts now.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

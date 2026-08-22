@@ -16,7 +16,6 @@ class ToolResult {
     this.name,
     this.result,
   });
-
   /// Name is the tool that ran.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

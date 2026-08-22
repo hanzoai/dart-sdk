@@ -25,7 +25,6 @@ class CaptableRound {
     this.status,
     this.targetAmount,
   });
-
   /// CloseDate is the ISO date the round closed, once it has.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

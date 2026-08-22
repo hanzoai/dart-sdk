@@ -16,7 +16,6 @@ class RiskLabelsOut {
     this.count,
     this.labels = const [],
   });
-
   /// Count is how many this page holds. It is not a total: a total over an unbounded append-only log is a full scan of a single-writer file.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

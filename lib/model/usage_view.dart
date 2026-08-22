@@ -17,7 +17,6 @@ class UsageView {
     this.repos = const [],
     this.totalBytes,
   });
-
   /// Org the rollup is for.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

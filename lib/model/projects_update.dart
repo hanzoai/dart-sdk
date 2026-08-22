@@ -26,7 +26,7 @@ class ProjectsUpdate {
     this.upstream,
     this.visibility,
   });
-
+  /// CacheControl replaces the Cache-Control policy the edge serves this site's HTML under. Absent leaves it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -35,6 +35,7 @@ class ProjectsUpdate {
   ///
   String? cacheControl;
 
+  /// Description replaces the one-line summary. Absent leaves it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -43,6 +44,7 @@ class ProjectsUpdate {
   ///
   String? description;
 
+  /// Framework replaces the build hint. It affects the NEXT build only — nothing already deployed is rebuilt.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -60,6 +62,7 @@ class ProjectsUpdate {
   ///
   bool? hidden;
 
+  /// HiddenReason records WHY moderation hid it, so the action can be explained and reviewed later. Admin-gated like hidden itself.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -68,6 +71,7 @@ class ProjectsUpdate {
   ///
   String? hiddenReason;
 
+  /// License is the terms that upstream work carries, with the same clear-versus- leave rule.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -76,6 +80,7 @@ class ProjectsUpdate {
   ///
   String? license;
 
+  /// Name replaces the display name. Absent leaves it; the slug never moves with it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -90,7 +95,7 @@ class ProjectsUpdate {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  ProjectsCreateRepo? repo;
+  ProjectsUpdateRepo? repo;
 
   /// Slug is the project to update, from the path. The URL is the addressing authority — a `slug` in the body cannot move the write to another project.
   ///
@@ -101,10 +106,10 @@ class ProjectsUpdate {
   ///
   String? slug;
 
-  /// Tags sets the site's browser tag config: platform slug → non-secret pixel id (e.g. {\"ga4\":\"G-…\",\"meta\":\"…\"}). track.js injects these first-party and the server CAPI reads them, per site. Absent LEAVES them; a present object REPLACES the set (send {} to clear). The ids are public — they ship in the page — so this is not the SECRET path (a CAPI token is sealed via POST /v1/destinations).
+  /// Tags sets the site's browser tag config: platform slug → non-secret pixel id (e.g. {\"ga4\":\"G-…\",\"meta\":\"…\"}). track.js injects these first-party and the server CAPI reads them, per site. Absent LEAVES them; a present object REPLACES the set (send {} to clear). The ids are public — they ship in the page — so this is not the SECRET path (a CAPI token is sealed via POST /v1/destination).
   Map<String, String> tags;
 
-  /// Upstream/License credit the third-party work this app was published from — settable after the fact, because the demos that need crediting most are the ones already live. Pointers so \"\" clears a credit and absent leaves it.
+  /// Upstream credits the third-party work this project was published from, and is settable after the fact because the live demos are the ones that most need crediting. An explicit empty string CLEARS the credit; absent leaves it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -243,7 +248,7 @@ class ProjectsUpdate {
         hiddenReason: mapValueOfType<String>(json, r'hiddenReason'),
         license: mapValueOfType<String>(json, r'license'),
         name: mapValueOfType<String>(json, r'name'),
-        repo: ProjectsCreateRepo.fromJson(json[r'repo']),
+        repo: ProjectsUpdateRepo.fromJson(json[r'repo']),
         slug: mapValueOfType<String>(json, r'slug'),
         tags: mapCastOfType<String, String>(json, r'tags') ?? const {},
         upstream: mapValueOfType<String>(json, r'upstream'),

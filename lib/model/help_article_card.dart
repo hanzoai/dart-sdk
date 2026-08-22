@@ -19,7 +19,6 @@ class HelpArticleCard {
     this.title,
     this.updatedAt,
   });
-
   /// Category is the name of the knowledge-base section the article sits in, or empty when it is filed under none.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

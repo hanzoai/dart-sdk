@@ -15,7 +15,6 @@ class O11yO11yMessage {
   O11yO11yMessage({
     this.data,
   });
-
   /// Data is the acknowledgment message.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

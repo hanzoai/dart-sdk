@@ -16,7 +16,6 @@ class O11yO11yAPIKeysOut {
     this.data = const [],
     this.status,
   });
-
   /// Data holds the keys.
   List<O11yO11yAPIKey> data;
 

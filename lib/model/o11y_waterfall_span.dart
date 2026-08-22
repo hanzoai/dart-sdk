@@ -43,7 +43,6 @@ class O11yWaterfallSpan {
     this.traceId,
     this.traceState,
   });
-
   Map<String, Object> attributes;
 
   /// Calculated fields https://o11y.io/docs/traces-management/guides/derived-fields-spans

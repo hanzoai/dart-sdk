@@ -16,7 +16,6 @@ class CaptableSummaryCompany {
     this.id,
     this.name,
   });
-
   /// ID is the company id, which is the tenant's own org id.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

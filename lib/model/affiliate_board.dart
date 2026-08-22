@@ -17,7 +17,6 @@ class AffiliateBoard {
     this.total,
     this.you,
   });
-
   /// Leaders are the top opt-in affiliates, by handle and aggregate figures only.
   List<LeaderboardRow> leaders;
 

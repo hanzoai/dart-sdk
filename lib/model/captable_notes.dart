@@ -15,7 +15,6 @@ class CaptableNotes {
   CaptableNotes({
     this.data = const [],
   });
-
   /// Data is every convertible note, newest first.
   List<CaptableNote> data;
 

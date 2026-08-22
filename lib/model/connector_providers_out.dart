@@ -15,7 +15,6 @@ class ConnectorProvidersOut {
   ConnectorProvidersOut({
     this.providers = const [],
   });
-
   /// Providers is every USER-scoped provider, sorted by id. Never null.
   List<ConnectorProviderView> providers;
 

@@ -16,7 +16,6 @@ class VerificationTally {
     this.byStatus = const {},
     this.total,
   });
-
   /// ByStatus tallies the org's verifications by provider-reported status.
   Map<String, int> byStatus;
 

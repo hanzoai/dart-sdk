@@ -20,7 +20,7 @@ class Suggestion {
     this.title,
     this.unlocks,
   });
-
+  /// Automatable is true when the step names a tool, so the Business AI can do it rather than only describe it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -29,6 +29,7 @@ class Suggestion {
   ///
   bool? automatable;
 
+  /// Detail is the step's own prose — what it asks for.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -37,6 +38,7 @@ class Suggestion {
   ///
   String? detail;
 
+  /// Rationale is why this step is being suggested NOW, written for the person reading it. It explains the ranking, not the step.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -45,6 +47,7 @@ class Suggestion {
   ///
   String? rationale;
 
+  /// StepID is the checklist step being recommended — the id every step route takes, so a caller can act on the suggestion directly.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -53,6 +56,7 @@ class Suggestion {
   ///
   String? stepId;
 
+  /// Title is the step's own one-line quest.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

@@ -15,7 +15,6 @@ class ModuleList {
   ModuleList({
     this.data = const [],
   });
-
   /// Data is every module compiled into this binary, with the DocTypes it installs.
   List<ModuleInfo> data;
 

@@ -16,7 +16,6 @@ class ProjectionView {
     this.apps = const {},
     this.tier,
   });
-
   /// Apps says, per console app, whether the org may open it. The SAME six keys are always present (studio, bot, world, platform, team, admin), so a client maps over it unconditionally; a key is false both when the plan does not grant the app and when commerce could not be reached, because a read that decides what to SHOW fails to LOCKED rather than to an error.
   Map<String, bool> apps;
 

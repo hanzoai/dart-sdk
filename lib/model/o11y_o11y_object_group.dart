@@ -16,7 +16,6 @@ class O11yO11yObjectGroup {
     this.resource,
     this.selectors = const [],
   });
-
   /// Resource is the objects' type and kind.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

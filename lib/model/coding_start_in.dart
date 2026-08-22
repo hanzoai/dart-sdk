@@ -26,7 +26,6 @@ class CodingStartIn {
     this.timeoutSeconds,
     this.tool,
   });
-
   /// After names a previous run's session, and starts this one from where that one stopped instead of from the repository's default. It is how a follow-up instruction — \"now add tests for it\" — builds on work already done rather than beginning again on a fresh clone.  It sets the base and nothing else, so this run still writes its OWN branch. One run, one branch: a run that wrote back onto an earlier run's branch would break the rule the forge's ref policy is built on, and would leave two turns of work with one name to review.  A caller who already knows the branch may pass Base directly; this exists because the branch is derived from a session id and nobody should have to know how. Base wins if both are given.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -81,7 +80,7 @@ class CodingStartIn {
   ///
   String? prompt;
 
-  /// ReplyChannel / ReplyThread are WHERE THE RUN NARRATES ITSELF, when the door that started it has somewhere for it to talk. Empty means nobody is listening and the run simply does not narrate — which is the app door's case, because /v1/coding hands back a session id and the session stream is a better progress feed than any message could be.  It is an ADDRESS and not a token: the engine says \"put this text there\", and the process that owns the workspace's bot credential is the one that actually posts. So a run reports into a Slack thread without the engine ever holding the token that could post anywhere else in that workspace.
+  /// ReplyChannel / ReplyThread are WHERE THE RUN NARRATES ITSELF, when the door that started it has somewhere for it to talk. Empty means nobody is listening and the run simply does not narrate — which is the app door's case, because /v1/agents/coding hands back a session id and the session stream is a better progress feed than any message could be.  It is an ADDRESS and not a token: the engine says \"put this text there\", and the process that owns the workspace's bot credential is the one that actually posts. So a run reports into a Slack thread without the engine ever holding the token that could post anywhere else in that workspace.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -90,6 +89,7 @@ class CodingStartIn {
   ///
   String? replyChannel;
 
+  /// ReplyThread narrows that address to one THREAD inside the channel: on Slack it is the parent message's ts, the same value a reply carries as thread_ts. Empty puts the run's status line at the top level of the channel instead.  The channel is what decides whether a run narrates at all, so this on its own addresses nothing — a thread with no ReplyChannel is a run nobody hears.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

@@ -16,7 +16,6 @@ class ImageOrigin {
     this.repository,
     this.tag,
   });
-
   /// Repository is the image repository. Required for source `image`.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -18,7 +18,6 @@ class FileContent {
     this.path,
     this.repo,
   });
-
   /// Content is the file's text as the index stored it. It is NOT guaranteed byte-verbatim — the git object plane is the source of record for exact bytes, history and blame.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

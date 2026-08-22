@@ -21,7 +21,6 @@ class O11yNodeListRequest {
     this.orderBy,
     this.start,
   });
-
   /// epoch time in ms
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

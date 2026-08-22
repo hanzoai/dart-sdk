@@ -16,7 +16,6 @@ class LegalHealth {
     this.status,
     this.templates,
   });
-
   /// Status is \"ok\" when the subsystem is serving.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -20,8 +20,7 @@ class RunnerBuildResp {
     this.status,
     this.target,
   });
-
-  /// BuildJobID is the queued build's id, and what a release is followed by.
+  /// BuildJobID is the queued build's id, and what its progress is read by.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -57,7 +56,7 @@ class RunnerBuildResp {
   ///
   String? runnerPool;
 
-  /// Status is `queued` for an ordinary build, `releasing` for a self-publish.
+  /// Status is `queued` — the build was accepted and has not finished.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

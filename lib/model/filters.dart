@@ -17,7 +17,6 @@ class Filters {
     this.regions = const [],
     this.sources = const [],
   });
-
   /// Keywords keeps only items whose TITLE contains one of these, case-insensitively. They are also the GDELT queries the feed fans out to, one per keyword of three characters or more — so a keyword both widens what is fetched and narrows what is kept.
   List<String> keywords;
 

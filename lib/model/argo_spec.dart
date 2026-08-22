@@ -17,7 +17,7 @@ class ArgoSpec {
     this.project,
     this.source_,
   });
-
+  /// Destination is which cluster and namespace it lands in. Zero-valued on a CD row: this projection reports CD's source, not its destination.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -26,6 +26,7 @@ class ArgoSpec {
   ///
   ArgoDestination? destination;
 
+  /// Project is the AppProject this application is grouped and filtered under. For an App CR it is the app.kubernetes.io/part-of label — the IAM project name — falling back to \"default\" when the CR carries no such label.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -34,6 +35,7 @@ class ArgoSpec {
   ///
   String? project;
 
+  /// Source is where the desired state is declared.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

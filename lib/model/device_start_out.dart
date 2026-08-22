@@ -19,7 +19,6 @@ class DeviceStartOut {
     this.userCode,
     this.verifyUrl,
   });
-
   /// ExpiresAt is when the flow dies, RFC 3339 UTC.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

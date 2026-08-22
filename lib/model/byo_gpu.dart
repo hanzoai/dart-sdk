@@ -18,8 +18,7 @@ class ByoGPU {
     this.name,
     this.unified,
   });
-
-  /// native target, e.g. \"gfx1151\"
+  /// Arch is the card's native compile target (\"gfx1151\"), which is what a kernel has to be built for. AMD reports one; NVIDIA cards leave it empty.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -28,7 +27,7 @@ class ByoGPU {
   ///
   String? arch;
 
-  /// VRAM (or unified pool), e.g. \"122880 MiB\"
+  /// MemoryTotal is the card's VRAM in the units the host reported it in (\"122880 MiB\") — a display string, not a byte count. On a unified part it is the shared CPU/GPU pool, so it is not memory reserved for the GPU.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -37,6 +36,7 @@ class ByoGPU {
   ///
   String? memoryTotal;
 
+  /// Name is the card's model exactly as its own tooling named it (\"NVIDIA GB10\"), never normalized — an operator matches what they see here against what nvidia-smi tells them on the box.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -45,7 +45,7 @@ class ByoGPU {
   ///
   String? name;
 
-  /// unified CPU/GPU memory pool (APU / SoC)
+  /// Unified reports that CPU and GPU share one memory pool (an APU or SoC), so MemoryTotal is not private to the GPU and the host competes for it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

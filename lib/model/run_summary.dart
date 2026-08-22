@@ -22,7 +22,6 @@ class RunSummary {
     this.runName,
     this.scored,
   });
-
   /// AvgScore is the mean over the scored examples, 0 when none scored.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

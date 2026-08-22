@@ -18,14 +18,13 @@ class ProjectsDomains {
     this.org,
     this.slug,
   });
-
   /// Claims is one row per host — live, or pending with the DNS records it still owes.
   List<ProjectsDomain> claims;
 
   /// Domains are the hostnames that are VERIFIED and routing right now.
   List<String> domains;
 
-  /// Org and Slug identify the site the panel belongs to.
+  /// Org is the organisation that owns the site.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -34,6 +33,7 @@ class ProjectsDomains {
   ///
   String? org;
 
+  /// Slug is the site the panel belongs to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

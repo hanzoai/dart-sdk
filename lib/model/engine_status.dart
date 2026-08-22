@@ -16,7 +16,6 @@ class EngineStatus {
     this.reachable,
     this.revision,
   });
-
   /// Reachable is true when the engine answered its health probe.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

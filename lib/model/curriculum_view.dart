@@ -16,7 +16,6 @@ class CurriculumView {
     this.curriculum,
     this.custom,
   });
-
   /// Curriculum is the enabled journey: its version, title and ordered steps.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

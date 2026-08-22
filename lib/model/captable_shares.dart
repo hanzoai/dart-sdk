@@ -15,7 +15,6 @@ class CaptableShares {
   CaptableShares({
     this.data = const [],
   });
-
   /// Data is every issued share certificate, newest first.
   List<CaptableShare> data;
 

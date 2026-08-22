@@ -16,7 +16,6 @@ class O11yO11yTransactionGroup {
     this.objectGroup,
     this.relation,
   });
-
   /// ObjectGroup is the set of objects it allows the verb on.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -21,7 +21,6 @@ class OracleView {
     this.updatedAt,
     this.value,
   });
-
   /// Feed is the trading pair this feed prices.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

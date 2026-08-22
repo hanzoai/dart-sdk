@@ -18,7 +18,6 @@ class ChannelAdd {
     this.kind,
     this.platform,
   });
-
   /// Account is the provider account this channel runs under: an ad-account, a page, or a mailing-list id.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

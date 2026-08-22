@@ -20,7 +20,6 @@ class ActivityTotals {
     this.requests,
     this.tokens,
   });
-
   /// ActiveDays counts the days with any usage at all — the streak/consistency number. Compare it against len(days) for the share of days the subject showed up.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

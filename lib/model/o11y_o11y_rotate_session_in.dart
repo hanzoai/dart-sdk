@@ -15,7 +15,6 @@ class O11yO11yRotateSessionIn {
   O11yO11yRotateSessionIn({
     this.refreshToken,
   });
-
   /// RefreshToken is the refresh token being redeemed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -16,7 +16,6 @@ class Leaderboard {
     this.benchmark,
     this.rows = const [],
   });
-
   /// Benchmark is the catalog id these rows are about.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

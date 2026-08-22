@@ -15,7 +15,7 @@ class CrawlRequest {
   CrawlRequest({
     this.url,
   });
-
+  /// URL is the page to read, absolute and http or https — no other scheme is dialled. It is resolved from inside the cluster, so an address that turns out to be loopback, link-local, private or multicast is refused at the dialer, redirects included. Empty is not an error status: the answer comes back with success false and the reason in error.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

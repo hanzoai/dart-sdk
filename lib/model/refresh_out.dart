@@ -16,7 +16,6 @@ class RefreshOut {
     this.connector,
     this.refreshed,
   });
-
   /// Connection is the connector with its new expiry.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

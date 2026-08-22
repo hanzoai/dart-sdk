@@ -22,7 +22,6 @@ class OppReq {
     this.pointOfContactId,
     this.stage,
   });
-
   /// Amount is the deal value in minor units (cents) of Currency.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

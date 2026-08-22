@@ -15,7 +15,6 @@ class ErrorList {
   ErrorList({
     this.data = const [],
   });
-
   /// Data is the errors, newest first. Empty rather than absent when there are none.
   List<CapturedError> data;
 

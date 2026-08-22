@@ -21,7 +21,6 @@ class O11yO11yPreference {
     this.value,
     this.valueType,
   });
-
   /// AllowedScopes are the scopes the preference may be set at — org, user.
   List<String> allowedScopes;
 

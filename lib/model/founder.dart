@@ -20,7 +20,6 @@ class Founder {
     this.kycStatus,
     this.name,
   });
-
   /// DecidedBy is who settled a terminal KYC status: the provider name, or a reviewer's user id.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -16,7 +16,6 @@ class O11yO11yPublicDashboardData {
     this.dashboard,
     this.publicDashboard,
   });
-
   /// Dashboard is the sanitized dashboard.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

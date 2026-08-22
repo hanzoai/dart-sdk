@@ -15,7 +15,6 @@ class NetworkList {
   NetworkList({
     this.networks = const [],
   });
-
   /// Networks holds the org's overlay network, or is empty when the org has no edge-routers on the fabric (no nodes → no network, never a fabricated one).
   List<NetworkView> networks;
 

@@ -16,7 +16,6 @@ class CaptableRoundTotals {
     this.count,
     this.totalRaised,
   });
-
   /// Count is how many rounds the company has recorded.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

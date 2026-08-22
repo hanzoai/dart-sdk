@@ -15,7 +15,6 @@ class ScoreConfigList {
   ScoreConfigList({
     this.data = const [],
   });
-
   /// Data is the caller org's rubrics, bounded by limit.
   List<ScoreConfigView> data;
 

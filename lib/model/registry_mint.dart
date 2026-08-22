@@ -15,7 +15,6 @@ class RegistryMint {
   RegistryMint({
     this.image,
   });
-
   /// Image is the repository name inside the org's namespace (e.g. \"cloud\").
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

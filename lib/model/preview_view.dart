@@ -18,7 +18,6 @@ class PreviewView {
     this.deployment,
     this.url,
   });
-
   /// App is the preview application's own slug, `<app>-<branch>`.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

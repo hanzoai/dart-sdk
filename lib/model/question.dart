@@ -20,7 +20,7 @@ class Question {
     this.postedAt,
     this.text,
   });
-
+  /// Account is the chart number the questioned entry posted to, where one applies.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -29,7 +29,7 @@ class Question {
   ///
   String? account;
 
-  /// formatted figure ($…)
+  /// Amount is the figure that makes the question concrete, already FORMATTED for display with its currency symbol — a string, not cents, and not for arithmetic.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -38,7 +38,7 @@ class Question {
   ///
   String? amount;
 
-  /// the source transaction id it concerns
+  /// ID is the source transaction the question is about, so answering it leads straight back to the entry that raised it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -47,7 +47,7 @@ class Question {
   ///
   String? id;
 
-  /// outlier|reversal|roundoff|uncosted|overdrawn
+  /// Kind is what looked wrong: outlier (a charge far above the usual), reversal (a posting undone), roundoff (a balancing plug big enough to be worth explaining), uncosted (revenue booked with no cost matched to it), or overdrawn (a wallet spent past its balance).
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -56,6 +56,7 @@ class Question {
   ///
   String? kind;
 
+  /// PostedAt anchors the question in time — when the entry it concerns posted.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -64,7 +65,7 @@ class Question {
   ///
   String? postedAt;
 
-  /// the specific question to ask the founder
+  /// Text is the question itself, written for a founder to answer directly.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

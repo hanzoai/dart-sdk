@@ -16,7 +16,6 @@ class CaptableConvertibles {
     this.notes,
     this.safes,
   });
-
   /// Notes is the convertible notes total.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

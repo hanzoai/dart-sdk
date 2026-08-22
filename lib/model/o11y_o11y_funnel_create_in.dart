@@ -16,7 +16,6 @@ class O11yO11yFunnelCreateIn {
     this.funnelName,
     this.timestamp,
   });
-
   /// Name is the funnel's name.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

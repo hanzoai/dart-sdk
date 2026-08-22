@@ -15,7 +15,6 @@ class O11yO11yLogParseFrom {
   O11yO11yLogParseFrom({
     this.parseFrom,
   });
-
   /// ParseFrom is the field to read.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

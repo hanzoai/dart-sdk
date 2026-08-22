@@ -15,7 +15,6 @@ class GpuAlertList {
   GpuAlertList({
     this.alerts = const [],
   });
-
   /// Alerts is always empty, and typed as a raw list because Visor exposes no alert inventory for this surface to shape: there is nothing to describe until there is something to return.
   List<Object> alerts;
 

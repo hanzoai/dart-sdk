@@ -16,7 +16,6 @@ class O11yO11yTraceOut {
     this.data,
     this.status,
   });
-
   /// Data holds the trace and its events.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

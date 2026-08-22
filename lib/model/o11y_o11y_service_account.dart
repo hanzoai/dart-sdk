@@ -21,7 +21,6 @@ class O11yO11yServiceAccount {
     this.status,
     this.updatedAt,
   });
-
   /// CreatedAt is when the account was created.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

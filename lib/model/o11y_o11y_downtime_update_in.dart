@@ -19,7 +19,6 @@ class O11yO11yDowntimeUpdateIn {
     this.schedule,
     this.scope,
   });
-
   List<String> alertIds;
 
   ///

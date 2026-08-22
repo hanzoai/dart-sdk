@@ -35,7 +35,6 @@ class SampleReq {
     this.windowMinutes,
     this.windowStart,
   });
-
   /// Account is the linked account the window was metered from.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class IngressRoutes {
   IngressRoutes({
     this.routes = const [],
   });
-
   /// Routes is the org's routes, ordered by id.
   List<Route> routes;
 

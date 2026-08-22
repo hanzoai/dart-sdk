@@ -16,7 +16,6 @@ class O11yO11yMetricHighlightsOut {
     this.data,
     this.status,
   });
-
   /// Data holds the highlights.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

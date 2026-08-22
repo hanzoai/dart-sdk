@@ -16,7 +16,6 @@ class O11yVariableItem {
     this.type,
     this.value,
   });
-
   Object? type;
 
   ///

@@ -20,7 +20,6 @@ class PlanInfo {
     this.seats,
     this.upgradeUrl,
   });
-
   /// Active is whether that plan's entitlement is live.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

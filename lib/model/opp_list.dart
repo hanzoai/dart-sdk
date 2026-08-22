@@ -15,7 +15,6 @@ class OppList {
   OppList({
     this.data = const [],
   });
-
   /// Data is the page of opportunities, most recently updated first.
   List<Opportunity> data;
 

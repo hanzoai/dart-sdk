@@ -22,7 +22,6 @@ class EnrollReq {
     this.provider,
     this.usage,
   });
-
   /// Account is the provider-side account identifier.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

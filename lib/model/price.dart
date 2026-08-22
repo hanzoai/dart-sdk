@@ -17,7 +17,6 @@ class Price {
     this.currency,
     this.recipient,
   });
-
   Object? amount;
 
   /// Currency is the ISO 4217 code, e.g. \"USD\". Empty means USD.

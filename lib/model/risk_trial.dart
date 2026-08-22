@@ -24,7 +24,6 @@ class RiskTrial {
     this.topology,
     this.warm,
   });
-
   /// Alerted is how many of those it would have raised.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

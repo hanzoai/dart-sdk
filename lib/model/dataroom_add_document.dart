@@ -17,7 +17,6 @@ class DataroomAddDocument {
     this.id,
     this.orderIndex,
   });
-
   Object? documentId;
 
   /// ID is the room to add to. It is the path segment: the URL is the addressing authority, and the org it is resolved in comes from the caller's principal, so an id from another tenant is simply not found.

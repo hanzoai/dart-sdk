@@ -18,7 +18,6 @@ class TrailPage {
     this.status,
     this.total,
   });
-
   /// Data is one page of the org's events, newest first. Empty, never null.
   List<Wire> data;
 

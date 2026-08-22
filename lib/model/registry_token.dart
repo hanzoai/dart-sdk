@@ -17,7 +17,6 @@ class RegistryToken {
     this.ref,
     this.token,
   });
-
   /// Expires is the token's lifetime in seconds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

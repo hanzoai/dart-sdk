@@ -18,7 +18,7 @@ class StateGraph {
     this.states = const [],
     this.transitions = const {},
   });
-
+  /// Initial is the state a fresh document starts in — \"draft\". A stored document with no status at all is read as this too.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -27,6 +27,7 @@ class StateGraph {
   ///
   String? initial;
 
+  /// Live is the ONE state that is publicly readable — \"published\". The site pulls only documents in it, so reaching Live IS site-publish; every other state is invisible to a reader.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -35,8 +36,10 @@ class StateGraph {
   ///
   String? live;
 
+  /// States is every lifecycle state in canonical order: draft, in_review, approved, queued, published, archived. The console lays its board columns out in exactly this order, so the order is part of the answer.
   List<String> states;
 
+  /// Transitions maps each state to the states it may move to. A target absent from a state's list is REFUSED, at the endpoint and again at the storage boundary — this is the whole rule, not a hint for the UI. A state never lists itself; a move that changes nothing is always legal.
   Map<String, List<String>> transitions;
 
   @override

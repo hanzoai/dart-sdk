@@ -15,7 +15,6 @@ class RepoList {
   RepoList({
     this.data = const [],
   });
-
   /// Data holds the repos in scope, most recently updated first.
   List<RepoView> data;
 

@@ -16,7 +16,6 @@ class O11yO11yMetricListOut {
     this.data,
     this.status,
   });
-
   /// Data holds the metrics.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

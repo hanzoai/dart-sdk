@@ -16,7 +16,6 @@ class O11yO11yDiscoverOut {
     this.data,
     this.status,
   });
-
   /// Data is the table.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

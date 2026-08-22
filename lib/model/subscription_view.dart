@@ -19,7 +19,6 @@ class SubscriptionView {
     this.id,
     this.repo,
   });
-
   /// Channel is the Slack channel id or name the notifier posts to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

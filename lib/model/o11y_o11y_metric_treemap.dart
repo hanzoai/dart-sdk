@@ -16,7 +16,6 @@ class O11yO11yMetricTreemap {
     this.samples = const [],
     this.timeseries = const [],
   });
-
   /// Samples are the entries when measuring by sample count.
   List<O11yO11yTreemapEntry> samples;
 

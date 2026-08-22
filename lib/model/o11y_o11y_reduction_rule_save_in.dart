@@ -17,7 +17,6 @@ class O11yO11yReductionRuleSaveIn {
     this.labels = const [],
     required this.matchType,
   });
-
   /// ID is the rule's id.
   String id;
 

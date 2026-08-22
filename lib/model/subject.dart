@@ -22,7 +22,7 @@ class Subject {
     this.ref,
     this.updatedAt,
   });
-
+  /// CreatedAt is when the subject was first recorded, Unix SECONDS.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -31,6 +31,7 @@ class Subject {
   ///
   int? createdAt;
 
+  /// Email is the party's address, when the org supplied one. It is PII: sealed at rest, returned only to the owning org, and never copied into a check record.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -39,6 +40,7 @@ class Subject {
   ///
   String? email;
 
+  /// ID is the opaque handle every other record uses to point at this party. It is the only reference that leaves this type, which is what keeps the PII in one place: a check, an accreditation and an audit row all carry the id and none of them carry the name.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -47,6 +49,7 @@ class Subject {
   ///
   String? id;
 
+  /// Kind is what is being verified: \"individual\" (a natural person, so KYC) or \"business\" (a legal entity, so KYB). It decides which provider flow runs.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -55,6 +58,7 @@ class Subject {
   ///
   String? kind;
 
+  /// Name is the party's name, under the same PII rule as Email. For a business it is the legal entity name rather than a trading name, since that is what a provider verifies against.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -63,6 +67,7 @@ class Subject {
   ///
   String? name;
 
+  /// Org is the tenant that is doing the verifying — the party who must answer for this record, not the party being verified. A subject is returned only to it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -71,7 +76,7 @@ class Subject {
   ///
   String? org;
 
-  /// the org's own opaque external id for this subject
+  /// Ref is the org's OWN identifier for this party, carried so a caller can match a subject back to their system without keeping a second mapping. Opaque here: nothing in this plane parses or enforces it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -80,6 +85,7 @@ class Subject {
   ///
   String? ref;
 
+  /// UpdatedAt is when the subject's own fields last changed, Unix seconds. A check moving to a new status does not touch it — that history lives on the check.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

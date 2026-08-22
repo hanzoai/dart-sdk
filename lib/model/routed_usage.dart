@@ -23,7 +23,6 @@ class RoutedUsage {
     this.requests,
     this.totalTokens,
   });
-
   /// Account is the provider-side account identifier.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -17,7 +17,7 @@ class ArgoConnectionState {
     this.message,
     this.status,
   });
-
+  /// AttemptedAt is when the connection was last probed. Always absent: nothing is probed, and a fabricated timestamp would claim a check that never ran.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -26,6 +26,7 @@ class ArgoConnectionState {
   ///
   String? attemptedAt;
 
+  /// Message is why a connection failed. Always absent, since none does.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -34,6 +35,7 @@ class ArgoConnectionState {
   ///
   String? message;
 
+  /// Status is ArgoCD's ConnectionStatus — Successful, Failed or Unknown. Always Successful here: the destination is the cluster this process is already running in, so it is reachable by construction and there is no credential to probe.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

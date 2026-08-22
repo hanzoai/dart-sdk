@@ -22,7 +22,6 @@ class ConnView {
     this.provider,
     this.scopes = const [],
   });
-
   /// Account is the provider's label for the connected account.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

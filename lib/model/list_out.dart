@@ -15,7 +15,6 @@ class ListOut {
   ListOut({
     this.providers = const [],
   });
-
   /// Providers is the whole catalog. Never null; [] when nothing is registered.
   List<ProviderView> providers;
 

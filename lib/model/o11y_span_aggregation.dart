@@ -16,7 +16,6 @@ class O11ySpanAggregation {
     this.aggregation,
     this.field,
   });
-
   Object? aggregation;
 
   ///

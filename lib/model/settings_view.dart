@@ -19,7 +19,6 @@ class SettingsView {
     this.secretKeys = const [],
     this.updatedAt,
   });
-
   Object? config;
 
   /// CreatedAt is when this configuration was first written, RFC 3339 UTC.

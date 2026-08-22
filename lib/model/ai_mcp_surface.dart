@@ -17,7 +17,6 @@ class AiMCPSurface {
     this.names = const [],
     this.tools,
   });
-
   /// Apps is one row per subsystem this deployment composes, in manifest order.
   List<AiMCPApp> apps;
 

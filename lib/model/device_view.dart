@@ -20,7 +20,6 @@ class DeviceView {
     this.machine,
     this.os,
   });
-
   /// Accounts is every account the caller has signed in on this machine.
   List<LinkView> accounts;
 

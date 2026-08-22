@@ -19,7 +19,7 @@ class ArgoApp {
     this.spec,
     this.status,
   });
-
+  /// APIVersion is the constant \"argoproj.io/v1alpha1\" — the shape, not the source. These are projections of operator App CRs and Hanzo CD Applications; no argoproj.io object is stored anywhere behind this plane.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -28,6 +28,7 @@ class ArgoApp {
   ///
   String? apiVersion;
 
+  /// Kind is the constant \"Application\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -36,6 +37,7 @@ class ArgoApp {
   ///
   String? kind;
 
+  /// Metadata is the projected object's identity.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -44,6 +46,7 @@ class ArgoApp {
   ///
   ArgoMeta? metadata;
 
+  /// Spec is the desired state: where it comes from, where it lands, what project it belongs to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -52,6 +55,7 @@ class ArgoApp {
   ///
   ArgoSpec? spec;
 
+  /// Status is what was observed: the sync verdict, the health, and the owned objects when this is a detail read.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

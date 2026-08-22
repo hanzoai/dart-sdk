@@ -16,7 +16,6 @@ class BotSync {
     this.projected,
     this.synced,
   });
-
   /// Projected is how many roster entries the reconcile touched.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

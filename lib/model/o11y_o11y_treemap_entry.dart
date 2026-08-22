@@ -17,7 +17,6 @@ class O11yO11yTreemapEntry {
     this.percentage,
     this.totalValue,
   });
-
   /// MetricName is the metric's name.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

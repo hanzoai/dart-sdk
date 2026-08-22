@@ -16,7 +16,6 @@ class O11yO11yFieldCatalogOut {
     this.interesting = const [],
     this.selected = const [],
   });
-
   /// Interesting are fields seen in the data that could be selected.
   List<O11yO11yTelemetryField> interesting;
 

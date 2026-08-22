@@ -15,7 +15,6 @@ class McpServerList {
   McpServerList({
     this.servers = const [],
   });
-
   /// Servers is every external MCP server this org has registered. No secret VALUE is ever included — only whether one is set.
   List<MCPServer> servers;
 

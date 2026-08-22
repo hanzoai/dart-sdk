@@ -16,7 +16,6 @@ class GenerateRequest {
     this.data = const {},
     this.templateId,
   });
-
   /// Data supplies every merge field the template declares, keyed by field key. Every declared field is REQUIRED: a missing one is refused with 400 rather than rendered as a blank into a contract.
   Map<String, String> data;
 

@@ -18,7 +18,6 @@ class EvaluatorReq {
     required this.name,
     this.scoreName,
   });
-
   /// Criteria is the written standard the judge applies; over 64 KiB is refused.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

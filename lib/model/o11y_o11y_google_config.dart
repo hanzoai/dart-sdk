@@ -23,7 +23,6 @@ class O11yO11yGoogleConfig {
     this.redirectURI,
     this.serviceAccountJson,
   });
-
   /// AllowedGroups, when set, admits only members of these groups.
   List<String> allowedGroups;
 

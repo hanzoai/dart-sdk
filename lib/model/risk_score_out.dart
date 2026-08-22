@@ -24,7 +24,6 @@ class RiskScoreOut {
     this.shape,
     this.values = const [],
   });
-
   /// Alert is whether this would become evidence. It is false in shadow however high the score.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

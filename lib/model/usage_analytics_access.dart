@@ -16,7 +16,6 @@ class UsageAnalyticsAccess {
     this.access,
     this.plan,
   });
-
   /// Access is what that plan grants.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

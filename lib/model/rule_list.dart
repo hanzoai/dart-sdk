@@ -15,7 +15,6 @@ class RuleList {
   RuleList({
     this.data = const [],
   });
-
   /// Data is every rule a scan can fire, each with the id, name and severity a finding cites.
   List<RuleView> data;
 

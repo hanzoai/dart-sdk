@@ -28,7 +28,6 @@ class CaptableStakeholder {
     this.taxId,
     this.zipcode,
   });
-
   /// City is the stakeholder's city, if recorded.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

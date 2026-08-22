@@ -18,7 +18,6 @@ class BeginIn {
     this.name,
     this.structure,
   });
-
   /// AlreadyIncorporated declares an org that already has an entity, which takes the import path (POST /v1/company/skip) instead of the formation path.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

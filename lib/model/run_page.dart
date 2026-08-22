@@ -15,7 +15,6 @@ class RunPage {
   RunPage({
     this.data = const [],
   });
-
   /// Data is the page of runs, newest first.
   List<FlowRun> data;
 

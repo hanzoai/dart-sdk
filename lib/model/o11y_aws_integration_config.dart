@@ -16,7 +16,6 @@ class O11yAWSIntegrationConfig {
     this.enabledRegions = const [],
     this.telemetryCollectionStrategy,
   });
-
   List<String> enabledRegions;
 
   ///

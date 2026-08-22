@@ -17,7 +17,6 @@ class StatsOut {
     this.metrics,
     this.statistics,
   });
-
   /// Admin is the upstream service's server-panel flag, always false here.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -16,7 +16,6 @@ class O11yO11yLogsOut {
     this.data,
     this.status,
   });
-
   /// Data holds the events.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

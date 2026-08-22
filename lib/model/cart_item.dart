@@ -21,7 +21,6 @@ class CartItem {
     this.quantity,
     this.sku,
   });
-
   /// Free reports a line that costs nothing because a coupon or a promotion made it so, rather than because its price is zero.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

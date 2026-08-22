@@ -26,7 +26,6 @@ class O11yO11yLogPipeline {
     this.updatedAt,
     this.updatedBy,
   });
-
   /// Alias is the pipeline's short name.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

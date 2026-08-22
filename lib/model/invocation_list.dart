@@ -15,7 +15,6 @@ class InvocationList {
   InvocationList({
     this.invocations = const [],
   });
-
   /// Invocations is one row per past run, newest first.
   List<InvocationView> invocations;
 

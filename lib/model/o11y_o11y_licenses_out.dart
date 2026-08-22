@@ -16,7 +16,6 @@ class O11yO11yLicensesOut {
     this.data = const [],
     this.status,
   });
-
   /// Data are the licenses.
   List<Object> data;
 

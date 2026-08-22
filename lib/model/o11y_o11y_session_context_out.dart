@@ -16,7 +16,6 @@ class O11yO11ySessionContextOut {
     this.data,
     this.status,
   });
-
   /// Data is the context.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

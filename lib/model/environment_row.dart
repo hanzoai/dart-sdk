@@ -20,7 +20,6 @@ class EnvironmentRow {
     this.type,
     this.updatedAt,
   });
-
   /// ID is the environment's name, which is also its identity — an environment is derived from the apps that target it, so it has no id of its own.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -20,7 +20,6 @@ class O11yO11yMetricPanel {
     this.panelId,
     this.panelName,
   });
-
   /// DashboardID is the dashboard's id.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -24,7 +24,6 @@ class PopulatedFlow {
     this.updated,
     this.version,
   });
-
   /// Created and Updated are unix milliseconds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

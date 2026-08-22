@@ -19,7 +19,6 @@ class ReferenceVersion {
     this.stale,
     this.version,
   });
-
   /// AsOf is when the oldest of them was current, RFC 3339.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

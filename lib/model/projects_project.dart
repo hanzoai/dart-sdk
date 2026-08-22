@@ -33,14 +33,14 @@ class ProjectsProject {
     this.repo,
     this.slug,
     this.space,
+    this.starred,
     this.status,
     this.tags = const {},
     this.updatedAt,
     this.upstream,
     this.visibility,
   });
-
-  /// Analytics is the wired-by-default web-analytics flag (default true). It is the value the app's static-builder reads as deployment.analytics to inject the beacon. Space is the project's Base data space (\"<org>/<slug>\") a deployed site posts form/forum/data submissions to under /v1/base.
+  /// Analytics is whether the web-analytics beacon is injected into this site's pages. It is ON by default — a project has to opt out — and it is what the static builder reads to decide whether to inject at all.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -49,6 +49,7 @@ class ProjectsProject {
   ///
   bool? analytics;
 
+  /// Bucket is the object-store bucket the site's files are served out of.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -57,7 +58,7 @@ class ProjectsProject {
   ///
   String? bucket;
 
-  /// Cache is the site's edge-cache state: the HTML/document Cache-Control policy in effect (TTL) and the last edge-purge time, so a console can show freshness.
+  /// CacheControl is the Cache-Control policy the edge serves this site's HTML under — how long a reader may hold a stale page before asking again. Assets are content-addressed and are not governed by it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -66,6 +67,7 @@ class ProjectsProject {
   ///
   String? cacheControl;
 
+  /// CreatedAt is when the project was created, as Unix seconds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -74,6 +76,7 @@ class ProjectsProject {
   ///
   int? createdAt;
 
+  /// CurrentDeploymentID names the deployment currently serving, so a caller can ask what is live without scanning the history.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -82,6 +85,7 @@ class ProjectsProject {
   ///
   String? currentDeploymentId;
 
+  /// Description is the one-line summary, which is copied onto forks of this project and shown on a gallery card.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -99,6 +103,7 @@ class ProjectsProject {
   ///
   String? forkedFrom;
 
+  /// Framework is a BUILD HINT from a closed set, defaulting to static. It tells CI how to build a linked repo and never gates a deploy, so a wrong value costs a build rather than access.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -107,6 +112,7 @@ class ProjectsProject {
   ///
   String? framework;
 
+  /// Hidden is PLATFORM MODERATION, and it is a different axis from visibility: it pulls a public project out of the catalogue without editing the publisher's own choice, so un-hiding restores exactly what they asked for. A project is listed only when it is public AND not hidden. Always present, never omitted, for the same reason as visibility.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -115,6 +121,7 @@ class ProjectsProject {
   ///
   bool? hidden;
 
+  /// HiddenReason is why moderation hid it. Absent when it is not hidden.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -123,6 +130,7 @@ class ProjectsProject {
   ///
   String? hiddenReason;
 
+  /// ID is the project's internal identifier. It is stable across a rename, but it is not what the API addresses this project by — `slug` is.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -140,6 +148,7 @@ class ProjectsProject {
   ///
   String? key;
 
+  /// LastPurgeAt is when the edge cache was last cleared, as Unix seconds, so a console can say how fresh what readers see actually is. Absent means never.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -148,6 +157,7 @@ class ProjectsProject {
   ///
   int? lastPurgeAt;
 
+  /// License is the terms that upstream work carries. Absent has the same reading: undeclared, not unencumbered.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -156,6 +166,7 @@ class ProjectsProject {
   ///
   String? license;
 
+  /// LiveURL is where the site answers today. Absent until something has been deployed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -164,6 +175,7 @@ class ProjectsProject {
   ///
   String? liveUrl;
 
+  /// Name is the project's display name, free text a person chose.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -172,6 +184,7 @@ class ProjectsProject {
   ///
   String? name;
 
+  /// Org is the organisation that owns the project, and therefore who pays for it and who may change it. It is also the AUTHORSHIP line a gallery credits; there is no separate author field.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -180,6 +193,7 @@ class ProjectsProject {
   ///
   String? org;
 
+  /// Repo is the git source this project builds from, empty when it is deployed by uploading an artifact instead.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -188,6 +202,7 @@ class ProjectsProject {
   ///
   ProjectsRepo? repo;
 
+  /// Slug is the identifier that MATTERS: the handle every later call addresses, the S3 key segment the site's objects live under, and the label of the public host `<slug>.hanzo.app`. Because it is a hostname it is constrained and reserved labels such as `api` are refused.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -196,6 +211,7 @@ class ProjectsProject {
   ///
   String? slug;
 
+  /// Space is the project's Base data space, which is where a deployed site's form, forum and data submissions land. Absent means the site stores nothing.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -204,6 +220,16 @@ class ProjectsProject {
   ///
   String? space;
 
+  /// Starred is THIS CALLER's star, not a property of the project — two people in the same org see different values for the same row, which is the whole point of it. Always present so a client can tell \"not starred\" from \"this API is too old to say\", the same reason visibility and hidden are.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  bool? starred;
+
+  /// Status is where the project stands — whether a build has ever succeeded and whether anything is serving right now.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -215,6 +241,7 @@ class ProjectsProject {
   /// Tags is the site's browser tag config: platform slug → non-secret pixel id (GA measurement, Meta pixel, …) — what track.js injects and the server CAPI reads, per site. Omitted when none are set. The API SECRET is never here (KMS).
   Map<String, String> tags;
 
+  /// UpdatedAt is when the project's own record last changed, as Unix seconds. A deploy is not an edit of the project, so this does not move on every publish.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -223,7 +250,7 @@ class ProjectsProject {
   ///
   int? updatedAt;
 
-  /// Upstream/License credit the third-party work this project was published from, and the terms it carries. Omitted when nothing is declared: an absent credit means \"nobody has said\", not \"there is nothing to say\".
+  /// Upstream credits the third-party work this project was published from — a free-text line, because the honest answer is a name and a title that no enum could hold. Absent means NOBODY HAS SAID, not that there is nothing to say.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -263,6 +290,7 @@ class ProjectsProject {
     other.repo == repo &&
     other.slug == slug &&
     other.space == space &&
+    other.starred == starred &&
     other.status == status &&
     _deepEquality.equals(other.tags, tags) &&
     other.updatedAt == updatedAt &&
@@ -292,6 +320,7 @@ class ProjectsProject {
     (repo == null ? 0 : repo!.hashCode) +
     (slug == null ? 0 : slug!.hashCode) +
     (space == null ? 0 : space!.hashCode) +
+    (starred == null ? 0 : starred!.hashCode) +
     (status == null ? 0 : status!.hashCode) +
     (tags.hashCode) +
     (updatedAt == null ? 0 : updatedAt!.hashCode) +
@@ -299,7 +328,7 @@ class ProjectsProject {
     (visibility == null ? 0 : visibility!.hashCode);
 
   @override
-  String toString() => 'ProjectsProject[analytics=$analytics, bucket=$bucket, cacheControl=$cacheControl, createdAt=$createdAt, currentDeploymentId=$currentDeploymentId, description=$description, forkedFrom=$forkedFrom, framework=$framework, hidden=$hidden, hiddenReason=$hiddenReason, id=$id, key=$key, lastPurgeAt=$lastPurgeAt, license=$license, liveUrl=$liveUrl, name=$name, org=$org, repo=$repo, slug=$slug, space=$space, status=$status, tags=$tags, updatedAt=$updatedAt, upstream=$upstream, visibility=$visibility]';
+  String toString() => 'ProjectsProject[analytics=$analytics, bucket=$bucket, cacheControl=$cacheControl, createdAt=$createdAt, currentDeploymentId=$currentDeploymentId, description=$description, forkedFrom=$forkedFrom, framework=$framework, hidden=$hidden, hiddenReason=$hiddenReason, id=$id, key=$key, lastPurgeAt=$lastPurgeAt, license=$license, liveUrl=$liveUrl, name=$name, org=$org, repo=$repo, slug=$slug, space=$space, starred=$starred, status=$status, tags=$tags, updatedAt=$updatedAt, upstream=$upstream, visibility=$visibility]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -403,6 +432,11 @@ class ProjectsProject {
     } else {
       json[r'space'] = null;
     }
+    if (this.starred != null) {
+      json[r'starred'] = this.starred;
+    } else {
+      json[r'starred'] = null;
+    }
     if (this.status != null) {
       json[r'status'] = this.status;
     } else {
@@ -466,6 +500,7 @@ class ProjectsProject {
         repo: ProjectsRepo.fromJson(json[r'repo']),
         slug: mapValueOfType<String>(json, r'slug'),
         space: mapValueOfType<String>(json, r'space'),
+        starred: mapValueOfType<bool>(json, r'starred'),
         status: mapValueOfType<String>(json, r'status'),
         tags: mapCastOfType<String, String>(json, r'tags') ?? const {},
         updatedAt: mapValueOfType<int>(json, r'updatedAt'),

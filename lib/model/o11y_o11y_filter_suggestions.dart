@@ -16,7 +16,6 @@ class O11yO11yFilterSuggestions {
     this.attributes = const [],
     this.exampleQueries = const [],
   });
-
   /// Attributes are the suggested attribute keys.
   List<O11yO11yAttributeKey> attributes;
 

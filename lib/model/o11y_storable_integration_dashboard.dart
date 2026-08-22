@@ -20,7 +20,6 @@ class O11yStorableIntegrationDashboard {
     this.slug,
     this.updatedAt,
   });
-
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

@@ -18,7 +18,6 @@ class DataroomLinkStats {
     this.totalPageViews,
     this.totalViews,
   });
-
   /// LinkId is the link these counts are for.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class O11yFilterAttributeKeyResponse {
   O11yFilterAttributeKeyResponse({
     this.attributeKeys = const [],
   });
-
   List<O11yAttributeKey> attributeKeys;
 
   @override

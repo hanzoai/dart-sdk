@@ -23,7 +23,6 @@ class DataroomDocument {
     this.type,
     this.updatedAt,
   });
-
   /// ContentType is the mime type recorded at upload, null when none was sent.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

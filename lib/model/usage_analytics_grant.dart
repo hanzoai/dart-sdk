@@ -17,7 +17,6 @@ class UsageAnalyticsGrant {
     this.export_,
     this.retentionDays,
   });
-
   /// Datastore is whether the plan may read GET /v1/usage/analytics at all. The free floor is false, and that is what a catalog outage resolves to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

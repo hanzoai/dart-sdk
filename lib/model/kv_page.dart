@@ -15,7 +15,6 @@ class KvPage {
   KvPage({
     this.data = const [],
   });
-
   /// Data are the key's retained revisions.
   List<KvEntry> data;
 

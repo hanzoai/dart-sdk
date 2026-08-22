@@ -15,7 +15,7 @@ class CallList {
   CallList({
     this.data = const [],
   });
-
+  /// Data is this org's own calls, newest first — what this platform placed or received on its behalf, which is our record rather than the carrier's.
   List<Call> data;
 
   @override

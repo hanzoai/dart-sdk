@@ -18,7 +18,6 @@ class TransitionIn {
     this.scheduleAt,
     this.to,
   });
-
   /// DocType is the content type to act on, from the path.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

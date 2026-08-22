@@ -19,7 +19,6 @@ class CredentialIn {
     this.provider,
     this.token,
   });
-
   /// AccountID scopes the credential where the provider's Verify needs one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

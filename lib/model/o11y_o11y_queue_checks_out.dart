@@ -16,7 +16,6 @@ class O11yO11yQueueChecksOut {
     this.data = const [],
     this.status,
   });
-
   /// Data holds one check per required attribute, sorted by attribute.
   List<O11yO11yQueueCheck> data;
 

@@ -22,7 +22,6 @@ class O11yHostListResponse {
     this.total,
     this.type,
   });
-
   List<String> clusterNames;
 
   ///

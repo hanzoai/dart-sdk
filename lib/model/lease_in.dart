@@ -14,13 +14,12 @@ class LeaseIn {
   /// Returns a new [LeaseIn] instance.
   LeaseIn({
     this.class_,
-    this.id,
+    this.image,
     this.project,
     this.runtime,
     this.ttlSec,
   });
-
-  /// Class is what KIND of computer to lease, and the set is closed:   exec     a throwaway one that keeps nothing. Seconds to minutes.  dev      a coding one, with the project's own disk attached. Hours.  desktop  a dev one that also has a screen.  android  a desktop with a phone running on that screen.  Empty leases an `exec`, which is the right answer for running a program and the wrong one for working on a repository, because it keeps nothing.  An `android` needs a node that can virtualise a CPU, so it is the one class a deployment may not be able to place. Where the fleet has none, the lease succeeds and the pod stays Pending naming the device it is waiting for — which is the honest answer, because the alternative is an emulator running on an interpreted CPU and never finishing its boot.
+  /// Class is what the sandbox is FOR: \"exec\" for a code-interpreter call, \"dev\" for a workspace bound to a project, \"desktop\" for one with a screen. It decides the image, the working directory and the isolation.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -29,16 +28,16 @@ class LeaseIn {
   ///
   String? class_;
 
-  /// ID names a sandbox to RESUME, and is the id an earlier lease answered with. Empty asks for a new one. A caller that holds an id and omits it does not get a second view of the same computer, it gets a second computer.
+  /// Image overrides the image the class would pick. Honoured only for a caller the policy admits, and the sandbox that comes back names the image it GOT.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? id;
+  String? image;
 
-  /// Project names the disk to attach, and is REQUIRED for every class but `exec`.  One live sandbox per project: the disk attaches to one computer at a time, so a second lease over a project that already has one is refused by name rather than handed a silently empty disk.
+  /// Project binds the sandbox to one of the org's projects. Required for a dev or desktop class, which are single-attach per project; an exec sandbox carries none.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -47,7 +46,7 @@ class LeaseIn {
   ///
   String? project;
 
-  /// Runtime is the isolation boundary asked for: `gvisor` shares a filesystem and holds a project volume, `kata-fc` is a microVM that boots slower and reads files faster but has no shared filesystem at all. Empty asks for the fleet's default, which is the right answer unless you are measuring.  It is a REQUEST. The owner decides, and refuses a combination it cannot honour — a volume under a runtime with no shared filesystem would write into a tmpfs and lose the bytes at exit. Read Leased.Runtime for what the sandbox actually got.
+  /// Runtime asks for an isolation: runc, gvisor, kata-clh or kata-fc. It is a REQUEST, not a guarantee — the sandbox that comes back carries the runtime it was actually given, which is the field to read.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -56,7 +55,7 @@ class LeaseIn {
   ///
   String? runtime;
 
-  /// TTLSec bounds the lease in seconds. Unset takes the class default. Nothing runs forever, because a sandbox is somebody else's code on our nodes.
+  /// TTLSec is how long the lease runs before the reaper may take it, in seconds. Zero takes the class's own default.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -68,7 +67,7 @@ class LeaseIn {
   @override
   bool operator ==(Object other) => identical(this, other) || other is LeaseIn &&
     other.class_ == class_ &&
-    other.id == id &&
+    other.image == image &&
     other.project == project &&
     other.runtime == runtime &&
     other.ttlSec == ttlSec;
@@ -77,13 +76,13 @@ class LeaseIn {
   int get hashCode =>
     // ignore: unnecessary_parenthesis
     (class_ == null ? 0 : class_!.hashCode) +
-    (id == null ? 0 : id!.hashCode) +
+    (image == null ? 0 : image!.hashCode) +
     (project == null ? 0 : project!.hashCode) +
     (runtime == null ? 0 : runtime!.hashCode) +
     (ttlSec == null ? 0 : ttlSec!.hashCode);
 
   @override
-  String toString() => 'LeaseIn[class_=$class_, id=$id, project=$project, runtime=$runtime, ttlSec=$ttlSec]';
+  String toString() => 'LeaseIn[class_=$class_, image=$image, project=$project, runtime=$runtime, ttlSec=$ttlSec]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -92,10 +91,10 @@ class LeaseIn {
     } else {
       json[r'class'] = null;
     }
-    if (this.id != null) {
-      json[r'id'] = this.id;
+    if (this.image != null) {
+      json[r'image'] = this.image;
     } else {
-      json[r'id'] = null;
+      json[r'image'] = null;
     }
     if (this.project != null) {
       json[r'project'] = this.project;
@@ -135,7 +134,7 @@ class LeaseIn {
 
       return LeaseIn(
         class_: mapValueOfType<String>(json, r'class'),
-        id: mapValueOfType<String>(json, r'id'),
+        image: mapValueOfType<String>(json, r'image'),
         project: mapValueOfType<String>(json, r'project'),
         runtime: mapValueOfType<String>(json, r'runtime'),
         ttlSec: mapValueOfType<int>(json, r'ttlSec'),

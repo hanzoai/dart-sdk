@@ -18,7 +18,6 @@ class CrawlDocument {
     this.title,
     this.url,
   });
-
   /// Markdown is the page's content, extracted and rendered to markdown. This is the field to read.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

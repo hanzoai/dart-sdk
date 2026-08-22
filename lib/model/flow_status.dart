@@ -16,7 +16,6 @@ class FlowStatus {
     this.reachable,
     this.version,
   });
-
   /// Reachable is true when the flow service answered its health probe.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

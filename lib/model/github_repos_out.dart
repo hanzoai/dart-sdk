@@ -16,7 +16,6 @@ class GithubReposOut {
     this.repos = const [],
     this.unread = const [],
   });
-
   /// Repos is every repo the installation grants. Never null; [] when none.
   List<GithubRepoView> repos;
 

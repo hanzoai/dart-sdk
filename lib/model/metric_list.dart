@@ -15,7 +15,6 @@ class MetricList {
   MetricList({
     this.data = const [],
   });
-
   /// Data is one row per prompt the org owns.
   List<MetricRow> data;
 

@@ -38,7 +38,6 @@ class IamPermission {
     this.updatedAt,
     this.users = const [],
   });
-
   List<String> actions;
 
   ///

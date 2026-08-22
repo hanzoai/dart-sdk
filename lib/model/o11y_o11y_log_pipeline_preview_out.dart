@@ -16,7 +16,6 @@ class O11yO11yLogPipelinePreviewOut {
     this.data,
     this.status,
   });
-
   /// Data is the dry run's result.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

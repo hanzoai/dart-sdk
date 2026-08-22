@@ -18,7 +18,6 @@ class Accounts {
     this.source_,
     this.total,
   });
-
   List<RoutedUsage> accounts;
 
   ///

@@ -23,14 +23,13 @@ class RiskDatasetSpec {
     this.seed,
     this.to,
   });
-
   /// Cuts are the two RFC 3339 instants dividing train | val | test. Omit them to take 70% and 85% of the window by time. Splitting is TEMPORAL and then grouped by subject — a random split puts one device on both sides of the line and the model memorises the entity instead of the behaviour.
   List<String> cuts;
 
   /// Dims are the coordinates to carry, by published name. Empty takes the whole surface. They are stored in the plane's own order, never the order given, so two requests naming the same dims produce identical rows.
   List<String> dims;
 
-  /// From and To bound the event window, half-open, RFC 3339. The window may not be longer than the source's own retention: past that, its older half is already gone and the dataset would silently be shorter than it says.
+  /// From is where the event window opens, RFC 3339, INCLUSIVE. The window may not be longer than the source's own retention: past that, its older half is already gone and the dataset would silently be shorter than it says.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -84,6 +83,7 @@ class RiskDatasetSpec {
   ///
   String? seed;
 
+  /// To is where the window ends, EXCLUSIVE, so two datasets meeting at one instant share no row. A materialisation reads less than this — the end is pulled back by Horizon, and the lineage reports the window it actually read.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

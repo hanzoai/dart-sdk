@@ -17,7 +17,6 @@ class O11yO11yVersionOut {
     this.setupCompleted,
     this.version,
   });
-
   /// EE says whether an enterprise edition is present; \"N\" in this build.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

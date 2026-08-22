@@ -25,7 +25,6 @@ class TaxonIn {
     this.route,
     this.tags = const [],
   });
-
   /// Brands are the brands whose console shows it. Omit for every brand its category admits.
   List<String> brands;
 

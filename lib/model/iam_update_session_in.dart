@@ -18,7 +18,6 @@ class IamUpdateSessionIn {
     required this.owner,
     this.sessionId = const [],
   });
-
   String application;
 
   String name;

@@ -26,9 +26,9 @@ class MqApi {
   ///
   /// * [String] name (required):
   ///   Name is the stream name, from the path.
-  Future<Response> deleteMqStreamsByNameWithHttpInfo(String name,) async {
+  Future<Response> deleteMqStreamByNameWithHttpInfo(String name,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/mq/streams/{name}'
+    final path = r'/v1/mq/stream/{name}'
       .replaceAll('{name}', name);
 
     // ignore: prefer_final_locals
@@ -60,8 +60,8 @@ class MqApi {
   ///
   /// * [String] name (required):
   ///   Name is the stream name, from the path.
-  Future<void> deleteMqStreamsByName(String name,) async {
-    final response = await deleteMqStreamsByNameWithHttpInfo(name,);
+  Future<void> deleteMqStreamByName(String name,) async {
+    final response = await deleteMqStreamByNameWithHttpInfo(name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -80,9 +80,9 @@ class MqApi {
   ///
   /// * [int] seq (required):
   ///   Seq is the message's stream sequence, from the path.
-  Future<Response> deleteMqStreamsByNameMessagesBySeqWithHttpInfo(String name, int seq,) async {
+  Future<Response> deleteMqStreamByNameMessageBySeqWithHttpInfo(String name, int seq,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/mq/streams/{name}/messages/{seq}'
+    final path = r'/v1/mq/stream/{name}/message/{seq}'
       .replaceAll('{name}', name)
       .replaceAll('{seq}', seq.toString());
 
@@ -118,8 +118,8 @@ class MqApi {
   ///
   /// * [int] seq (required):
   ///   Seq is the message's stream sequence, from the path.
-  Future<void> deleteMqStreamsByNameMessagesBySeq(String name, int seq,) async {
-    final response = await deleteMqStreamsByNameMessagesBySeqWithHttpInfo(name, seq,);
+  Future<void> deleteMqStreamByNameMessageBySeq(String name, int seq,) async {
+    final response = await deleteMqStreamByNameMessageBySeqWithHttpInfo(name, seq,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -138,9 +138,9 @@ class MqApi {
   ///
   /// * [String] name (required):
   ///   Name is the consumer name, from the path.
-  Future<Response> deleteMqStreamsByStreamConsumersByNameWithHttpInfo(String stream, String name,) async {
+  Future<Response> deleteMqStreamByStreamConsumerByNameWithHttpInfo(String stream, String name,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/mq/streams/{stream}/consumers/{name}'
+    final path = r'/v1/mq/stream/{stream}/consumer/{name}'
       .replaceAll('{stream}', stream)
       .replaceAll('{name}', name);
 
@@ -176,8 +176,8 @@ class MqApi {
   ///
   /// * [String] name (required):
   ///   Name is the consumer name, from the path.
-  Future<void> deleteMqStreamsByStreamConsumersByName(String stream, String name,) async {
-    final response = await deleteMqStreamsByStreamConsumersByNameWithHttpInfo(stream, name,);
+  Future<void> deleteMqStreamByStreamConsumerByName(String stream, String name,) async {
+    final response = await deleteMqStreamByStreamConsumerByNameWithHttpInfo(stream, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -292,9 +292,9 @@ class MqApi {
   ///
   /// * [int] offset:
   ///   Offset skips that many streams, name-ordered.
-  Future<Response> getMqStreamsWithHttpInfo({ int? limit, int? offset, }) async {
+  Future<Response> getMqStreamWithHttpInfo({ int? limit, int? offset, }) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/mq/streams';
+    final path = r'/v1/mq/stream';
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -335,8 +335,8 @@ class MqApi {
   ///
   /// * [int] offset:
   ///   Offset skips that many streams, name-ordered.
-  Future<Streams?> getMqStreams({ int? limit, int? offset, }) async {
-    final response = await getMqStreamsWithHttpInfo( limit: limit, offset: offset, );
+  Future<Streams?> getMqStream({ int? limit, int? offset, }) async {
+    final response = await getMqStreamWithHttpInfo( limit: limit, offset: offset, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -360,9 +360,9 @@ class MqApi {
   ///
   /// * [String] name (required):
   ///   Name is the stream name, from the path.
-  Future<Response> getMqStreamsByNameWithHttpInfo(String name,) async {
+  Future<Response> getMqStreamByNameWithHttpInfo(String name,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/mq/streams/{name}'
+    final path = r'/v1/mq/stream/{name}'
       .replaceAll('{name}', name);
 
     // ignore: prefer_final_locals
@@ -394,8 +394,8 @@ class MqApi {
   ///
   /// * [String] name (required):
   ///   Name is the stream name, from the path.
-  Future<MqStream?> getMqStreamsByName(String name,) async {
-    final response = await getMqStreamsByNameWithHttpInfo(name,);
+  Future<MqStream?> getMqStreamByName(String name,) async {
+    final response = await getMqStreamByNameWithHttpInfo(name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -431,9 +431,9 @@ class MqApi {
   ///
   /// * [int] limit:
   ///   Limit caps a next_by_subject walk (1–1000, default 100).
-  Future<Response> getMqStreamsByNameMessagesWithHttpInfo(String name, { int? seq, String? lastBySubject, String? nextBySubject, int? limit, }) async {
+  Future<Response> getMqStreamByNameMessageWithHttpInfo(String name, { int? seq, String? lastBySubject, String? nextBySubject, int? limit, }) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/mq/streams/{name}/messages'
+    final path = r'/v1/mq/stream/{name}/message'
       .replaceAll('{name}', name);
 
     // ignore: prefer_final_locals
@@ -490,8 +490,8 @@ class MqApi {
   ///
   /// * [int] limit:
   ///   Limit caps a next_by_subject walk (1–1000, default 100).
-  Future<ReadOut?> getMqStreamsByNameMessages(String name, { int? seq, String? lastBySubject, String? nextBySubject, int? limit, }) async {
-    final response = await getMqStreamsByNameMessagesWithHttpInfo(name,  seq: seq, lastBySubject: lastBySubject, nextBySubject: nextBySubject, limit: limit, );
+  Future<ReadOut?> getMqStreamByNameMessage(String name, { int? seq, String? lastBySubject, String? nextBySubject, int? limit, }) async {
+    final response = await getMqStreamByNameMessageWithHttpInfo(name,  seq: seq, lastBySubject: lastBySubject, nextBySubject: nextBySubject, limit: limit, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -521,9 +521,9 @@ class MqApi {
   ///
   /// * [int] offset:
   ///   Offset skips that many consumers, name-ordered.
-  Future<Response> getMqStreamsByStreamConsumersWithHttpInfo(String stream, { int? limit, int? offset, }) async {
+  Future<Response> getMqStreamByStreamConsumerWithHttpInfo(String stream, { int? limit, int? offset, }) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/mq/streams/{stream}/consumers'
+    final path = r'/v1/mq/stream/{stream}/consumer'
       .replaceAll('{stream}', stream);
 
     // ignore: prefer_final_locals
@@ -568,8 +568,8 @@ class MqApi {
   ///
   /// * [int] offset:
   ///   Offset skips that many consumers, name-ordered.
-  Future<PickOut?> getMqStreamsByStreamConsumers(String stream, { int? limit, int? offset, }) async {
-    final response = await getMqStreamsByStreamConsumersWithHttpInfo(stream,  limit: limit, offset: offset, );
+  Future<PickOut?> getMqStreamByStreamConsumer(String stream, { int? limit, int? offset, }) async {
+    final response = await getMqStreamByStreamConsumerWithHttpInfo(stream,  limit: limit, offset: offset, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -596,9 +596,9 @@ class MqApi {
   ///
   /// * [String] name (required):
   ///   Name is the consumer name, from the path.
-  Future<Response> getMqStreamsByStreamConsumersByNameWithHttpInfo(String stream, String name,) async {
+  Future<Response> getMqStreamByStreamConsumerByNameWithHttpInfo(String stream, String name,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/mq/streams/{stream}/consumers/{name}'
+    final path = r'/v1/mq/stream/{stream}/consumer/{name}'
       .replaceAll('{stream}', stream)
       .replaceAll('{name}', name);
 
@@ -634,8 +634,8 @@ class MqApi {
   ///
   /// * [String] name (required):
   ///   Name is the consumer name, from the path.
-  Future<Consumer?> getMqStreamsByStreamConsumersByName(String stream, String name,) async {
-    final response = await getMqStreamsByStreamConsumersByNameWithHttpInfo(stream, name,);
+  Future<Consumer?> getMqStreamByStreamConsumerByName(String stream, String name,) async {
+    final response = await getMqStreamByStreamConsumerByNameWithHttpInfo(stream, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -658,9 +658,9 @@ class MqApi {
   /// Parameters:
   ///
   /// * [Config] config (required):
-  Future<Response> postMqStreamsWithHttpInfo(Config config,) async {
+  Future<Response> postMqStreamWithHttpInfo(Config config,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/mq/streams';
+    final path = r'/v1/mq/stream';
 
     // ignore: prefer_final_locals
     Object? postBody = config;
@@ -690,8 +690,8 @@ class MqApi {
   /// Parameters:
   ///
   /// * [Config] config (required):
-  Future<MqStream?> postMqStreams(Config config,) async {
-    final response = await postMqStreamsWithHttpInfo(config,);
+  Future<MqStream?> postMqStream(Config config,) async {
+    final response = await postMqStreamWithHttpInfo(config,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -717,9 +717,9 @@ class MqApi {
   ///   Name is the stream name, from the path.
   ///
   /// * [Purge] purge (required):
-  Future<Response> postMqStreamsByNamePurgeWithHttpInfo(String name, Purge purge,) async {
+  Future<Response> postMqStreamByNamePurgeWithHttpInfo(String name, Purge purge,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/mq/streams/{name}/purge'
+    final path = r'/v1/mq/stream/{name}/purge'
       .replaceAll('{name}', name);
 
     // ignore: prefer_final_locals
@@ -753,8 +753,8 @@ class MqApi {
   ///   Name is the stream name, from the path.
   ///
   /// * [Purge] purge (required):
-  Future<PurgeOut?> postMqStreamsByNamePurge(String name, Purge purge,) async {
-    final response = await postMqStreamsByNamePurgeWithHttpInfo(name, purge,);
+  Future<PurgeOut?> postMqStreamByNamePurge(String name, Purge purge,) async {
+    final response = await postMqStreamByNamePurgeWithHttpInfo(name, purge,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -780,9 +780,9 @@ class MqApi {
   ///   Stream is the stream name, from the path.
   ///
   /// * [MakeIn] makeIn (required):
-  Future<Response> postMqStreamsByStreamConsumersWithHttpInfo(String stream, MakeIn makeIn,) async {
+  Future<Response> postMqStreamByStreamConsumerWithHttpInfo(String stream, MakeIn makeIn,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/mq/streams/{stream}/consumers'
+    final path = r'/v1/mq/stream/{stream}/consumer'
       .replaceAll('{stream}', stream);
 
     // ignore: prefer_final_locals
@@ -816,8 +816,8 @@ class MqApi {
   ///   Stream is the stream name, from the path.
   ///
   /// * [MakeIn] makeIn (required):
-  Future<Consumer?> postMqStreamsByStreamConsumers(String stream, MakeIn makeIn,) async {
-    final response = await postMqStreamsByStreamConsumersWithHttpInfo(stream, makeIn,);
+  Future<Consumer?> postMqStreamByStreamConsumer(String stream, MakeIn makeIn,) async {
+    final response = await postMqStreamByStreamConsumerWithHttpInfo(stream, makeIn,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -846,9 +846,9 @@ class MqApi {
   ///   Name is the consumer name, from the path.
   ///
   /// * [NextIn] nextIn (required):
-  Future<Response> postMqStreamsByStreamConsumersByNameNextWithHttpInfo(String stream, String name, NextIn nextIn,) async {
+  Future<Response> postMqStreamByStreamConsumerByNameNextWithHttpInfo(String stream, String name, NextIn nextIn,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/mq/streams/{stream}/consumers/{name}/next'
+    final path = r'/v1/mq/stream/{stream}/consumer/{name}/next'
       .replaceAll('{stream}', stream)
       .replaceAll('{name}', name);
 
@@ -886,8 +886,8 @@ class MqApi {
   ///   Name is the consumer name, from the path.
   ///
   /// * [NextIn] nextIn (required):
-  Future<ReadOut?> postMqStreamsByStreamConsumersByNameNext(String stream, String name, NextIn nextIn,) async {
-    final response = await postMqStreamsByStreamConsumersByNameNextWithHttpInfo(stream, name, nextIn,);
+  Future<ReadOut?> postMqStreamByStreamConsumerByNameNext(String stream, String name, NextIn nextIn,) async {
+    final response = await postMqStreamByStreamConsumerByNameNextWithHttpInfo(stream, name, nextIn,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -913,9 +913,9 @@ class MqApi {
   ///   Name is the stream name, unique within the org (alphanumeric, hyphens, underscores).
   ///
   /// * [Config] config (required):
-  Future<Response> putMqStreamsByNameWithHttpInfo(String name, Config config,) async {
+  Future<Response> putMqStreamByNameWithHttpInfo(String name, Config config,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/mq/streams/{name}'
+    final path = r'/v1/mq/stream/{name}'
       .replaceAll('{name}', name);
 
     // ignore: prefer_final_locals
@@ -949,8 +949,8 @@ class MqApi {
   ///   Name is the stream name, unique within the org (alphanumeric, hyphens, underscores).
   ///
   /// * [Config] config (required):
-  Future<MqStream?> putMqStreamsByName(String name, Config config,) async {
-    final response = await putMqStreamsByNameWithHttpInfo(name, config,);
+  Future<MqStream?> putMqStreamByName(String name, Config config,) async {
+    final response = await putMqStreamByNameWithHttpInfo(name, config,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }

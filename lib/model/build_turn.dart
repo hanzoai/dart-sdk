@@ -21,7 +21,7 @@ class BuildTurn {
     this.subject,
     this.turn,
   });
-
+  /// Actor is who took the turn. A deploy turn's actor is the literal \"deploy\", because nobody took it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -30,6 +30,7 @@ class BuildTurn {
   ///
   String? actor;
 
+  /// At is when the turn was recorded, RFC 3339 in UTC to the second.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -38,6 +39,7 @@ class BuildTurn {
   ///
   String? at;
 
+  /// Body is the readable text of the turn, taken from the stored event's `text`. Empty when the event carried a payload of some other shape — this route reads transcripts and does not invent prose for turns that are not one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -46,6 +48,7 @@ class BuildTurn {
   ///
   String? body;
 
+  /// Commit is the full sha this turn produced, empty when the turn changed nothing. It is ECHOED from the transcript, and the authority is the commit itself: it carries the `Hanzo-Session:`/`Hanzo-Turn:` trailer, or a note under refs/notes/hanzo-provenance saying the same, so the claim is checkable at source with the command in `verify`.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -54,6 +57,7 @@ class BuildTurn {
   ///
   String? commit;
 
+  /// Kind is what the turn was, from the log's closed six: message, tool-call, spawn, log, status, control. A deploy arrives as a `status` turn.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -62,6 +66,7 @@ class BuildTurn {
   ///
   String? kind;
 
+  /// Subject is that commit's subject line, from the same transcript, so a reader sees what the commit says without fetching the repository.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -70,6 +75,7 @@ class BuildTurn {
   ///
   String? subject;
 
+  /// Seq is this turn's POSITION in the session's log — monotonic from 1, per session — and it is what a commit's `Hanzo-Turn:` trailer names. It is not a count of anything: the count is `turns` on the summary beside it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

@@ -16,7 +16,7 @@ class ArgoGroupKind {
     this.group,
     this.kind,
   });
-
+  /// Group is the API group a project admits, \"*\" for any. Empty names the core group.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -25,6 +25,7 @@ class ArgoGroupKind {
   ///
   String? group;
 
+  /// Kind is the kind it admits, \"*\" for any.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

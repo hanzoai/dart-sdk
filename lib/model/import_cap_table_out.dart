@@ -17,7 +17,6 @@ class ImportCapTableOut {
     this.rows,
     this.stakeholdersImported,
   });
-
   /// Formation is the org's incorporation record, now marked cap-table-imported.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

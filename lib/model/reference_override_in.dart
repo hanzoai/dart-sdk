@@ -17,7 +17,6 @@ class ReferenceOverrideIn {
     this.note,
     this.verdict,
   });
-
   /// Key is the member: a domain, a CIDR or address, an issuer prefix, a device digest. It is matched the same way the baseline is, so a deny on tempbox.example also covers mail.tempbox.example.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

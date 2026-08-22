@@ -26,7 +26,6 @@ class Taxon {
     this.route,
     this.tags = const [],
   });
-
   /// Brands are the brands whose console shows this taxon. Absent means every brand its category admits.
   List<String> brands;
 

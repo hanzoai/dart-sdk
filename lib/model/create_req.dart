@@ -18,7 +18,6 @@ class CreateReq {
     this.project,
     this.public,
   });
-
   /// Description is a free-form blurb, max 4KiB.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -23,7 +23,6 @@ class IngressStatus {
     this.role,
     this.tlsHosts,
   });
-
   /// ACMECacheDir is where autocert persists accounts and certificates.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

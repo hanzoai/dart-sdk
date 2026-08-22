@@ -17,7 +17,6 @@ class MetricBody {
     this.name,
     this.value,
   });
-
   Map<String, Object> labels;
 
   ///

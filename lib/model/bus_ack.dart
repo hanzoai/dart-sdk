@@ -18,7 +18,6 @@ class BusAck {
     this.seq,
     this.stream,
   });
-
   /// Duplicate is true when JetStream deduplicated the message by its Nats-Msg-Id instead of storing it again.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

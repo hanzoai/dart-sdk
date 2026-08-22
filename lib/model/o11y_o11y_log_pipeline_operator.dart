@@ -44,7 +44,6 @@ class O11yO11yLogPipelineOperator {
     this.type,
     this.value,
   });
-
   /// Default is the id of the processor a router falls through to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

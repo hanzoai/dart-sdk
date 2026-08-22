@@ -18,7 +18,6 @@ class O11yO11yEventUser {
     this.ipAddress,
     this.username,
   });
-
   /// Email is that user's email.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -17,7 +17,6 @@ class DevicePollOut {
     this.interval,
     this.status,
   });
-
   /// Connection is the connected connector. Present only on \"connected\".
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

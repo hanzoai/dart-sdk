@@ -16,7 +16,7 @@ class Position {
     this.character,
     this.line,
   });
-
+  /// Character is a 0-based UTF-16 code-unit offset within Line, per the LSP specification: not a byte offset and not a rune index. An emoji before the cursor counts as one here and as two in Go's arithmetic.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -25,6 +25,7 @@ class Position {
   ///
   int? character;
 
+  /// Line is 0-BASED, per the LSP specification — one less than the line an editor shows a human.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

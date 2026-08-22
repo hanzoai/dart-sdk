@@ -15,7 +15,7 @@ class PagesD1Binding {
   PagesD1Binding({
     this.id,
   });
-
+  /// ID is the D1 database this binding points at, by Cloudflare's uuid. The binding name the Worker code reads it as is the map key, not a field here.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

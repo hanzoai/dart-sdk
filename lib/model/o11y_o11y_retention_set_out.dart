@@ -15,7 +15,6 @@ class O11yO11yRetentionSetOut {
   O11yO11yRetentionSetOut({
     this.message,
   });
-
   /// Message says what was done.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

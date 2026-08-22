@@ -17,7 +17,6 @@ class ConnectRequest {
     this.login,
     this.provider,
   });
-
   /// GithubLogin is the account to link. Used only when IAM holds no linked account for the provider — a linked account is stronger proof and always wins.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

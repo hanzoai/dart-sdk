@@ -17,7 +17,6 @@ class CorpusView {
     this.stage,
     this.strategies = const [],
   });
-
   /// Count is how many tactics survived every filter.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

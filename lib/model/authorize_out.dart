@@ -15,7 +15,6 @@ class AuthorizeOut {
   AuthorizeOut({
     this.authorizeUrl,
   });
-
   /// AuthorizeURL is the provider consent (or bot deep-link) URL.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

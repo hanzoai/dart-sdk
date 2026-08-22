@@ -27,7 +27,6 @@ class RiskLabelRecord {
     this.subject,
     this.wrote,
   });
-
   /// At is when the judged EVENT happened, RFC 3339 in UTC, truncated to the second. The filer supplies it, and it is what a maturity horizon measures from: this event's as-of is At plus the horizon. A resolve names it back exactly, to the second.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

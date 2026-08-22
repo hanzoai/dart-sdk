@@ -16,7 +16,6 @@ class RenewReq {
     required this.domain,
     this.years,
   });
-
   /// Domain is the name to extend. It is required, and the caller's org must hold it.
   String domain;
 

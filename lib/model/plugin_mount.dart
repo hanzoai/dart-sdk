@@ -17,7 +17,6 @@ class PluginMount {
     this.name,
     this.prefixes = const [],
   });
-
   /// Enabled is whether this subsystem is switched on in this deployment.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class O11yO11yStats {
   O11yO11yStats({
     this.items = const [],
   });
-
   /// Items are the buckets, oldest first.
   List<O11yO11yStat> items;
 

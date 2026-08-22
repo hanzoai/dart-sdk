@@ -18,7 +18,6 @@ class CreateFlowReq {
     this.folderId,
     this.trigger,
   });
-
   /// DisplayName names the flow's initial draft version.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

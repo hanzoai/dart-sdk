@@ -16,7 +16,6 @@ class AccreditationDecision {
     this.id,
     this.status,
   });
-
   /// ID is the accreditation record to decide, from the path.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -19,7 +19,6 @@ class LeaderboardRow {
     this.rank,
     this.referredCount,
   });
-
   /// AccruedCents is that affiliate's lifetime commission accrued, in cents, and what the board is ordered by. An aggregate: no per-customer figure is exposed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

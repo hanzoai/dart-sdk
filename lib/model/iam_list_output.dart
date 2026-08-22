@@ -16,7 +16,6 @@ class IamListOutput {
     this.auditLogs = const [],
     this.total,
   });
-
   List<IamAuditLog> auditLogs;
 
   ///

@@ -16,7 +16,6 @@ class IamCertsListOutput {
     this.certs = const [],
     this.total,
   });
-
   List<IamCert> certs;
 
   ///

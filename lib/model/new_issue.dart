@@ -19,7 +19,6 @@ class NewIssue {
     this.status,
     this.title,
   });
-
   /// Description becomes the issue body.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

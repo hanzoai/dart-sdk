@@ -17,7 +17,6 @@ class PricingModelList {
     this.total,
     this.updated,
   });
-
   /// Models are the catalog entries visible to the caller, each an opaque object exactly as the pricing source emits it, with any admin override merged on top. An admin additionally sees hidden entries, each annotated under \"_overlay\".
   List<Map<String, Object>> models;
 

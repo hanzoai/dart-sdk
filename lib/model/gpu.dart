@@ -17,7 +17,6 @@ class GPU {
     this.model,
     this.vendor,
   });
-
   /// VRAM bytes, 0 = unknown
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

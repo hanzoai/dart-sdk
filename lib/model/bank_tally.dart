@@ -20,7 +20,6 @@ class BankTally {
     this.skipped,
     this.transfers,
   });
-
   /// transactions seen
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

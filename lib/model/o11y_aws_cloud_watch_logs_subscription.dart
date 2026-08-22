@@ -16,7 +16,6 @@ class O11yAWSCloudWatchLogsSubscription {
     this.filterPattern,
     this.logGroupNamePrefix,
   });
-
   /// https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html \"\" implies no filtering is required
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

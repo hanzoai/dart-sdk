@@ -2398,6 +2398,57 @@ class O11yApi {
     return null;
   }
 
+  /// Deletes one Sentry project of the caller's org.
+  ///
+  /// Deletes one Sentry project of the caller's org. Its DSN stops resolving immediately, so ingest for that id fails closed exactly as an unknown project does; retained events are not touched. Answers 204.  Callers need the editor role; the runtime's own gate enforces it.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the project id.
+  Future<Response> deleteO11ySentinelProjectsByIdWithHttpInfo(String id,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/o11y/sentinel/projects/{id}'
+      .replaceAll('{id}', id);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'DELETE',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Deletes one Sentry project of the caller's org.
+  ///
+  /// Deletes one Sentry project of the caller's org. Its DSN stops resolving immediately, so ingest for that id fails closed exactly as an unknown project does; retained events are not touched. Answers 204.  Callers need the editor role; the runtime's own gate enforces it.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the project id.
+  Future<void> deleteO11ySentinelProjectsById(String id,) async {
+    final response = await deleteO11ySentinelProjectsByIdWithHttpInfo(id,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+  }
+
   /// Deletes the public-sharing config and disables public sharing of a dashboard.
   ///
   /// Deletes the public-sharing config and disables public sharing of a dashboard.  Callers need the admin role; the runtime's own gate enforces it.
@@ -10013,7 +10064,7 @@ class O11yApi {
 
   /// Watch one running query's progress
   ///
-  /// Reports how far a submitted query has got — rows scanned, bytes read, elapsed — and HOLDS the connection until the next update rather than answering immediately.  The long poll is the whole point, and the reason this cannot be a typed operation: an answer that arrived only when the query finished would report progress on nothing. The websocket form of the same read is /ws/query_progress.  A validated, org-scoped principal is required; a query id belonging to another tenant is simply not found.
+  /// Reports how far a submitted query has got — rows scanned, bytes read, elapsed — and HOLDS the connection until the next update rather than answering immediately.  ONE ADDRESS, TWO PROTOCOLS. Send an Upgrade and this is a websocket carrying the same progress; send an ordinary GET and it is a long poll. The Upgrade is a property of the request, not of the address, so the read that used to answer at /ws/query_progress answers here.  The long poll is the whole point, and the reason this cannot be a typed operation: an answer that arrived only when the query finished would report progress on nothing, and an upgraded connection has no JSON response to declare.  A validated, org-scoped principal is required; a query id belonging to another tenant is simply not found.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getO11yQueryProgressWithHttpInfo() async {
@@ -10043,7 +10094,7 @@ class O11yApi {
 
   /// Watch one running query's progress
   ///
-  /// Reports how far a submitted query has got — rows scanned, bytes read, elapsed — and HOLDS the connection until the next update rather than answering immediately.  The long poll is the whole point, and the reason this cannot be a typed operation: an answer that arrived only when the query finished would report progress on nothing. The websocket form of the same read is /ws/query_progress.  A validated, org-scoped principal is required; a query id belonging to another tenant is simply not found.
+  /// Reports how far a submitted query has got — rows scanned, bytes read, elapsed — and HOLDS the connection until the next update rather than answering immediately.  ONE ADDRESS, TWO PROTOCOLS. Send an Upgrade and this is a websocket carrying the same progress; send an ordinary GET and it is a long poll. The Upgrade is a property of the request, not of the address, so the read that used to answer at /ws/query_progress answers here.  The long poll is the whole point, and the reason this cannot be a typed operation: an answer that arrived only when the query finished would report progress on nothing, and an upgraded connection has no JSON response to declare.  A validated, org-scoped principal is required; a query id belonging to another tenant is simply not found.
   Future<void> getO11yQueryProgress() async {
     final response = await getO11yQueryProgressWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -10402,6 +10453,768 @@ class O11yApi {
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
       return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'O11yAnnItemList',) as O11yAnnItemList;
+    
+    }
+    return null;
+  }
+
+  /// Returns one captured error event of a project, by its id.
+  ///
+  /// Returns one captured error event of a project, by its id.  Callers need the viewer role; the runtime's own gate enforces it.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the event id.
+  ///
+  /// * [String] project (required):
+  ///   Project is the project the event belongs to, by its id. Required.
+  Future<Response> getO11ySentinelEventsByIdWithHttpInfo(String id, String project,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/o11y/sentinel/events/{id}'
+      .replaceAll('{id}', id);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+      queryParams.addAll(_queryParams('', 'project', project));
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Returns one captured error event of a project, by its id.
+  ///
+  /// Returns one captured error event of a project, by its id.  Callers need the viewer role; the runtime's own gate enforces it.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the event id.
+  ///
+  /// * [String] project (required):
+  ///   Project is the project the event belongs to, by its id. Required.
+  Future<O11yO11ySentryEventOut?> getO11ySentinelEventsById(String id, String project,) async {
+    final response = await getO11ySentinelEventsByIdWithHttpInfo(id, project,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'O11yO11ySentryEventOut',) as O11yO11ySentryEventOut;
+    
+    }
+    return null;
+  }
+
+  /// Lists the caller's org's grouped error issues, optionally narrowed to one project and one time window, and filtered by status, level, environment, service, a free-text query and a sort.
+  ///
+  /// Lists the caller's org's grouped error issues, optionally narrowed to one project and one time window, and filtered by status, level, environment, service, a free-text query and a sort.  Callers need the viewer role; the runtime's own gate enforces it.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] status:
+  ///   Status narrows to one lifecycle state: unresolved, resolved or ignored.
+  ///
+  /// * [String] level:
+  ///   Level narrows to one severity, e.g. error, warning, info.
+  ///
+  /// * [String] environment:
+  ///   Environment narrows to one deployment environment.
+  ///
+  /// * [String] serviceName:
+  ///   ServiceName narrows to one reporting service.
+  ///
+  /// * [String] query:
+  ///   Query narrows to issues whose text contains it.
+  ///
+  /// * [String] sort:
+  ///   Sort orders the page, e.g. lastSeen, firstSeen, count.
+  ///
+  /// * [int] offset:
+  ///   Offset is how many issues to skip. Zero starts at the first.
+  ///
+  /// * [int] limit:
+  ///   Limit caps how many issues come back. Zero means the default.
+  ///
+  /// * [String] project:
+  ///   Project narrows the org's issues to one project, by its id.
+  ///
+  /// * [String] period:
+  ///   Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d.
+  Future<Response> getO11ySentinelIssuesWithHttpInfo({ String? status, String? level, String? environment, String? serviceName, String? query, String? sort, int? offset, int? limit, String? project, String? period, }) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/o11y/sentinel/issues';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    if (status != null) {
+      queryParams.addAll(_queryParams('', 'status', status));
+    }
+    if (level != null) {
+      queryParams.addAll(_queryParams('', 'level', level));
+    }
+    if (environment != null) {
+      queryParams.addAll(_queryParams('', 'environment', environment));
+    }
+    if (serviceName != null) {
+      queryParams.addAll(_queryParams('', 'serviceName', serviceName));
+    }
+    if (query != null) {
+      queryParams.addAll(_queryParams('', 'query', query));
+    }
+    if (sort != null) {
+      queryParams.addAll(_queryParams('', 'sort', sort));
+    }
+    if (offset != null) {
+      queryParams.addAll(_queryParams('', 'offset', offset));
+    }
+    if (limit != null) {
+      queryParams.addAll(_queryParams('', 'limit', limit));
+    }
+    if (project != null) {
+      queryParams.addAll(_queryParams('', 'project', project));
+    }
+    if (period != null) {
+      queryParams.addAll(_queryParams('', 'period', period));
+    }
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Lists the caller's org's grouped error issues, optionally narrowed to one project and one time window, and filtered by status, level, environment, service, a free-text query and a sort.
+  ///
+  /// Lists the caller's org's grouped error issues, optionally narrowed to one project and one time window, and filtered by status, level, environment, service, a free-text query and a sort.  Callers need the viewer role; the runtime's own gate enforces it.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] status:
+  ///   Status narrows to one lifecycle state: unresolved, resolved or ignored.
+  ///
+  /// * [String] level:
+  ///   Level narrows to one severity, e.g. error, warning, info.
+  ///
+  /// * [String] environment:
+  ///   Environment narrows to one deployment environment.
+  ///
+  /// * [String] serviceName:
+  ///   ServiceName narrows to one reporting service.
+  ///
+  /// * [String] query:
+  ///   Query narrows to issues whose text contains it.
+  ///
+  /// * [String] sort:
+  ///   Sort orders the page, e.g. lastSeen, firstSeen, count.
+  ///
+  /// * [int] offset:
+  ///   Offset is how many issues to skip. Zero starts at the first.
+  ///
+  /// * [int] limit:
+  ///   Limit caps how many issues come back. Zero means the default.
+  ///
+  /// * [String] project:
+  ///   Project narrows the org's issues to one project, by its id.
+  ///
+  /// * [String] period:
+  ///   Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d.
+  Future<O11yO11yErrorIssuesOut?> getO11ySentinelIssues({ String? status, String? level, String? environment, String? serviceName, String? query, String? sort, int? offset, int? limit, String? project, String? period, }) async {
+    final response = await getO11ySentinelIssuesWithHttpInfo( status: status, level: level, environment: environment, serviceName: serviceName, query: query, sort: sort, offset: offset, limit: limit, project: project, period: period, );
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'O11yO11yErrorIssuesOut',) as O11yO11yErrorIssuesOut;
+    
+    }
+    return null;
+  }
+
+  /// Returns one grouped issue of the caller's org with its latest occurrence sample.
+  ///
+  /// Returns one grouped issue of the caller's org with its latest occurrence sample.  Callers need the viewer role; the runtime's own gate enforces it.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the issue id.
+  Future<Response> getO11ySentinelIssuesByIdWithHttpInfo(String id,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/o11y/sentinel/issues/{id}'
+      .replaceAll('{id}', id);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Returns one grouped issue of the caller's org with its latest occurrence sample.
+  ///
+  /// Returns one grouped issue of the caller's org with its latest occurrence sample.  Callers need the viewer role; the runtime's own gate enforces it.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the issue id.
+  Future<O11yO11yErrorGettableIssueOut?> getO11ySentinelIssuesById(String id,) async {
+    final response = await getO11ySentinelIssuesByIdWithHttpInfo(id,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'O11yO11yErrorGettableIssueOut',) as O11yO11yErrorGettableIssueOut;
+    
+    }
+    return null;
+  }
+
+  /// Lists one issue's captured occurrences, scoped to a project — a project is an isolation unit, so the caller declares which project's occurrences to read.
+  ///
+  /// Lists one issue's captured occurrences, scoped to a project — a project is an isolation unit, so the caller declares which project's occurrences to read.  Callers need the viewer role; the runtime's own gate enforces it.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the issue id.
+  ///
+  /// * [String] project (required):
+  ///   Project is the project whose occurrences to read, by its id. Required.
+  ///
+  /// * [int] limit:
+  ///   Limit caps how many occurrences come back. Zero means the default.
+  Future<Response> getO11ySentinelIssuesByIdEventsWithHttpInfo(String id, String project, { int? limit, }) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/o11y/sentinel/issues/{id}/events'
+      .replaceAll('{id}', id);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+      queryParams.addAll(_queryParams('', 'project', project));
+    if (limit != null) {
+      queryParams.addAll(_queryParams('', 'limit', limit));
+    }
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Lists one issue's captured occurrences, scoped to a project — a project is an isolation unit, so the caller declares which project's occurrences to read.
+  ///
+  /// Lists one issue's captured occurrences, scoped to a project — a project is an isolation unit, so the caller declares which project's occurrences to read.  Callers need the viewer role; the runtime's own gate enforces it.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the issue id.
+  ///
+  /// * [String] project (required):
+  ///   Project is the project whose occurrences to read, by its id. Required.
+  ///
+  /// * [int] limit:
+  ///   Limit caps how many occurrences come back. Zero means the default.
+  Future<O11yO11ySentryIssueEventsOut?> getO11ySentinelIssuesByIdEvents(String id, String project, { int? limit, }) async {
+    final response = await getO11ySentinelIssuesByIdEventsWithHttpInfo(id, project,  limit: limit, );
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'O11yO11ySentryIssueEventsOut',) as O11yO11ySentryIssueEventsOut;
+    
+    }
+    return null;
+  }
+
+  /// Lists a project's captured error events, newest first, optionally narrowed to those whose message or exception text contains a search string.
+  ///
+  /// Lists a project's captured error events, newest first, optionally narrowed to those whose message or exception text contains a search string.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] project (required):
+  ///   Project is the project to read, as its id. Required.
+  ///
+  /// * [String] query:
+  ///   Query narrows the page to events whose text contains it.
+  ///
+  /// * [String] period:
+  ///   Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d.
+  ///
+  /// * [int] limit:
+  ///   Limit caps how many events come back.
+  Future<Response> getO11ySentinelLogsWithHttpInfo(String project, { String? query, String? period, int? limit, }) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/o11y/sentinel/logs';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+      queryParams.addAll(_queryParams('', 'project', project));
+    if (query != null) {
+      queryParams.addAll(_queryParams('', 'query', query));
+    }
+    if (period != null) {
+      queryParams.addAll(_queryParams('', 'period', period));
+    }
+    if (limit != null) {
+      queryParams.addAll(_queryParams('', 'limit', limit));
+    }
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Lists a project's captured error events, newest first, optionally narrowed to those whose message or exception text contains a search string.
+  ///
+  /// Lists a project's captured error events, newest first, optionally narrowed to those whose message or exception text contains a search string.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] project (required):
+  ///   Project is the project to read, as its id. Required.
+  ///
+  /// * [String] query:
+  ///   Query narrows the page to events whose text contains it.
+  ///
+  /// * [String] period:
+  ///   Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d.
+  ///
+  /// * [int] limit:
+  ///   Limit caps how many events come back.
+  Future<O11yO11yLogsOut?> getO11ySentinelLogs(String project, { String? query, String? period, int? limit, }) async {
+    final response = await getO11ySentinelLogsWithHttpInfo(project,  query: query, period: period, limit: limit, );
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'O11yO11yLogsOut',) as O11yO11yLogsOut;
+    
+    }
+    return null;
+  }
+
+  /// Lists the caller's org's Sentry projects, each with its freshly-derived DSN.
+  ///
+  /// Lists the caller's org's Sentry projects, each with its freshly-derived DSN.  Callers need the viewer role; the runtime's own gate enforces it.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> getO11ySentinelProjectsWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/o11y/sentinel/projects';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Lists the caller's org's Sentry projects, each with its freshly-derived DSN.
+  ///
+  /// Lists the caller's org's Sentry projects, each with its freshly-derived DSN.  Callers need the viewer role; the runtime's own gate enforces it.
+  Future<O11yO11ySentryProjectsOut?> getO11ySentinelProjects() async {
+    final response = await getO11ySentinelProjectsWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'O11yO11ySentryProjectsOut',) as O11yO11ySentryProjectsOut;
+    
+    }
+    return null;
+  }
+
+  /// Returns one Sentry project of the caller's org, DSN included.
+  ///
+  /// Returns one Sentry project of the caller's org, DSN included.  Callers need the viewer role; the runtime's own gate enforces it.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the project id.
+  Future<Response> getO11ySentinelProjectsByIdWithHttpInfo(String id,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/o11y/sentinel/projects/{id}'
+      .replaceAll('{id}', id);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Returns one Sentry project of the caller's org, DSN included.
+  ///
+  /// Returns one Sentry project of the caller's org, DSN included.  Callers need the viewer role; the runtime's own gate enforces it.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the project id.
+  Future<O11yO11ySentryProjectOut?> getO11ySentinelProjectsById(String id,) async {
+    final response = await getO11ySentinelProjectsByIdWithHttpInfo(id,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'O11yO11ySentryProjectOut',) as O11yO11ySentryProjectOut;
+    
+    }
+    return null;
+  }
+
+  /// Returns a project's event-rate timeseries: one bucket per interval over the requested period, counting the events in it.
+  ///
+  /// Returns a project's event-rate timeseries: one bucket per interval over the requested period, counting the events in it.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] project (required):
+  ///   Project is the project to read, as its id. Required.
+  ///
+  /// * [String] field:
+  ///   Field is the dimension to count over. Empty counts all events.
+  ///
+  /// * [String] period:
+  ///   Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d.
+  Future<Response> getO11ySentinelStatsWithHttpInfo(String project, { String? field, String? period, }) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/o11y/sentinel/stats';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+      queryParams.addAll(_queryParams('', 'project', project));
+    if (field != null) {
+      queryParams.addAll(_queryParams('', 'field', field));
+    }
+    if (period != null) {
+      queryParams.addAll(_queryParams('', 'period', period));
+    }
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Returns a project's event-rate timeseries: one bucket per interval over the requested period, counting the events in it.
+  ///
+  /// Returns a project's event-rate timeseries: one bucket per interval over the requested period, counting the events in it.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] project (required):
+  ///   Project is the project to read, as its id. Required.
+  ///
+  /// * [String] field:
+  ///   Field is the dimension to count over. Empty counts all events.
+  ///
+  /// * [String] period:
+  ///   Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d.
+  Future<O11yO11yStatsOut?> getO11ySentinelStats(String project, { String? field, String? period, }) async {
+    final response = await getO11ySentinelStatsWithHttpInfo(project,  field: field, period: period, );
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'O11yO11yStatsOut',) as O11yO11yStatsOut;
+    
+    }
+    return null;
+  }
+
+  /// Lists the traces a project's captured errors reference, each with how many errors landed on it, when they started and stopped, and the latest message seen — the entry point for \"which requests are failing\".
+  ///
+  /// Lists the traces a project's captured errors reference, each with how many errors landed on it, when they started and stopped, and the latest message seen — the entry point for \"which requests are failing\".
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] project (required):
+  ///   Project is the project to read, as its id. Required.
+  ///
+  /// * [String] period:
+  ///   Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d.
+  ///
+  /// * [int] limit:
+  ///   Limit caps how many traces come back.
+  Future<Response> getO11ySentinelTracesWithHttpInfo(String project, { String? period, int? limit, }) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/o11y/sentinel/traces';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+      queryParams.addAll(_queryParams('', 'project', project));
+    if (period != null) {
+      queryParams.addAll(_queryParams('', 'period', period));
+    }
+    if (limit != null) {
+      queryParams.addAll(_queryParams('', 'limit', limit));
+    }
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Lists the traces a project's captured errors reference, each with how many errors landed on it, when they started and stopped, and the latest message seen — the entry point for \"which requests are failing\".
+  ///
+  /// Lists the traces a project's captured errors reference, each with how many errors landed on it, when they started and stopped, and the latest message seen — the entry point for \"which requests are failing\".
+  ///
+  /// Parameters:
+  ///
+  /// * [String] project (required):
+  ///   Project is the project to read, as its id. Required.
+  ///
+  /// * [String] period:
+  ///   Period is the window to read, relative to now — 1h, 24h, 7d, 14d, 30d.
+  ///
+  /// * [int] limit:
+  ///   Limit caps how many traces come back.
+  Future<O11yO11yTracesOut?> getO11ySentinelTraces(String project, { String? period, int? limit, }) async {
+    final response = await getO11ySentinelTracesWithHttpInfo(project,  period: period, limit: limit, );
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'O11yO11yTracesOut',) as O11yO11yTracesOut;
+    
+    }
+    return null;
+  }
+
+  /// Returns one trace's captured errors for a project — every error event that carried the trace id, in the order the events plane holds them.
+  ///
+  /// Returns one trace's captured errors for a project — every error event that carried the trace id, in the order the events plane holds them.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the trace id.
+  ///
+  /// * [String] project (required):
+  ///   Project is the project the trace's errors belong to. Required.
+  Future<Response> getO11ySentinelTracesByIdWithHttpInfo(String id, String project,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/o11y/sentinel/traces/{id}'
+      .replaceAll('{id}', id);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+      queryParams.addAll(_queryParams('', 'project', project));
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Returns one trace's captured errors for a project — every error event that carried the trace id, in the order the events plane holds them.
+  ///
+  /// Returns one trace's captured errors for a project — every error event that carried the trace id, in the order the events plane holds them.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the trace id.
+  ///
+  /// * [String] project (required):
+  ///   Project is the project the trace's errors belong to. Required.
+  Future<O11yO11yTraceOut?> getO11ySentinelTracesById(String id, String project,) async {
+    final response = await getO11ySentinelTracesByIdWithHttpInfo(id, project,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'O11yO11yTraceOut',) as O11yO11yTraceOut;
     
     }
     return null;
@@ -10945,6 +11758,54 @@ class O11yApi {
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
       return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'O11yStatusResult',) as O11yStatusResult;
+    
+    }
+    return null;
+  }
+
+  /// Reports whether the platform is up.
+  ///
+  /// Reports whether the platform is up. It returns the public status document: the incidents currently open against Hanzo's own services, derived from the fleet health probes, plus the address of the human status page. No authentication is required and no tenant data is involved — the answer is the same for every caller.  A service that fails its health probe becomes one incident naming that service. When the availability source itself cannot be read the endpoint answers 503 rather than an empty incident list, because \"we cannot tell\" and \"everything is fine\" are different answers and only one of them is true.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> getO11ySummaryWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/o11y/summary';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Reports whether the platform is up.
+  ///
+  /// Reports whether the platform is up. It returns the public status document: the incidents currently open against Hanzo's own services, derived from the fleet health probes, plus the address of the human status page. No authentication is required and no tenant data is involved — the answer is the same for every caller.  A service that fails its health probe becomes one incident naming that service. When the availability source itself cannot be read the endpoint answers 503 rather than an empty incident list, because \"we cannot tell\" and \"everything is fine\" are different answers and only one of them is true.
+  Future<O11yStatusSummary?> getO11ySummary() async {
+    final response = await getO11ySummaryWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'O11yStatusSummary',) as O11yStatusSummary;
     
     }
     return null;
@@ -16453,7 +17314,7 @@ class O11yApi {
 
   /// Receive a Sentry envelope on the SDK's own DSN path
   ///
-  /// Accepts an application/x-sentry-envelope frame from a Sentry SDK — the batched wire format carrying events, sessions and attachments — and ingests it against the project named in the path.  THE /api/ SEGMENT IS NOT OURS TO NAME. An SDK appends its own fixed /api/<project>/envelope/ suffix to whatever DSN it is given, so this address is the SDK's, received verbatim. We receive this shape; we do not publish it. The clean spelling of the same wire is /v1/sentry/{project}/envelope/.  AUTHENTICATED BY THE DSN PUBLIC KEY, never a Hanzo session, and therefore exempt from the principal gate: the ingest verifier checks the key in constant time, fails closed, and derives the org from it. A keyless submission is a 401 from that verifier — not a 403 from the gate, and not a 404 — which is how you tell the hops apart. The exemption is matched by method plus prefix plus suffix, never a bare prefix, so no read is reachable through it.
+  /// Accepts an application/x-sentry-envelope frame from a Sentry SDK — the batched wire format carrying events, sessions and attachments — and ingests it against the project named in the path.  THE /api/ SEGMENT IS NOT OURS TO NAME. An SDK appends its own fixed /api/<project>/envelope/ suffix to whatever DSN it is given, so this address is the SDK's, received verbatim. We receive this shape; we do not publish it. The clean spelling of the same wire is /v1/event/{project}/envelope/.  AUTHENTICATED BY THE DSN PUBLIC KEY, never a Hanzo session, and therefore exempt from the principal gate: the ingest verifier checks the key in constant time, fails closed, and derives the org from it. A keyless submission is a 401 from that verifier — not a 403 from the gate, and not a 404 — which is how you tell the hops apart. The exemption is matched by method plus prefix plus suffix, never a bare prefix, so no read is reachable through it.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -16488,7 +17349,7 @@ class O11yApi {
 
   /// Receive a Sentry envelope on the SDK's own DSN path
   ///
-  /// Accepts an application/x-sentry-envelope frame from a Sentry SDK — the batched wire format carrying events, sessions and attachments — and ingests it against the project named in the path.  THE /api/ SEGMENT IS NOT OURS TO NAME. An SDK appends its own fixed /api/<project>/envelope/ suffix to whatever DSN it is given, so this address is the SDK's, received verbatim. We receive this shape; we do not publish it. The clean spelling of the same wire is /v1/sentry/{project}/envelope/.  AUTHENTICATED BY THE DSN PUBLIC KEY, never a Hanzo session, and therefore exempt from the principal gate: the ingest verifier checks the key in constant time, fails closed, and derives the org from it. A keyless submission is a 401 from that verifier — not a 403 from the gate, and not a 404 — which is how you tell the hops apart. The exemption is matched by method plus prefix plus suffix, never a bare prefix, so no read is reachable through it.
+  /// Accepts an application/x-sentry-envelope frame from a Sentry SDK — the batched wire format carrying events, sessions and attachments — and ingests it against the project named in the path.  THE /api/ SEGMENT IS NOT OURS TO NAME. An SDK appends its own fixed /api/<project>/envelope/ suffix to whatever DSN it is given, so this address is the SDK's, received verbatim. We receive this shape; we do not publish it. The clean spelling of the same wire is /v1/event/{project}/envelope/.  AUTHENTICATED BY THE DSN PUBLIC KEY, never a Hanzo session, and therefore exempt from the principal gate: the ingest verifier checks the key in constant time, fails closed, and derives the org from it. A keyless submission is a 401 from that verifier — not a 403 from the gate, and not a 404 — which is how you tell the hops apart. The exemption is matched by method plus prefix plus suffix, never a bare prefix, so no read is reachable through it.
   ///
   /// Parameters:
   ///
@@ -19561,6 +20422,177 @@ class O11yApi {
     return null;
   }
 
+  /// Aggregates a project's captured errors into a table — the caller names the filters, the groupings and the aggregations, and gets back the columns and rows they asked for.
+  ///
+  /// Aggregates a project's captured errors into a table — the caller names the filters, the groupings and the aggregations, and gets back the columns and rows they asked for.  The project is mandatory and is checked against the caller's own org before it scopes anything, so a project id belonging to someone else reads as absent rather than as data.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [O11yO11yDiscoverIn] o11yO11yDiscoverIn (required):
+  Future<Response> postO11ySentinelDiscoverWithHttpInfo(O11yO11yDiscoverIn o11yO11yDiscoverIn,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/o11y/sentinel/discover';
+
+    // ignore: prefer_final_locals
+    Object? postBody = o11yO11yDiscoverIn;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Aggregates a project's captured errors into a table — the caller names the filters, the groupings and the aggregations, and gets back the columns and rows they asked for.
+  ///
+  /// Aggregates a project's captured errors into a table — the caller names the filters, the groupings and the aggregations, and gets back the columns and rows they asked for.  The project is mandatory and is checked against the caller's own org before it scopes anything, so a project id belonging to someone else reads as absent rather than as data.
+  ///
+  /// Parameters:
+  ///
+  /// * [O11yO11yDiscoverIn] o11yO11yDiscoverIn (required):
+  Future<O11yO11yDiscoverOut?> postO11ySentinelDiscover(O11yO11yDiscoverIn o11yO11yDiscoverIn,) async {
+    final response = await postO11ySentinelDiscoverWithHttpInfo(o11yO11yDiscoverIn,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'O11yO11yDiscoverOut',) as O11yO11yDiscoverOut;
+    
+    }
+    return null;
+  }
+
+  /// Creates a Sentry project under the caller's org and returns it, DSN included.
+  ///
+  /// Creates a Sentry project under the caller's org and returns it, DSN included. Only the name, and optionally a slug and platform, are the caller's to set; the org, id and key are server-assigned.  Callers need the editor role; the runtime's own gate enforces it.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [O11yO11ySentryPostableProject] o11yO11ySentryPostableProject (required):
+  Future<Response> postO11ySentinelProjectsWithHttpInfo(O11yO11ySentryPostableProject o11yO11ySentryPostableProject,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/o11y/sentinel/projects';
+
+    // ignore: prefer_final_locals
+    Object? postBody = o11yO11ySentryPostableProject;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Creates a Sentry project under the caller's org and returns it, DSN included.
+  ///
+  /// Creates a Sentry project under the caller's org and returns it, DSN included. Only the name, and optionally a slug and platform, are the caller's to set; the org, id and key are server-assigned.  Callers need the editor role; the runtime's own gate enforces it.
+  ///
+  /// Parameters:
+  ///
+  /// * [O11yO11ySentryPostableProject] o11yO11ySentryPostableProject (required):
+  Future<O11yO11ySentryProjectOut?> postO11ySentinelProjects(O11yO11ySentryPostableProject o11yO11ySentryPostableProject,) async {
+    final response = await postO11ySentinelProjectsWithHttpInfo(o11yO11ySentryPostableProject,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'O11yO11ySentryProjectOut',) as O11yO11ySentryProjectOut;
+    
+    }
+    return null;
+  }
+
+  /// Rotates a project's DSN key — bumping its rotation watermark so keys below it stop verifying — and returns the project with its new DSN.
+  ///
+  /// Rotates a project's DSN key — bumping its rotation watermark so keys below it stop verifying — and returns the project with its new DSN.  Callers need the editor role; the runtime's own gate enforces it.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the project id.
+  Future<Response> postO11ySentinelProjectsByIdKeysRotateWithHttpInfo(String id,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/o11y/sentinel/projects/{id}/keys/rotate'
+      .replaceAll('{id}', id);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Rotates a project's DSN key — bumping its rotation watermark so keys below it stop verifying — and returns the project with its new DSN.
+  ///
+  /// Rotates a project's DSN key — bumping its rotation watermark so keys below it stop verifying — and returns the project with its new DSN.  Callers need the editor role; the runtime's own gate enforces it.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the project id.
+  Future<O11yO11ySentryProjectOut?> postO11ySentinelProjectsByIdKeysRotate(String id,) async {
+    final response = await postO11ySentinelProjectsByIdKeysRotateWithHttpInfo(id,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'O11yO11ySentryProjectOut',) as O11yO11ySentryProjectOut;
+    
+    }
+    return null;
+  }
+
   /// Returns one service's entry-point operations with the same latency and error profile topOperations reports.
   ///
   /// Returns one service's entry-point operations with the same latency and error profile topOperations reports.
@@ -20395,6 +21427,69 @@ class O11yApi {
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
       return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'O11yO11ySavedViewOut',) as O11yO11ySavedViewOut;
+    
+    }
+    return null;
+  }
+
+  /// Changes an issue's lifecycle — resolve, ignore, reopen or assign — and returns the updated issue.
+  ///
+  /// Changes an issue's lifecycle — resolve, ignore, reopen or assign — and returns the updated issue. Fields left unset are left unchanged.  Callers need the editor role; the runtime's own gate enforces it.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the issue id.
+  ///
+  /// * [O11yO11ySentryUpdateIssueIn] o11yO11ySentryUpdateIssueIn (required):
+  Future<Response> putO11ySentinelIssuesByIdWithHttpInfo(String id, O11yO11ySentryUpdateIssueIn o11yO11ySentryUpdateIssueIn,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/o11y/sentinel/issues/{id}'
+      .replaceAll('{id}', id);
+
+    // ignore: prefer_final_locals
+    Object? postBody = o11yO11ySentryUpdateIssueIn;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'PUT',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Changes an issue's lifecycle — resolve, ignore, reopen or assign — and returns the updated issue.
+  ///
+  /// Changes an issue's lifecycle — resolve, ignore, reopen or assign — and returns the updated issue. Fields left unset are left unchanged.  Callers need the editor role; the runtime's own gate enforces it.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the issue id.
+  ///
+  /// * [O11yO11ySentryUpdateIssueIn] o11yO11ySentryUpdateIssueIn (required):
+  Future<O11yO11yErrorIssueOut?> putO11ySentinelIssuesById(String id, O11yO11ySentryUpdateIssueIn o11yO11ySentryUpdateIssueIn,) async {
+    final response = await putO11ySentinelIssuesByIdWithHttpInfo(id, o11yO11ySentryUpdateIssueIn,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'O11yO11yErrorIssueOut',) as O11yO11yErrorIssueOut;
     
     }
     return null;

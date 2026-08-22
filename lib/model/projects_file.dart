@@ -16,7 +16,7 @@ class ProjectsFile {
     this.content,
     this.path,
   });
-
+  /// Content is the file's whole text, inline. There is no upload step and no reference to fetch: a site is sent as its bytes, and each file and the site as a whole are size-bounded.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -25,6 +25,7 @@ class ProjectsFile {
   ///
   String? content;
 
+  /// Path is where the file lands in the site, RELATIVE to its root — so \"index.html\" is the page served at /. Leading slashes and any attempt to escape the root are refused.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

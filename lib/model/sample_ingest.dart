@@ -21,7 +21,7 @@ class SampleIngest {
     this.memUsed,
     this.unit,
   });
-
+  /// GPUModel names the representative accelerator (\"GB10\"); GPUs carries how many. A heterogeneous host names its first card rather than inventing a summary.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -39,7 +39,7 @@ class SampleIngest {
   ///
   num? gpuUtil;
 
-  /// GPUs is how many accelerators the reading covers, GPUModel the representative model name.
+  /// GPUs is how many accelerators this reading covers.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -57,6 +57,7 @@ class SampleIngest {
   ///
   String? host;
 
+  /// MemFree is host memory still available, in BYTES.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -65,7 +66,7 @@ class SampleIngest {
   ///
   int? memFree;
 
-  /// MemUsed and MemFree are host memory in bytes.
+  /// MemUsed is host memory in use, in BYTES.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

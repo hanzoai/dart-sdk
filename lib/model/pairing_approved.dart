@@ -16,7 +16,6 @@ class PairingApproved {
     this.ownerBootstrapped,
     this.sender,
   });
-
   /// OwnerBootstrapped is true when this approval was the org's FIRST on the channel and therefore also made the sender its owner.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

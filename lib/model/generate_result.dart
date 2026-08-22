@@ -17,7 +17,6 @@ class GenerateResult {
     this.name,
     this.status,
   });
-
   /// the marketing type the draft was filed as
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -17,7 +17,6 @@ class O11yIntegrationAssets {
     this.dashboards = const [],
     this.logs,
   });
-
   List<Object> alerts;
 
   List<Map<String, Object>> dashboards;

@@ -15,7 +15,6 @@ class AudienceList {
   AudienceList({
     this.data = const [],
   });
-
   /// Data is the page; an empty array when the org has saved no audience.
   List<Audience> data;
 

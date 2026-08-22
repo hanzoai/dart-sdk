@@ -16,7 +16,6 @@ class O11yO11yServicesOut {
     this.data = const [],
     this.status,
   });
-
   /// Data holds one entry per service.
   List<O11yO11yService> data;
 

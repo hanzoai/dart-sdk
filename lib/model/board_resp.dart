@@ -24,7 +24,6 @@ class BoardResp {
     this.to,
     this.windows = const [],
   });
-
   /// Account is the account the series narrows to, when one was named.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -46,7 +45,7 @@ class BoardResp {
   /// Current is the live state of each lane — the dash headline.
   List<ReadingView> current;
 
-  /// From and To are the resolved [from, to) window, RFC 3339 UTC.
+  /// From is when the resolved window opens, RFC 3339 UTC.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -91,6 +90,7 @@ class BoardResp {
   ///
   String? source_;
 
+  /// To is where it closes, EXCLUSIVE, RFC 3339 UTC — the instant the read was served, so the window walks forward with the clock and two reads a minute apart do not cover the same period.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

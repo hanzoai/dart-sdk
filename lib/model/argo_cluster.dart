@@ -18,7 +18,7 @@ class ArgoCluster {
     this.name,
     this.server,
   });
-
+  /// ConnectionState is whether the destination is reachable.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -27,6 +27,7 @@ class ArgoCluster {
   ///
   ArgoConnectionState? connectionState;
 
+  /// Info is the connection state again plus the count of applications targeting this destination.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -35,6 +36,7 @@ class ArgoCluster {
   ///
   ArgoClusterInfo? info;
 
+  /// Name is what the Destination column shows: \"in-cluster\" for this cluster, otherwise whatever spec.destination.name declares, falling back to the server URL when it declares none.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -43,6 +45,7 @@ class ArgoCluster {
   ///
   String? name;
 
+  /// Server is the destination's API URL, and the key the list is deduplicated by. https://kubernetes.default.svc is this cluster.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

@@ -24,7 +24,6 @@ class O11yO11yService {
     this.p99,
     this.serviceName,
   });
-
   /// AvgDuration is their average latency, nanoseconds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

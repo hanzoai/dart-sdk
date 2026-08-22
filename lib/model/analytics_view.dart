@@ -16,7 +16,6 @@ class AnalyticsView {
     this.funnel,
     this.recommendations = const [],
   });
-
   /// Funnel is the org's trailing-30-day traffic → signups → orders from the shared analytics warehouse; available is false when it has emitted nothing.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

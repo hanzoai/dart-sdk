@@ -21,7 +21,6 @@ class ProviderView {
     this.id,
     this.name,
   });
-
   /// Available is whether THIS DEPLOYMENT has the provider's app credentials, so connect can succeed. False renders the card without a working Connect button.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

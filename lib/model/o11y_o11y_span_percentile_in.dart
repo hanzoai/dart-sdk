@@ -20,7 +20,6 @@ class O11yO11ySpanPercentileIn {
     this.spanDuration,
     this.start,
   });
-
   /// End is the window end, as epoch nanoseconds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

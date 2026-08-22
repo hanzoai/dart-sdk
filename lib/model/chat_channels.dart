@@ -15,7 +15,6 @@ class ChatChannels {
   ChatChannels({
     this.channels = const [],
   });
-
   /// Channels is every chat transport this deployment supports, in a fixed order, each carrying whether the org has connected it, the account behind the connection, what the transport can do, the org's DM/group access policies for it, and how many pairing requests are waiting.
   List<ChannelView> channels;
 

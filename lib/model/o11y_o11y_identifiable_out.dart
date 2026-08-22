@@ -16,7 +16,6 @@ class O11yO11yIdentifiableOut {
     this.data,
     this.status,
   });
-
   /// Data is the created resource's id.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -24,7 +24,6 @@ class O11yO11yDependency {
     this.p99,
     this.parent,
   });
-
   /// CallCount is how many calls crossed the edge in the window.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -19,8 +19,7 @@ class Sequence {
     this.status,
     this.updatedAt,
   });
-
-  /// CreatedAt and UpdatedAt are unix seconds, both server-assigned.
+  /// CreatedAt is unix seconds when the sequence was registered, server-assigned and never rewritten.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -56,6 +55,7 @@ class Sequence {
   ///
   String? status;
 
+  /// UpdatedAt is unix seconds of the last status flip, server-assigned, and the key the sequence list is ordered by (newest first). Adding a step or enrolling a contact does NOT touch it — only draft/active/archived does — so it tracks activation rather than activity.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

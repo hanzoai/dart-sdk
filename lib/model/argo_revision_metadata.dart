@@ -19,7 +19,7 @@ class ArgoRevisionMetadata {
     this.signatureInfo,
     this.tags = const [],
   });
-
+  /// Author is the commit author. Always absent: an App CR pins an IMAGE, so this process has no commit to read one from and will not invent one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -28,6 +28,7 @@ class ArgoRevisionMetadata {
   ///
   String? author;
 
+  /// Date is when the App CR was created, RFC 3339 UTC — the only real timestamp there is here. It is NOT the date of the revision asked for.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -36,6 +37,7 @@ class ArgoRevisionMetadata {
   ///
   String? date;
 
+  /// Message is the revision asked for, echoed back — not a commit message. The empty revision and \"HEAD\" resolve to the image tag the CR declares (spec.image.tag), and anything longer than 256 characters is truncated to it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -44,6 +46,7 @@ class ArgoRevisionMetadata {
   ///
   String? message;
 
+  /// SignatureInfo is the GPG verification result for the revision. Always absent: nothing here verifies a signature, and an empty field says so rather than implying an unsigned commit.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -52,6 +55,7 @@ class ArgoRevisionMetadata {
   ///
   String? signatureInfo;
 
+  /// Tags are the git tags pointing at the revision. Always absent, for the same reason as Author.
   List<String> tags;
 
   @override

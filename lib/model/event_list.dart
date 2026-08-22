@@ -15,7 +15,6 @@ class EventList {
   EventList({
     this.data = const [],
   });
-
   /// Data is the events, newest first. Empty rather than absent when there are none.
   List<ProductEvent> data;
 

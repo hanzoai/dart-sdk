@@ -16,7 +16,6 @@ class O11yO11yTestNotificationResult {
     this.alertCount,
     this.message,
   });
-
   /// AlertCount is how many series would alert for the tested rule.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

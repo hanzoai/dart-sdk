@@ -17,7 +17,6 @@ class O11yRuleStateTimeline {
     this.labels = const {},
     this.total,
   });
-
   List<O11yRuleStateHistory> items;
 
   Map<String, List<String>> labels;

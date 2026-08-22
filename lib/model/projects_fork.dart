@@ -18,7 +18,6 @@ class ProjectsFork {
     this.target,
     this.variant,
   });
-
   /// target project name (optional; defaults to the parent's title)
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

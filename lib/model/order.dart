@@ -17,7 +17,6 @@ class Order {
     required this.domain,
     this.years,
   });
-
   /// Contacts is the WHOIS contact set. Omit it and the registrar uses the reseller account's default contacts.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

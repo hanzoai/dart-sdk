@@ -15,7 +15,6 @@ class O11yGettableSpanMapperGroups {
   O11yGettableSpanMapperGroups({
     this.items = const [],
   });
-
   List<O11ySpanMapperGroup> items;
 
   @override

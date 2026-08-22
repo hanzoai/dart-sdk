@@ -20,7 +20,7 @@ class ProjectView {
     this.org,
     this.slug,
   });
-
+  /// Applications is how many platform apps this org has under the project, counted per request. It is the one fact IAM cannot answer about a project.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -29,6 +29,7 @@ class ProjectView {
   ///
   int? applications;
 
+  /// CreatedAt is IAM's creation time as unix seconds. 0 when IAM's timestamp is absent or unparseable — never a fabricated time.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -37,6 +38,7 @@ class ProjectView {
   ///
   int? createdAt;
 
+  /// Description is IAM's free text about the project. Nothing derives from it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -45,6 +47,7 @@ class ProjectView {
   ///
   String? description;
 
+  /// Name is IAM's display name, falling back to the slug when the project has none, so this is never empty.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -53,6 +56,7 @@ class ProjectView {
   ///
   String? name;
 
+  /// Org is the project's IAM owner, and the tenant every app under it deploys into. It comes from the validated identity, never from the request.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -61,6 +65,7 @@ class ProjectView {
   ///
   String? org;
 
+  /// Slug is the project's IAM name — half of the (org,name) identity, the `:project` path segment, and the scope key an app is filed under. It is the project's address; Name is not.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

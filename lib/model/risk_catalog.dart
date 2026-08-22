@@ -19,7 +19,6 @@ class RiskCatalog {
     this.surface = const [],
     this.tenant,
   });
-
   /// Gap says why a lens could not be measured, when that is the case. Each reason names its own lens, because \"the surface is unreadable\" and \"the network baseline is unreadable\" are different facts.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

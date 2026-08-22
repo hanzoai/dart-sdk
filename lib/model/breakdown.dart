@@ -18,7 +18,6 @@ class Breakdown {
     this.reason,
     this.source_,
   });
-
   /// Available is false when the product-event table could not be read.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

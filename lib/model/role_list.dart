@@ -15,7 +15,6 @@ class RoleList {
   RoleList({
     this.data = const [],
   });
-
   /// Data is every (user, role) assignment in the caller's org.
   List<RoleAssignment> data;
 

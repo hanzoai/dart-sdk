@@ -26,7 +26,6 @@ class LicensingRelease {
     this.version,
     this.yanked,
   });
-
   /// AppID scopes the release to an app build (\"hanzo\" | \"lux\" | \"zoo\").
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

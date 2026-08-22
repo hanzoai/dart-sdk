@@ -16,6 +16,175 @@ class ToolsApi {
 
   final ApiClient apiClient;
 
+  /// Deregisters one of the caller org's external MCP servers, so its tools leave the registry.
+  ///
+  /// Deregisters one of the caller org's external MCP servers, so its tools leave the registry. Scoped to the caller's org, so an id belonging to another tenant is a 404 and not a delete. Answers 204 with no body; a server this org does not have is 404.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the server to deregister, from the path.
+  Future<Response> deleteToolsMcpServersByIdWithHttpInfo(String id,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/tools/mcp/servers/{id}'
+      .replaceAll('{id}', id);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'DELETE',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Deregisters one of the caller org's external MCP servers, so its tools leave the registry.
+  ///
+  /// Deregisters one of the caller org's external MCP servers, so its tools leave the registry. Scoped to the caller's org, so an id belonging to another tenant is a 404 and not a delete. Answers 204 with no body; a server this org does not have is 404.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the server to deregister, from the path.
+  Future<void> deleteToolsMcpServersById(String id,) async {
+    final response = await deleteToolsMcpServersByIdWithHttpInfo(id,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+  }
+
+  /// Removes one of the caller org's built plugins, so the runtime can no longer load it.
+  ///
+  /// Removes one of the caller org's built plugins, so the runtime can no longer load it. Scoped to the caller's org, so an id belonging to another tenant answers 404 and is not deleted.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the plugin to remove, from the path.
+  Future<Response> deleteToolsPluginsAuthoredByIdWithHttpInfo(String id,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/tools/plugins/authored/{id}'
+      .replaceAll('{id}', id);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'DELETE',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Removes one of the caller org's built plugins, so the runtime can no longer load it.
+  ///
+  /// Removes one of the caller org's built plugins, so the runtime can no longer load it. Scoped to the caller's org, so an id belonging to another tenant answers 404 and is not deleted.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the plugin to remove, from the path.
+  Future<PluginDeleted?> deleteToolsPluginsAuthoredById(String id,) async {
+    final response = await deleteToolsPluginsAuthoredByIdWithHttpInfo(id,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PluginDeleted',) as PluginDeleted;
+    
+    }
+    return null;
+  }
+
+  /// Removes one of the caller org's authored skills.
+  ///
+  /// Removes one of the caller org's authored skills. Scoped to the caller's org, so an id belonging to another tenant is never reached. Removing what is not there is not an error — the caller's intent is \"gone\", and it is.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the skill to remove, from the path. It is the skill's name.
+  Future<Response> deleteToolsSkillsByIdWithHttpInfo(String id,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/tools/skills/{id}'
+      .replaceAll('{id}', id);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'DELETE',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Removes one of the caller org's authored skills.
+  ///
+  /// Removes one of the caller org's authored skills. Scoped to the caller's org, so an id belonging to another tenant is never reached. Removing what is not there is not an error — the caller's intent is \"gone\", and it is.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the skill to remove, from the path. It is the skill's name.
+  Future<SkillDeleted?> deleteToolsSkillsById(String id,) async {
+    final response = await deleteToolsSkillsByIdWithHttpInfo(id,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'SkillDeleted',) as SkillDeleted;
+    
+    }
+    return null;
+  }
+
   /// Lists every tool the caller's org and project can reach, from every source, each flagged with whether it is activated.
   ///
   /// Lists every tool the caller's org and project can reach, from every source, each flagged with whether it is activated. This is the discovery surface: one flat set of names spanning connector actions, user functions, zap-service routes, agents, skills and the org's own external MCP servers, deduplicated by name so the highest-precedence source wins a collision. It lists; it does not call — dispatch is POST /v1/tools/call.
@@ -137,7 +306,7 @@ class ToolsApi {
 
   /// Lists the MCP servers the public registries publish, as we hold them: our canonical copy of registry.modelcontextprotocol.io, plus what we decided about each entry.
   ///
-  /// Lists the MCP servers the public registries publish, as we hold them: our canonical copy of registry.modelcontextprotocol.io, plus what we decided about each entry.  This is the SHELF an org picks from. A listing with a streamable-http endpoint can be enabled as-is — POST /v1/mcp/servers with its id — and its tools then join the org's tool plane and the fleet's MCP door. A listing that only ships a stdio package needs a process to run it, which is why the transports are on every entry rather than implied.  Hidden entries are absent: they are the ones we took off the shelf. A platform SuperAdmin sees them, because the same query answers \"what is on the shelf\" and \"what is in the catalog\" and two queries would drift apart.  It is PAGED — 50 by default, 200 at most. The public registry publishes tens of thousands of servers, so an unbounded answer is a twenty-megabyte response and a storefront that renders in a minute. total is the whole match, not the page.
+  /// Lists the MCP servers the public registries publish, as we hold them: our canonical copy of registry.modelcontextprotocol.io, plus what we decided about each entry.  This is the SHELF an org picks from. A listing with a streamable-http endpoint can be enabled as-is — POST /v1/tools/mcp/servers with its id — and its tools then join the org's tool plane and the fleet's MCP door. A listing that only ships a stdio package needs a process to run it, which is why the transports are on every entry rather than implied.  Hidden entries are absent: they are the ones we took off the shelf. A platform SuperAdmin sees them, because the same query answers \"what is on the shelf\" and \"what is in the catalog\" and two queries would drift apart.  It is PAGED — 50 by default, 200 at most. The public registry publishes tens of thousands of servers, so an unbounded answer is a twenty-megabyte response and a storefront that renders in a minute. total is the whole match, not the page.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -200,7 +369,7 @@ class ToolsApi {
 
   /// Lists the MCP servers the public registries publish, as we hold them: our canonical copy of registry.modelcontextprotocol.io, plus what we decided about each entry.
   ///
-  /// Lists the MCP servers the public registries publish, as we hold them: our canonical copy of registry.modelcontextprotocol.io, plus what we decided about each entry.  This is the SHELF an org picks from. A listing with a streamable-http endpoint can be enabled as-is — POST /v1/mcp/servers with its id — and its tools then join the org's tool plane and the fleet's MCP door. A listing that only ships a stdio package needs a process to run it, which is why the transports are on every entry rather than implied.  Hidden entries are absent: they are the ones we took off the shelf. A platform SuperAdmin sees them, because the same query answers \"what is on the shelf\" and \"what is in the catalog\" and two queries would drift apart.  It is PAGED — 50 by default, 200 at most. The public registry publishes tens of thousands of servers, so an unbounded answer is a twenty-megabyte response and a storefront that renders in a minute. total is the whole match, not the page.
+  /// Lists the MCP servers the public registries publish, as we hold them: our canonical copy of registry.modelcontextprotocol.io, plus what we decided about each entry.  This is the SHELF an org picks from. A listing with a streamable-http endpoint can be enabled as-is — POST /v1/tools/mcp/servers with its id — and its tools then join the org's tool plane and the fleet's MCP door. A listing that only ships a stdio package needs a process to run it, which is why the transports are on every entry rather than implied.  Hidden entries are absent: they are the ones we took off the shelf. A platform SuperAdmin sees them, because the same query answers \"what is on the shelf\" and \"what is in the catalog\" and two queries would drift apart.  It is PAGED — 50 by default, 200 at most. The public registry publishes tens of thousands of servers, so an unbounded answer is a twenty-megabyte response and a storefront that renders in a minute. total is the whole match, not the page.
   ///
   /// Parameters:
   ///
@@ -287,6 +456,274 @@ class ToolsApi {
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
       return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'MCPListing',) as MCPListing;
+    
+    }
+    return null;
+  }
+
+  /// Lists the external MCP servers the caller's org has registered.
+  ///
+  /// Lists the external MCP servers the caller's org has registered. Each record carries the URL and the name of the header its credential is injected into; the credential VALUE lives only in KMS and is never returned, so hasSecret is the whole of what this surface says about it.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> getToolsMcpServersWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/tools/mcp/servers';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Lists the external MCP servers the caller's org has registered.
+  ///
+  /// Lists the external MCP servers the caller's org has registered. Each record carries the URL and the name of the header its credential is injected into; the credential VALUE lives only in KMS and is never returned, so hasSecret is the whole of what this surface says about it.
+  Future<McpServerList?> getToolsMcpServers() async {
+    final response = await getToolsMcpServersWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'McpServerList',) as McpServerList;
+    
+    }
+    return null;
+  }
+
+  /// Reports what this deployment actually mounted: every subsystem the composition root declared and whether it is switched on.
+  ///
+  /// Reports what this deployment actually mounted: every subsystem the composition root declared and whether it is switched on. A plugin here is MOUNTED CODE that extends the deployment's own surface — not a tool an agent calls — so this is an inventory and not a tool source. It is read off the same boot snapshot every traced request resolves its subsystem label against, so it cannot drift from what is serving. Enabled-only by default, because a caller asking what this deployment can do wants what is running; ?all=true adds the configured-but-off ones.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] all:
+  ///   All includes the configured-but-disabled subsystems too, but only when it is exactly the string \"true\". Otherwise only the running ones are reported.
+  Future<Response> getToolsPluginsWithHttpInfo({ String? all, }) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/tools/plugins';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    if (all != null) {
+      queryParams.addAll(_queryParams('', 'all', all));
+    }
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Reports what this deployment actually mounted: every subsystem the composition root declared and whether it is switched on.
+  ///
+  /// Reports what this deployment actually mounted: every subsystem the composition root declared and whether it is switched on. A plugin here is MOUNTED CODE that extends the deployment's own surface — not a tool an agent calls — so this is an inventory and not a tool source. It is read off the same boot snapshot every traced request resolves its subsystem label against, so it cannot drift from what is serving. Enabled-only by default, because a caller asking what this deployment can do wants what is running; ?all=true adds the configured-but-off ones.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] all:
+  ///   All includes the configured-but-disabled subsystems too, but only when it is exactly the string \"true\". Otherwise only the running ones are reported.
+  Future<PluginMountList?> getToolsPlugins({ String? all, }) async {
+    final response = await getToolsPluginsWithHttpInfo( all: all, );
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PluginMountList',) as PluginMountList;
+    
+    }
+    return null;
+  }
+
+  /// Lists the plugins the caller's org BUILT, newest first, each with the TypeScript as authored.
+  ///
+  /// Lists the plugins the caller's org BUILT, newest first, each with the TypeScript as authored. That is a different set with a different lifecycle from GET /v1/tools/plugins, which reports the subsystems this deployment mounted. The bundled CommonJS the runtime executes is never included, and neither is any credential — a plugin names the connectors provider it needs and reads the credential from ctx.auth at run time.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> getToolsPluginsAuthoredWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/tools/plugins/authored';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Lists the plugins the caller's org BUILT, newest first, each with the TypeScript as authored.
+  ///
+  /// Lists the plugins the caller's org BUILT, newest first, each with the TypeScript as authored. That is a different set with a different lifecycle from GET /v1/tools/plugins, which reports the subsystems this deployment mounted. The bundled CommonJS the runtime executes is never included, and neither is any credential — a plugin names the connectors provider it needs and reads the credential from ctx.auth at run time.
+  Future<AuthoredPluginList?> getToolsPluginsAuthored() async {
+    final response = await getToolsPluginsAuthoredWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AuthoredPluginList',) as AuthoredPluginList;
+    
+    }
+    return null;
+  }
+
+  /// Lists the skills the caller's org can reach — the brand's embedded catalogue plus the org's own authored ones — with each one's activation flag.
+  ///
+  /// Lists the skills the caller's org can reach — the brand's embedded catalogue plus the org's own authored ones — with each one's activation flag. A skill is discovery and activation metadata attached to an agent, never called directly, so every entry here is non-dispatchable. It is GET /v1/tools narrowed to one source, not a second store: a name a caller sees here is the same entry, with the same activation state, that discovery reports.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] activated:
+  ///   Activated keeps only the tools activated for the caller's org and project, and only when it is exactly the string \"true\".
+  Future<Response> getToolsSkillsWithHttpInfo({ String? activated, }) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/tools/skills';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    if (activated != null) {
+      queryParams.addAll(_queryParams('', 'activated', activated));
+    }
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Lists the skills the caller's org can reach — the brand's embedded catalogue plus the org's own authored ones — with each one's activation flag.
+  ///
+  /// Lists the skills the caller's org can reach — the brand's embedded catalogue plus the org's own authored ones — with each one's activation flag. A skill is discovery and activation metadata attached to an agent, never called directly, so every entry here is non-dispatchable. It is GET /v1/tools narrowed to one source, not a second store: a name a caller sees here is the same entry, with the same activation state, that discovery reports.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] activated:
+  ///   Activated keeps only the tools activated for the caller's org and project, and only when it is exactly the string \"true\".
+  Future<SourceToolList?> getToolsSkills({ String? activated, }) async {
+    final response = await getToolsSkillsWithHttpInfo( activated: activated, );
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'SourceToolList',) as SourceToolList;
+    
+    }
+    return null;
+  }
+
+  /// Lists the caller org's OWN skills with their SKILL.md bodies.
+  ///
+  /// Lists the caller org's OWN skills with their SKILL.md bodies. GET /v1/tools/skills is the registry view — the brand's catalogue plus this org's, with activation flags and no bodies; this is the EDITABLE set, so it carries the content that view omits and nothing the org did not write.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> getToolsSkillsAuthoredWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/tools/skills/authored';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Lists the caller org's OWN skills with their SKILL.md bodies.
+  ///
+  /// Lists the caller org's OWN skills with their SKILL.md bodies. GET /v1/tools/skills is the registry view — the brand's catalogue plus this org's, with activation flags and no bodies; this is the EDITABLE set, so it carries the content that view omits and nothing the org did not write.
+  Future<AuthoredSkillList?> getToolsSkillsAuthored() async {
+    final response = await getToolsSkillsAuthoredWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AuthoredSkillList',) as AuthoredSkillList;
     
     }
     return null;
@@ -454,6 +891,174 @@ class ToolsApi {
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
       return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'McpCatalogSync',) as McpCatalogSync;
+    
+    }
+    return null;
+  }
+
+  /// Gives the caller's org one more external MCP server, so its tools join the org's tool plane and the fleet's MCP door.
+  ///
+  /// Gives the caller's org one more external MCP server, so its tools join the org's tool plane and the fleet's MCP door. It is the ONE way an org gains a server, whether it typed the URL in or enabled a catalog listing: both write the SAME record, and `source` says which it was. A second registration path would be a second place for a server to exist, and then a second place to forget to check the credential.  The credential VALUE is sealed in KMS under a per-org ref; the row keeps only the URL, the header name to inject it into, and a has-secret flag — so a secret with no KMS configured is refused 503 rather than stored in the clear. The URL is SSRF-validated here and re-checked by the dialer at connect time, which is the DNS-rebinding defense.  Enabling a listing the org already enabled REVISES that server rather than adding a near-duplicate beside it, so a retried enable is the same one server. Answers 201 with the stored record.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [CreateServerReq] createServerReq (required):
+  Future<Response> postToolsMcpServersWithHttpInfo(CreateServerReq createServerReq,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/tools/mcp/servers';
+
+    // ignore: prefer_final_locals
+    Object? postBody = createServerReq;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Gives the caller's org one more external MCP server, so its tools join the org's tool plane and the fleet's MCP door.
+  ///
+  /// Gives the caller's org one more external MCP server, so its tools join the org's tool plane and the fleet's MCP door. It is the ONE way an org gains a server, whether it typed the URL in or enabled a catalog listing: both write the SAME record, and `source` says which it was. A second registration path would be a second place for a server to exist, and then a second place to forget to check the credential.  The credential VALUE is sealed in KMS under a per-org ref; the row keeps only the URL, the header name to inject it into, and a has-secret flag — so a secret with no KMS configured is refused 503 rather than stored in the clear. The URL is SSRF-validated here and re-checked by the dialer at connect time, which is the DNS-rebinding defense.  Enabling a listing the org already enabled REVISES that server rather than adding a near-duplicate beside it, so a retried enable is the same one server. Answers 201 with the stored record.
+  ///
+  /// Parameters:
+  ///
+  /// * [CreateServerReq] createServerReq (required):
+  Future<MCPServer?> postToolsMcpServers(CreateServerReq createServerReq,) async {
+    final response = await postToolsMcpServersWithHttpInfo(createServerReq,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'MCPServer',) as MCPServer;
+    
+    }
+    return null;
+  }
+
+  /// Builds and stores one plugin for the caller's org.
+  ///
+  /// Builds and stores one plugin for the caller's org. The 201 carries the bundle's size, whether a model wrote the source, and the plugin as stored.  Post `source` to build TypeScript as-is, or `spec` — an OpenAPI document or plain prose describing the endpoints — to have one generated; the generated source comes back in the answer, so a caller reads what will run before it runs. Exactly one of the two, and `name` must be one lowercase path segment; both or neither is 400.  COMPILING IS THE GATE. The source goes through the same pipeline the committed connectors do — esbuild to one CommonJS program, then compiled in the goja runtime that will actually execute it — and anything that fails is rejected and NEVER stored. So a plugin in the store is one this deployment has already loaded once, not one a model claimed was fine. A failed build answers 422 carrying the diagnostics a caller needs to fix it: the bundler's error (`detail`), the source that failed, and whether the model wrote it.  CREDENTIALS ARE NOT PART OF A PLUGIN. A plugin names the connectors `provider` it needs and reads that credential from `ctx.auth` at run time, under KMS custody. Source that carries something key-shaped is REFUSED rather than silently persisted — a scrubbed key looks like it worked.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [BuildRequest] buildRequest (required):
+  Future<Response> postToolsPluginsBuildWithHttpInfo(BuildRequest buildRequest,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/tools/plugins/build';
+
+    // ignore: prefer_final_locals
+    Object? postBody = buildRequest;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Builds and stores one plugin for the caller's org.
+  ///
+  /// Builds and stores one plugin for the caller's org. The 201 carries the bundle's size, whether a model wrote the source, and the plugin as stored.  Post `source` to build TypeScript as-is, or `spec` — an OpenAPI document or plain prose describing the endpoints — to have one generated; the generated source comes back in the answer, so a caller reads what will run before it runs. Exactly one of the two, and `name` must be one lowercase path segment; both or neither is 400.  COMPILING IS THE GATE. The source goes through the same pipeline the committed connectors do — esbuild to one CommonJS program, then compiled in the goja runtime that will actually execute it — and anything that fails is rejected and NEVER stored. So a plugin in the store is one this deployment has already loaded once, not one a model claimed was fine. A failed build answers 422 carrying the diagnostics a caller needs to fix it: the bundler's error (`detail`), the source that failed, and whether the model wrote it.  CREDENTIALS ARE NOT PART OF A PLUGIN. A plugin names the connectors `provider` it needs and reads that credential from `ctx.auth` at run time, under KMS custody. Source that carries something key-shaped is REFUSED rather than silently persisted — a scrubbed key looks like it worked.
+  ///
+  /// Parameters:
+  ///
+  /// * [BuildRequest] buildRequest (required):
+  Future<BuildOut?> postToolsPluginsBuild(BuildRequest buildRequest,) async {
+    final response = await postToolsPluginsBuildWithHttpInfo(buildRequest,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'BuildOut',) as BuildOut;
+    
+    }
+    return null;
+  }
+
+  /// Adds or revises one of the caller org's own skills, and answers 201 with the stored record.
+  ///
+  /// Adds or revises one of the caller org's own skills, and answers 201 with the stored record. The id is derived from the name, so writing the same name again REVISES that skill rather than accumulating near-duplicates that would then collide in the registry. An org's skills are private to it by construction — they live in a different store from the brand's embedded catalogue and have no path into the public gallery — and a brand skill always wins a name collision against an org's.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [SkillIn] skillIn (required):
+  Future<Response> postToolsSkillsWithHttpInfo(SkillIn skillIn,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/tools/skills';
+
+    // ignore: prefer_final_locals
+    Object? postBody = skillIn;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Adds or revises one of the caller org's own skills, and answers 201 with the stored record.
+  ///
+  /// Adds or revises one of the caller org's own skills, and answers 201 with the stored record. The id is derived from the name, so writing the same name again REVISES that skill rather than accumulating near-duplicates that would then collide in the registry. An org's skills are private to it by construction — they live in a different store from the brand's embedded catalogue and have no path into the public gallery — and a brand skill always wins a name collision against an org's.
+  ///
+  /// Parameters:
+  ///
+  /// * [SkillIn] skillIn (required):
+  Future<SkillWritten?> postToolsSkills(SkillIn skillIn,) async {
+    final response = await postToolsSkillsWithHttpInfo(skillIn,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'SkillWritten',) as SkillWritten;
     
     }
     return null;

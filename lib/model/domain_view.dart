@@ -23,7 +23,6 @@ class DomainView {
     this.url,
     this.verified,
   });
-
   /// CreatedAt is the unix second the custom claim was made.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

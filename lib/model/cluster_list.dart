@@ -16,7 +16,6 @@ class ClusterList {
     this.clusters = const [],
     this.degraded = const [],
   });
-
   /// Clusters is the merged fleet — kind \"managed\" for Visor-provisioned, \"byo\" for an attached kubeconfig.
   List<ClusterView> clusters;
 

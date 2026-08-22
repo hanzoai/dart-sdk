@@ -21,7 +21,6 @@ class O11yO11yOccurrenceFrame {
     this.lineno,
     this.module,
   });
-
   /// AbsPath is the file's absolute path.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

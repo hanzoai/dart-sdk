@@ -17,7 +17,6 @@ class PurgeIn {
     this.purgeEverything,
     this.zone,
   });
-
   /// Files purges exactly the listed URLs — at most 30, Cloudflare's per-request cap.
   List<String> files;
 

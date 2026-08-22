@@ -16,7 +16,6 @@ class O11yO11ySignalFilters {
     this.filters = const [],
     this.signal,
   });
-
   /// Filters are the attributes offered, in display order.
   List<O11yO11yFilterKey> filters;
 

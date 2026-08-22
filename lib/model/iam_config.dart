@@ -23,7 +23,6 @@ class IamConfig {
     this.schemas = const [],
     this.sort,
   });
-
   List<IamScheme> authenticationSchemes;
 
   ///

@@ -15,7 +15,6 @@ class CompanyList {
   CompanyList({
     this.data = const [],
   });
-
   /// Data is the page of companies, most recently updated first.
   List<Company> data;
 

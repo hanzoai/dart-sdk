@@ -17,7 +17,6 @@ class O11yO11yQueueFilterRule {
     this.op,
     this.value,
   });
-
   /// Key names the attribute the predicate tests.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

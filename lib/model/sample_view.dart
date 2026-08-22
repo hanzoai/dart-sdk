@@ -30,7 +30,7 @@ class SampleView {
     this.source_,
     this.unit,
   });
-
+  /// At is when the reading was MEASURED, RFC 3339 in UTC — the x-axis a chart plots against. The series is returned oldest first, so it only increases.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -39,6 +39,7 @@ class SampleView {
   ///
   String? at;
 
+  /// CostCents is what this unit resold for over the hour the reading falls in, in whole US cents. 0 means UNPRICED, not free: the operator's own machines — a linked run-target, a dialed-in BYO worker — are metered for utilization and never resold, so only a priced source ever fills it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -47,6 +48,7 @@ class SampleView {
   ///
   int? costCents;
 
+  /// CPUs is logical cores. The static capability rides every row on purpose: a chart can size load against cores without joining a registry whose row may since have been rewritten or the unit deregistered.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -55,6 +57,7 @@ class SampleView {
   ///
   int? cpus;
 
+  /// GPUModel names the representative accelerator (\"GB10\"); GPUs carries how many.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -63,6 +66,7 @@ class SampleView {
   ///
   String? gpuModel;
 
+  /// GPUUtil is aggregate accelerator utilization as a FRACTION of 1 — 0.42 is 42% busy. Anything a reporter sends outside 0..1 is clamped into it on write.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -71,6 +75,7 @@ class SampleView {
   ///
   num? gpuUtil;
 
+  /// GPUs is how many accelerators the reading covers.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -79,6 +84,7 @@ class SampleView {
   ///
   int? gpus;
 
+  /// Host is the hostname the unit reported at the time of the reading.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -87,6 +93,7 @@ class SampleView {
   ///
   String? host;
 
+  /// Kind is what the measured unit is: laptop, cloud, gpu, cluster, machine or worker.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -95,6 +102,7 @@ class SampleView {
   ///
   String? kind;
 
+  /// Load1 is the 1-minute load average — runnable processes, not a percentage.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -103,6 +111,7 @@ class SampleView {
   ///
   num? load1;
 
+  /// Load5 is the 5-minute load average, the same units as Load1.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -111,6 +120,7 @@ class SampleView {
   ///
   num? load5;
 
+  /// Load15 is the 15-minute load average, the same units as Load1.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -119,6 +129,7 @@ class SampleView {
   ///
   num? load15;
 
+  /// MemFree is host memory available, in BYTES, as reported rather than derived.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -127,6 +138,7 @@ class SampleView {
   ///
   int? memFree;
 
+  /// MemUsed is host memory in use, in BYTES.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -135,6 +147,7 @@ class SampleView {
   ///
   int? memUsed;
 
+  /// Memory is total system RAM in BYTES at the time of the reading.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -143,6 +156,7 @@ class SampleView {
   ///
   int? memory;
 
+  /// Source is the plane that reported the reading: \"agent\", \"byo\" or \"visor\" — the same vocabulary the board's rows carry, and what ?source= narrows on.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -151,6 +165,7 @@ class SampleView {
   ///
   String? source_;
 
+  /// Unit is the source's own id for the measured unit. With Source it is the key the chart groups by, and the key the board joins a unit's latest reading on.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

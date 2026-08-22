@@ -17,7 +17,6 @@ class BindAgentReq {
     this.botVersion,
     this.id,
   });
-
   /// AgentName is the cloud Agent (/v1/agents) the machine will run. Required.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

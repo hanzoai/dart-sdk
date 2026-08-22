@@ -22,7 +22,6 @@ class RiskBand {
     this.q50,
     this.q90,
   });
-
   /// Day is the day the band covers.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

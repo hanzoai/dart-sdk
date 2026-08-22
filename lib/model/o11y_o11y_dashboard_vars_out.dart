@@ -16,7 +16,6 @@ class O11yO11yDashboardVarsOut {
     this.data,
     this.status,
   });
-
   /// Data holds the values.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

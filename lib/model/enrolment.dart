@@ -23,7 +23,6 @@ class Enrolment {
     this.verifyFile,
     this.verifySnippet,
   });
-
   /// Created reports whether this call enrolled the org (201) or found an existing enrolment (200).
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

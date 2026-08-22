@@ -16,7 +16,7 @@ class ArgoSyncStatus {
     this.revision,
     this.status,
   });
-
+  /// Revision is what Status was reached against. For an App CR that is the declared IMAGE TAG, not a commit — the CR is image-pinned. For a CD row it is the commit CD last applied.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -25,6 +25,7 @@ class ArgoSyncStatus {
   ///
   String? revision;
 
+  /// Status is the ArgoCD sync vocabulary, Capitalized: Synced, OutOfSync or Unknown. For an App CR it compares the tag the CR DECLARES against the tag the cluster's Deployment is RUNNING — equal is Synced, both known and different is OutOfSync, either unknown is Unknown. For a CD row it is CD's own git-versus-cluster verdict.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

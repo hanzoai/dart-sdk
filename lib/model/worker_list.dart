@@ -15,7 +15,6 @@ class WorkerList {
   WorkerList({
     this.workers = const [],
   });
-
   /// Workers is one row per connected BYO machine, each carrying the host's own report (GPUs, driver versions, capabilities) rather than a normalized view.
   List<ByoWorker> workers;
 

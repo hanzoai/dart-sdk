@@ -17,7 +17,6 @@ class CreateVersionIn {
     this.id,
     this.trigger,
   });
-
   /// DisplayName names the new version.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

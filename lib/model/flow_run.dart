@@ -18,7 +18,6 @@ class FlowRun {
     this.tweaks,
     this.workflow,
   });
-
   /// Input is the run's chat input value, handed to the graph's input node.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

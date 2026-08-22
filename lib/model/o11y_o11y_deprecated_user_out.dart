@@ -16,7 +16,6 @@ class O11yO11yDeprecatedUserOut {
     this.data,
     this.status,
   });
-
   /// Data is the member.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

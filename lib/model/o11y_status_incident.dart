@@ -22,7 +22,7 @@ class O11yStatusIncident {
     this.status,
     this.url,
   });
-
+  /// AffectedComponents is what this incident covers. It is COUNTED rather than classified: some services down is a partial outage and every probed service down is a full one, because deciding that one service is critical and another is not would need a judgement nobody has measured.
   List<O11yStatusComponent> affectedComponents;
 
   /// CurrentWorstImpact is the incident's impact on the PLATFORM, which is not the same question as the component's own condition above.
@@ -34,6 +34,7 @@ class O11yStatusIncident {
   ///
   String? currentWorstImpact;
 
+  /// ID is derived from the service, so the same outage keeps one id across reads rather than being reported as a new incident every 15 seconds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -51,6 +52,7 @@ class O11yStatusIncident {
   ///
   String? lastUpdateAt;
 
+  /// LastUpdateMessage says what was observed, not what is being done about it — there is no operator writing updates here, only the probe that failed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -59,6 +61,7 @@ class O11yStatusIncident {
   ///
   String? lastUpdateMessage;
 
+  /// Name is the one-line headline, built from the service that stopped answering.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -67,6 +70,7 @@ class O11yStatusIncident {
   ///
   String? name;
 
+  /// Status is always \"investigating\" — the member of the client's closed set that means detected, cause not yet established, which is exactly what an automated prober knows. Nothing here ever claims \"identified\": that would assert a diagnosis no measurement made.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -75,6 +79,7 @@ class O11yStatusIncident {
   ///
   String? status;
 
+  /// URL points at the HUMAN status page, not back at this JSON. Every link in this document goes to the same place.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

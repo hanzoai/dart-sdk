@@ -30,7 +30,6 @@ class Cart {
     this.updatedAt,
     this.user,
   });
-
   /// CreatedAt is when the cart was opened, RFC3339.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

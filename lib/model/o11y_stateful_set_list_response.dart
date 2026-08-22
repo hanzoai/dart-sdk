@@ -17,7 +17,6 @@ class O11yStatefulSetListResponse {
     this.total,
     this.type,
   });
-
   List<O11yStatefulSetListRecord> records;
 
   ///

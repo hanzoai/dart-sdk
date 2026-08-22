@@ -19,7 +19,6 @@ class TreeEntryJSON {
     this.size,
     this.type,
   });
-
   /// Mode is the octal git file mode (\"100644\", \"040000\", \"120000\").
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

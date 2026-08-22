@@ -15,7 +15,6 @@ class PricingPresetList {
   PricingPresetList({
     this.presets = const [],
   });
-
   /// Presets are the named compute sizes, each an opaque object exactly as the pricing source emits it — typically id, name, provider slug, vCPU, memory, disk and price.
   List<Map<String, Object>> presets;
 

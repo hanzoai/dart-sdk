@@ -17,7 +17,6 @@ class ProviderBreakdown {
     this.items = const [],
     this.source_,
   });
-
   /// Available is false when the warehouse could not be read, which means \"no answer\" and NOT \"no usage\" — Items is then empty for a reason.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

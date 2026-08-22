@@ -16,7 +16,6 @@ class PrefsView {
     this.prefs,
     this.updatedAt,
   });
-
   Object? prefs;
 
   /// UpdatedAt is when the document was last written, unix seconds. Absent when nothing has been saved.

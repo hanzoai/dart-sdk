@@ -17,7 +17,6 @@ class O11yO11yLLMPricingCacheCosts {
     this.read,
     this.write,
   });
-
   /// Mode is how cached tokens are counted — subtract (inside input_tokens, OpenAI-style), additive (reported separately, Anthropic-style) or unknown.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

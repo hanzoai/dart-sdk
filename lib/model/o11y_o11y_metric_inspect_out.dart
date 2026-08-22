@@ -16,7 +16,6 @@ class O11yO11yMetricInspectOut {
     this.data,
     this.status,
   });
-
   /// Data holds the series.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

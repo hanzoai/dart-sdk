@@ -18,7 +18,6 @@ class LimitsBlock {
     this.mcpRateLimit,
     this.modelApi,
   });
-
   /// APIRateLimit is requests per minute allowed against the REST /v1/world surface. -1 means unlimited.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

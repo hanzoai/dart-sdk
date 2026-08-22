@@ -19,7 +19,7 @@ class LastEventView {
     this.preview,
     this.seq,
   });
-
+  /// Actor is who produced the turn, defaulted to the calling principal when the writer named nobody.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -28,6 +28,7 @@ class LastEventView {
   ///
   String? actor;
 
+  /// At is when the turn was recorded, RFC 3339 in UTC to the second.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -36,6 +37,7 @@ class LastEventView {
   ///
   String? at;
 
+  /// Kind is what the turn was, from the log's closed six: message, tool-call, spawn, log, status, control.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -44,6 +46,7 @@ class LastEventView {
   ///
   String? kind;
 
+  /// Preview is the first 240 bytes of the event's payload, cut without regard for the JSON inside it — it is a string to SHOW, never a value to parse. Read the detail or the stream for the whole payload.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -52,6 +55,7 @@ class LastEventView {
   ///
   String? preview;
 
+  /// Seq is that event's position in the session's log — monotonic from 1, per session. A reader holding it can ask the detail or stream reads for everything after it, so this doubles as the list's resume cursor.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

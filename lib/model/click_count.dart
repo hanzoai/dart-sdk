@@ -15,7 +15,6 @@ class ClickCount {
   ClickCount({
     this.counted,
   });
-
   /// Counted says the in-memory buffer took the ping. It does NOT say the code exists — this is deliberately not a code-existence oracle, and an unknown code simply no-ops at flush time. false means the buffer was full and the ping was dropped, which is harmless: clicks are vanity and move no money.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

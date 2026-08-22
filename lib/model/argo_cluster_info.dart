@@ -17,7 +17,7 @@ class ArgoClusterInfo {
     this.connectionState,
     this.serverVersion,
   });
-
+  /// ApplicationsCount is how many of THE CALLER'S applications reconcile into this cluster, so a tenant sees its own count and a SuperAdmin the fleet's. It is zero for the in-cluster destination when the caller owns nothing, since that destination is listed whether or not anything targets it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -26,6 +26,7 @@ class ArgoClusterInfo {
   ///
   int? applicationsCount;
 
+  /// ConnectionState repeats the cluster's own connection state, which is where ArgoCD's UI reads it from on this object.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -34,6 +35,7 @@ class ArgoClusterInfo {
   ///
   ArgoConnectionState? connectionState;
 
+  /// ServerVersion is the kubernetes version of the destination. Always absent: nothing here queries the API server for it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

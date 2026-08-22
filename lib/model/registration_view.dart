@@ -17,7 +17,6 @@ class RegistrationView {
     this.nodeID,
     this.status,
   });
-
   /// ID is the registration's handle.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

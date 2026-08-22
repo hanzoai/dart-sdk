@@ -15,7 +15,7 @@ class BuyInput {
   BuyInput({
     this.e164,
   });
-
+  /// E164 is the number to buy, in E.164 (a leading + and digits), exactly as the search returned it. This is the number itself, not the id from a search result.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

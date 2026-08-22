@@ -19,7 +19,6 @@ class GithubInstallationView {
     this.login,
     this.type,
   });
-
   /// Connected reports whether THIS org has already bound this account.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

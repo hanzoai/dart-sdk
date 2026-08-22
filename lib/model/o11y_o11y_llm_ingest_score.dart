@@ -22,7 +22,6 @@ class O11yO11yLLMIngestScore {
     this.traceId,
     this.value,
   });
-
   /// Comment is a free-text note.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

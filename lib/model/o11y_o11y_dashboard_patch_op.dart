@@ -18,7 +18,6 @@ class O11yO11yDashboardPatchOp {
     this.path,
     this.value,
   });
-
   /// From is the source JSON Pointer for move and copy; ignored otherwise.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

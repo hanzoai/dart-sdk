@@ -19,7 +19,7 @@ class ModelSource {
     this.title,
     this.url,
   });
-
+  /// Engine is the search backend the hit came from: bing, ddg, mojeek or brave. Omitted when the backend did not name itself. Results are merged across backends, so two sources in one answer can carry different engines.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -28,6 +28,7 @@ class ModelSource {
   ///
   String? engine;
 
+  /// Favicon is a 64px icon URL derived from the host for the client to render beside the citation. It is Google's s2 service, not something we host or fetched — an empty host yields the empty string.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -36,6 +37,7 @@ class ModelSource {
   ///
   String? favicon;
 
+  /// Snippet is the engine's summary of the page, clipped to 600 runes. THIS IS WHAT THE CLIENT SHOWS. What the model reads is the fetched page, which is far larger and deliberately never on the wire.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -44,6 +46,7 @@ class ModelSource {
   ///
   String? snippet;
 
+  /// Title is the page title the engine reported, stripped of the bracketed furniture engines staple on (\"[PDF]\", \"(Official Site)\"). It falls back to the www-stripped host when the engine gave none, so it is never empty and is safe to use as link text.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -52,6 +55,7 @@ class ModelSource {
   ///
   String? title;
 
+  /// URL is the page, absolute, exactly as the engine gave it. It is also the dedupe key — one source per URL, and at most hostCap per host — and what a markdown citation in the answer is checked against, so a link in the prose always matches a URL here.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

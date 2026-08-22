@@ -18,7 +18,6 @@ class Signature {
     this.signature,
     this.walletId,
   });
-
   /// Address is the wallet's on-chain address, the one this signature recovers to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

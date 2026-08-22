@@ -18,7 +18,6 @@ class MyReferrals {
     this.link,
     this.referrals = const [],
   });
-
   /// Code is the org's STABLE referral code — a deterministic function of the org id, so it never changes and never has to be stored to be reproduced.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

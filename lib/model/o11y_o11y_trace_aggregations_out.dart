@@ -16,7 +16,6 @@ class O11yO11yTraceAggregationsOut {
     this.data,
     this.status,
   });
-
   /// Data holds one result per aggregation asked for.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

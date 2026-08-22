@@ -15,7 +15,6 @@ class ClusterDetached {
   ClusterDetached({
     this.detached,
   });
-
   /// Detached is the lower-cased fleet name that was removed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file

@@ -15,7 +15,6 @@ class CatalogOut {
   CatalogOut({
     this.connectors = const [],
   });
-
   /// Connectors is every connectable source, sorted by provider.
   List<CatalogEntry> connectors;
 

@@ -21,7 +21,6 @@ class Genesis {
     this.status,
     this.txHash,
   });
-
   /// At is the unix second the genesis root was computed.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
