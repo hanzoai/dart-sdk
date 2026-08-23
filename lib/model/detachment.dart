@@ -10,61 +10,63 @@
 
 part of hanzoai.cloud;
 
-class Listing {
-  /// Returns a new [Listing] instance.
-  Listing({
-    this.lastModified,
-    this.name,
+class Detachment {
+  /// Returns a new [Detachment] instance.
+  Detachment({
+    this.deleted,
+    this.id,
   });
+  /// Deleted is whether the method was actually removed. False with no error means it was already gone, which is a successful detach rather than a failure — a retry must not be an error.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? lastModified;
+  bool? deleted;
 
+  /// ID is the method that was detached, echoed so a caller batching several can tell the answers apart.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? name;
+  String? id;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is Listing &&
-    other.lastModified == lastModified &&
-    other.name == name;
+  bool operator ==(Object other) => identical(this, other) || other is Detachment &&
+    other.deleted == deleted &&
+    other.id == id;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (lastModified == null ? 0 : lastModified!.hashCode) +
-    (name == null ? 0 : name!.hashCode);
+    (deleted == null ? 0 : deleted!.hashCode) +
+    (id == null ? 0 : id!.hashCode);
 
   @override
-  String toString() => 'Listing[lastModified=$lastModified, name=$name]';
+  String toString() => 'Detachment[deleted=$deleted, id=$id]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.lastModified != null) {
-      json[r'lastModified'] = this.lastModified;
+    if (this.deleted != null) {
+      json[r'deleted'] = this.deleted;
     } else {
-      json[r'lastModified'] = null;
+      json[r'deleted'] = null;
     }
-    if (this.name != null) {
-      json[r'name'] = this.name;
+    if (this.id != null) {
+      json[r'id'] = this.id;
     } else {
-      json[r'name'] = null;
+      json[r'id'] = null;
     }
     return json;
   }
 
-  /// Returns a new [Listing] instance and imports its values from
+  /// Returns a new [Detachment] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static Listing? fromJson(dynamic value) {
+  static Detachment? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -73,25 +75,25 @@ class Listing {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "Listing[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "Listing[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "Detachment[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "Detachment[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return Listing(
-        lastModified: mapValueOfType<String>(json, r'lastModified'),
-        name: mapValueOfType<String>(json, r'name'),
+      return Detachment(
+        deleted: mapValueOfType<bool>(json, r'deleted'),
+        id: mapValueOfType<String>(json, r'id'),
       );
     }
     return null;
   }
 
-  static List<Listing> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <Listing>[];
+  static List<Detachment> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <Detachment>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = Listing.fromJson(row);
+        final value = Detachment.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -100,12 +102,12 @@ class Listing {
     return result.toList(growable: growable);
   }
 
-  static Map<String, Listing> mapFromJson(dynamic json) {
-    final map = <String, Listing>{};
+  static Map<String, Detachment> mapFromJson(dynamic json) {
+    final map = <String, Detachment>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = Listing.fromJson(entry.value);
+        final value = Detachment.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -114,14 +116,14 @@ class Listing {
     return map;
   }
 
-  // maps a json object with a list of Listing-objects as value to a dart map
-  static Map<String, List<Listing>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<Listing>>{};
+  // maps a json object with a list of Detachment-objects as value to a dart map
+  static Map<String, List<Detachment>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<Detachment>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = Listing.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = Detachment.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

@@ -125,6 +125,65 @@ class ProjectsApi {
     }
   }
 
+  /// Removes the caller's own bookmark from a project, and answers whether it is starred afterwards.
+  ///
+  /// Removes the caller's own bookmark from a project, and answers whether it is starred afterwards.  It removes only YOUR star — the same one star wrote — so a project other people have starred stays on their lists. Unstarring one you had not starred is not an error; it leaves it unstarred.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] slug (required):
+  ///   Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
+  Future<Response> deleteProjectsBySlugStarWithHttpInfo(String slug,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/projects/{slug}/star'
+      .replaceAll('{slug}', slug);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'DELETE',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Removes the caller's own bookmark from a project, and answers whether it is starred afterwards.
+  ///
+  /// Removes the caller's own bookmark from a project, and answers whether it is starred afterwards.  It removes only YOUR star — the same one star wrote — so a project other people have starred stays on their lists. Unstarring one you had not starred is not an error; it leaves it unstarred.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] slug (required):
+  ///   Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
+  Future<ProjectsStar?> deleteProjectsBySlugStar(String slug,) async {
+    final response = await deleteProjectsBySlugStarWithHttpInfo(slug,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'ProjectsStar',) as ProjectsStar;
+    
+    }
+    return null;
+  }
+
   /// Returns every project your org owns.
   ///
   /// Returns every project your org owns.  Each row carries the slug, name, framework, visibility, status and live URL — the same rows console and the builder render, because there is only one store behind both. It requires a validated principal (403 without one) and is keyed by that principal's org, so it never contains another tenant's project.
@@ -1595,6 +1654,65 @@ class ProjectsApi {
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
       return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'ProjectsSiteDeploy',) as ProjectsSiteDeploy;
+    
+    }
+    return null;
+  }
+
+  /// Bookmarks a project for the person calling, and answers whether it is starred afterwards.
+  ///
+  /// Bookmarks a project for the person calling, and answers whether it is starred afterwards.  The star is YOURS: it is keyed by you as well as by the project, so two people see two answers for the same one and starring it says nothing about anybody else's list. Starring a project you have already starred leaves it starred.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] slug (required):
+  ///   Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
+  Future<Response> putProjectsBySlugStarWithHttpInfo(String slug,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/projects/{slug}/star'
+      .replaceAll('{slug}', slug);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'PUT',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Bookmarks a project for the person calling, and answers whether it is starred afterwards.
+  ///
+  /// Bookmarks a project for the person calling, and answers whether it is starred afterwards.  The star is YOURS: it is keyed by you as well as by the project, so two people see two answers for the same one and starring it says nothing about anybody else's list. Starring a project you have already starred leaves it starred.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] slug (required):
+  ///   Slug is the project to act on, from the path. It is unique within the caller's org and nowhere else, so another tenant's slug is a 404.
+  Future<ProjectsStar?> putProjectsBySlugStar(String slug,) async {
+    final response = await putProjectsBySlugStarWithHttpInfo(slug,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'ProjectsStar',) as ProjectsStar;
     
     }
     return null;

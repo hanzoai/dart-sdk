@@ -1618,28 +1618,31 @@ class AgentsApi {
     return null;
   }
 
-  /// Append one turn to a session's ordered log.
+  /// Records one turn of a session's transcript and answers 201 with it.
   ///
-  /// Records a message, tool-call, spawn, log, status or control turn against the session and answers 201 with the stored event, including the monotonic `seq` the store assigned — the cursor every reader pages from. The same turn is fanned out live to every stream subscriber watching that session's tree.  Requires a validated principal carrying an org, and the session must already exist IN THAT ORG: an id belonging to another tenant is a 404 exactly like one that does not exist, so the log can never be written across a tenant boundary. `actor` defaults to the calling principal when the body names none. `kind` must be one of the six above, and `payload` must be valid JSON of at most 64 KiB.  The payload is scanned for credentials BEFORE it is stored, and a hit REFUSES the write with 422 rather than redacting it: {status, code: \"secret_in_transcript\", error, findings:[…]}, each finding naming the rule, severity, line, a masked preview and a SHA-256 fingerprint the author can match against the value they rotate. The detected value itself appears nowhere in that body, because it was never stored. That in-band findings array is the reason this operation cannot be typed.
+  /// Records one turn of a session's transcript and answers 201 with it.  THE TURN IS SCANNED BEFORE IT IS STORED. The same engine the code-security surface runs reads the payload at this boundary, and a credential in it refuses the append with 422 rather than redacting it — a redacted transcript is one that still had the secret in it once, and this way the author learns which value to rotate. The refusal carries every finding: the rule, the severity, the line, a MASKED preview and the fingerprint. The secret is never in the answer.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
-  Future<Response> postAgentsSessionsByIdEventsWithHttpInfo(String id,) async {
+  ///   ID is the session to append to, from the path.
+  ///
+  /// * [EventIn] eventIn (required):
+  Future<Response> postAgentsSessionsByIdEventsWithHttpInfo(String id, EventIn eventIn,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/agents/sessions/{id}/events'
       .replaceAll('{id}', id);
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = eventIn;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -1653,42 +1656,56 @@ class AgentsApi {
     );
   }
 
-  /// Append one turn to a session's ordered log.
+  /// Records one turn of a session's transcript and answers 201 with it.
   ///
-  /// Records a message, tool-call, spawn, log, status or control turn against the session and answers 201 with the stored event, including the monotonic `seq` the store assigned — the cursor every reader pages from. The same turn is fanned out live to every stream subscriber watching that session's tree.  Requires a validated principal carrying an org, and the session must already exist IN THAT ORG: an id belonging to another tenant is a 404 exactly like one that does not exist, so the log can never be written across a tenant boundary. `actor` defaults to the calling principal when the body names none. `kind` must be one of the six above, and `payload` must be valid JSON of at most 64 KiB.  The payload is scanned for credentials BEFORE it is stored, and a hit REFUSES the write with 422 rather than redacting it: {status, code: \"secret_in_transcript\", error, findings:[…]}, each finding naming the rule, severity, line, a masked preview and a SHA-256 fingerprint the author can match against the value they rotate. The detected value itself appears nowhere in that body, because it was never stored. That in-band findings array is the reason this operation cannot be typed.
+  /// Records one turn of a session's transcript and answers 201 with it.  THE TURN IS SCANNED BEFORE IT IS STORED. The same engine the code-security surface runs reads the payload at this boundary, and a credential in it refuses the append with 422 rather than redacting it — a redacted transcript is one that still had the secret in it once, and this way the author learns which value to rotate. The refusal carries every finding: the rule, the severity, the line, a MASKED preview and the fingerprint. The secret is never in the answer.
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
-  Future<void> postAgentsSessionsByIdEvents(String id,) async {
-    final response = await postAgentsSessionsByIdEventsWithHttpInfo(id,);
+  ///   ID is the session to append to, from the path.
+  ///
+  /// * [EventIn] eventIn (required):
+  Future<EventView?> postAgentsSessionsByIdEvents(String id, EventIn eventIn,) async {
+    final response = await postAgentsSessionsByIdEventsWithHttpInfo(id, eventIn,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'EventView',) as EventView;
+    
+    }
+    return null;
   }
 
-  /// Send text into a running session.
+  /// Sends a steering message to a running session — the door a human or another agent interrupts through.
   ///
-  /// Records `message` as a durable control event carrying the caller's text and answers 200 with {command, event, forwarded} — this is how a dashboard steers an agent mid-run. It is the one command with a required body: a `message` (up to 16 KiB) or a `payload`, and 400 with neither. The credential scan that guards an appended turn covers `payload` here; `message` is bounded but not scanned.   Requires a validated principal carrying an org, and the session must exist IN THAT ORG — a foreign id is a 404, so no tenant can steer another's agents. A FINISHED session (done or error) refuses every command with 409: a run that has ended cannot be steered.  THE COMMAND IS AN INTENT, NOT A STATE CHANGE. Nothing here writes the session's status. A 200 means the command was durably recorded and delivered, never that the agent has actually paused, resumed or stopped; the status becomes paused, done or error only when the surface running the agent reports it back through a session update. That surface learns of the command in one of two ways: a task-backed session (one carrying a workflow id, with a tasks backend wired) has it forwarded to the durable-execution engine, and `forwarded` says so; everything else is record-only, and the running surface — a locally started `hanzo code` session, for one — drains it by polling the session's control endpoint. Today that is every session: the only controller wired forwards nothing, so `forwarded` is false and polling is how a command arrives. If a forward is attempted and fails, the answer is 502 stating that the command was recorded but not forwarded: the intent is never lost.
+  /// Sends a steering message to a running session — the door a human or another agent interrupts through. It requires a `message` or a `payload`; the other three commands do not.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
-  Future<Response> postAgentsSessionsByIdMessageWithHttpInfo(String id,) async {
+  ///   ID is the session to steer, from the path.
+  ///
+  /// * [ControlIn] controlIn (required):
+  Future<Response> postAgentsSessionsByIdMessageWithHttpInfo(String id, ControlIn controlIn,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/agents/sessions/{id}/message'
       .replaceAll('{id}', id);
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = controlIn;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -1702,42 +1719,56 @@ class AgentsApi {
     );
   }
 
-  /// Send text into a running session.
+  /// Sends a steering message to a running session — the door a human or another agent interrupts through.
   ///
-  /// Records `message` as a durable control event carrying the caller's text and answers 200 with {command, event, forwarded} — this is how a dashboard steers an agent mid-run. It is the one command with a required body: a `message` (up to 16 KiB) or a `payload`, and 400 with neither. The credential scan that guards an appended turn covers `payload` here; `message` is bounded but not scanned.   Requires a validated principal carrying an org, and the session must exist IN THAT ORG — a foreign id is a 404, so no tenant can steer another's agents. A FINISHED session (done or error) refuses every command with 409: a run that has ended cannot be steered.  THE COMMAND IS AN INTENT, NOT A STATE CHANGE. Nothing here writes the session's status. A 200 means the command was durably recorded and delivered, never that the agent has actually paused, resumed or stopped; the status becomes paused, done or error only when the surface running the agent reports it back through a session update. That surface learns of the command in one of two ways: a task-backed session (one carrying a workflow id, with a tasks backend wired) has it forwarded to the durable-execution engine, and `forwarded` says so; everything else is record-only, and the running surface — a locally started `hanzo code` session, for one — drains it by polling the session's control endpoint. Today that is every session: the only controller wired forwards nothing, so `forwarded` is false and polling is how a command arrives. If a forward is attempted and fails, the answer is 502 stating that the command was recorded but not forwarded: the intent is never lost.
+  /// Sends a steering message to a running session — the door a human or another agent interrupts through. It requires a `message` or a `payload`; the other three commands do not.
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
-  Future<void> postAgentsSessionsByIdMessage(String id,) async {
-    final response = await postAgentsSessionsByIdMessageWithHttpInfo(id,);
+  ///   ID is the session to steer, from the path.
+  ///
+  /// * [ControlIn] controlIn (required):
+  Future<ControlResult?> postAgentsSessionsByIdMessage(String id, ControlIn controlIn,) async {
+    final response = await postAgentsSessionsByIdMessageWithHttpInfo(id, controlIn,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'ControlResult',) as ControlResult;
+    
+    }
+    return null;
   }
 
-  /// Ask a running session to pause.
+  /// Asks a running session to pause.
   ///
-  /// Records `pause` as a durable control event on the session and answers 200 with {command, event, forwarded} — the stored event carries the `seq` that orders it against every other turn.   Requires a validated principal carrying an org, and the session must exist IN THAT ORG — a foreign id is a 404, so no tenant can steer another's agents. A FINISHED session (done or error) refuses every command with 409: a run that has ended cannot be steered.  THE COMMAND IS AN INTENT, NOT A STATE CHANGE. Nothing here writes the session's status. A 200 means the command was durably recorded and delivered, never that the agent has actually paused, resumed or stopped; the status becomes paused, done or error only when the surface running the agent reports it back through a session update. That surface learns of the command in one of two ways: a task-backed session (one carrying a workflow id, with a tasks backend wired) has it forwarded to the durable-execution engine, and `forwarded` says so; everything else is record-only, and the running surface — a locally started `hanzo code` session, for one — drains it by polling the session's control endpoint. Today that is every session: the only controller wired forwards nothing, so `forwarded` is false and polling is how a command arrives. If a forward is attempted and fails, the answer is 502 stating that the command was recorded but not forwarded: the intent is never lost.
+  /// Asks a running session to pause. Recorded durably, and forwarded to the durable-execution engine when the session is task-backed.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
-  Future<Response> postAgentsSessionsByIdPauseWithHttpInfo(String id,) async {
+  ///   ID is the session to steer, from the path.
+  ///
+  /// * [ControlIn] controlIn (required):
+  Future<Response> postAgentsSessionsByIdPauseWithHttpInfo(String id, ControlIn controlIn,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/agents/sessions/{id}/pause'
       .replaceAll('{id}', id);
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = controlIn;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -1751,42 +1782,56 @@ class AgentsApi {
     );
   }
 
-  /// Ask a running session to pause.
+  /// Asks a running session to pause.
   ///
-  /// Records `pause` as a durable control event on the session and answers 200 with {command, event, forwarded} — the stored event carries the `seq` that orders it against every other turn.   Requires a validated principal carrying an org, and the session must exist IN THAT ORG — a foreign id is a 404, so no tenant can steer another's agents. A FINISHED session (done or error) refuses every command with 409: a run that has ended cannot be steered.  THE COMMAND IS AN INTENT, NOT A STATE CHANGE. Nothing here writes the session's status. A 200 means the command was durably recorded and delivered, never that the agent has actually paused, resumed or stopped; the status becomes paused, done or error only when the surface running the agent reports it back through a session update. That surface learns of the command in one of two ways: a task-backed session (one carrying a workflow id, with a tasks backend wired) has it forwarded to the durable-execution engine, and `forwarded` says so; everything else is record-only, and the running surface — a locally started `hanzo code` session, for one — drains it by polling the session's control endpoint. Today that is every session: the only controller wired forwards nothing, so `forwarded` is false and polling is how a command arrives. If a forward is attempted and fails, the answer is 502 stating that the command was recorded but not forwarded: the intent is never lost.
+  /// Asks a running session to pause. Recorded durably, and forwarded to the durable-execution engine when the session is task-backed.
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
-  Future<void> postAgentsSessionsByIdPause(String id,) async {
-    final response = await postAgentsSessionsByIdPauseWithHttpInfo(id,);
+  ///   ID is the session to steer, from the path.
+  ///
+  /// * [ControlIn] controlIn (required):
+  Future<ControlResult?> postAgentsSessionsByIdPause(String id, ControlIn controlIn,) async {
+    final response = await postAgentsSessionsByIdPauseWithHttpInfo(id, controlIn,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'ControlResult',) as ControlResult;
+    
+    }
+    return null;
   }
 
-  /// Ask a paused session to carry on.
+  /// Asks a paused session to continue, on the same terms as a pause.
   ///
-  /// Records `resume` as a durable control event on the session and answers 200 with {command, event, forwarded}. The session is NOT required to be paused first: the only status this refuses is a finished one, because the live status is the running surface's to report rather than this endpoint's to enforce.   Requires a validated principal carrying an org, and the session must exist IN THAT ORG — a foreign id is a 404, so no tenant can steer another's agents. A FINISHED session (done or error) refuses every command with 409: a run that has ended cannot be steered.  THE COMMAND IS AN INTENT, NOT A STATE CHANGE. Nothing here writes the session's status. A 200 means the command was durably recorded and delivered, never that the agent has actually paused, resumed or stopped; the status becomes paused, done or error only when the surface running the agent reports it back through a session update. That surface learns of the command in one of two ways: a task-backed session (one carrying a workflow id, with a tasks backend wired) has it forwarded to the durable-execution engine, and `forwarded` says so; everything else is record-only, and the running surface — a locally started `hanzo code` session, for one — drains it by polling the session's control endpoint. Today that is every session: the only controller wired forwards nothing, so `forwarded` is false and polling is how a command arrives. If a forward is attempted and fails, the answer is 502 stating that the command was recorded but not forwarded: the intent is never lost.
+  /// Asks a paused session to continue, on the same terms as a pause.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
-  Future<Response> postAgentsSessionsByIdResumeWithHttpInfo(String id,) async {
+  ///   ID is the session to steer, from the path.
+  ///
+  /// * [ControlIn] controlIn (required):
+  Future<Response> postAgentsSessionsByIdResumeWithHttpInfo(String id, ControlIn controlIn,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/agents/sessions/{id}/resume'
       .replaceAll('{id}', id);
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = controlIn;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -1800,42 +1845,56 @@ class AgentsApi {
     );
   }
 
-  /// Ask a paused session to carry on.
+  /// Asks a paused session to continue, on the same terms as a pause.
   ///
-  /// Records `resume` as a durable control event on the session and answers 200 with {command, event, forwarded}. The session is NOT required to be paused first: the only status this refuses is a finished one, because the live status is the running surface's to report rather than this endpoint's to enforce.   Requires a validated principal carrying an org, and the session must exist IN THAT ORG — a foreign id is a 404, so no tenant can steer another's agents. A FINISHED session (done or error) refuses every command with 409: a run that has ended cannot be steered.  THE COMMAND IS AN INTENT, NOT A STATE CHANGE. Nothing here writes the session's status. A 200 means the command was durably recorded and delivered, never that the agent has actually paused, resumed or stopped; the status becomes paused, done or error only when the surface running the agent reports it back through a session update. That surface learns of the command in one of two ways: a task-backed session (one carrying a workflow id, with a tasks backend wired) has it forwarded to the durable-execution engine, and `forwarded` says so; everything else is record-only, and the running surface — a locally started `hanzo code` session, for one — drains it by polling the session's control endpoint. Today that is every session: the only controller wired forwards nothing, so `forwarded` is false and polling is how a command arrives. If a forward is attempted and fails, the answer is 502 stating that the command was recorded but not forwarded: the intent is never lost.
+  /// Asks a paused session to continue, on the same terms as a pause.
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
-  Future<void> postAgentsSessionsByIdResume(String id,) async {
-    final response = await postAgentsSessionsByIdResumeWithHttpInfo(id,);
+  ///   ID is the session to steer, from the path.
+  ///
+  /// * [ControlIn] controlIn (required):
+  Future<ControlResult?> postAgentsSessionsByIdResume(String id, ControlIn controlIn,) async {
+    final response = await postAgentsSessionsByIdResumeWithHttpInfo(id, controlIn,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'ControlResult',) as ControlResult;
+    
+    }
+    return null;
   }
 
-  /// Ask a session to stop for good.
+  /// Ends a running session.
   ///
-  /// Records `stop` as a durable control event on the session and answers 200 with {command, event, forwarded}. Stop is the one command that CANCELS a task-backed session's durable workflow instead of signalling it — pause, resume and message are cooperative signals the workflow decides how to act on, while this tears it down, with the request's `message` recorded as the cancellation reason (a default stands in when none is given).   Requires a validated principal carrying an org, and the session must exist IN THAT ORG — a foreign id is a 404, so no tenant can steer another's agents. A FINISHED session (done or error) refuses every command with 409: a run that has ended cannot be steered.  THE COMMAND IS AN INTENT, NOT A STATE CHANGE. Nothing here writes the session's status. A 200 means the command was durably recorded and delivered, never that the agent has actually paused, resumed or stopped; the status becomes paused, done or error only when the surface running the agent reports it back through a session update. That surface learns of the command in one of two ways: a task-backed session (one carrying a workflow id, with a tasks backend wired) has it forwarded to the durable-execution engine, and `forwarded` says so; everything else is record-only, and the running surface — a locally started `hanzo code` session, for one — drains it by polling the session's control endpoint. Today that is every session: the only controller wired forwards nothing, so `forwarded` is false and polling is how a command arrives. If a forward is attempted and fails, the answer is 502 stating that the command was recorded but not forwarded: the intent is never lost.
+  /// Ends a running session. `message` is recorded as the cancellation reason, which is what a later reader of the transcript sees.  STOPPING IS NOT DELETING: the session, its transcript and anything it produced stay readable. A session that has already finished is 409 rather than a second stop.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
-  Future<Response> postAgentsSessionsByIdStopWithHttpInfo(String id,) async {
+  ///   ID is the session to steer, from the path.
+  ///
+  /// * [ControlIn] controlIn (required):
+  Future<Response> postAgentsSessionsByIdStopWithHttpInfo(String id, ControlIn controlIn,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/agents/sessions/{id}/stop'
       .replaceAll('{id}', id);
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = controlIn;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -1849,18 +1908,29 @@ class AgentsApi {
     );
   }
 
-  /// Ask a session to stop for good.
+  /// Ends a running session.
   ///
-  /// Records `stop` as a durable control event on the session and answers 200 with {command, event, forwarded}. Stop is the one command that CANCELS a task-backed session's durable workflow instead of signalling it — pause, resume and message are cooperative signals the workflow decides how to act on, while this tears it down, with the request's `message` recorded as the cancellation reason (a default stands in when none is given).   Requires a validated principal carrying an org, and the session must exist IN THAT ORG — a foreign id is a 404, so no tenant can steer another's agents. A FINISHED session (done or error) refuses every command with 409: a run that has ended cannot be steered.  THE COMMAND IS AN INTENT, NOT A STATE CHANGE. Nothing here writes the session's status. A 200 means the command was durably recorded and delivered, never that the agent has actually paused, resumed or stopped; the status becomes paused, done or error only when the surface running the agent reports it back through a session update. That surface learns of the command in one of two ways: a task-backed session (one carrying a workflow id, with a tasks backend wired) has it forwarded to the durable-execution engine, and `forwarded` says so; everything else is record-only, and the running surface — a locally started `hanzo code` session, for one — drains it by polling the session's control endpoint. Today that is every session: the only controller wired forwards nothing, so `forwarded` is false and polling is how a command arrives. If a forward is attempted and fails, the answer is 502 stating that the command was recorded but not forwarded: the intent is never lost.
+  /// Ends a running session. `message` is recorded as the cancellation reason, which is what a later reader of the transcript sees.  STOPPING IS NOT DELETING: the session, its transcript and anything it produced stay readable. A session that has already finished is 409 rather than a second stop.
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
-  Future<void> postAgentsSessionsByIdStop(String id,) async {
-    final response = await postAgentsSessionsByIdStopWithHttpInfo(id,);
+  ///   ID is the session to steer, from the path.
+  ///
+  /// * [ControlIn] controlIn (required):
+  Future<ControlResult?> postAgentsSessionsByIdStop(String id, ControlIn controlIn,) async {
+    final response = await postAgentsSessionsByIdStopWithHttpInfo(id, controlIn,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'ControlResult',) as ControlResult;
+    
+    }
+    return null;
   }
 
   /// Registers a machine as an agent target, or re-links one that is already registered.

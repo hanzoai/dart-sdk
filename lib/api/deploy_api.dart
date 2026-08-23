@@ -443,9 +443,9 @@ class DeployApi {
     return null;
   }
 
-  /// Whether this control plane can actually reach the cluster it deploys to
+  /// Health reports whether this deployment can observe the delivery plane.
   ///
-  /// Reports the plane's real reachability: 200 only when the Kubernetes API server answers AND the App CRD is served, 503 with the same body shape otherwise, so a caller reads the same `k8s` and `crd` booleans either way rather than parsing an error envelope. It is a genuine dependency probe, not a process liveness ping — a running plane with no cluster behind it reports degraded.  This is the ONE unauthenticated route that reports state, because liveness must be probe-able without a JWT. It therefore discloses booleans only: the underlying failure — the API server address, an RBAC refusal — is logged server-side and never put on the wire.
+  /// Health reports whether this deployment can observe the delivery plane.  200 only when the Kubernetes API answers AND the App custom resource is served; 503 with the same shape otherwise, naming which half failed. It reports BOOLEANS and never the underlying error, because the route is unauthenticated — liveness must be probe-able without a token — and a raw client error can disclose the apiserver address or an RBAC detail. That detail is logged server-side instead.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getDeployHealthWithHttpInfo() async {
@@ -473,14 +473,22 @@ class DeployApi {
     );
   }
 
-  /// Whether this control plane can actually reach the cluster it deploys to
+  /// Health reports whether this deployment can observe the delivery plane.
   ///
-  /// Reports the plane's real reachability: 200 only when the Kubernetes API server answers AND the App CRD is served, 503 with the same body shape otherwise, so a caller reads the same `k8s` and `crd` booleans either way rather than parsing an error envelope. It is a genuine dependency probe, not a process liveness ping — a running plane with no cluster behind it reports degraded.  This is the ONE unauthenticated route that reports state, because liveness must be probe-able without a JWT. It therefore discloses booleans only: the underlying failure — the API server address, an RBAC refusal — is logged server-side and never put on the wire.
-  Future<void> getDeployHealth() async {
+  /// Health reports whether this deployment can observe the delivery plane.  200 only when the Kubernetes API answers AND the App custom resource is served; 503 with the same shape otherwise, naming which half failed. It reports BOOLEANS and never the underlying error, because the route is unauthenticated — liveness must be probe-able without a token — and a raw client error can disclose the apiserver address or an RBAC detail. That detail is logged server-side instead.
+  Future<DeployHealth?> getDeployHealth() async {
     final response = await getDeployHealthWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'DeployHealth',) as DeployHealth;
+    
+    }
+    return null;
   }
 
   /// Start the sign-in round trip for this console
@@ -806,7 +814,7 @@ class DeployApi {
 
   /// The console's rollback control — today it requests a reconcile, nothing more
   ///
-  /// Performs exactly what the sync action performs: it stamps the sync-requested timestamp onto the application's App CR and answers the application re-projected. It does NOT select, pin or revert to a prior image tag, and that is the one thing to know before wiring anything to it — the name is the console's, the behaviour is the sync. Pinning a previous release rides the release seam, which this address does not call yet.  SuperAdmin-only and fail-closed, reading no request body, with an unknown application name a 404 and no cluster client a 503 — the same gate and the same failures as the sync it shares a handler with.
+  /// Performs exactly what the sync action performs: it stamps the sync-requested timestamp onto the application's App CR and answers the application re-projected. It does NOT select, pin or revert to a prior image tag, and that is the one thing to know before wiring anything to it — the name is the console's, the behaviour is the sync. Pinning a previous release rides the release client, which this address does not call yet.  SuperAdmin-only and fail-closed, reading no request body, with an unknown application name a 404 and no cluster client a 503 — the same gate and the same failures as the sync it shares a handler with.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -841,7 +849,7 @@ class DeployApi {
 
   /// The console's rollback control — today it requests a reconcile, nothing more
   ///
-  /// Performs exactly what the sync action performs: it stamps the sync-requested timestamp onto the application's App CR and answers the application re-projected. It does NOT select, pin or revert to a prior image tag, and that is the one thing to know before wiring anything to it — the name is the console's, the behaviour is the sync. Pinning a previous release rides the release seam, which this address does not call yet.  SuperAdmin-only and fail-closed, reading no request body, with an unknown application name a 404 and no cluster client a 503 — the same gate and the same failures as the sync it shares a handler with.
+  /// Performs exactly what the sync action performs: it stamps the sync-requested timestamp onto the application's App CR and answers the application re-projected. It does NOT select, pin or revert to a prior image tag, and that is the one thing to know before wiring anything to it — the name is the console's, the behaviour is the sync. Pinning a previous release rides the release client, which this address does not call yet.  SuperAdmin-only and fail-closed, reading no request body, with an unknown application name a 404 and no cluster client a 503 — the same gate and the same failures as the sync it shares a handler with.
   ///
   /// Parameters:
   ///

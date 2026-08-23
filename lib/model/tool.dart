@@ -59,7 +59,7 @@ class Tool {
   ///
   String? name;
 
-  /// Price is what a call costs and who is paid, absent for a free tool. Enforcement is the x402 settlement seam; this is the declaration.
+  /// Price is what a call costs and who is paid, absent for a free tool. Enforcement is the x402 settlement client; this is the declaration.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

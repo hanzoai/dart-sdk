@@ -687,15 +687,16 @@ class GuideApi {
     }
   }
 
-  /// Mark a step of your org's journey finished
+  /// Marks one step of the caller org's journey complete and returns the refreshed journey.
   ///
-  /// Moves one step of the caller org's journey to done and answers the whole refreshed journey, which is what unblocks everything downstream of it.  Dependency-GATED like start: finishing a step whose prerequisites are themselves unfinished is 409 carrying `{error, step, blockedBy}` naming what is in the way, not a silent success. A step id the org's active journey does not contain is 404. Skipping is the ungated alternative — a founder declaring a step does not apply — and it lives at /skip.  Requires a validated org; 403 without one. The mark is recorded as `manual`, and /reset returns the step to todo.
+  /// Marks one step of the caller org's journey complete and returns the refreshed journey.  Dependency-GATED, exactly as start is: a step whose prerequisites are unfinished is refused 409 carrying {error, step, blockedBy} naming what is in the way.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
+  ///   ID is the step's id, as it appears in the journey (e.g. \"gsuite\").
   Future<Response> postGuideStepsByIdDoneWithHttpInfo(String id,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/guide/steps/{id}/done'
@@ -722,18 +723,27 @@ class GuideApi {
     );
   }
 
-  /// Mark a step of your org's journey finished
+  /// Marks one step of the caller org's journey complete and returns the refreshed journey.
   ///
-  /// Moves one step of the caller org's journey to done and answers the whole refreshed journey, which is what unblocks everything downstream of it.  Dependency-GATED like start: finishing a step whose prerequisites are themselves unfinished is 409 carrying `{error, step, blockedBy}` naming what is in the way, not a silent success. A step id the org's active journey does not contain is 404. Skipping is the ungated alternative — a founder declaring a step does not apply — and it lives at /skip.  Requires a validated org; 403 without one. The mark is recorded as `manual`, and /reset returns the step to todo.
+  /// Marks one step of the caller org's journey complete and returns the refreshed journey.  Dependency-GATED, exactly as start is: a step whose prerequisites are unfinished is refused 409 carrying {error, step, blockedBy} naming what is in the way.
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
-  Future<void> postGuideStepsByIdDone(String id,) async {
+  ///   ID is the step's id, as it appears in the journey (e.g. \"gsuite\").
+  Future<OverviewView?> postGuideStepsByIdDone(String id,) async {
     final response = await postGuideStepsByIdDoneWithHttpInfo(id,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'OverviewView',) as OverviewView;
+    
+    }
+    return null;
   }
 
   /// Returns one step of the caller org's journey to todo — clearing a manual mark or a skip — and returns the refreshed journey.
@@ -854,15 +864,16 @@ class GuideApi {
     return null;
   }
 
-  /// Mark a step of your org's journey started
+  /// Marks one step of the caller org's journey in progress and returns the refreshed journey.
   ///
-  /// Moves one step of the caller org's journey to in-progress and answers the whole refreshed journey, so a console needs no second read.  The transition is dependency-GATED, and that is why the answer set is wider than a success: a step whose prerequisites are unfinished is 409 carrying `{error, step, blockedBy}`, where `blockedBy` names the exact steps in the way — enough to render the blockage rather than merely report it. A step id the org's active journey does not contain is 404.  Requires a validated org; 403 without one, and the journey read and written is that org's alone. The mark is recorded as `manual`, and the journey is reconciled against the auto-detectors on every read, so a step the org has demonstrably completed elsewhere can still be moved to done underneath it.
+  /// Marks one step of the caller org's journey in progress and returns the refreshed journey.  Dependency-GATED: a step whose prerequisites are unfinished is refused 409 carrying {error, step, blockedBy}, where blockedBy names the exact steps in the way — enough to render the reason without asking again.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
+  ///   ID is the step's id, as it appears in the journey (e.g. \"gsuite\").
   Future<Response> postGuideStepsByIdStartWithHttpInfo(String id,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/guide/steps/{id}/start'
@@ -889,18 +900,27 @@ class GuideApi {
     );
   }
 
-  /// Mark a step of your org's journey started
+  /// Marks one step of the caller org's journey in progress and returns the refreshed journey.
   ///
-  /// Moves one step of the caller org's journey to in-progress and answers the whole refreshed journey, so a console needs no second read.  The transition is dependency-GATED, and that is why the answer set is wider than a success: a step whose prerequisites are unfinished is 409 carrying `{error, step, blockedBy}`, where `blockedBy` names the exact steps in the way — enough to render the blockage rather than merely report it. A step id the org's active journey does not contain is 404.  Requires a validated org; 403 without one, and the journey read and written is that org's alone. The mark is recorded as `manual`, and the journey is reconciled against the auto-detectors on every read, so a step the org has demonstrably completed elsewhere can still be moved to done underneath it.
+  /// Marks one step of the caller org's journey in progress and returns the refreshed journey.  Dependency-GATED: a step whose prerequisites are unfinished is refused 409 carrying {error, step, blockedBy}, where blockedBy names the exact steps in the way — enough to render the reason without asking again.
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
-  Future<void> postGuideStepsByIdStart(String id,) async {
+  ///   ID is the step's id, as it appears in the journey (e.g. \"gsuite\").
+  Future<OverviewView?> postGuideStepsByIdStart(String id,) async {
     final response = await postGuideStepsByIdStartWithHttpInfo(id,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'OverviewView',) as OverviewView;
+    
+    }
+    return null;
   }
 
   /// Publish a new version of the brand blueprint

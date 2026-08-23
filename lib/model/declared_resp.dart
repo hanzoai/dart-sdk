@@ -10,19 +10,14 @@
 
 part of hanzoai.cloud;
 
-class Listing {
-  /// Returns a new [Listing] instance.
-  Listing({
-    this.lastModified,
-    this.name,
+class DeclaredResp {
+  /// Returns a new [DeclaredResp] instance.
+  DeclaredResp({
+    this.apps = const [],
+    this.cdUnavailable,
+    this.org,
   });
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? lastModified;
+  List<Declared> apps;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -30,41 +25,53 @@ class Listing {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? name;
+  Unreadable? cdUnavailable;
+
+  /// Org is the directory read — the caller's own, or another when a SuperAdmin asked to act as it.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? org;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is Listing &&
-    other.lastModified == lastModified &&
-    other.name == name;
+  bool operator ==(Object other) => identical(this, other) || other is DeclaredResp &&
+    _deepEquality.equals(other.apps, apps) &&
+    other.cdUnavailable == cdUnavailable &&
+    other.org == org;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (lastModified == null ? 0 : lastModified!.hashCode) +
-    (name == null ? 0 : name!.hashCode);
+    (apps.hashCode) +
+    (cdUnavailable == null ? 0 : cdUnavailable!.hashCode) +
+    (org == null ? 0 : org!.hashCode);
 
   @override
-  String toString() => 'Listing[lastModified=$lastModified, name=$name]';
+  String toString() => 'DeclaredResp[apps=$apps, cdUnavailable=$cdUnavailable, org=$org]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.lastModified != null) {
-      json[r'lastModified'] = this.lastModified;
+      json[r'apps'] = this.apps;
+    if (this.cdUnavailable != null) {
+      json[r'cdUnavailable'] = this.cdUnavailable;
     } else {
-      json[r'lastModified'] = null;
+      json[r'cdUnavailable'] = null;
     }
-    if (this.name != null) {
-      json[r'name'] = this.name;
+    if (this.org != null) {
+      json[r'org'] = this.org;
     } else {
-      json[r'name'] = null;
+      json[r'org'] = null;
     }
     return json;
   }
 
-  /// Returns a new [Listing] instance and imports its values from
+  /// Returns a new [DeclaredResp] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static Listing? fromJson(dynamic value) {
+  static DeclaredResp? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -73,25 +80,26 @@ class Listing {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "Listing[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "Listing[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "DeclaredResp[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "DeclaredResp[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return Listing(
-        lastModified: mapValueOfType<String>(json, r'lastModified'),
-        name: mapValueOfType<String>(json, r'name'),
+      return DeclaredResp(
+        apps: Declared.listFromJson(json[r'apps']),
+        cdUnavailable: Unreadable.fromJson(json[r'cdUnavailable']),
+        org: mapValueOfType<String>(json, r'org'),
       );
     }
     return null;
   }
 
-  static List<Listing> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <Listing>[];
+  static List<DeclaredResp> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <DeclaredResp>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = Listing.fromJson(row);
+        final value = DeclaredResp.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -100,12 +108,12 @@ class Listing {
     return result.toList(growable: growable);
   }
 
-  static Map<String, Listing> mapFromJson(dynamic json) {
-    final map = <String, Listing>{};
+  static Map<String, DeclaredResp> mapFromJson(dynamic json) {
+    final map = <String, DeclaredResp>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = Listing.fromJson(entry.value);
+        final value = DeclaredResp.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -114,14 +122,14 @@ class Listing {
     return map;
   }
 
-  // maps a json object with a list of Listing-objects as value to a dart map
-  static Map<String, List<Listing>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<Listing>>{};
+  // maps a json object with a list of DeclaredResp-objects as value to a dart map
+  static Map<String, List<DeclaredResp>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<DeclaredResp>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = Listing.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = DeclaredResp.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

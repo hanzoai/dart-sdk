@@ -232,6 +232,7 @@ lib/model/bank_question.dart
 lib/model/bank_tally.dart
 lib/model/bank_txn_row.dart
 lib/model/base_health.dart
+lib/model/base_view.dart
 lib/model/begin_in.dart
 lib/model/benchmark.dart
 lib/model/benchmark_catalog.dart
@@ -356,6 +357,8 @@ lib/model/catalog_page.dart
 lib/model/category.dart
 lib/model/category_in.dart
 lib/model/category_spend.dart
+lib/model/cd_app.dart
+lib/model/cd_resp.dart
 lib/model/centre.dart
 lib/model/chain.dart
 lib/model/chain_list.dart
@@ -369,6 +372,7 @@ lib/model/channel_result.dart
 lib/model/channel_spec.dart
 lib/model/channel_view.dart
 lib/model/charge.dart
+lib/model/charged.dart
 lib/model/chat_channels.dart
 lib/model/chat_request.dart
 lib/model/chat_response.dart
@@ -439,7 +443,9 @@ lib/model/context_bundle.dart
 lib/model/context_in.dart
 lib/model/control_command_view.dart
 lib/model/control_drain.dart
+lib/model/control_in.dart
 lib/model/control_list.dart
+lib/model/control_result.dart
 lib/model/cookie_ack.dart
 lib/model/corpus_view.dart
 lib/model/cost_line.dart
@@ -487,6 +493,7 @@ lib/model/dataroom_link_create.dart
 lib/model/dataroom_link_one.dart
 lib/model/dataroom_link_stats.dart
 lib/model/dataroom_links.dart
+lib/model/dataroom_liveness.dart
 lib/model/dataroom_member.dart
 lib/model/dataroom_membership.dart
 lib/model/dataroom_page_stat.dart
@@ -502,6 +509,10 @@ lib/model/dataset_view.dart
 lib/model/decide_body.dart
 lib/model/decision_in.dart
 lib/model/deck_out.dart
+lib/model/declaration.dart
+lib/model/declare_env.dart
+lib/model/declared.dart
+lib/model/declared_resp.dart
 lib/model/def_row.dart
 lib/model/definition.dart
 lib/model/defs_out.dart
@@ -510,6 +521,7 @@ lib/model/deleted_out.dart
 lib/model/delivery.dart
 lib/model/delivery_list.dart
 lib/model/delivery_row.dart
+lib/model/deploy_health.dart
 lib/model/deploy_logs.dart
 lib/model/deploy_record.dart
 lib/model/deploy_req.dart
@@ -520,6 +532,7 @@ lib/model/destination_field.dart
 lib/model/destination_list.dart
 lib/model/destination_status.dart
 lib/model/destination_test.dart
+lib/model/detachment.dart
 lib/model/device_poll_out.dart
 lib/model/device_start_in.dart
 lib/model/device_start_out.dart
@@ -601,6 +614,7 @@ lib/model/evaluator_list.dart
 lib/model/evaluator_req.dart
 lib/model/evaluator_view.dart
 lib/model/event.dart
+lib/model/event_in.dart
 lib/model/event_list.dart
 lib/model/event_view.dart
 lib/model/exec_request.dart
@@ -1919,6 +1933,7 @@ lib/model/projects_release.dart
 lib/model/projects_repo.dart
 lib/model/projects_site.dart
 lib/model/projects_site_deploy.dart
+lib/model/projects_star.dart
 lib/model/projects_update.dart
 lib/model/projects_update_repo.dart
 lib/model/projects_upload_grant.dart
@@ -1973,6 +1988,8 @@ lib/model/reading_req.dart
 lib/model/reading_view.dart
 lib/model/readme_json.dart
 lib/model/receipt.dart
+lib/model/recharge.dart
+lib/model/recharged.dart
 lib/model/record_list.dart
 lib/model/redeem_input.dart
 lib/model/redeem_result.dart
@@ -2309,6 +2326,7 @@ lib/model/tool_result.dart
 lib/model/top.dart
 lib/model/top_models.dart
 lib/model/top_products.dart
+lib/model/topup_in.dart
 lib/model/total_view.dart
 lib/model/trace_list.dart
 lib/model/trace_view.dart
@@ -2349,6 +2367,7 @@ lib/model/trust_refused.dart
 lib/model/trust_settings.dart
 lib/model/trust_tally.dart
 lib/model/txn.dart
+lib/model/unreadable.dart
 lib/model/unreconciled_out.dart
 lib/model/unsubscribed.dart
 lib/model/update_agent_in.dart

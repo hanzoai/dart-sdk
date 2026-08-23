@@ -10,11 +10,10 @@
 
 part of hanzoai.cloud;
 
-class Listing {
-  /// Returns a new [Listing] instance.
-  Listing({
-    this.lastModified,
-    this.name,
+class Unreadable {
+  /// Returns a new [Unreadable] instance.
+  Unreadable({
+    this.reason,
   });
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -22,49 +21,34 @@ class Listing {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? lastModified;
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? name;
+  String? reason;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is Listing &&
-    other.lastModified == lastModified &&
-    other.name == name;
+  bool operator ==(Object other) => identical(this, other) || other is Unreadable &&
+    other.reason == reason;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (lastModified == null ? 0 : lastModified!.hashCode) +
-    (name == null ? 0 : name!.hashCode);
+    (reason == null ? 0 : reason!.hashCode);
 
   @override
-  String toString() => 'Listing[lastModified=$lastModified, name=$name]';
+  String toString() => 'Unreadable[reason=$reason]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.lastModified != null) {
-      json[r'lastModified'] = this.lastModified;
+    if (this.reason != null) {
+      json[r'reason'] = this.reason;
     } else {
-      json[r'lastModified'] = null;
-    }
-    if (this.name != null) {
-      json[r'name'] = this.name;
-    } else {
-      json[r'name'] = null;
+      json[r'reason'] = null;
     }
     return json;
   }
 
-  /// Returns a new [Listing] instance and imports its values from
+  /// Returns a new [Unreadable] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static Listing? fromJson(dynamic value) {
+  static Unreadable? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -73,25 +57,24 @@ class Listing {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "Listing[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "Listing[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "Unreadable[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "Unreadable[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return Listing(
-        lastModified: mapValueOfType<String>(json, r'lastModified'),
-        name: mapValueOfType<String>(json, r'name'),
+      return Unreadable(
+        reason: mapValueOfType<String>(json, r'reason'),
       );
     }
     return null;
   }
 
-  static List<Listing> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <Listing>[];
+  static List<Unreadable> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <Unreadable>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = Listing.fromJson(row);
+        final value = Unreadable.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -100,12 +83,12 @@ class Listing {
     return result.toList(growable: growable);
   }
 
-  static Map<String, Listing> mapFromJson(dynamic json) {
-    final map = <String, Listing>{};
+  static Map<String, Unreadable> mapFromJson(dynamic json) {
+    final map = <String, Unreadable>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = Listing.fromJson(entry.value);
+        final value = Unreadable.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -114,14 +97,14 @@ class Listing {
     return map;
   }
 
-  // maps a json object with a list of Listing-objects as value to a dart map
-  static Map<String, List<Listing>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<Listing>>{};
+  // maps a json object with a list of Unreadable-objects as value to a dart map
+  static Map<String, List<Unreadable>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<Unreadable>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = Listing.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = Unreadable.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

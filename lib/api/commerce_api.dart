@@ -367,11 +367,14 @@ class CommerceApi {
   ///
   /// Parameters:
   ///
-  /// * [String] slug (required):
-  Future<Response> deleteCommerceRatesEntriesBySlugWithHttpInfo(String slug,) async {
+  /// * [String] product (required):
+  ///
+  /// * [String] meter (required):
+  Future<Response> deleteCommerceRatesEntriesByProductByMeterWithHttpInfo(String product, String meter,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/commerce/rates/entries/{slug}'
-      .replaceAll('{slug}', slug);
+    final path = r'/v1/commerce/rates/entries/{product}/{meter}'
+      .replaceAll('{product}', product)
+      .replaceAll('{meter}', meter);
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -400,9 +403,11 @@ class CommerceApi {
   ///
   /// Parameters:
   ///
-  /// * [String] slug (required):
-  Future<void> deleteCommerceRatesEntriesBySlug(String slug,) async {
-    final response = await deleteCommerceRatesEntriesBySlugWithHttpInfo(slug,);
+  /// * [String] product (required):
+  ///
+  /// * [String] meter (required):
+  Future<void> deleteCommerceRatesEntriesByProductByMeter(String product, String meter,) async {
+    final response = await deleteCommerceRatesEntriesByProductByMeterWithHttpInfo(product, meter,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -5350,7 +5355,7 @@ class CommerceApi {
 
   /// Load the published price document, reconciling rather than replacing
   ///
-  /// Takes an array of rates and seeds the authority from it. This is the seed, driven from admin rather than compiled in, because 506 published prices in an embed made a price change wait for a build. It RECONCILES: a row that matches is left alone, a row that has drifted is corrected, and a row an operator edited is skipped — so importing the same document twice is a no-op and importing a corrected one moves exactly the rows that changed. Answers what it received, created, corrected and left unchanged, so an import that changes nothing reads as nothing to do rather than as a failure. An empty array is refused 400. SuperAdmin only.
+  /// Takes an array of rates and seeds the authority from it — the same reconcile the boot catalog runs, driven from admin instead. It RECONCILES: a row that matches is left alone, a row that has drifted is corrected, and a row an operator edited is skipped — so importing the same document twice is a no-op and importing a corrected one moves exactly the rows that changed. Answers what it received, created, corrected and left unchanged, so an import that changes nothing reads as nothing to do rather than as a failure. An empty array is refused 400. SuperAdmin only.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> postCommerceRatesImportWithHttpInfo() async {
@@ -5380,7 +5385,7 @@ class CommerceApi {
 
   /// Load the published price document, reconciling rather than replacing
   ///
-  /// Takes an array of rates and seeds the authority from it. This is the seed, driven from admin rather than compiled in, because 506 published prices in an embed made a price change wait for a build. It RECONCILES: a row that matches is left alone, a row that has drifted is corrected, and a row an operator edited is skipped — so importing the same document twice is a no-op and importing a corrected one moves exactly the rows that changed. Answers what it received, created, corrected and left unchanged, so an import that changes nothing reads as nothing to do rather than as a failure. An empty array is refused 400. SuperAdmin only.
+  /// Takes an array of rates and seeds the authority from it — the same reconcile the boot catalog runs, driven from admin instead. It RECONCILES: a row that matches is left alone, a row that has drifted is corrected, and a row an operator edited is skipped — so importing the same document twice is a no-op and importing a corrected one moves exactly the rows that changed. Answers what it received, created, corrected and left unchanged, so an import that changes nothing reads as nothing to do rather than as a failure. An empty array is refused 400. SuperAdmin only.
   Future<void> postCommerceRatesImport() async {
     final response = await postCommerceRatesImportWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -7725,11 +7730,14 @@ class CommerceApi {
   ///
   /// Parameters:
   ///
-  /// * [String] slug (required):
-  Future<Response> putCommerceRatesEntriesBySlugWithHttpInfo(String slug,) async {
+  /// * [String] product (required):
+  ///
+  /// * [String] meter (required):
+  Future<Response> putCommerceRatesEntriesByProductByMeterWithHttpInfo(String product, String meter,) async {
     // ignore: prefer_const_declarations
-    final path = r'/v1/commerce/rates/entries/{slug}'
-      .replaceAll('{slug}', slug);
+    final path = r'/v1/commerce/rates/entries/{product}/{meter}'
+      .replaceAll('{product}', product)
+      .replaceAll('{meter}', meter);
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -7758,9 +7766,11 @@ class CommerceApi {
   ///
   /// Parameters:
   ///
-  /// * [String] slug (required):
-  Future<void> putCommerceRatesEntriesBySlug(String slug,) async {
-    final response = await putCommerceRatesEntriesBySlugWithHttpInfo(slug,);
+  /// * [String] product (required):
+  ///
+  /// * [String] meter (required):
+  Future<void> putCommerceRatesEntriesByProductByMeter(String product, String meter,) async {
+    final response = await putCommerceRatesEntriesByProductByMeterWithHttpInfo(product, meter,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }

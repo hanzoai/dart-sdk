@@ -266,6 +266,95 @@ class GraphApi {
     return null;
   }
 
+  /// Find assertions by their text rather than by an entity key
+  ///
+  /// Finds assertions by their text where read finds them by their keys.  It is the READ with one more term, not a second way to leave the store: same order, same ceiling, same tenancy, and searching composes with narrowing by relation and by instant because all of them are terms of one filter.  It resolves nothing. What matches is what was asserted, including claims that were later corrected — which is the honest answer to \"where is this mentioned\" and the reason the caller then asks resolve about what it found.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] q:
+  ///   Q is what to look for: words, matched as prefixes, all of them required. Punctuation is text here rather than syntax, so an entity key searches as itself.
+  ///
+  /// * [String] relation:
+  ///   Relation narrows to one relation. Absent matches every relation.
+  ///
+  /// * [String] asOf:
+  ///   AsOf bounds the search to what was knowable at an instant, RFC 3339. Absent searches everything this plane holds.
+  ///
+  /// * [int] limit:
+  ///   Limit caps how many assertions come back. Absent, zero, or anything above the walk ceiling is the ceiling.
+  Future<Response> graphSearchWithHttpInfo({ String? q, String? relation, String? asOf, int? limit, }) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/graph/search';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    if (q != null) {
+      queryParams.addAll(_queryParams('', 'q', q));
+    }
+    if (relation != null) {
+      queryParams.addAll(_queryParams('', 'relation', relation));
+    }
+    if (asOf != null) {
+      queryParams.addAll(_queryParams('', 'as_of', asOf));
+    }
+    if (limit != null) {
+      queryParams.addAll(_queryParams('', 'limit', limit));
+    }
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Find assertions by their text rather than by an entity key
+  ///
+  /// Finds assertions by their text where read finds them by their keys.  It is the READ with one more term, not a second way to leave the store: same order, same ceiling, same tenancy, and searching composes with narrowing by relation and by instant because all of them are terms of one filter.  It resolves nothing. What matches is what was asserted, including claims that were later corrected — which is the honest answer to \"where is this mentioned\" and the reason the caller then asks resolve about what it found.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] q:
+  ///   Q is what to look for: words, matched as prefixes, all of them required. Punctuation is text here rather than syntax, so an entity key searches as itself.
+  ///
+  /// * [String] relation:
+  ///   Relation narrows to one relation. Absent matches every relation.
+  ///
+  /// * [String] asOf:
+  ///   AsOf bounds the search to what was knowable at an instant, RFC 3339. Absent searches everything this plane holds.
+  ///
+  /// * [int] limit:
+  ///   Limit caps how many assertions come back. Absent, zero, or anything above the walk ceiling is the ceiling.
+  Future<GraphReadOut?> graphSearch({ String? q, String? relation, String? asOf, int? limit, }) async {
+    final response = await graphSearchWithHttpInfo( q: q, relation: relation, asOf: asOf, limit: limit, );
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GraphReadOut',) as GraphReadOut;
+    
+    }
+    return null;
+  }
+
   /// The relations in use, and the rule that resolves a conflict
   ///
   /// Note: This method returns the HTTP [Response].

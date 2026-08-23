@@ -10,61 +10,63 @@
 
 part of hanzoai.cloud;
 
-class Listing {
-  /// Returns a new [Listing] instance.
-  Listing({
-    this.lastModified,
-    this.name,
+class DataroomLiveness {
+  /// Returns a new [DataroomLiveness] instance.
+  DataroomLiveness({
+    this.service,
+    this.status,
   });
+  /// Service names the subsystem answering, so a probe response is attributable when several are collected together.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? lastModified;
+  String? service;
 
+  /// Status is `ok`. This probe has no degraded answer by design: it reports process liveness and nothing that could be false while the process serves.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? name;
+  String? status;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is Listing &&
-    other.lastModified == lastModified &&
-    other.name == name;
+  bool operator ==(Object other) => identical(this, other) || other is DataroomLiveness &&
+    other.service == service &&
+    other.status == status;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (lastModified == null ? 0 : lastModified!.hashCode) +
-    (name == null ? 0 : name!.hashCode);
+    (service == null ? 0 : service!.hashCode) +
+    (status == null ? 0 : status!.hashCode);
 
   @override
-  String toString() => 'Listing[lastModified=$lastModified, name=$name]';
+  String toString() => 'DataroomLiveness[service=$service, status=$status]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.lastModified != null) {
-      json[r'lastModified'] = this.lastModified;
+    if (this.service != null) {
+      json[r'service'] = this.service;
     } else {
-      json[r'lastModified'] = null;
+      json[r'service'] = null;
     }
-    if (this.name != null) {
-      json[r'name'] = this.name;
+    if (this.status != null) {
+      json[r'status'] = this.status;
     } else {
-      json[r'name'] = null;
+      json[r'status'] = null;
     }
     return json;
   }
 
-  /// Returns a new [Listing] instance and imports its values from
+  /// Returns a new [DataroomLiveness] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static Listing? fromJson(dynamic value) {
+  static DataroomLiveness? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -73,25 +75,25 @@ class Listing {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "Listing[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "Listing[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "DataroomLiveness[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "DataroomLiveness[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return Listing(
-        lastModified: mapValueOfType<String>(json, r'lastModified'),
-        name: mapValueOfType<String>(json, r'name'),
+      return DataroomLiveness(
+        service: mapValueOfType<String>(json, r'service'),
+        status: mapValueOfType<String>(json, r'status'),
       );
     }
     return null;
   }
 
-  static List<Listing> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <Listing>[];
+  static List<DataroomLiveness> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <DataroomLiveness>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = Listing.fromJson(row);
+        final value = DataroomLiveness.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -100,12 +102,12 @@ class Listing {
     return result.toList(growable: growable);
   }
 
-  static Map<String, Listing> mapFromJson(dynamic json) {
-    final map = <String, Listing>{};
+  static Map<String, DataroomLiveness> mapFromJson(dynamic json) {
+    final map = <String, DataroomLiveness>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = Listing.fromJson(entry.value);
+        final value = DataroomLiveness.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -114,14 +116,14 @@ class Listing {
     return map;
   }
 
-  // maps a json object with a list of Listing-objects as value to a dart map
-  static Map<String, List<Listing>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<Listing>>{};
+  // maps a json object with a list of DataroomLiveness-objects as value to a dart map
+  static Map<String, List<DataroomLiveness>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<DataroomLiveness>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = Listing.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = DataroomLiveness.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

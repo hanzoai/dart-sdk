@@ -139,12 +139,17 @@ class PlatformApi {
     }
   }
 
-  /// What this organization has declared, and what CD did with it
+  /// Answers what this organisation has declared, joined with what the delivery plane has done about it.
   ///
-  /// Returns the declarations in the caller's own org directory, each joined with the Hanzo CD Application reconciling it — sync verdict, health, the universe commit last applied. `cd` is null for a declaration the delivery plane has no Application for, which is the normal state of one that exists only on a branch.  If the delivery plane cannot be read, the declarations are still returned and `cdUnavailable` says why. An unreadable plane never renders as \"nothing has been reconciled\".
+  /// Answers what this organisation has declared, joined with what the delivery plane has done about it.  The join is best-effort BY DESIGN and says so when it is missing: the declarations ARE the answer to \"what have I deployed\", so refusing the whole board because the cluster is unreadable would lose the half that is readable. What must never happen is a silent null — an unreadable plane is reported as `cd.unavailable` carrying the reason, never as an app with no reconciliation.
   ///
   /// Note: This method returns the HTTP [Response].
-  Future<Response> getPlatformAppsWithHttpInfo() async {
+  ///
+  /// Parameters:
+  ///
+  /// * [String] org:
+  ///   Org names the organisation whose declarations to read, defaulting to the caller's own. Only a SuperAdmin may name one that is not theirs; anyone else naming a foreign org is refused, so this widens nothing by itself.
+  Future<Response> getPlatformAppsWithHttpInfo({ String? org, }) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/platform/apps';
 
@@ -154,6 +159,10 @@ class PlatformApi {
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
+
+    if (org != null) {
+      queryParams.addAll(_queryParams('', 'org', org));
+    }
 
     const contentTypes = <String>[];
 
@@ -169,26 +178,43 @@ class PlatformApi {
     );
   }
 
-  /// What this organization has declared, and what CD did with it
+  /// Answers what this organisation has declared, joined with what the delivery plane has done about it.
   ///
-  /// Returns the declarations in the caller's own org directory, each joined with the Hanzo CD Application reconciling it — sync verdict, health, the universe commit last applied. `cd` is null for a declaration the delivery plane has no Application for, which is the normal state of one that exists only on a branch.  If the delivery plane cannot be read, the declarations are still returned and `cdUnavailable` says why. An unreadable plane never renders as \"nothing has been reconciled\".
-  Future<void> getPlatformApps() async {
-    final response = await getPlatformAppsWithHttpInfo();
+  /// Answers what this organisation has declared, joined with what the delivery plane has done about it.  The join is best-effort BY DESIGN and says so when it is missing: the declarations ARE the answer to \"what have I deployed\", so refusing the whole board because the cluster is unreadable would lose the half that is readable. What must never happen is a silent null — an unreadable plane is reported as `cd.unavailable` carrying the reason, never as an app with no reconciliation.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] org:
+  ///   Org names the organisation whose declarations to read, defaulting to the caller's own. Only a SuperAdmin may name one that is not theirs; anyone else naming a foreign org is refused, so this widens nothing by itself.
+  Future<DeclaredResp?> getPlatformApps({ String? org, }) async {
+    final response = await getPlatformAppsWithHttpInfo( org: org, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'DeclaredResp',) as DeclaredResp;
+    
+    }
+    return null;
   }
 
-  /// One declaration
+  /// Answers ONE declaration — what git says this app is, before the delivery plane has had any say in it.
   ///
-  /// The values file for one app as git declares it: image repository and tag, hosts, replicas, and whether CD is automated on it. 404 when this organization declares no such app.
+  /// Answers ONE declaration — what git says this app is, before the delivery plane has had any say in it.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] app (required):
-  Future<Response> getPlatformAppsByAppWithHttpInfo(String app,) async {
+  ///   App is the DNS-1123 label of the declaration. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which app is read whatever else is sent.
+  ///
+  /// * [String] org:
+  ///   Org names the organisation the declaration lives in, defaulting to the caller's own and subject to the same SuperAdmin rule as the listing.
+  Future<Response> getPlatformAppsByAppWithHttpInfo(String app, { String? org, }) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/platform/apps/{app}'
       .replaceAll('{app}', app);
@@ -200,6 +226,10 @@ class PlatformApi {
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
+    if (org != null) {
+      queryParams.addAll(_queryParams('', 'org', org));
+    }
+
     const contentTypes = <String>[];
 
 
@@ -214,30 +244,46 @@ class PlatformApi {
     );
   }
 
-  /// One declaration
+  /// Answers ONE declaration — what git says this app is, before the delivery plane has had any say in it.
   ///
-  /// The values file for one app as git declares it: image repository and tag, hosts, replicas, and whether CD is automated on it. 404 when this organization declares no such app.
+  /// Answers ONE declaration — what git says this app is, before the delivery plane has had any say in it.
   ///
   /// Parameters:
   ///
   /// * [String] app (required):
-  Future<void> getPlatformAppsByApp(String app,) async {
-    final response = await getPlatformAppsByAppWithHttpInfo(app,);
+  ///   App is the DNS-1123 label of the declaration. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which app is read whatever else is sent.
+  ///
+  /// * [String] org:
+  ///   Org names the organisation the declaration lives in, defaulting to the caller's own and subject to the same SuperAdmin rule as the listing.
+  Future<Declaration?> getPlatformAppsByApp(String app, { String? org, }) async {
+    final response = await getPlatformAppsByAppWithHttpInfo(app,  org: org, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Declaration',) as Declaration;
+    
+    }
+    return null;
   }
 
-  /// One app's reconciliation
+  /// Answers ONE app's reconciliation alone — the poll a deploy console makes while it waits, without re-reading the whole inventory each time.
   ///
-  /// The Hanzo CD Application for one declaration, on its own — the poll a deploy view makes while it waits, without re-reading the whole inventory. 404 while the declaration exists only on a branch, because the generator reads main.
+  /// Answers ONE app's reconciliation alone — the poll a deploy console makes while it waits, without re-reading the whole inventory each time.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] app (required):
-  Future<Response> getPlatformAppsByAppCdWithHttpInfo(String app,) async {
+  ///   App is the DNS-1123 label of the declaration. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which app is read whatever else is sent.
+  ///
+  /// * [String] org:
+  ///   Org names the organisation the declaration lives in, defaulting to the caller's own and subject to the same SuperAdmin rule as the listing.
+  Future<Response> getPlatformAppsByAppCdWithHttpInfo(String app, { String? org, }) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/platform/apps/{app}/cd'
       .replaceAll('{app}', app);
@@ -249,6 +295,10 @@ class PlatformApi {
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
+    if (org != null) {
+      queryParams.addAll(_queryParams('', 'org', org));
+    }
+
     const contentTypes = <String>[];
 
 
@@ -263,18 +313,30 @@ class PlatformApi {
     );
   }
 
-  /// One app's reconciliation
+  /// Answers ONE app's reconciliation alone — the poll a deploy console makes while it waits, without re-reading the whole inventory each time.
   ///
-  /// The Hanzo CD Application for one declaration, on its own — the poll a deploy view makes while it waits, without re-reading the whole inventory. 404 while the declaration exists only on a branch, because the generator reads main.
+  /// Answers ONE app's reconciliation alone — the poll a deploy console makes while it waits, without re-reading the whole inventory each time.
   ///
   /// Parameters:
   ///
   /// * [String] app (required):
-  Future<void> getPlatformAppsByAppCd(String app,) async {
-    final response = await getPlatformAppsByAppCdWithHttpInfo(app,);
+  ///   App is the DNS-1123 label of the declaration. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which app is read whatever else is sent.
+  ///
+  /// * [String] org:
+  ///   Org names the organisation the declaration lives in, defaulting to the caller's own and subject to the same SuperAdmin rule as the listing.
+  Future<CDApp?> getPlatformAppsByAppCd(String app, { String? org, }) async {
+    final response = await getPlatformAppsByAppCdWithHttpInfo(app,  org: org, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'CDApp',) as CDApp;
+    
+    }
+    return null;
   }
 
   /// Returns real build records for your org.
@@ -325,9 +387,9 @@ class PlatformApi {
     return null;
   }
 
-  /// The delivery plane
+  /// Answers every Application the delivery plane holds.
   ///
-  /// Every Hanzo CD Application this caller may observe, with its sync verdict, health, the universe revision last applied, and whether automation and self-heal are on. A SuperAdmin sees the fleet; an org admin sees only Applications whose destination namespace IS its own organization, and never a reserved one.  A cluster with no CD installed answers an empty plane. A plane that cannot be READ answers 503 and says why — the two are opposite facts and never share a shape.
+  /// Answers every Application the delivery plane holds.  Scoped to the namespaces the caller's own validated org owns: the ROLE opens the door and the tenant boundary is applied inside, so an admin of one org never observes another's.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getPlatformCdWithHttpInfo() async {
@@ -355,14 +417,22 @@ class PlatformApi {
     );
   }
 
-  /// The delivery plane
+  /// Answers every Application the delivery plane holds.
   ///
-  /// Every Hanzo CD Application this caller may observe, with its sync verdict, health, the universe revision last applied, and whether automation and self-heal are on. A SuperAdmin sees the fleet; an org admin sees only Applications whose destination namespace IS its own organization, and never a reserved one.  A cluster with no CD installed answers an empty plane. A plane that cannot be READ answers 503 and says why — the two are opposite facts and never share a shape.
-  Future<void> getPlatformCd() async {
+  /// Answers every Application the delivery plane holds.  Scoped to the namespaces the caller's own validated org owns: the ROLE opens the door and the tenant boundary is applied inside, so an admin of one org never observes another's.
+  Future<CdResp?> getPlatformCd() async {
     final response = await getPlatformCdWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'CdResp',) as CdResp;
+    
+    }
+    return null;
   }
 
   /// Continuous integration (not wired)
@@ -1382,7 +1452,7 @@ class PlatformApi {
 
   /// Receive a push from the forge and trigger its build
   ///
-  /// The forge's push-to-deploy door. git.hanzo.ai runs as a separate server, so its pushes never reach this fleet's own receive-pack; without this a push to the host we call canonical builds nothing. A verified push is handed to the SAME two seams a native push travels — the single-registrant deploy trigger, and the many-subscriber lifecycle stream that notifies and indexes — and the build decision itself stays downstream in the one place that knows what a push means.  PUBLIC at the JWT layer, because the forge carries no Hanzo session: AUTHENTICATION IS THE SIGNATURE. The HMAC covers the raw bytes and is verified BEFORE the payload is parsed, so an unauthenticated body is never decoded. The secret is read from KMS; a deployment that cannot read it answers 503 and processes nothing, rather than trusting a delivery it could not check. The body is read UNCOMPRESSED — a request declaring a Content-Encoding is refused 415 before it is touched, because decoding one is unbounded work bought with a few bytes and no credential. A bad signature is 401, a payload over 8 MiB is 413, and a malformed one 400.  A verified push that reaches both seams answers 200 with fired true and the NUMBER OF BUILDS it launched — zero is ordinary, since most pushes track no application, and it is the answer 'fired' cannot give. A push that could not be dispatched answers 500: the delivery page shows it red, and the Replay that prompts reaches a fresh attempt rather than being declined as already landed.  The deliveries deliberately ignored answer 200 with a reason and nothing else: a payload that is not a push, a ref DELETE (a zero `after` has no commit to build), a BOT-authored push (release automation pushes as the forge's own Actions user, and a release must never rebuild itself), a push from a forge namespace that maps to no org, and a redelivery of a push already fired. Branches and tags both reach the build trigger, because releases are cut by tag and filtering here would silently stop publishing.
+  /// The forge's push-to-deploy door. git.hanzo.ai runs as a separate server, so its pushes never reach this fleet's own receive-pack; without this a push to the host we call canonical builds nothing. A verified push is handed to the SAME two clients a native push travels — the single-registrant deploy trigger, and the many-subscriber lifecycle stream that notifies and indexes — and the build decision itself stays downstream in the one place that knows what a push means.  PUBLIC at the JWT layer, because the forge carries no Hanzo session: AUTHENTICATION IS THE SIGNATURE. The HMAC covers the raw bytes and is verified BEFORE the payload is parsed, so an unauthenticated body is never decoded. The secret is read from KMS; a deployment that cannot read it answers 503 and processes nothing, rather than trusting a delivery it could not check. The body is read UNCOMPRESSED — a request declaring a Content-Encoding is refused 415 before it is touched, because decoding one is unbounded work bought with a few bytes and no credential. A bad signature is 401, a payload over 8 MiB is 413, and a malformed one 400.  A verified push that reaches both clients answers 200 with fired true and the NUMBER OF BUILDS it launched — zero is ordinary, since most pushes track no application, and it is the answer 'fired' cannot give. A push that could not be dispatched answers 500: the delivery page shows it red, and the Replay that prompts reaches a fresh attempt rather than being declined as already landed.  The deliveries deliberately ignored answer 200 with a reason and nothing else: a payload that is not a push, a ref DELETE (a zero `after` has no commit to build), a BOT-authored push (release automation pushes as the forge's own Actions user, and a release must never rebuild itself), a push from a forge namespace that maps to no org, and a redelivery of a push already fired. Branches and tags both reach the build trigger, because releases are cut by tag and filtering here would silently stop publishing.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -1416,7 +1486,7 @@ class PlatformApi {
 
   /// Receive a push from the forge and trigger its build
   ///
-  /// The forge's push-to-deploy door. git.hanzo.ai runs as a separate server, so its pushes never reach this fleet's own receive-pack; without this a push to the host we call canonical builds nothing. A verified push is handed to the SAME two seams a native push travels — the single-registrant deploy trigger, and the many-subscriber lifecycle stream that notifies and indexes — and the build decision itself stays downstream in the one place that knows what a push means.  PUBLIC at the JWT layer, because the forge carries no Hanzo session: AUTHENTICATION IS THE SIGNATURE. The HMAC covers the raw bytes and is verified BEFORE the payload is parsed, so an unauthenticated body is never decoded. The secret is read from KMS; a deployment that cannot read it answers 503 and processes nothing, rather than trusting a delivery it could not check. The body is read UNCOMPRESSED — a request declaring a Content-Encoding is refused 415 before it is touched, because decoding one is unbounded work bought with a few bytes and no credential. A bad signature is 401, a payload over 8 MiB is 413, and a malformed one 400.  A verified push that reaches both seams answers 200 with fired true and the NUMBER OF BUILDS it launched — zero is ordinary, since most pushes track no application, and it is the answer 'fired' cannot give. A push that could not be dispatched answers 500: the delivery page shows it red, and the Replay that prompts reaches a fresh attempt rather than being declined as already landed.  The deliveries deliberately ignored answer 200 with a reason and nothing else: a payload that is not a push, a ref DELETE (a zero `after` has no commit to build), a BOT-authored push (release automation pushes as the forge's own Actions user, and a release must never rebuild itself), a push from a forge namespace that maps to no org, and a redelivery of a push already fired. Branches and tags both reach the build trigger, because releases are cut by tag and filtering here would silently stop publishing.
+  /// The forge's push-to-deploy door. git.hanzo.ai runs as a separate server, so its pushes never reach this fleet's own receive-pack; without this a push to the host we call canonical builds nothing. A verified push is handed to the SAME two clients a native push travels — the single-registrant deploy trigger, and the many-subscriber lifecycle stream that notifies and indexes — and the build decision itself stays downstream in the one place that knows what a push means.  PUBLIC at the JWT layer, because the forge carries no Hanzo session: AUTHENTICATION IS THE SIGNATURE. The HMAC covers the raw bytes and is verified BEFORE the payload is parsed, so an unauthenticated body is never decoded. The secret is read from KMS; a deployment that cannot read it answers 503 and processes nothing, rather than trusting a delivery it could not check. The body is read UNCOMPRESSED — a request declaring a Content-Encoding is refused 415 before it is touched, because decoding one is unbounded work bought with a few bytes and no credential. A bad signature is 401, a payload over 8 MiB is 413, and a malformed one 400.  A verified push that reaches both clients answers 200 with fired true and the NUMBER OF BUILDS it launched — zero is ordinary, since most pushes track no application, and it is the answer 'fired' cannot give. A push that could not be dispatched answers 500: the delivery page shows it red, and the Replay that prompts reaches a fresh attempt rather than being declined as already landed.  The deliveries deliberately ignored answer 200 with a reason and nothing else: a payload that is not a push, a ref DELETE (a zero `after` has no commit to build), a BOT-authored push (release automation pushes as the forge's own Actions user, and a release must never rebuild itself), a push from a forge namespace that maps to no org, and a redelivery of a push already fired. Branches and tags both reach the build trigger, because releases are cut by tag and filtering here would silently stop publishing.
   ///
   /// Parameters:
   ///

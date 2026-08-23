@@ -375,9 +375,9 @@ class CompanyApi {
     return null;
   }
 
-  /// Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org's data room, and submits the state filing through the filing seam.
+  /// Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org's data room, and submits the state filing through the filing client.
   ///
-  /// Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org's data room, and submits the state filing through the filing seam.  With no filing partner wired the filing is recorded honestly as \"manual\" — no filing id is fabricated. Available only at the documents stage.
+  /// Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org's data room, and submits the state filing through the filing client.  With no filing partner wired the filing is recorded honestly as \"manual\" — no filing id is fabricated. Available only at the documents stage.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> postCompanyDocumentsWithHttpInfo() async {
@@ -405,9 +405,9 @@ class CompanyApi {
     );
   }
 
-  /// Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org's data room, and submits the state filing through the filing seam.
+  /// Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org's data room, and submits the state filing through the filing client.
   ///
-  /// Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org's data room, and submits the state filing through the filing seam.  With no filing partner wired the filing is recorded honestly as \"manual\" — no filing id is fabricated. Available only at the documents stage.
+  /// Renders the formation documents for the chosen structure and jurisdiction, ingests each into the org's data room, and submits the state filing through the filing client.  With no filing partner wired the filing is recorded honestly as \"manual\" — no filing id is fabricated. Available only at the documents stage.
   Future<FormationView?> postCompanyDocuments() async {
     final response = await postCompanyDocumentsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -1073,7 +1073,7 @@ class CompanyApi {
 
   /// RefreshKYC reconciles each pending founder's KYC with the WIRED provider — the PULL path to a provider-reported terminal status.
   ///
-  /// RefreshKYC reconciles each pending founder's KYC with the WIRED provider — the PULL path to a provider-reported terminal status. For the manual provider the check stays pending; for a real provider it reflects the settled decision, ATTRIBUTED to the provider.  It NEVER trusts a client-asserted status — the status comes from the provider seam — so a client cannot force a pass here, and an already-passing founder (e.g. a reviewer confirmation) is left untouched.
+  /// RefreshKYC reconciles each pending founder's KYC with the WIRED provider — the PULL path to a provider-reported terminal status. For the manual provider the check stays pending; for a real provider it reflects the settled decision, ATTRIBUTED to the provider.  It NEVER trusts a client-asserted status — the status comes from the provider client — so a client cannot force a pass here, and an already-passing founder (e.g. a reviewer confirmation) is left untouched.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> postCompanyKycRefreshWithHttpInfo() async {
@@ -1103,7 +1103,7 @@ class CompanyApi {
 
   /// RefreshKYC reconciles each pending founder's KYC with the WIRED provider — the PULL path to a provider-reported terminal status.
   ///
-  /// RefreshKYC reconciles each pending founder's KYC with the WIRED provider — the PULL path to a provider-reported terminal status. For the manual provider the check stays pending; for a real provider it reflects the settled decision, ATTRIBUTED to the provider.  It NEVER trusts a client-asserted status — the status comes from the provider seam — so a client cannot force a pass here, and an already-passing founder (e.g. a reviewer confirmation) is left untouched.
+  /// RefreshKYC reconciles each pending founder's KYC with the WIRED provider — the PULL path to a provider-reported terminal status. For the manual provider the check stays pending; for a real provider it reflects the settled decision, ATTRIBUTED to the provider.  It NEVER trusts a client-asserted status — the status comes from the provider client — so a client cannot force a pass here, and an already-passing founder (e.g. a reviewer confirmation) is left untouched.
   Future<KycRefreshOut?> postCompanyKycRefresh() async {
     final response = await postCompanyKycRefreshWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {

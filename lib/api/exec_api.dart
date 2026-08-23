@@ -16,15 +16,16 @@ class ExecApi {
 
   final ApiClient apiClient;
 
-  /// List the files in an execution session
+  /// Files lists what a session holds.
   ///
-  /// Lists what a session's sandbox holds — the uploads a run can read and the artifacts it produced — each then fetched from /v1/exec/download.  It answers a BARE JSON ARRAY of {name, lastModified}, where `name` is the same {session_id}/{fileId} identifier download takes, because that is what the client matches on. An object wrapper would be a wire change, which is why this is not a typed operation.
+  /// Files lists what a session holds.  One recursive `find`, the same traversal the artifact sweep makes. It used to be `ls -1A` — top level only — while the sweep collected with `find`, so a run that wrote a nested artifact reported it in its reply and then omitted it here, and the client's prefix match read the file as expired. Two traversals of one directory is two answers about what a session holds; there is one now.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] sid (required):
+  ///   SID is the session identifier — the sandbox this listing is of. The URL is the addressing authority: a path segment binds after the body and after the query, so the address decides which session is read whatever else is sent.
   Future<Response> getExecFilesBySidWithHttpInfo(String sid,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/exec/files/{sid}'
@@ -51,18 +52,30 @@ class ExecApi {
     );
   }
 
-  /// List the files in an execution session
+  /// Files lists what a session holds.
   ///
-  /// Lists what a session's sandbox holds — the uploads a run can read and the artifacts it produced — each then fetched from /v1/exec/download.  It answers a BARE JSON ARRAY of {name, lastModified}, where `name` is the same {session_id}/{fileId} identifier download takes, because that is what the client matches on. An object wrapper would be a wire change, which is why this is not a typed operation.
+  /// Files lists what a session holds.  One recursive `find`, the same traversal the artifact sweep makes. It used to be `ls -1A` — top level only — while the sweep collected with `find`, so a run that wrote a nested artifact reported it in its reply and then omitted it here, and the client's prefix match read the file as expired. Two traversals of one directory is two answers about what a session holds; there is one now.
   ///
   /// Parameters:
   ///
   /// * [String] sid (required):
-  Future<void> getExecFilesBySid(String sid,) async {
+  ///   SID is the session identifier — the sandbox this listing is of. The URL is the addressing authority: a path segment binds after the body and after the query, so the address decides which session is read whatever else is sent.
+  Future<List<Listing>?> getExecFilesBySid(String sid,) async {
     final response = await getExecFilesBySidWithHttpInfo(sid,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      final responseBody = await _decodeBodyBytes(response);
+      return (await apiClient.deserializeAsync(responseBody, 'List<Listing>') as List)
+        .cast<Listing>()
+        .toList(growable: false);
+
+    }
+    return null;
   }
 
   /// Run a code snippet in a sandboxed interpreter

@@ -397,6 +397,8 @@ class ApiClient {
           return BankTxnRow.fromJson(value);
         case 'BaseHealth':
           return BaseHealth.fromJson(value);
+        case 'BaseView':
+          return BaseView.fromJson(value);
         case 'BeginIn':
           return BeginIn.fromJson(value);
         case 'Benchmark':
@@ -517,6 +519,8 @@ class ApiClient {
           return ByoGPU.fromJson(value);
         case 'ByoWorker':
           return ByoWorker.fromJson(value);
+        case 'CDApp':
+          return CDApp.fromJson(value);
         case 'CalendarPost':
           return CalendarPost.fromJson(value);
         case 'Call':
@@ -645,6 +649,8 @@ class ApiClient {
           return CategoryIn.fromJson(value);
         case 'CategorySpend':
           return CategorySpend.fromJson(value);
+        case 'CdResp':
+          return CdResp.fromJson(value);
         case 'Centre':
           return Centre.fromJson(value);
         case 'Chain':
@@ -671,6 +677,8 @@ class ApiClient {
           return ChannelView.fromJson(value);
         case 'Charge':
           return Charge.fromJson(value);
+        case 'Charged':
+          return Charged.fromJson(value);
         case 'ChatChannels':
           return ChatChannels.fromJson(value);
         case 'ChatRequest':
@@ -811,8 +819,12 @@ class ApiClient {
           return ControlCommandView.fromJson(value);
         case 'ControlDrain':
           return ControlDrain.fromJson(value);
+        case 'ControlIn':
+          return ControlIn.fromJson(value);
         case 'ControlList':
           return ControlList.fromJson(value);
+        case 'ControlResult':
+          return ControlResult.fromJson(value);
         case 'CookieAck':
           return CookieAck.fromJson(value);
         case 'CorpusView':
@@ -907,6 +919,8 @@ class ApiClient {
           return DataroomLinkStats.fromJson(value);
         case 'DataroomLinks':
           return DataroomLinks.fromJson(value);
+        case 'DataroomLiveness':
+          return DataroomLiveness.fromJson(value);
         case 'DataroomMember':
           return DataroomMember.fromJson(value);
         case 'DataroomMembership':
@@ -937,6 +951,14 @@ class ApiClient {
           return DecisionIn.fromJson(value);
         case 'DeckOut':
           return DeckOut.fromJson(value);
+        case 'Declaration':
+          return Declaration.fromJson(value);
+        case 'DeclareEnv':
+          return DeclareEnv.fromJson(value);
+        case 'Declared':
+          return Declared.fromJson(value);
+        case 'DeclaredResp':
+          return DeclaredResp.fromJson(value);
         case 'DefRow':
           return DefRow.fromJson(value);
         case 'Definition':
@@ -953,6 +975,8 @@ class ApiClient {
           return DeliveryList.fromJson(value);
         case 'DeliveryRow':
           return DeliveryRow.fromJson(value);
+        case 'DeployHealth':
+          return DeployHealth.fromJson(value);
         case 'DeployLogs':
           return DeployLogs.fromJson(value);
         case 'DeployRecord':
@@ -973,6 +997,8 @@ class ApiClient {
           return DestinationStatus.fromJson(value);
         case 'DestinationTest':
           return DestinationTest.fromJson(value);
+        case 'Detachment':
+          return Detachment.fromJson(value);
         case 'DevicePollOut':
           return DevicePollOut.fromJson(value);
         case 'DeviceStartIn':
@@ -1135,6 +1161,8 @@ class ApiClient {
           return EvaluatorView.fromJson(value);
         case 'Event':
           return Event.fromJson(value);
+        case 'EventIn':
+          return EventIn.fromJson(value);
         case 'EventList':
           return EventList.fromJson(value);
         case 'EventView':
@@ -3771,6 +3799,8 @@ class ApiClient {
           return ProjectsSite.fromJson(value);
         case 'ProjectsSiteDeploy':
           return ProjectsSiteDeploy.fromJson(value);
+        case 'ProjectsStar':
+          return ProjectsStar.fromJson(value);
         case 'ProjectsUpdate':
           return ProjectsUpdate.fromJson(value);
         case 'ProjectsUpdateRepo':
@@ -3879,6 +3909,10 @@ class ApiClient {
           return ReadmeJSON.fromJson(value);
         case 'Receipt':
           return Receipt.fromJson(value);
+        case 'Recharge':
+          return Recharge.fromJson(value);
+        case 'Recharged':
+          return Recharged.fromJson(value);
         case 'RecordList':
           return RecordList.fromJson(value);
         case 'RedeemInput':
@@ -4551,6 +4585,8 @@ class ApiClient {
           return TopModels.fromJson(value);
         case 'TopProducts':
           return TopProducts.fromJson(value);
+        case 'TopupIn':
+          return TopupIn.fromJson(value);
         case 'TotalView':
           return TotalView.fromJson(value);
         case 'TraceList':
@@ -4633,6 +4669,8 @@ class ApiClient {
           return Txn.fromJson(value);
         case 'UTM':
           return UTM.fromJson(value);
+        case 'Unreadable':
+          return Unreadable.fromJson(value);
         case 'UnreconciledOut':
           return UnreconciledOut.fromJson(value);
         case 'Unsubscribed':

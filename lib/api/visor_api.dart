@@ -831,9 +831,9 @@ class VisorApi {
     return null;
   }
 
-  /// The regions a machine or GPU can be launched into
+  /// Regions lists the regions a machine can be launched in.
   ///
-  /// Lists the launch regions the compute catalog offers, passed through verbatim from the provider so the shape stays the provider's single source of truth. The catalog is GLOBAL, not per-tenant: no owner is forwarded and every org sees the same list. It is still gated — a validated principal is required, 403 without one — because the catalog is what backs the launch drawer, not public marketing copy.
+  /// Regions lists the regions a machine can be launched in.  The catalog is GLOBAL — identical for every tenant — so no owner is forwarded upstream. It is still org-gated, because a catalog is a map of what this deployment can spend money in and an anonymous caller has no business reading it.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getVisorComputeRegionsWithHttpInfo() async {
@@ -861,19 +861,27 @@ class VisorApi {
     );
   }
 
-  /// The regions a machine or GPU can be launched into
+  /// Regions lists the regions a machine can be launched in.
   ///
-  /// Lists the launch regions the compute catalog offers, passed through verbatim from the provider so the shape stays the provider's single source of truth. The catalog is GLOBAL, not per-tenant: no owner is forwarded and every org sees the same list. It is still gated — a validated principal is required, 403 without one — because the catalog is what backs the launch drawer, not public marketing copy.
-  Future<void> getVisorComputeRegions() async {
+  /// Regions lists the regions a machine can be launched in.  The catalog is GLOBAL — identical for every tenant — so no owner is forwarded upstream. It is still org-gated, because a catalog is a map of what this deployment can spend money in and an anonymous caller has no business reading it.
+  Future<Object?> getVisorComputeRegions() async {
     final response = await getVisorComputeRegionsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Object',) as Object;
+    
+    }
+    return null;
   }
 
-  /// The machine and GPU sizes that can be launched
+  /// Sizes lists the machine sizes available to launch, with their specifications.
   ///
-  /// Lists the instance sizes the compute catalog offers, passed through verbatim from the provider so the shape stays the provider's single source of truth. These are the values `size` accepts on a launch. The catalog is GLOBAL, not per-tenant: no owner is forwarded and every org sees the same list. It is still gated — a validated principal is required, 403 without one.
+  /// Sizes lists the machine sizes available to launch, with their specifications.  Global and org-gated, exactly as the region catalog is, and for the same reasons.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getVisorComputeSizesWithHttpInfo() async {
@@ -901,14 +909,22 @@ class VisorApi {
     );
   }
 
-  /// The machine and GPU sizes that can be launched
+  /// Sizes lists the machine sizes available to launch, with their specifications.
   ///
-  /// Lists the instance sizes the compute catalog offers, passed through verbatim from the provider so the shape stays the provider's single source of truth. These are the values `size` accepts on a launch. The catalog is GLOBAL, not per-tenant: no owner is forwarded and every org sees the same list. It is still gated — a validated principal is required, 403 without one.
-  Future<void> getVisorComputeSizes() async {
+  /// Sizes lists the machine sizes available to launch, with their specifications.  Global and org-gated, exactly as the region catalog is, and for the same reasons.
+  Future<Object?> getVisorComputeSizes() async {
     final response = await getVisorComputeSizesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Object',) as Object;
+    
+    }
+    return null;
   }
 
   /// Returns the caller org's bot machines — the kind=bot machines — each joined with the agent binding that says which cloud Agent it runs.

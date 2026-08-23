@@ -10,61 +10,73 @@
 
 part of hanzoai.cloud;
 
-class Listing {
-  /// Returns a new [Listing] instance.
-  Listing({
-    this.lastModified,
-    this.name,
+class ControlIn {
+  /// Returns a new [ControlIn] instance.
+  ControlIn({
+    this.id,
+    this.message,
+    this.payload,
   });
+  /// ID is the session to steer, from the path.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? lastModified;
+  String? id;
 
+  /// Message is free text for the running agent, up to 16 KiB. On a stop it is recorded as the cancellation reason.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? name;
+  String? message;
+
+  Object? payload;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is Listing &&
-    other.lastModified == lastModified &&
-    other.name == name;
+  bool operator ==(Object other) => identical(this, other) || other is ControlIn &&
+    other.id == id &&
+    other.message == message &&
+    other.payload == payload;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (lastModified == null ? 0 : lastModified!.hashCode) +
-    (name == null ? 0 : name!.hashCode);
+    (id == null ? 0 : id!.hashCode) +
+    (message == null ? 0 : message!.hashCode) +
+    (payload == null ? 0 : payload!.hashCode);
 
   @override
-  String toString() => 'Listing[lastModified=$lastModified, name=$name]';
+  String toString() => 'ControlIn[id=$id, message=$message, payload=$payload]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.lastModified != null) {
-      json[r'lastModified'] = this.lastModified;
+    if (this.id != null) {
+      json[r'id'] = this.id;
     } else {
-      json[r'lastModified'] = null;
+      json[r'id'] = null;
     }
-    if (this.name != null) {
-      json[r'name'] = this.name;
+    if (this.message != null) {
+      json[r'message'] = this.message;
     } else {
-      json[r'name'] = null;
+      json[r'message'] = null;
+    }
+    if (this.payload != null) {
+      json[r'payload'] = this.payload;
+    } else {
+      json[r'payload'] = null;
     }
     return json;
   }
 
-  /// Returns a new [Listing] instance and imports its values from
+  /// Returns a new [ControlIn] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static Listing? fromJson(dynamic value) {
+  static ControlIn? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -73,25 +85,26 @@ class Listing {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "Listing[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "Listing[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "ControlIn[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "ControlIn[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return Listing(
-        lastModified: mapValueOfType<String>(json, r'lastModified'),
-        name: mapValueOfType<String>(json, r'name'),
+      return ControlIn(
+        id: mapValueOfType<String>(json, r'id'),
+        message: mapValueOfType<String>(json, r'message'),
+        payload: mapValueOfType<Object>(json, r'payload'),
       );
     }
     return null;
   }
 
-  static List<Listing> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <Listing>[];
+  static List<ControlIn> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <ControlIn>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = Listing.fromJson(row);
+        final value = ControlIn.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -100,12 +113,12 @@ class Listing {
     return result.toList(growable: growable);
   }
 
-  static Map<String, Listing> mapFromJson(dynamic json) {
-    final map = <String, Listing>{};
+  static Map<String, ControlIn> mapFromJson(dynamic json) {
+    final map = <String, ControlIn>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = Listing.fromJson(entry.value);
+        final value = ControlIn.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -114,14 +127,14 @@ class Listing {
     return map;
   }
 
-  // maps a json object with a list of Listing-objects as value to a dart map
-  static Map<String, List<Listing>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<Listing>>{};
+  // maps a json object with a list of ControlIn-objects as value to a dart map
+  static Map<String, List<ControlIn>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<ControlIn>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = Listing.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = ControlIn.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

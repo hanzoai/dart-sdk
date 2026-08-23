@@ -136,15 +136,16 @@ class BillingApi {
     return null;
   }
 
-  /// Remove one spend cap
+  /// Removes one of the caller's spend caps and answers 204.
   ///
-  /// Deletes a budget the caller's org owns and answers 204.  Removing a cap REMOVES A CEILING, so it takes the same bar as setting one: a validated org admin, the platform SuperAdmin, or the trusted in-process service token. A member who could delete the org's cap would have unbounded spend.  A cap this org does not own is NOT FOUND rather than refused — the same answer whether the id is unknown or belongs to another customer — so an id cannot be probed for existence by trying to delete it.
+  /// Removes one of the caller's spend caps and answers 204.  Removing a cap RAISES what the org may spend, so it takes the same authority setting one does. The caps that remain still bind: this drops one, never the whole policy.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
+  ///   ID is the cap to remove, from the path.
   Future<Response> deleteBillingAlertsByIdWithHttpInfo(String id,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/billing/alerts/{id}'
@@ -171,13 +172,14 @@ class BillingApi {
     );
   }
 
-  /// Remove one spend cap
+  /// Removes one of the caller's spend caps and answers 204.
   ///
-  /// Deletes a budget the caller's org owns and answers 204.  Removing a cap REMOVES A CEILING, so it takes the same bar as setting one: a validated org admin, the platform SuperAdmin, or the trusted in-process service token. A member who could delete the org's cap would have unbounded spend.  A cap this org does not own is NOT FOUND rather than refused — the same answer whether the id is unknown or belongs to another customer — so an id cannot be probed for existence by trying to delete it.
+  /// Removes one of the caller's spend caps and answers 204.  Removing a cap RAISES what the org may spend, so it takes the same authority setting one does. The caps that remain still bind: this drops one, never the whole policy.
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
+  ///   ID is the cap to remove, from the path.
   Future<void> deleteBillingAlertsById(String id,) async {
     final response = await deleteBillingAlertsByIdWithHttpInfo(id,);
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -185,15 +187,16 @@ class BillingApi {
     }
   }
 
-  /// Remove one saved card or account
+  /// Removes one card or account the caller has saved.
   ///
-  /// Detaches the method at the processor and drops the row.  A method the caller does not own is NOT FOUND rather than refused — the same answer whether the id names nothing or names somebody else's card — so an id cannot be probed for existence.  A platform operator or the trusted in-process service token may act on any subject inside the org; everyone else may only remove their own.
+  /// Removes one card or account the caller has saved.  It detaches only the CALLER'S own — the wallet this request bills from, resolved server-side — so an id belonging to another customer of the same org is not something this operation can reach. A platform or service caller detaches on the subject's behalf, and that authority is decided HERE, where the credential is, and travels as a value: authority decided twice is authority that eventually disagrees with itself.  The card is vaulted at the processor, so what goes is our token for it.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
+  ///   ID is the saved method to detach, from the path.
   Future<Response> deleteBillingMethodsByIdWithHttpInfo(String id,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/billing/methods/{id}'
@@ -220,29 +223,39 @@ class BillingApi {
     );
   }
 
-  /// Remove one saved card or account
+  /// Removes one card or account the caller has saved.
   ///
-  /// Detaches the method at the processor and drops the row.  A method the caller does not own is NOT FOUND rather than refused — the same answer whether the id names nothing or names somebody else's card — so an id cannot be probed for existence.  A platform operator or the trusted in-process service token may act on any subject inside the org; everyone else may only remove their own.
+  /// Removes one card or account the caller has saved.  It detaches only the CALLER'S own — the wallet this request bills from, resolved server-side — so an id belonging to another customer of the same org is not something this operation can reach. A platform or service caller detaches on the subject's behalf, and that authority is decided HERE, where the credential is, and travels as a value: authority decided twice is authority that eventually disagrees with itself.  The card is vaulted at the processor, so what goes is our token for it.
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
-  Future<void> deleteBillingMethodsById(String id,) async {
+  ///   ID is the saved method to detach, from the path.
+  Future<Detachment?> deleteBillingMethodsById(String id,) async {
     final response = await deleteBillingMethodsByIdWithHttpInfo(id,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Detachment',) as Detachment;
+    
+    }
+    return null;
   }
 
-  /// Remove one saved card or account
+  /// DetachPortalMethod is DetachMethod at the address a hosted checkout addresses it by.
   ///
-  /// Detaches the method at the processor and drops the row.  A method the caller does not own is NOT FOUND rather than refused — the same answer whether the id names nothing or names somebody else's card — so an id cannot be probed for existence.  A platform operator or the trusted in-process service token may act on any subject inside the org; everyone else may only remove their own.
+  /// DetachPortalMethod is DetachMethod at the address a hosted checkout addresses it by. One set of rows, two spellings: a card detached at either is gone from both, because there is one store behind them.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
+  ///   ID is the saved method to detach, from the path.
   Future<Response> deleteBillingPortalMethodsByIdWithHttpInfo(String id,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/billing/portal/methods/{id}'
@@ -269,18 +282,27 @@ class BillingApi {
     );
   }
 
-  /// Remove one saved card or account
+  /// DetachPortalMethod is DetachMethod at the address a hosted checkout addresses it by.
   ///
-  /// Detaches the method at the processor and drops the row.  A method the caller does not own is NOT FOUND rather than refused — the same answer whether the id names nothing or names somebody else's card — so an id cannot be probed for existence.  A platform operator or the trusted in-process service token may act on any subject inside the org; everyone else may only remove their own.
+  /// DetachPortalMethod is DetachMethod at the address a hosted checkout addresses it by. One set of rows, two spellings: a card detached at either is gone from both, because there is one store behind them.
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
-  Future<void> deleteBillingPortalMethodsById(String id,) async {
+  ///   ID is the saved method to detach, from the path.
+  Future<Detachment?> deleteBillingPortalMethodsById(String id,) async {
     final response = await deleteBillingPortalMethodsByIdWithHttpInfo(id,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Detachment',) as Detachment;
+    
+    }
+    return null;
   }
 
   /// Answers the caller's billing accounts: the org itself, its currency, when it was opened, and the caller's own standing in it.
@@ -1995,9 +2017,9 @@ class BillingApi {
     }
   }
 
-  /// Recharge every org that has fallen below its threshold
+  /// Sweeps every org's auto-recharge and answers what it did.
   ///
-  /// Sweeps every organization and, for those with auto-recharge on whose available balance has dropped below their own threshold, charges the default card and credits the balance.  It charges cards across EVERY tenant, so it is platform authority only — never an org owner, who could otherwise sweep-charge saved cards estate-wide. Its caller is a schedule, not a person.  `orgs` is the population considered, not the row count: that difference is how a reader tells 'nobody was below threshold' from 'the sweep never ran'. One org's failure is reported in its own row and does not stop the rest.
+  /// Sweeps every org's auto-recharge and answers what it did.  PLATFORM AUTHORITY ONLY. It charges saved cards across every tenant, so an org owner reaching it could sweep-charge the estate; a caller without it is refused before anything is charged.  The answer explains a sweep that charged nobody as readily as one that charged: it names how many orgs were considered and how many needed charging, with a row each.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> postBillingRechargeRunAllWithHttpInfo() async {
@@ -2025,14 +2047,22 @@ class BillingApi {
     );
   }
 
-  /// Recharge every org that has fallen below its threshold
+  /// Sweeps every org's auto-recharge and answers what it did.
   ///
-  /// Sweeps every organization and, for those with auto-recharge on whose available balance has dropped below their own threshold, charges the default card and credits the balance.  It charges cards across EVERY tenant, so it is platform authority only — never an org owner, who could otherwise sweep-charge saved cards estate-wide. Its caller is a schedule, not a person.  `orgs` is the population considered, not the row count: that difference is how a reader tells 'nobody was below threshold' from 'the sweep never ran'. One org's failure is reported in its own row and does not stop the rest.
-  Future<void> postBillingRechargeRunAll() async {
+  /// Sweeps every org's auto-recharge and answers what it did.  PLATFORM AUTHORITY ONLY. It charges saved cards across every tenant, so an org owner reaching it could sweep-charge the estate; a caller without it is refused before anything is charged.  The answer explains a sweep that charged nobody as readily as one that charged: it names how many orgs were considered and how many needed charging, with a row each.
+  Future<Recharge?> postBillingRechargeRunAll() async {
     final response = await postBillingRechargeRunAllWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Recharge',) as Recharge;
+    
+    }
+    return null;
   }
 
   /// Buy a plan with a card
@@ -2075,23 +2105,33 @@ class BillingApi {
     }
   }
 
-  /// Add funds with a card already on file
+  /// Charges a card the caller already saved and credits the balance.
   ///
-  /// Charges a saved card and credits the caller's prepaid wallet.  The method must belong to the caller: one that does not is NOT FOUND rather than refused, so an id cannot be probed for existence. A saved row whose card is no longer chargeable is 422 — add the card again — which is a different thing to do than a decline (402) or a bad amount (400).  Retries behave exactly as they do for a token top-up: same key, same replay, same exactly-once at the processor.
+  /// Charges a card the caller already saved and credits the balance. Same receipt and the same retry safety as the token door; the only difference is which card, so a caller topping up from a saved method never re-enters one.
   ///
   /// Note: This method returns the HTTP [Response].
-  Future<Response> postBillingTopupWithHttpInfo() async {
+  ///
+  /// Parameters:
+  ///
+  /// * [TopupIn] topupIn (required):
+  ///
+  /// * [String] xIdempotencyKey:
+  Future<Response> postBillingTopupWithHttpInfo(TopupIn topupIn, { String? xIdempotencyKey, }) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/billing/topup';
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = topupIn;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    if (xIdempotencyKey != null) {
+      headerParams[r'X-Idempotency-Key'] = parameterToString(xIdempotencyKey);
+    }
+
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -2105,33 +2145,57 @@ class BillingApi {
     );
   }
 
-  /// Add funds with a card already on file
+  /// Charges a card the caller already saved and credits the balance.
   ///
-  /// Charges a saved card and credits the caller's prepaid wallet.  The method must belong to the caller: one that does not is NOT FOUND rather than refused, so an id cannot be probed for existence. A saved row whose card is no longer chargeable is 422 — add the card again — which is a different thing to do than a decline (402) or a bad amount (400).  Retries behave exactly as they do for a token top-up: same key, same replay, same exactly-once at the processor.
-  Future<void> postBillingTopup() async {
-    final response = await postBillingTopupWithHttpInfo();
+  /// Charges a card the caller already saved and credits the balance. Same receipt and the same retry safety as the token door; the only difference is which card, so a caller topping up from a saved method never re-enters one.
+  ///
+  /// Parameters:
+  ///
+  /// * [TopupIn] topupIn (required):
+  ///
+  /// * [String] xIdempotencyKey:
+  Future<Charged?> postBillingTopup(TopupIn topupIn, { String? xIdempotencyKey, }) async {
+    final response = await postBillingTopupWithHttpInfo(topupIn,  xIdempotencyKey: xIdempotencyKey, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Charged',) as Charged;
+    
+    }
+    return null;
   }
 
-  /// Add funds with a single-use card token
+  /// Charges a single-use card token and credits the caller's balance.
   ///
-  /// Charges a card token from the browser's payment SDK and credits the caller's prepaid wallet — the cold-customer path, where nothing has to be saved first.  The wallet credited is the CALLER'S OWN, resolved from their signed identity. It is never a value in the request: a client-set selector is how a customer once topped up one account while their usage drew from another.  `X-Idempotency-Key` makes a retry safe. With one, a repeat replays the first result; without one, the same amount from the same subject inside a short window does too. The key reaches the processor as well as our own guard, so the charge is exactly-once at the gateway even if our guard store is down.  The amount is bounded server-side. A decline is 402 and nothing is credited.
+  /// Charges a single-use card token and credits the caller's balance.  The token comes from the payment form and is vaulted as part of the charge, so no card number reaches this service and none is stored here. The receipt names the ledger entry, the new balance, and the PROCESSOR's own reference — which is the only field that proves money moved at the gateway rather than only in our ledger.  Retry-safe on X-Idempotency-Key: the same key settles one charge and returns the first receipt.
   ///
   /// Note: This method returns the HTTP [Response].
-  Future<Response> postBillingTopupTokenWithHttpInfo() async {
+  ///
+  /// Parameters:
+  ///
+  /// * [TopupIn] topupIn (required):
+  ///
+  /// * [String] xIdempotencyKey:
+  Future<Response> postBillingTopupTokenWithHttpInfo(TopupIn topupIn, { String? xIdempotencyKey, }) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/billing/topup/token';
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = topupIn;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    if (xIdempotencyKey != null) {
+      headerParams[r'X-Idempotency-Key'] = parameterToString(xIdempotencyKey);
+    }
+
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -2145,14 +2209,28 @@ class BillingApi {
     );
   }
 
-  /// Add funds with a single-use card token
+  /// Charges a single-use card token and credits the caller's balance.
   ///
-  /// Charges a card token from the browser's payment SDK and credits the caller's prepaid wallet — the cold-customer path, where nothing has to be saved first.  The wallet credited is the CALLER'S OWN, resolved from their signed identity. It is never a value in the request: a client-set selector is how a customer once topped up one account while their usage drew from another.  `X-Idempotency-Key` makes a retry safe. With one, a repeat replays the first result; without one, the same amount from the same subject inside a short window does too. The key reaches the processor as well as our own guard, so the charge is exactly-once at the gateway even if our guard store is down.  The amount is bounded server-side. A decline is 402 and nothing is credited.
-  Future<void> postBillingTopupToken() async {
-    final response = await postBillingTopupTokenWithHttpInfo();
+  /// Charges a single-use card token and credits the caller's balance.  The token comes from the payment form and is vaulted as part of the charge, so no card number reaches this service and none is stored here. The receipt names the ledger entry, the new balance, and the PROCESSOR's own reference — which is the only field that proves money moved at the gateway rather than only in our ledger.  Retry-safe on X-Idempotency-Key: the same key settles one charge and returns the first receipt.
+  ///
+  /// Parameters:
+  ///
+  /// * [TopupIn] topupIn (required):
+  ///
+  /// * [String] xIdempotencyKey:
+  Future<Charged?> postBillingTopupToken(TopupIn topupIn, { String? xIdempotencyKey, }) async {
+    final response = await postBillingTopupTokenWithHttpInfo(topupIn,  xIdempotencyKey: xIdempotencyKey, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Charged',) as Charged;
+    
+    }
+    return null;
   }
 
   /// Raise a draft invoice against a customer

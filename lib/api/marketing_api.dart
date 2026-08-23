@@ -1437,7 +1437,7 @@ class MarketingApi {
 
   /// Publishes a post NOW, synchronously, whatever its schedule.
   ///
-  /// Publishes a post NOW, synchronously, whatever its schedule. No social connector is wired today, so every channel answers an honest 501 naming the seam a real one would plug into, and the post is recorded failed with that exact reason — never a faked \"published\".
+  /// Publishes a post NOW, synchronously, whatever its schedule. No social connector is wired today, so every channel answers an honest 501 naming the client a real one would plug into, and the post is recorded failed with that exact reason — never a faked \"published\".
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -1473,7 +1473,7 @@ class MarketingApi {
 
   /// Publishes a post NOW, synchronously, whatever its schedule.
   ///
-  /// Publishes a post NOW, synchronously, whatever its schedule. No social connector is wired today, so every channel answers an honest 501 naming the seam a real one would plug into, and the post is recorded failed with that exact reason — never a faked \"published\".
+  /// Publishes a post NOW, synchronously, whatever its schedule. No social connector is wired today, so every channel answers an honest 501 naming the client a real one would plug into, and the post is recorded failed with that exact reason — never a faked \"published\".
   ///
   /// Parameters:
   ///
