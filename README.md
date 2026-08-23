@@ -1,8 +1,7 @@
 # hanzoai
 
 The Dart client for the [Hanzo Cloud](https://hanzo.ai) API at `api.hanzo.ai` —
-every operation, projected from the OpenAPI document the
-platform emits from its own routers.
+every operation, projected from the API's own OpenAPI document.
 
 ## Install
 
@@ -44,7 +43,7 @@ Future<void> main() async {
 ```
 
 Each tag in the document is one API class — `KeysApi`, `ModelsApi`, `IamApi`,
-`AgentsApi`, 192 of them — and each takes an `ApiClient`. Omit it and the class
+`AgentsApi` and the rest — and each takes an `ApiClient`. Omit it and the class
 uses `defaultApiClient`, which reaches `api.hanzo.ai` unauthenticated.
 
 ## Auth
@@ -72,12 +71,11 @@ final keys = await KeysApi(client).getKeys();                  // typed
 final res = await ModelsApi(client).getModelsWithHttpInfo();   // raw Response
 ```
 
-The typed method is what you want. But some operations publish no response body
-to type — they declare no response at all, or a 2xx carrying no content —
-because the platform emits an address it can prove and declines to invent a
-shape for it. Their typed method returns `void`, and the
-`WithHttpInfo` variant is how you read the body. `example/models.dart` shows
-that path; `example/keys.dart` shows the typed one.
+The typed method is what you want. Some operations publish no response body to
+type — they declare no response at all, or a 2xx carrying no content — so their
+typed method returns `void` and the `WithHttpInfo` variant is how you read the
+body. `example/models.dart` shows that path; `example/keys.dart` shows the typed
+one.
 
 Failures above 400 throw `ApiException`, carrying `code` and `message`.
 
@@ -93,8 +91,8 @@ Failures above 400 throw `ApiException`, carrying `code` and `message`.
 ## Where this comes from
 
 `lib/` is generated and nothing in it is edited by hand. `.spec-lock` names the
-hanzoai/cloud commit and the sha256 of the `openapi.yaml` this client is a
-projection of; `scripts/generate.sh` rebuilds it from that document, and
+commit and the sha256 of the `openapi.yaml` this client is a projection of;
+`scripts/generate.sh` rebuilds it from that document, and
 `./scripts/generate.sh --check` fails if the committed tree has drifted from it.
 
 `lib/hanzoai.dart` is the exception — the front door, written by hand, holding
@@ -107,14 +105,11 @@ regenerate.
 ## The other two Dart packages
 
 - [`hanzo-dart/hanzoai`](https://github.com/hanzo-dart/hanzoai) — a hand-written
-  client for agents, sessions and machines. Its agent and session routes are all
-  in the document, so they are all in here too, from the document rather than by
-  hand. Its five `/v1/cloud/*-machine` calls are not: the document declares no
-  path containing `machine`, so no projection of it reaches them and that client
-  is still how you call them.
+  client for agents, sessions and machines. Its agent and session routes are in
+  the document, so they are in here too. Its five `/v1/cloud/*-machine` calls are
+  not, so that client is still how you reach them.
 - [`hanzo-dart/base`](https://github.com/hanzo-dart/base) — a different API:
-  [Hanzo Base](https://github.com/hanzoai/base), the reactive backend. Unrelated
-  to this client and unaffected by it.
+  [Hanzo Base](https://github.com/hanzoai/base), the reactive backend.
 
 ## License
 
