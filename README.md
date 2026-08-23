@@ -1,7 +1,7 @@
 # hanzoai
 
 The Dart client for the [Hanzo Cloud](https://hanzo.ai) API at `api.hanzo.ai` —
-all <!--counts-->2,259 operations over 1,620 paths, grouped into 117 services<!--/counts--> projected from the OpenAPI document the
+every operation, projected from the OpenAPI document the
 platform emits from its own routers.
 
 ## Install
@@ -72,10 +72,10 @@ final keys = await KeysApi(client).getKeys();                  // typed
 final res = await ModelsApi(client).getModelsWithHttpInfo();   // raw Response
 ```
 
-The typed method is what you want. But 836 of the 2,259 operations publish no
-response body to type — 719 declare no response at all, another 117 declare a
-2xx carrying no content — because the platform emits an address it can prove and
-declines to invent a shape for it. Their typed method returns `void`, and the
+The typed method is what you want. But some operations publish no response body
+to type — they declare no response at all, or a 2xx carrying no content —
+because the platform emits an address it can prove and declines to invent a
+shape for it. Their typed method returns `void`, and the
 `WithHttpInfo` variant is how you read the body. `example/models.dart` shows
 that path; `example/keys.dart` shows the typed one.
 
