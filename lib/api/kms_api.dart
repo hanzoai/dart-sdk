@@ -121,12 +121,16 @@ class KmsApi {
   /// Parameters:
   ///
   /// * [String] env:
+  ///   Env selects the environment, which is part of a secret's storage key. OMITTED means EVERY environment — this is the enumeration surface, so it must be able to answer \"what is in here\" without being told where to look.
   ///
   /// * [String] environment:
+  ///   Environment is the KMS operator's spelling of Env, accepted so one caller need not learn the other's vocabulary. Env wins when both are sent.
   ///
   /// * [String] pathParam:
+  ///   Path narrows the listing to one subtree beneath the caller's org root, as a `/`-separated path such as `/ci`. OMITTED means the whole org.
   ///
   /// * [String] secretPath:
+  ///   SecretPath is the KMS operator's spelling of Path. Path wins when both are sent.
   Future<Response> getKmsSecretsWithHttpInfo({ String? env, String? environment, String? pathParam, String? secretPath, }) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/kms/secrets';
@@ -172,12 +176,16 @@ class KmsApi {
   /// Parameters:
   ///
   /// * [String] env:
+  ///   Env selects the environment, which is part of a secret's storage key. OMITTED means EVERY environment — this is the enumeration surface, so it must be able to answer \"what is in here\" without being told where to look.
   ///
   /// * [String] environment:
+  ///   Environment is the KMS operator's spelling of Env, accepted so one caller need not learn the other's vocabulary. Env wins when both are sent.
   ///
   /// * [String] pathParam:
+  ///   Path narrows the listing to one subtree beneath the caller's org root, as a `/`-separated path such as `/ci`. OMITTED means the whole org.
   ///
   /// * [String] secretPath:
+  ///   SecretPath is the KMS operator's spelling of Path. Path wins when both are sent.
   Future<KmsSecrets?> getKmsSecrets({ String? env, String? environment, String? pathParam, String? secretPath, }) async {
     final response = await getKmsSecretsWithHttpInfo( env: env, environment: environment, pathParam: pathParam, secretPath: secretPath, );
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -195,7 +203,7 @@ class KmsApi {
 
   /// Exchanges a machine credential for an IAM bearer token.
   ///
-  /// Exchanges a machine credential for an IAM bearer token.  Takes a tenant's machine credential — a client id and client secret — and returns an owner-scoped IAM access token with its lifetime, which is the bearer the caller then carries on the org-scoped secret operations.  It is deliberately public and unauthenticated, because it IS the credential exchange and runs before any principal exists. That makes it the one route in this subsystem rate-limited PER SOURCE IP, keyed on the real TCP peer rather than on any caller-supplied header, and body-capped at the same door.  The submitted secret is never logged and never echoed, and failures collapse to one clean status with no upstream detail: 401 when the credential does not authenticate, 502 when the identity provider is unreachable, 503 when no issuer is configured. That is on purpose — a richer error would be a validity oracle for guessed credentials.
+  /// Exchanges a machine credential for an IAM bearer token.  Takes a tenant's machine credential — a client id and client secret — and returns an owner-scoped IAM access token with its lifetime, which is the bearer the caller then carries on the org-scoped secret operations.  It is deliberately public and unauthenticated, because it IS the credential exchange and runs before any principal exists. That makes it the one route in this subsystem rate-limited PER SOURCE IP, keyed on the real TCP peer rather than on any caller-supplied header, and body-capped in the same place.  The submitted secret is never logged and never echoed, and failures collapse to one clean status with no upstream detail: 401 when the credential does not authenticate, 502 when the identity provider is unreachable, 503 when no issuer is configured. That is on purpose — a richer error would be a validity oracle for guessed credentials.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -229,7 +237,7 @@ class KmsApi {
 
   /// Exchanges a machine credential for an IAM bearer token.
   ///
-  /// Exchanges a machine credential for an IAM bearer token.  Takes a tenant's machine credential — a client id and client secret — and returns an owner-scoped IAM access token with its lifetime, which is the bearer the caller then carries on the org-scoped secret operations.  It is deliberately public and unauthenticated, because it IS the credential exchange and runs before any principal exists. That makes it the one route in this subsystem rate-limited PER SOURCE IP, keyed on the real TCP peer rather than on any caller-supplied header, and body-capped at the same door.  The submitted secret is never logged and never echoed, and failures collapse to one clean status with no upstream detail: 401 when the credential does not authenticate, 502 when the identity provider is unreachable, 503 when no issuer is configured. That is on purpose — a richer error would be a validity oracle for guessed credentials.
+  /// Exchanges a machine credential for an IAM bearer token.  Takes a tenant's machine credential — a client id and client secret — and returns an owner-scoped IAM access token with its lifetime, which is the bearer the caller then carries on the org-scoped secret operations.  It is deliberately public and unauthenticated, because it IS the credential exchange and runs before any principal exists. That makes it the one route in this subsystem rate-limited PER SOURCE IP, keyed on the real TCP peer rather than on any caller-supplied header, and body-capped in the same place.  The submitted secret is never logged and never echoed, and failures collapse to one clean status with no upstream detail: 401 when the credential does not authenticate, 502 when the identity provider is unreachable, 503 when no issuer is configured. That is on purpose — a richer error would be a validity oracle for guessed credentials.
   ///
   /// Parameters:
   ///

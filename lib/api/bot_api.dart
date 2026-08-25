@@ -64,9 +64,9 @@ class BotApi {
     return null;
   }
 
-  /// Reserved address for launching a bot run — not implemented, always 501
+  /// Answers 501 to every call: launching a bot run is not implemented.
   ///
-  /// Answers 501 to every call. The bot runtime exposes no launch operation, so nothing here can start a sandbox, and this address is published rather than dropped because it is the collection every run is created in: GET lists them, POST would launch one.  The refusal is total and takes no input. The handler never reads the body, so any bytes at all — malformed JSON included — get the same 501; no run id is minted, no session URL is handed back, and no per-run fee is charged. That is the point: the earlier version minted an id the runtime had never heard of, pointed it at a VNC node that did not exist, and took real money for it.  Listing and stopping runs are live and org-scoped. Only the launch is missing, and it returns in the same change that can prove a bot boots.
+  /// Answers 501 to every call: launching a bot run is not implemented.  The bot runtime exposes no launch operation, so nothing here can start a sandbox. This address is published rather than dropped because it is the collection every run is created in: GET lists them, POST would launch one.  The refusal is total and takes no input. No run id is minted, no session URL is handed back, and no per-run fee is charged. That is the point: the earlier version minted an id the runtime had never heard of, pointed it at a VNC node that did not exist, and took real money for it. 501 is the truth, and the truth is cheaper than a plausible lie.  Listing and stopping runs are live and org-scoped. Only the launch is missing, and it returns in the same change that can prove a bot boots — a runtime-side launch operation first (TS, cross-repo), with the entitlement gate and the meter beside it.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> postBotRunsWithHttpInfo() async {
@@ -94,9 +94,9 @@ class BotApi {
     );
   }
 
-  /// Reserved address for launching a bot run — not implemented, always 501
+  /// Answers 501 to every call: launching a bot run is not implemented.
   ///
-  /// Answers 501 to every call. The bot runtime exposes no launch operation, so nothing here can start a sandbox, and this address is published rather than dropped because it is the collection every run is created in: GET lists them, POST would launch one.  The refusal is total and takes no input. The handler never reads the body, so any bytes at all — malformed JSON included — get the same 501; no run id is minted, no session URL is handed back, and no per-run fee is charged. That is the point: the earlier version minted an id the runtime had never heard of, pointed it at a VNC node that did not exist, and took real money for it.  Listing and stopping runs are live and org-scoped. Only the launch is missing, and it returns in the same change that can prove a bot boots.
+  /// Answers 501 to every call: launching a bot run is not implemented.  The bot runtime exposes no launch operation, so nothing here can start a sandbox. This address is published rather than dropped because it is the collection every run is created in: GET lists them, POST would launch one.  The refusal is total and takes no input. No run id is minted, no session URL is handed back, and no per-run fee is charged. That is the point: the earlier version minted an id the runtime had never heard of, pointed it at a VNC node that did not exist, and took real money for it. 501 is the truth, and the truth is cheaper than a plausible lie.  Listing and stopping runs are live and org-scoped. Only the launch is missing, and it returns in the same change that can prove a bot boots — a runtime-side launch operation first (TS, cross-repo), with the entitlement gate and the meter beside it.
   Future<void> postBotRuns() async {
     final response = await postBotRunsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -113,6 +113,7 @@ class BotApi {
   /// Parameters:
   ///
   /// * [String] runId (required):
+  ///   RunID is the run to stop, as the bot runtime named it. It is read from the URL — the `{runId}` segment the router matched on — and a body carrying a different id cannot redirect the stop.
   Future<Response> postBotRunsByRunidStopWithHttpInfo(String runId,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/bot/runs/{runId}/stop'
@@ -146,6 +147,7 @@ class BotApi {
   /// Parameters:
   ///
   /// * [String] runId (required):
+  ///   RunID is the run to stop, as the bot runtime named it. It is read from the URL — the `{runId}` segment the router matched on — and a body carrying a different id cannot redirect the stop.
   Future<BotStopped?> postBotRunsByRunidStop(String runId,) async {
     final response = await postBotRunsByRunidStopWithHttpInfo(runId,);
     if (response.statusCode >= HttpStatus.badRequest) {

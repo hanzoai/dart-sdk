@@ -95,7 +95,7 @@ class CreateAgentIn {
   ///
   String? serviceAccountId;
 
-  /// Tools are the tool names this agent may call. Omitted or empty grants NONE — that default is the agent's authority and is not widened anywhere. The single entry \"*\" means whatever the fleet's tool door serves at the time of each run.
+  /// Tools are the tool names this agent may call. Omitted or empty grants NONE — that default is the agent's authority and is not widened anywhere. The single entry \"*\" means whatever the fleet's MCP server serves at the time of each run.
   List<String> tools;
 
   @override

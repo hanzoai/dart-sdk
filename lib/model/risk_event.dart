@@ -21,7 +21,7 @@ class RiskEvent {
     this.peer,
     this.subject,
   });
-  /// At is when it happened, RFC 3339. Empty means now. It must sit inside the thirty-day window the aggregates keep and no more than two minutes ahead of this plane's clock; anything outside that is REFUSED rather than quietly accepted, because a future timestamp moves the aggregates' leading edge and leaves every later event for that subject reading as though it never happened. History older than the window is folded in from your own event surface, not through this door.
+  /// At is when it happened, RFC 3339. Empty means now. It must sit inside the thirty-day window the aggregates keep and no more than two minutes ahead of this plane's clock; anything outside that is REFUSED rather than quietly accepted, because a future timestamp moves the aggregates' leading edge and leaves every later event for that subject reading as though it never happened. History older than the window is folded in from your own event surface, not through this endpoint.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

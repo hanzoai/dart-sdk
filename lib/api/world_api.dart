@@ -16,9 +16,9 @@ class WorldApi {
 
   final ApiClient apiClient;
 
-  /// Answers GET /v1/world — the product's front door, naming every wire this surface answers on.
+  /// Answers GET /v1/world — the product's public endpoint, naming every wire this surface answers on.
   ///
-  /// Answers GET /v1/world — the product's front door, naming every wire this surface answers on.  It exists because two of those wires are INVISIBLE to the generated document. /v1/world/mcp and /v1/world/zap are carved off the cloud catch-all by the ingress and answered by world-gw, so the cloud router never serves them — and openapi.Describe renders prose only for a route the router actually serves, which is the very property that keeps the document from being able to claim an operation nothing answers. Both addresses are real and public, so without this op the only way to learn they exist is to read the ingress config. This is where that fact lives, in the product's own surface.  Public on purpose: discovery precedes credentials. It reports addresses and protocols only — never feed data, and never the caller's plan, which GET /v1/world/limits owns — so there is nothing here to leak.
+  /// Answers GET /v1/world — the product's public endpoint, naming every wire this surface answers on.  It exists because two of those wires are INVISIBLE to the generated document. /v1/world/mcp and /v1/world/zap are carved off the cloud catch-all by the ingress and answered by world-gw, so the cloud router never serves them — and openapi.Describe renders prose only for a route the router actually serves, which is the very property that keeps the document from being able to claim an operation nothing answers. Both addresses are real and public, so without this op the only way to learn they exist is to read the ingress config. This is where that fact lives, in the product's own surface.  Public on purpose: discovery precedes credentials. It reports addresses and protocols only — never feed data, and never the caller's plan, which GET /v1/world/limits owns — so there is nothing here to leak.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getWorldWithHttpInfo() async {
@@ -46,9 +46,9 @@ class WorldApi {
     );
   }
 
-  /// Answers GET /v1/world — the product's front door, naming every wire this surface answers on.
+  /// Answers GET /v1/world — the product's public endpoint, naming every wire this surface answers on.
   ///
-  /// Answers GET /v1/world — the product's front door, naming every wire this surface answers on.  It exists because two of those wires are INVISIBLE to the generated document. /v1/world/mcp and /v1/world/zap are carved off the cloud catch-all by the ingress and answered by world-gw, so the cloud router never serves them — and openapi.Describe renders prose only for a route the router actually serves, which is the very property that keeps the document from being able to claim an operation nothing answers. Both addresses are real and public, so without this op the only way to learn they exist is to read the ingress config. This is where that fact lives, in the product's own surface.  Public on purpose: discovery precedes credentials. It reports addresses and protocols only — never feed data, and never the caller's plan, which GET /v1/world/limits owns — so there is nothing here to leak.
+  /// Answers GET /v1/world — the product's public endpoint, naming every wire this surface answers on.  It exists because two of those wires are INVISIBLE to the generated document. /v1/world/mcp and /v1/world/zap are carved off the cloud catch-all by the ingress and answered by world-gw, so the cloud router never serves them — and openapi.Describe renders prose only for a route the router actually serves, which is the very property that keeps the document from being able to claim an operation nothing answers. Both addresses are real and public, so without this op the only way to learn they exist is to read the ingress config. This is where that fact lives, in the product's own surface.  Public on purpose: discovery precedes credentials. It reports addresses and protocols only — never feed data, and never the caller's plan, which GET /v1/world/limits owns — so there is nothing here to leak.
   Future<WorldIndex?> getWorld() async {
     final response = await getWorldWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {

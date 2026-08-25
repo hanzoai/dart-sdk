@@ -720,7 +720,7 @@ class SandboxApi {
 
   /// Mints a short-lived grant to open the screen of a desktop sandbox.
   ///
-  /// Mints a short-lived grant to open the screen of a desktop sandbox. Same properties as the terminal ticket, for the other door.
+  /// Mints a short-lived grant to open the screen of a desktop sandbox. Same properties as the terminal ticket, for the other endpoint.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -756,7 +756,7 @@ class SandboxApi {
 
   /// Mints a short-lived grant to open the screen of a desktop sandbox.
   ///
-  /// Mints a short-lived grant to open the screen of a desktop sandbox. Same properties as the terminal ticket, for the other door.
+  /// Mints a short-lived grant to open the screen of a desktop sandbox. Same properties as the terminal ticket, for the other endpoint.
   ///
   /// Parameters:
   ///

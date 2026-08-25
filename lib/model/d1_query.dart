@@ -16,8 +16,10 @@ class D1Query {
     this.params = const [],
     this.sql,
   });
+  /// Params are the statement's bound values, in the order its `?` placeholders appear — a string, a number, a boolean or null, whatever the column takes. Absent means the statement carries no placeholders; bind values here rather than interpolating them into the statement.
   List<Object> params;
 
+  /// SQL is the statement to run. Blank (or absent) is refused before anything reaches D1.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

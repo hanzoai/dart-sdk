@@ -5851,7 +5851,7 @@ class O11yApi {
 
   /// Complete a Google sign-in
   ///
-  /// The callback Google redirects a user back to after they approve the sign-in. It exchanges the authorization code, establishes the session and answers 303 to the console.  The answer is a Location header and no body, which is why it is not a typed operation — declaring a JSON response for a redirect would publish a shape that does not exist and hide the header that is the entire point.  UNAUTHENTICATED by necessity: it is how a caller GETS a principal, so requiring one would be circular. It is not an open door — the code it carries is single-use and verified against the provider.
+  /// The callback Google redirects a user back to after they approve the sign-in. It exchanges the authorization code, establishes the session and answers 303 to the console.  The answer is a Location header and no body, which is why it is not a typed operation — declaring a JSON response for a redirect would publish a shape that does not exist and hide the header that is the entire point.  UNAUTHENTICATED by necessity: it is how a caller GETS a principal, so requiring one would be circular. It is not an open endpoint — the code it carries is single-use and verified against the provider.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getO11yCompleteGoogleWithHttpInfo() async {
@@ -5881,7 +5881,7 @@ class O11yApi {
 
   /// Complete a Google sign-in
   ///
-  /// The callback Google redirects a user back to after they approve the sign-in. It exchanges the authorization code, establishes the session and answers 303 to the console.  The answer is a Location header and no body, which is why it is not a typed operation — declaring a JSON response for a redirect would publish a shape that does not exist and hide the header that is the entire point.  UNAUTHENTICATED by necessity: it is how a caller GETS a principal, so requiring one would be circular. It is not an open door — the code it carries is single-use and verified against the provider.
+  /// The callback Google redirects a user back to after they approve the sign-in. It exchanges the authorization code, establishes the session and answers 303 to the console.  The answer is a Location header and no body, which is why it is not a typed operation — declaring a JSON response for a redirect would publish a shape that does not exist and hide the header that is the entire point.  UNAUTHENTICATED by necessity: it is how a caller GETS a principal, so requiring one would be circular. It is not an open endpoint — the code it carries is single-use and verified against the provider.
   Future<void> getO11yCompleteGoogle() async {
     final response = await getO11yCompleteGoogleWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {

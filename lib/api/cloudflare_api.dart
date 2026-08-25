@@ -1393,9 +1393,9 @@ class CloudflareApi {
     return null;
   }
 
-  /// Run a SQL statement against a D1 database
+  /// Runs one SQL statement against a D1 database.
   ///
-  /// Executes a statement on one D1 database on the org's OWN Cloudflare account and relays D1's result set. `sql` is required and `params` carries the bound values in placeholder order — use them rather than interpolating values into the statement.  The body is checked for a non-empty `sql` and then forwarded VERBATIM, so every field D1 accepts reaches D1 even though only two are named here; the declared schema is open for that reason. That verbatim forward is why this is not a typed op — decoding and re-encoding the body would drop `params`, where the query's bound values live. Requires ORG ADMIN (403 otherwise); a malformed body or missing `sql` is 400; 503 if the org has never connected a Cloudflare token.
+  /// Runs one SQL statement against a D1 database. It executes on the org's OWN Cloudflare account and relays D1's result set. The body is checked for a non-empty `sql` and then forwarded VERBATIM, so every field D1 accepts reaches D1 even though only two are named here.  Requires ORG ADMIN — a statement may INSERT, UPDATE or DROP, so a query takes the write gate rather than the read one — and a caller who is only an org member is refused 403. A missing `sql` is 400; 503 if the org has never connected a Cloudflare token.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -1403,8 +1403,8 @@ class CloudflareApi {
   ///
   /// * [String] database (required):
   ///
-  /// * [D1Query] d1Query:
-  Future<Response> postCloudflareD1DatabasesByDatabaseQueryWithHttpInfo(String database, { D1Query? d1Query, }) async {
+  /// * [D1Query] d1Query (required):
+  Future<Response> postCloudflareD1DatabasesByDatabaseQueryWithHttpInfo(String database, D1Query d1Query,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/cloudflare/d1/databases/{database}/query'
       .replaceAll('{database}', database);
@@ -1430,17 +1430,17 @@ class CloudflareApi {
     );
   }
 
-  /// Run a SQL statement against a D1 database
+  /// Runs one SQL statement against a D1 database.
   ///
-  /// Executes a statement on one D1 database on the org's OWN Cloudflare account and relays D1's result set. `sql` is required and `params` carries the bound values in placeholder order — use them rather than interpolating values into the statement.  The body is checked for a non-empty `sql` and then forwarded VERBATIM, so every field D1 accepts reaches D1 even though only two are named here; the declared schema is open for that reason. That verbatim forward is why this is not a typed op — decoding and re-encoding the body would drop `params`, where the query's bound values live. Requires ORG ADMIN (403 otherwise); a malformed body or missing `sql` is 400; 503 if the org has never connected a Cloudflare token.
+  /// Runs one SQL statement against a D1 database. It executes on the org's OWN Cloudflare account and relays D1's result set. The body is checked for a non-empty `sql` and then forwarded VERBATIM, so every field D1 accepts reaches D1 even though only two are named here.  Requires ORG ADMIN — a statement may INSERT, UPDATE or DROP, so a query takes the write gate rather than the read one — and a caller who is only an org member is refused 403. A missing `sql` is 400; 503 if the org has never connected a Cloudflare token.
   ///
   /// Parameters:
   ///
   /// * [String] database (required):
   ///
-  /// * [D1Query] d1Query:
-  Future<Object?> postCloudflareD1DatabasesByDatabaseQuery(String database, { D1Query? d1Query, }) async {
-    final response = await postCloudflareD1DatabasesByDatabaseQueryWithHttpInfo(database,  d1Query: d1Query, );
+  /// * [D1Query] d1Query (required):
+  Future<Object?> postCloudflareD1DatabasesByDatabaseQuery(String database, D1Query d1Query,) async {
+    final response = await postCloudflareD1DatabasesByDatabaseQueryWithHttpInfo(database, d1Query,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -1989,18 +1989,19 @@ class CloudflareApi {
     }
   }
 
-  /// Upload or replace a module Worker script
+  /// Uploads or replaces a module Worker script.
   ///
-  /// Publishes a module Worker to the org's OWN Cloudflare account under the name in the path, replacing whatever was there, and relays Cloudflare's result. `script` carries the module SOURCE; the optional compatibility date, compatibility flags and bindings are packed into the multipart upload Cloudflare expects.  The path names the script and the body field named `script` is its source — two different things that share a name, which is exactly why this cannot be a typed op: a binder that gives the URL the last word would overwrite the source with the script's name. Requires ORG ADMIN (403 otherwise); an unparseable body or empty source is 400; 503 if the org has never connected a Cloudflare token.
+  /// Uploads or replaces a module Worker script. It publishes to the org's OWN Cloudflare account under the name in the path, replacing whatever was there, and relays Cloudflare's result. The compatibility date, compatibility flags and bindings are packed into the multipart upload Cloudflare expects, beside the module source.  Requires ORG ADMIN — a Worker is arbitrary code on the org's own account and domains — so a caller who is only an org member is refused 403. An empty source is 400, as is a `mainModule` that is not a plain file name; 503 if the org has never connected a Cloudflare token.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] script (required):
+  ///   Script means two things on this route, and the document says so in both places it appears: the PATH segment names the Worker to publish, and the BODY field carries that Worker's ES-module source — the code itself, never a name or a URL. A blank or absent source is refused; there is no empty Worker.
   ///
-  /// * [WorkerScriptPut] workerScriptPut:
-  Future<Response> putCloudflareWorkersScriptsByScriptWithHttpInfo(String script, { WorkerScriptPut? workerScriptPut, }) async {
+  /// * [WorkerScriptPut] workerScriptPut (required):
+  Future<Response> putCloudflareWorkersScriptsByScriptWithHttpInfo(String script, WorkerScriptPut workerScriptPut,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/cloudflare/workers/scripts/{script}'
       .replaceAll('{script}', script);
@@ -2026,17 +2027,18 @@ class CloudflareApi {
     );
   }
 
-  /// Upload or replace a module Worker script
+  /// Uploads or replaces a module Worker script.
   ///
-  /// Publishes a module Worker to the org's OWN Cloudflare account under the name in the path, replacing whatever was there, and relays Cloudflare's result. `script` carries the module SOURCE; the optional compatibility date, compatibility flags and bindings are packed into the multipart upload Cloudflare expects.  The path names the script and the body field named `script` is its source — two different things that share a name, which is exactly why this cannot be a typed op: a binder that gives the URL the last word would overwrite the source with the script's name. Requires ORG ADMIN (403 otherwise); an unparseable body or empty source is 400; 503 if the org has never connected a Cloudflare token.
+  /// Uploads or replaces a module Worker script. It publishes to the org's OWN Cloudflare account under the name in the path, replacing whatever was there, and relays Cloudflare's result. The compatibility date, compatibility flags and bindings are packed into the multipart upload Cloudflare expects, beside the module source.  Requires ORG ADMIN — a Worker is arbitrary code on the org's own account and domains — so a caller who is only an org member is refused 403. An empty source is 400, as is a `mainModule` that is not a plain file name; 503 if the org has never connected a Cloudflare token.
   ///
   /// Parameters:
   ///
   /// * [String] script (required):
+  ///   Script means two things on this route, and the document says so in both places it appears: the PATH segment names the Worker to publish, and the BODY field carries that Worker's ES-module source — the code itself, never a name or a URL. A blank or absent source is refused; there is no empty Worker.
   ///
-  /// * [WorkerScriptPut] workerScriptPut:
-  Future<Object?> putCloudflareWorkersScriptsByScript(String script, { WorkerScriptPut? workerScriptPut, }) async {
-    final response = await putCloudflareWorkersScriptsByScriptWithHttpInfo(script,  workerScriptPut: workerScriptPut, );
+  /// * [WorkerScriptPut] workerScriptPut (required):
+  Future<Object?> putCloudflareWorkersScriptsByScript(String script, WorkerScriptPut workerScriptPut,) async {
+    final response = await putCloudflareWorkersScriptsByScriptWithHttpInfo(script, workerScriptPut,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }

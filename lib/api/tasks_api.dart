@@ -18,7 +18,7 @@ class TasksApi {
 
   /// Redirect to the tasks API root
   ///
-  /// Answers 307 with Location /v1/tasks/ — this address serves nothing itself. The redirect is a routing fact derived from the engine's subtree, decided before any handler runs, so it is the same on every method.  A 307 preserves both the method and the body, so a client that follows redirects re-sends the request unchanged to /v1/tasks/ and nothing is lost. A client that does NOT follow redirects sees only the 307 and performs no work — address /v1/tasks/ directly and the hop disappears.
+  /// Answers 307 with Location /v1/tasks/ — this address serves nothing itself. The status and the Location are the same on every method; a GET additionally carries the short HTML body a browser falls back to when it does not follow the redirect itself.  A 307 preserves both the method and the body, so a client that follows redirects re-sends the request unchanged to /v1/tasks/ and nothing is lost. A client that does NOT follow redirects sees only the 307 and performs no work — address /v1/tasks/ directly and the hop disappears.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> deleteTasksWithHttpInfo() async {
@@ -48,7 +48,7 @@ class TasksApi {
 
   /// Redirect to the tasks API root
   ///
-  /// Answers 307 with Location /v1/tasks/ — this address serves nothing itself. The redirect is a routing fact derived from the engine's subtree, decided before any handler runs, so it is the same on every method.  A 307 preserves both the method and the body, so a client that follows redirects re-sends the request unchanged to /v1/tasks/ and nothing is lost. A client that does NOT follow redirects sees only the 307 and performs no work — address /v1/tasks/ directly and the hop disappears.
+  /// Answers 307 with Location /v1/tasks/ — this address serves nothing itself. The status and the Location are the same on every method; a GET additionally carries the short HTML body a browser falls back to when it does not follow the redirect itself.  A 307 preserves both the method and the body, so a client that follows redirects re-sends the request unchanged to /v1/tasks/ and nothing is lost. A client that does NOT follow redirects sees only the 307 and performs no work — address /v1/tasks/ directly and the hop disappears.
   Future<void> deleteTasks() async {
     final response = await deleteTasksWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -58,7 +58,7 @@ class TasksApi {
 
   /// Redirect to the tasks API root
   ///
-  /// Answers 307 with Location /v1/tasks/ — this address serves nothing itself. The redirect is a routing fact derived from the engine's subtree, decided before any handler runs, so it is the same on every method.  A 307 preserves both the method and the body, so a client that follows redirects re-sends the request unchanged to /v1/tasks/ and nothing is lost. A client that does NOT follow redirects sees only the 307 and performs no work — address /v1/tasks/ directly and the hop disappears.
+  /// Answers 307 with Location /v1/tasks/ — this address serves nothing itself. The status and the Location are the same on every method; a GET additionally carries the short HTML body a browser falls back to when it does not follow the redirect itself.  A 307 preserves both the method and the body, so a client that follows redirects re-sends the request unchanged to /v1/tasks/ and nothing is lost. A client that does NOT follow redirects sees only the 307 and performs no work — address /v1/tasks/ directly and the hop disappears.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> getTasksWithHttpInfo() async {
@@ -88,7 +88,7 @@ class TasksApi {
 
   /// Redirect to the tasks API root
   ///
-  /// Answers 307 with Location /v1/tasks/ — this address serves nothing itself. The redirect is a routing fact derived from the engine's subtree, decided before any handler runs, so it is the same on every method.  A 307 preserves both the method and the body, so a client that follows redirects re-sends the request unchanged to /v1/tasks/ and nothing is lost. A client that does NOT follow redirects sees only the 307 and performs no work — address /v1/tasks/ directly and the hop disappears.
+  /// Answers 307 with Location /v1/tasks/ — this address serves nothing itself. The status and the Location are the same on every method; a GET additionally carries the short HTML body a browser falls back to when it does not follow the redirect itself.  A 307 preserves both the method and the body, so a client that follows redirects re-sends the request unchanged to /v1/tasks/ and nothing is lost. A client that does NOT follow redirects sees only the 307 and performs no work — address /v1/tasks/ directly and the hop disappears.
   Future<void> getTasks() async {
     final response = await getTasksWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -98,7 +98,7 @@ class TasksApi {
 
   /// Redirect to the tasks API root
   ///
-  /// Answers 307 with Location /v1/tasks/ — this address serves nothing itself. The redirect is a routing fact derived from the engine's subtree, decided before any handler runs, so it is the same on every method.  A 307 preserves both the method and the body, so a client that follows redirects re-sends the request unchanged to /v1/tasks/ and nothing is lost. A client that does NOT follow redirects sees only the 307 and performs no work — address /v1/tasks/ directly and the hop disappears.
+  /// Answers 307 with Location /v1/tasks/ — this address serves nothing itself. The status and the Location are the same on every method; a GET additionally carries the short HTML body a browser falls back to when it does not follow the redirect itself.  A 307 preserves both the method and the body, so a client that follows redirects re-sends the request unchanged to /v1/tasks/ and nothing is lost. A client that does NOT follow redirects sees only the 307 and performs no work — address /v1/tasks/ directly and the hop disappears.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> patchTasksWithHttpInfo() async {
@@ -128,7 +128,7 @@ class TasksApi {
 
   /// Redirect to the tasks API root
   ///
-  /// Answers 307 with Location /v1/tasks/ — this address serves nothing itself. The redirect is a routing fact derived from the engine's subtree, decided before any handler runs, so it is the same on every method.  A 307 preserves both the method and the body, so a client that follows redirects re-sends the request unchanged to /v1/tasks/ and nothing is lost. A client that does NOT follow redirects sees only the 307 and performs no work — address /v1/tasks/ directly and the hop disappears.
+  /// Answers 307 with Location /v1/tasks/ — this address serves nothing itself. The status and the Location are the same on every method; a GET additionally carries the short HTML body a browser falls back to when it does not follow the redirect itself.  A 307 preserves both the method and the body, so a client that follows redirects re-sends the request unchanged to /v1/tasks/ and nothing is lost. A client that does NOT follow redirects sees only the 307 and performs no work — address /v1/tasks/ directly and the hop disappears.
   Future<void> patchTasks() async {
     final response = await patchTasksWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -138,7 +138,7 @@ class TasksApi {
 
   /// Redirect to the tasks API root
   ///
-  /// Answers 307 with Location /v1/tasks/ — this address serves nothing itself. The redirect is a routing fact derived from the engine's subtree, decided before any handler runs, so it is the same on every method.  A 307 preserves both the method and the body, so a client that follows redirects re-sends the request unchanged to /v1/tasks/ and nothing is lost. A client that does NOT follow redirects sees only the 307 and performs no work — address /v1/tasks/ directly and the hop disappears.
+  /// Answers 307 with Location /v1/tasks/ — this address serves nothing itself. The status and the Location are the same on every method; a GET additionally carries the short HTML body a browser falls back to when it does not follow the redirect itself.  A 307 preserves both the method and the body, so a client that follows redirects re-sends the request unchanged to /v1/tasks/ and nothing is lost. A client that does NOT follow redirects sees only the 307 and performs no work — address /v1/tasks/ directly and the hop disappears.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> postTasksWithHttpInfo() async {
@@ -168,7 +168,7 @@ class TasksApi {
 
   /// Redirect to the tasks API root
   ///
-  /// Answers 307 with Location /v1/tasks/ — this address serves nothing itself. The redirect is a routing fact derived from the engine's subtree, decided before any handler runs, so it is the same on every method.  A 307 preserves both the method and the body, so a client that follows redirects re-sends the request unchanged to /v1/tasks/ and nothing is lost. A client that does NOT follow redirects sees only the 307 and performs no work — address /v1/tasks/ directly and the hop disappears.
+  /// Answers 307 with Location /v1/tasks/ — this address serves nothing itself. The status and the Location are the same on every method; a GET additionally carries the short HTML body a browser falls back to when it does not follow the redirect itself.  A 307 preserves both the method and the body, so a client that follows redirects re-sends the request unchanged to /v1/tasks/ and nothing is lost. A client that does NOT follow redirects sees only the 307 and performs no work — address /v1/tasks/ directly and the hop disappears.
   Future<void> postTasks() async {
     final response = await postTasksWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -178,7 +178,7 @@ class TasksApi {
 
   /// Redirect to the tasks API root
   ///
-  /// Answers 307 with Location /v1/tasks/ — this address serves nothing itself. The redirect is a routing fact derived from the engine's subtree, decided before any handler runs, so it is the same on every method.  A 307 preserves both the method and the body, so a client that follows redirects re-sends the request unchanged to /v1/tasks/ and nothing is lost. A client that does NOT follow redirects sees only the 307 and performs no work — address /v1/tasks/ directly and the hop disappears.
+  /// Answers 307 with Location /v1/tasks/ — this address serves nothing itself. The status and the Location are the same on every method; a GET additionally carries the short HTML body a browser falls back to when it does not follow the redirect itself.  A 307 preserves both the method and the body, so a client that follows redirects re-sends the request unchanged to /v1/tasks/ and nothing is lost. A client that does NOT follow redirects sees only the 307 and performs no work — address /v1/tasks/ directly and the hop disappears.
   ///
   /// Note: This method returns the HTTP [Response].
   Future<Response> putTasksWithHttpInfo() async {
@@ -208,7 +208,7 @@ class TasksApi {
 
   /// Redirect to the tasks API root
   ///
-  /// Answers 307 with Location /v1/tasks/ — this address serves nothing itself. The redirect is a routing fact derived from the engine's subtree, decided before any handler runs, so it is the same on every method.  A 307 preserves both the method and the body, so a client that follows redirects re-sends the request unchanged to /v1/tasks/ and nothing is lost. A client that does NOT follow redirects sees only the 307 and performs no work — address /v1/tasks/ directly and the hop disappears.
+  /// Answers 307 with Location /v1/tasks/ — this address serves nothing itself. The status and the Location are the same on every method; a GET additionally carries the short HTML body a browser falls back to when it does not follow the redirect itself.  A 307 preserves both the method and the body, so a client that follows redirects re-sends the request unchanged to /v1/tasks/ and nothing is lost. A client that does NOT follow redirects sees only the 307 and performs no work — address /v1/tasks/ directly and the hop disappears.
   Future<void> putTasks() async {
     final response = await putTasksWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {

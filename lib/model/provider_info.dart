@@ -25,7 +25,7 @@ class ProviderInfo {
   ///
   String? displayName;
 
-  /// Name is the provider id, and it is the value that goes back in the URL to start a login: GET /v1/team/account/auth/{provider}. This deployment surfaces exactly one, \"openid\" — the hanzo.id door.
+  /// Name is the provider id, and it is the value that goes back in the URL to start a login: GET /v1/team/account/auth/{provider}. This deployment surfaces exactly one, \"openid\" — the hanzo.id provider.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

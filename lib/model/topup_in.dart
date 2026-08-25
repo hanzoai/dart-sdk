@@ -36,7 +36,7 @@ class TopupIn {
   ///
   String? currency;
 
-  /// MethodID names a card the subject already saved, for the saved-card door.
+  /// MethodID names a card the subject already saved, for the saved-card endpoint.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -45,7 +45,7 @@ class TopupIn {
   ///
   String? paymentMethodId;
 
-  /// SourceID is a single-use card token from the payment form, for the token door. It is vaulted as part of the charge, so a caller never holds card numbers and this service never sees one.
+  /// SourceID is a single-use card token from the payment form, for the token endpoint. It is vaulted as part of the charge, so a caller never holds card numbers and this service never sees one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

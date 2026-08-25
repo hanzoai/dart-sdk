@@ -55,7 +55,7 @@ class EsignInvite {
   ///
   String? role;
 
-  /// Token is the crypto-random signing capability for this recipient. It is the entire credential their door accepts, so treat it as a secret and hand it only to them: the signing link is built from it.
+  /// Token is the crypto-random signing capability for this recipient. It is the entire credential their signing endpoint accepts, so treat it as a secret and hand it only to them: the signing link is built from it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

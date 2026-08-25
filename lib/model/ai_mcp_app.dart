@@ -25,7 +25,7 @@ class AiMCPApp {
   ///
   String? name;
 
-  /// Served reports that THIS process mounted it, so its tools are on this process's door rather than behind a sibling this process only knows the name of.
+  /// Served reports that THIS process mounted it, so its tools are on this process's MCP server rather than behind a sibling this process only knows the name of.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

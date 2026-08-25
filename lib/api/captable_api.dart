@@ -904,28 +904,31 @@ class CaptableApi {
     return null;
   }
 
-  /// Amend a share class
+  /// Replaces one share class's terms.
   ///
-  /// Rewrites one share class — the amendment path for a class whose authorized count, price, seniority or preference terms have changed.  It REPLACES the class rather than merging into it: every field is taken from this body, so an omitted field resets to the create-time default instead of keeping its current value. Send the full class. The index and the derived prefix are unchanged by an amendment. An id that is not this company's is not found.  Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
+  /// Replaces one share class's terms.  It is a full REPLACE and not a merge, despite the PATCH: every field is written as sent, so a field omitted is written empty rather than left alone. Send the whole class. The method is PATCH because the resource is addressed by id, not because the body is partial — and getting that backwards silently blanks terms every later issuance prices against.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
-  Future<Response> patchCaptableClassesByIdWithHttpInfo(String id,) async {
+  ///   ID addresses the resource. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which row is written whatever a body claims.
+  ///
+  /// * [CaptableShareClassAmend] captableShareClassAmend (required):
+  Future<Response> patchCaptableClassesByIdWithHttpInfo(String id, CaptableShareClassAmend captableShareClassAmend,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/captable/classes/{id}'
       .replaceAll('{id}', id);
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = captableShareClassAmend;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -939,18 +942,29 @@ class CaptableApi {
     );
   }
 
-  /// Amend a share class
+  /// Replaces one share class's terms.
   ///
-  /// Rewrites one share class — the amendment path for a class whose authorized count, price, seniority or preference terms have changed.  It REPLACES the class rather than merging into it: every field is taken from this body, so an omitted field resets to the create-time default instead of keeping its current value. Send the full class. The index and the derived prefix are unchanged by an amendment. An id that is not this company's is not found.  Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
+  /// Replaces one share class's terms.  It is a full REPLACE and not a merge, despite the PATCH: every field is written as sent, so a field omitted is written empty rather than left alone. Send the whole class. The method is PATCH because the resource is addressed by id, not because the body is partial — and getting that backwards silently blanks terms every later issuance prices against.
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
-  Future<void> patchCaptableClassesById(String id,) async {
-    final response = await patchCaptableClassesByIdWithHttpInfo(id,);
+  ///   ID addresses the resource. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which row is written whatever a body claims.
+  ///
+  /// * [CaptableShareClassAmend] captableShareClassAmend (required):
+  Future<CaptableUpdated?> patchCaptableClassesById(String id, CaptableShareClassAmend captableShareClassAmend,) async {
+    final response = await patchCaptableClassesByIdWithHttpInfo(id, captableShareClassAmend,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'CaptableUpdated',) as CaptableUpdated;
+    
+    }
+    return null;
   }
 
   /// Changes one of the caller org's stakeholders.
@@ -1016,23 +1030,27 @@ class CaptableApi {
     return null;
   }
 
-  /// Define a share class
+  /// Defines a new class of shares.
   ///
-  /// Creates a class of stock — its authorized share count, votes per share, par and issue price, seniority, conversion rights and liquidation/participation multiples — which is what shares, priced rounds and equity plans are then issued against.  Two fields are the company's to assign, not the caller's: the class index auto-increments per company, and the certificate prefix is DERIVED from the class type (CS for COMMON, PS for anything else), so a prefix in the body is ignored.  Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
+  /// Defines a new class of shares.  Every field but convertsToShareClassId is required — a class is the instrument every later issuance prices against, so a partially-specified one would silently mis-value every share issued into it. `seniority` orders liquidation preference with LOWER first.
   ///
   /// Note: This method returns the HTTP [Response].
-  Future<Response> postCaptableClassesWithHttpInfo() async {
+  ///
+  /// Parameters:
+  ///
+  /// * [CaptableShareClassIn] captableShareClassIn (required):
+  Future<Response> postCaptableClassesWithHttpInfo(CaptableShareClassIn captableShareClassIn,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/captable/classes';
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = captableShareClassIn;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -1046,33 +1064,49 @@ class CaptableApi {
     );
   }
 
-  /// Define a share class
+  /// Defines a new class of shares.
   ///
-  /// Creates a class of stock — its authorized share count, votes per share, par and issue price, seniority, conversion rights and liquidation/participation multiples — which is what shares, priced rounds and equity plans are then issued against.  Two fields are the company's to assign, not the caller's: the class index auto-increments per company, and the certificate prefix is DERIVED from the class type (CS for COMMON, PS for anything else), so a prefix in the body is ignored.  Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
-  Future<void> postCaptableClasses() async {
-    final response = await postCaptableClassesWithHttpInfo();
+  /// Defines a new class of shares.  Every field but convertsToShareClassId is required — a class is the instrument every later issuance prices against, so a partially-specified one would silently mis-value every share issued into it. `seniority` orders liquidation preference with LOWER first.
+  ///
+  /// Parameters:
+  ///
+  /// * [CaptableShareClassIn] captableShareClassIn (required):
+  Future<CaptableCreated?> postCaptableClasses(CaptableShareClassIn captableShareClassIn,) async {
+    final response = await postCaptableClassesWithHttpInfo(captableShareClassIn,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'CaptableCreated',) as CaptableCreated;
+    
+    }
+    return null;
   }
 
-  /// Record a convertible note
+  /// Records a convertible note.
   ///
-  /// Records a convertible note held by a stakeholder: the principal, the conversion cap, discount and interest rate, MFN, and the issue and board-approval dates.  The stakeholder must already exist in this company, and the note's public id must be unused there — a reused id is a conflict rather than an overwrite. Like a SAFE, this records the instrument only; conversion is not performed here.  Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
+  /// Records a convertible note.
   ///
   /// Note: This method returns the HTTP [Response].
-  Future<Response> postCaptableConvertiblesWithHttpInfo() async {
+  ///
+  /// Parameters:
+  ///
+  /// * [CaptableConvertibleIn] captableConvertibleIn (required):
+  Future<Response> postCaptableConvertiblesWithHttpInfo(CaptableConvertibleIn captableConvertibleIn,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/captable/convertibles';
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = captableConvertibleIn;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -1086,33 +1120,49 @@ class CaptableApi {
     );
   }
 
-  /// Record a convertible note
+  /// Records a convertible note.
   ///
-  /// Records a convertible note held by a stakeholder: the principal, the conversion cap, discount and interest rate, MFN, and the issue and board-approval dates.  The stakeholder must already exist in this company, and the note's public id must be unused there — a reused id is a conflict rather than an overwrite. Like a SAFE, this records the instrument only; conversion is not performed here.  Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
-  Future<void> postCaptableConvertibles() async {
-    final response = await postCaptableConvertiblesWithHttpInfo();
+  /// Records a convertible note.
+  ///
+  /// Parameters:
+  ///
+  /// * [CaptableConvertibleIn] captableConvertibleIn (required):
+  Future<CaptableCreated?> postCaptableConvertibles(CaptableConvertibleIn captableConvertibleIn,) async {
+    final response = await postCaptableConvertiblesWithHttpInfo(captableConvertibleIn,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'CaptableCreated',) as CaptableCreated;
+    
+    }
+    return null;
   }
 
-  /// Grant options from an equity plan
+  /// Grants options to a stakeholder from an equity plan.
   ///
-  /// Records an option grant to a stakeholder under an equity plan — quantity, exercise price, ISO/NSO type, cliff and vesting years, and the issue, expiration, vesting-start, board-approval and Rule 144 dates.  The stakeholder and the equity plan must both already exist in this company, and the grant id must be unused there — a reused grant id is a conflict, so a grant can never be overwritten by a later one carrying the same number.  Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
+  /// Grants options to a stakeholder from an equity plan.
   ///
   /// Note: This method returns the HTTP [Response].
-  Future<Response> postCaptableOptionsWithHttpInfo() async {
+  ///
+  /// Parameters:
+  ///
+  /// * [CaptableOptionIn] captableOptionIn (required):
+  Future<Response> postCaptableOptionsWithHttpInfo(CaptableOptionIn captableOptionIn,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/captable/options';
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = captableOptionIn;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -1126,33 +1176,49 @@ class CaptableApi {
     );
   }
 
-  /// Grant options from an equity plan
+  /// Grants options to a stakeholder from an equity plan.
   ///
-  /// Records an option grant to a stakeholder under an equity plan — quantity, exercise price, ISO/NSO type, cliff and vesting years, and the issue, expiration, vesting-start, board-approval and Rule 144 dates.  The stakeholder and the equity plan must both already exist in this company, and the grant id must be unused there — a reused grant id is a conflict, so a grant can never be overwritten by a later one carrying the same number.  Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
-  Future<void> postCaptableOptions() async {
-    final response = await postCaptableOptionsWithHttpInfo();
+  /// Grants options to a stakeholder from an equity plan.
+  ///
+  /// Parameters:
+  ///
+  /// * [CaptableOptionIn] captableOptionIn (required):
+  Future<CaptableCreated?> postCaptableOptions(CaptableOptionIn captableOptionIn,) async {
+    final response = await postCaptableOptionsWithHttpInfo(captableOptionIn,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'CaptableCreated',) as CaptableCreated;
+    
+    }
+    return null;
   }
 
-  /// Open an equity incentive plan
+  /// Opens an equity plan that options are granted from.
   ///
-  /// Reserves a pool of shares out of a share class for option grants, with the board approval and effective dates and what happens to cancelled options.  The share class must already exist in this company — a plan cannot reserve out of nothing. Note the field name the bundle reads for the cancellation behaviour is `defaultCancellatonBehavior`; that spelling is the wire, and a correctly spelled key is simply not seen.  Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
+  /// Opens an equity plan that options are granted from.
   ///
   /// Note: This method returns the HTTP [Response].
-  Future<Response> postCaptablePlansWithHttpInfo() async {
+  ///
+  /// Parameters:
+  ///
+  /// * [CaptableEquityPlanIn] captableEquityPlanIn (required):
+  Future<Response> postCaptablePlansWithHttpInfo(CaptableEquityPlanIn captableEquityPlanIn,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/captable/plans';
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = captableEquityPlanIn;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -1166,33 +1232,49 @@ class CaptableApi {
     );
   }
 
-  /// Open an equity incentive plan
+  /// Opens an equity plan that options are granted from.
   ///
-  /// Reserves a pool of shares out of a share class for option grants, with the board approval and effective dates and what happens to cancelled options.  The share class must already exist in this company — a plan cannot reserve out of nothing. Note the field name the bundle reads for the cancellation behaviour is `defaultCancellatonBehavior`; that spelling is the wire, and a correctly spelled key is simply not seen.  Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
-  Future<void> postCaptablePlans() async {
-    final response = await postCaptablePlansWithHttpInfo();
+  /// Opens an equity plan that options are granted from.
+  ///
+  /// Parameters:
+  ///
+  /// * [CaptableEquityPlanIn] captableEquityPlanIn (required):
+  Future<CaptableCreated?> postCaptablePlans(CaptableEquityPlanIn captableEquityPlanIn,) async {
+    final response = await postCaptablePlansWithHttpInfo(captableEquityPlanIn,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'CaptableCreated',) as CaptableCreated;
+    
+    }
+    return null;
   }
 
-  /// Open a funding round
+  /// Opens a priced round that investments can be added to.
   ///
-  /// Opens a round with its name, type and target amount. It starts OPEN with nothing raised; investments are then added to it, and closing it is its own call.  A PRICED round is the constrained case: it requires a share class that exists in this company and a price per share above zero, because that price is what converts each investment into issued shares. Its pre-money valuation is optional. A non-priced round carries none of the three.  Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
+  /// Opens a priced round that investments can be added to.  The round opens OPEN; investing into a closed one is refused.
   ///
   /// Note: This method returns the HTTP [Response].
-  Future<Response> postCaptableRoundsWithHttpInfo() async {
+  ///
+  /// Parameters:
+  ///
+  /// * [CaptableRoundIn] captableRoundIn (required):
+  Future<Response> postCaptableRoundsWithHttpInfo(CaptableRoundIn captableRoundIn,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/captable/rounds';
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = captableRoundIn;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -1206,14 +1288,26 @@ class CaptableApi {
     );
   }
 
-  /// Open a funding round
+  /// Opens a priced round that investments can be added to.
   ///
-  /// Opens a round with its name, type and target amount. It starts OPEN with nothing raised; investments are then added to it, and closing it is its own call.  A PRICED round is the constrained case: it requires a share class that exists in this company and a price per share above zero, because that price is what converts each investment into issued shares. Its pre-money valuation is optional. A non-priced round carries none of the three.  Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
-  Future<void> postCaptableRounds() async {
-    final response = await postCaptableRoundsWithHttpInfo();
+  /// Opens a priced round that investments can be added to.  The round opens OPEN; investing into a closed one is refused.
+  ///
+  /// Parameters:
+  ///
+  /// * [CaptableRoundIn] captableRoundIn (required):
+  Future<CaptableCreated?> postCaptableRounds(CaptableRoundIn captableRoundIn,) async {
+    final response = await postCaptableRoundsWithHttpInfo(captableRoundIn,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'CaptableCreated',) as CaptableCreated;
+    
+    }
+    return null;
   }
 
   /// Closes one of the caller org's fundraising rounds, recording the close date and moving its status to CLOSED.
@@ -1279,28 +1373,31 @@ class CaptableApi {
     return null;
   }
 
-  /// Record an investment into a round
+  /// Records one investor's money into an open round.
   ///
-  /// Records what a stakeholder put into a round and adds it to the round's raised total.  On a PRICED round this ISSUES SHARES as well as recording the money: the amount is divided by the round's price per share, rounded DOWN to whole shares, and a new certificate for them is issued to the investor in the round's share class — so an amount too small to buy one whole share is refused rather than recorded as a zero-share investment. On a non-priced round the money is recorded and no shares are issued.  The round must exist in this company and still be OPEN — a closed round refuses further investment — and the investor must already be a stakeholder here. The date defaults to today when omitted.  Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
+  /// Records one investor's money into an open round.  The round must be OPEN; investing into a closed one is refused. Where the round carries a price per share, the investment also issues the shares it buys and the answer names them.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
-  Future<Response> postCaptableRoundsByIdInvestmentsWithHttpInfo(String id,) async {
+  ///   ID is the round to invest in. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which round is written whatever a body claims.
+  ///
+  /// * [CaptableInvestmentIn] captableInvestmentIn (required):
+  Future<Response> postCaptableRoundsByIdInvestmentsWithHttpInfo(String id, CaptableInvestmentIn captableInvestmentIn,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/captable/rounds/{id}/investments'
       .replaceAll('{id}', id);
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = captableInvestmentIn;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -1314,37 +1411,52 @@ class CaptableApi {
     );
   }
 
-  /// Record an investment into a round
+  /// Records one investor's money into an open round.
   ///
-  /// Records what a stakeholder put into a round and adds it to the round's raised total.  On a PRICED round this ISSUES SHARES as well as recording the money: the amount is divided by the round's price per share, rounded DOWN to whole shares, and a new certificate for them is issued to the investor in the round's share class — so an amount too small to buy one whole share is refused rather than recorded as a zero-share investment. On a non-priced round the money is recorded and no shares are issued.  The round must exist in this company and still be OPEN — a closed round refuses further investment — and the investor must already be a stakeholder here. The date defaults to today when omitted.  Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
+  /// Records one investor's money into an open round.  The round must be OPEN; investing into a closed one is refused. Where the round carries a price per share, the investment also issues the shares it buys and the answer names them.
   ///
   /// Parameters:
   ///
   /// * [String] id (required):
-  Future<void> postCaptableRoundsByIdInvestments(String id,) async {
-    final response = await postCaptableRoundsByIdInvestmentsWithHttpInfo(id,);
+  ///   ID is the round to invest in. The URL is the addressing authority — a path segment binds after the body and after the query — so the address decides which round is written whatever a body claims.
+  ///
+  /// * [CaptableInvestmentIn] captableInvestmentIn (required):
+  Future<CaptableInvested?> postCaptableRoundsByIdInvestments(String id, CaptableInvestmentIn captableInvestmentIn,) async {
+    final response = await postCaptableRoundsByIdInvestmentsWithHttpInfo(id, captableInvestmentIn,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'CaptableInvested',) as CaptableInvested;
+    
+    }
+    return null;
   }
 
-  /// Record a SAFE
+  /// Records a SAFE — a simple agreement for future equity.
   ///
-  /// Records a Simple Agreement for Future Equity held by a stakeholder: the capital in, the valuation cap and discount, MFN and pro-rata rights, pre- or post-money type, and the issue and board-approval dates.  The stakeholder must already exist in this company, and the SAFE's public id must be unused there — a reused id is a conflict rather than an overwrite. This records the instrument; it does not convert it, so nothing is issued against a share class until a round does that.  Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
+  /// Records a SAFE — a simple agreement for future equity.
   ///
   /// Note: This method returns the HTTP [Response].
-  Future<Response> postCaptableSafesWithHttpInfo() async {
+  ///
+  /// Parameters:
+  ///
+  /// * [CaptableSafeIn] captableSafeIn (required):
+  Future<Response> postCaptableSafesWithHttpInfo(CaptableSafeIn captableSafeIn,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/captable/safes';
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = captableSafeIn;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -1358,33 +1470,49 @@ class CaptableApi {
     );
   }
 
-  /// Record a SAFE
+  /// Records a SAFE — a simple agreement for future equity.
   ///
-  /// Records a Simple Agreement for Future Equity held by a stakeholder: the capital in, the valuation cap and discount, MFN and pro-rata rights, pre- or post-money type, and the issue and board-approval dates.  The stakeholder must already exist in this company, and the SAFE's public id must be unused there — a reused id is a conflict rather than an overwrite. This records the instrument; it does not convert it, so nothing is issued against a share class until a round does that.  Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
-  Future<void> postCaptableSafes() async {
-    final response = await postCaptableSafesWithHttpInfo();
+  /// Records a SAFE — a simple agreement for future equity.
+  ///
+  /// Parameters:
+  ///
+  /// * [CaptableSafeIn] captableSafeIn (required):
+  Future<CaptableCreated?> postCaptableSafes(CaptableSafeIn captableSafeIn,) async {
+    final response = await postCaptableSafesWithHttpInfo(captableSafeIn,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'CaptableCreated',) as CaptableCreated;
+    
+    }
+    return null;
   }
 
-  /// Issue a share certificate
+  /// Issues a share certificate to a stakeholder.
   ///
-  /// Issues shares of a class to a stakeholder as a certificate: quantity, price and capital contributed, the vesting cliff and term, the legends on the certificate, and the issue, Rule 144, vesting-start and board-approval dates.  Both the stakeholder and the share class must already exist in this company, and the certificate id must be unused there — a reused id is a conflict, never a silent overwrite of an existing certificate.  Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
+  /// Issues a share certificate to a stakeholder.  The certificate id must be UNIQUE within the company — a duplicate is refused 409, not silently merged — and both the stakeholder and the share class must belong to this company, so an id from another tenant is a 400 rather than a cross-company issuance.
   ///
   /// Note: This method returns the HTTP [Response].
-  Future<Response> postCaptableSharesWithHttpInfo() async {
+  ///
+  /// Parameters:
+  ///
+  /// * [CaptableShareIn] captableShareIn (required):
+  Future<Response> postCaptableSharesWithHttpInfo(CaptableShareIn captableShareIn,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/captable/shares';
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = captableShareIn;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -1398,33 +1526,49 @@ class CaptableApi {
     );
   }
 
-  /// Issue a share certificate
+  /// Issues a share certificate to a stakeholder.
   ///
-  /// Issues shares of a class to a stakeholder as a certificate: quantity, price and capital contributed, the vesting cliff and term, the legends on the certificate, and the issue, Rule 144, vesting-start and board-approval dates.  Both the stakeholder and the share class must already exist in this company, and the certificate id must be unused there — a reused id is a conflict, never a silent overwrite of an existing certificate.  Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
-  Future<void> postCaptableShares() async {
-    final response = await postCaptableSharesWithHttpInfo();
+  /// Issues a share certificate to a stakeholder.  The certificate id must be UNIQUE within the company — a duplicate is refused 409, not silently merged — and both the stakeholder and the share class must belong to this company, so an id from another tenant is a 400 rather than a cross-company issuance.
+  ///
+  /// Parameters:
+  ///
+  /// * [CaptableShareIn] captableShareIn (required):
+  Future<CaptableCreated?> postCaptableShares(CaptableShareIn captableShareIn,) async {
+    final response = await postCaptableSharesWithHttpInfo(captableShareIn,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'CaptableCreated',) as CaptableCreated;
+    
+    }
+    return null;
   }
 
-  /// Transfer shares to another stakeholder
+  /// Moves shares from one stakeholder to another.
   ///
-  /// Moves shares from one certificate to another stakeholder, in one atomic step.  OMITTING `quantity` transfers the WHOLE certificate, which simply reassigns it and answers newShareId null — that is the difference between a full and a partial transfer, and it is why quantity is absent rather than zero. A partial transfer shrinks the source certificate and issues a NEW one to the recipient, so it requires a `certificateId` for that new certificate and refuses a reused one. The quantity must be between 1 and what the source certificate actually holds; the recipient must be a stakeholder of this same company.  Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
+  /// Moves shares from one stakeholder to another.  Omit `quantity` to transfer the whole certificate, which REASSIGNS it and mints no new share. Send a quantity below the amount held to SPLIT it — the source certificate keeps the remainder, and a split additionally requires `certificateId` for the new certificate, which must be unique in the company. A quantity outside 1..held is refused, so a transfer can never over-issue.  Both outcomes answer 200: a transfer records a movement between holders and mints no security of its own, which is why this is not a 201 the way an investment is.
   ///
   /// Note: This method returns the HTTP [Response].
-  Future<Response> postCaptableSharesTransferWithHttpInfo() async {
+  ///
+  /// Parameters:
+  ///
+  /// * [CaptableShareTransfer] captableShareTransfer (required):
+  Future<Response> postCaptableSharesTransferWithHttpInfo(CaptableShareTransfer captableShareTransfer,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/captable/shares/transfer';
 
     // ignore: prefer_final_locals
-    Object? postBody;
+    Object? postBody = captableShareTransfer;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
-    const contentTypes = <String>[];
+    const contentTypes = <String>['application/json'];
 
 
     return apiClient.invokeAPI(
@@ -1438,14 +1582,26 @@ class CaptableApi {
     );
   }
 
-  /// Transfer shares to another stakeholder
+  /// Moves shares from one stakeholder to another.
   ///
-  /// Moves shares from one certificate to another stakeholder, in one atomic step.  OMITTING `quantity` transfers the WHOLE certificate, which simply reassigns it and answers newShareId null — that is the difference between a full and a partial transfer, and it is why quantity is absent rather than zero. A partial transfer shrinks the source certificate and issues a NEW one to the recipient, so it requires a `certificateId` for that new certificate and refuses a reused one. The quantity must be between 1 and what the source certificate actually holds; the recipient must be a stakeholder of this same company.  Writes the caller's OWN cap table: the org resolved from the validated principal selects the tenant's store and scopes every row, so there is no field by which a caller can write into another company's table; a request with no validated org is refused. The whole write runs in one transaction, so a refusal leaves nothing behind. Validation is the cap-table bundle's and so is its refusal: a bad body comes back as {success:false, message, errors:[…]} with the failing fields listed, and numeric fields accept a number OR a numeric string. Bodies are capped at 1 MiB.
-  Future<void> postCaptableSharesTransfer() async {
-    final response = await postCaptableSharesTransferWithHttpInfo();
+  /// Moves shares from one stakeholder to another.  Omit `quantity` to transfer the whole certificate, which REASSIGNS it and mints no new share. Send a quantity below the amount held to SPLIT it — the source certificate keeps the remainder, and a split additionally requires `certificateId` for the new certificate, which must be unique in the company. A quantity outside 1..held is refused, so a transfer can never over-issue.  Both outcomes answer 200: a transfer records a movement between holders and mints no security of its own, which is why this is not a 201 the way an investment is.
+  ///
+  /// Parameters:
+  ///
+  /// * [CaptableShareTransfer] captableShareTransfer (required):
+  Future<CaptableTransferred?> postCaptableSharesTransfer(CaptableShareTransfer captableShareTransfer,) async {
+    final response = await postCaptableSharesTransferWithHttpInfo(captableShareTransfer,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'CaptableTransferred',) as CaptableTransferred;
+    
+    }
+    return null;
   }
 
   /// Add stakeholders to the cap table

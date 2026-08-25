@@ -16,7 +16,7 @@ class SubscriptionRef {
     this.atPeriodEnd,
     this.id,
   });
-  /// AtPeriodEnd cancels at the end of the paid period rather than at once. It defaults TRUE on the door, because a customer who cancels has already paid for the period they are in.
+  /// AtPeriodEnd cancels at the end of the paid period rather than at once. It defaults TRUE on the endpoint, because a customer who cancels has already paid for the period they are in.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

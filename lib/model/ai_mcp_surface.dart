@@ -23,7 +23,7 @@ class AiMCPSurface {
   /// Names are this process's own tool names, present only when the query asked for them.
   List<String> names;
 
-  /// Tools is how many tools THIS PROCESS's door carries: its own typed-op registry, projected. It is the only number a subsystem can state honestly — what the FLEET's door carries is a question only the host can ask, and it asks it by asking every subsystem (POST /v1/mcp, tools/list).
+  /// Tools is how many tools THIS PROCESS's MCP server carries: its own typed-op registry, projected. It is the only number a subsystem can state honestly — what the FLEET's server carries is a question only the host can ask, and it asks it by asking every subsystem (POST /v1/mcp, tools/list).
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

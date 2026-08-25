@@ -2107,7 +2107,7 @@ class BillingApi {
 
   /// Charges a card the caller already saved and credits the balance.
   ///
-  /// Charges a card the caller already saved and credits the balance. Same receipt and the same retry safety as the token door; the only difference is which card, so a caller topping up from a saved method never re-enters one.
+  /// Charges a card the caller already saved and credits the balance. Same receipt and the same retry safety as the token endpoint; the only difference is which card, so a caller topping up from a saved method never re-enters one.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -2147,7 +2147,7 @@ class BillingApi {
 
   /// Charges a card the caller already saved and credits the balance.
   ///
-  /// Charges a card the caller already saved and credits the balance. Same receipt and the same retry safety as the token door; the only difference is which card, so a caller topping up from a saved method never re-enters one.
+  /// Charges a card the caller already saved and credits the balance. Same receipt and the same retry safety as the token endpoint; the only difference is which card, so a caller topping up from a saved method never re-enters one.
   ///
   /// Parameters:
   ///

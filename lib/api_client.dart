@@ -289,6 +289,8 @@ class ApiClient {
           return Application.fromJson(value);
         case 'ApplicationList':
           return ApplicationList.fromJson(value);
+        case 'AppliedResource':
+          return AppliedResource.fromJson(value);
         case 'ApplyRequest':
           return ApplyRequest.fromJson(value);
         case 'ApprovePairingIn':
@@ -559,20 +561,30 @@ class ApiClient {
           return CaptableCompany.fromJson(value);
         case 'CaptableCompanyUpdate':
           return CaptableCompanyUpdate.fromJson(value);
+        case 'CaptableConvertibleIn':
+          return CaptableConvertibleIn.fromJson(value);
         case 'CaptableConvertibles':
           return CaptableConvertibles.fromJson(value);
+        case 'CaptableCreated':
+          return CaptableCreated.fromJson(value);
         case 'CaptableDeleted':
           return CaptableDeleted.fromJson(value);
         case 'CaptableEquityPlan':
           return CaptableEquityPlan.fromJson(value);
+        case 'CaptableEquityPlanIn':
+          return CaptableEquityPlanIn.fromJson(value);
         case 'CaptableEquityPlans':
           return CaptableEquityPlans.fromJson(value);
         case 'CaptableHolding':
           return CaptableHolding.fromJson(value);
         case 'CaptableInstrumentTotal':
           return CaptableInstrumentTotal.fromJson(value);
+        case 'CaptableInvested':
+          return CaptableInvested.fromJson(value);
         case 'CaptableInvestment':
           return CaptableInvestment.fromJson(value);
+        case 'CaptableInvestmentIn':
+          return CaptableInvestmentIn.fromJson(value);
         case 'CaptableInvestments':
           return CaptableInvestments.fromJson(value);
         case 'CaptableNote':
@@ -581,6 +593,8 @@ class ApiClient {
           return CaptableNotes.fromJson(value);
         case 'CaptableOption':
           return CaptableOption.fromJson(value);
+        case 'CaptableOptionIn':
+          return CaptableOptionIn.fromJson(value);
         case 'CaptableOptions':
           return CaptableOptions.fromJson(value);
         case 'CaptableRound':
@@ -589,6 +603,8 @@ class ApiClient {
           return CaptableRoundCloseRequest.fromJson(value);
         case 'CaptableRoundDetail':
           return CaptableRoundDetail.fromJson(value);
+        case 'CaptableRoundIn':
+          return CaptableRoundIn.fromJson(value);
         case 'CaptableRoundInvestment':
           return CaptableRoundInvestment.fromJson(value);
         case 'CaptableRoundTotals':
@@ -597,12 +613,22 @@ class ApiClient {
           return CaptableRounds.fromJson(value);
         case 'CaptableSafe':
           return CaptableSafe.fromJson(value);
+        case 'CaptableSafeIn':
+          return CaptableSafeIn.fromJson(value);
         case 'CaptableSafes':
           return CaptableSafes.fromJson(value);
         case 'CaptableShare':
           return CaptableShare.fromJson(value);
         case 'CaptableShareClass':
           return CaptableShareClass.fromJson(value);
+        case 'CaptableShareClassAmend':
+          return CaptableShareClassAmend.fromJson(value);
+        case 'CaptableShareClassIn':
+          return CaptableShareClassIn.fromJson(value);
+        case 'CaptableShareIn':
+          return CaptableShareIn.fromJson(value);
+        case 'CaptableShareTransfer':
+          return CaptableShareTransfer.fromJson(value);
         case 'CaptableShares':
           return CaptableShares.fromJson(value);
         case 'CaptableStakeholder':
@@ -615,6 +641,8 @@ class ApiClient {
           return CaptableSummaryCompany.fromJson(value);
         case 'CaptableTotals':
           return CaptableTotals.fromJson(value);
+        case 'CaptableTransferred':
+          return CaptableTransferred.fromJson(value);
         case 'CaptableUpdated':
           return CaptableUpdated.fromJson(value);
         case 'CaptureBatch':
@@ -3913,8 +3941,16 @@ class ApiClient {
           return Recharge.fromJson(value);
         case 'Recharged':
           return Recharged.fromJson(value);
+        case 'ReconcileReport':
+          return ReconcileReport.fromJson(value);
+        case 'ReconcileSource':
+          return ReconcileSource.fromJson(value);
+        case 'RecordIn':
+          return RecordIn.fromJson(value);
         case 'RecordList':
           return RecordList.fromJson(value);
+        case 'Recording':
+          return Recording.fromJson(value);
         case 'RedeemInput':
           return RedeemInput.fromJson(value);
         case 'RedeemResult':
@@ -4347,6 +4383,8 @@ class ApiClient {
           return SeriesPoint.fromJson(value);
         case 'SessionDetail':
           return SessionDetail.fromJson(value);
+        case 'SessionEnded':
+          return SessionEnded.fromJson(value);
         case 'SessionList':
           return SessionList.fromJson(value);
         case 'SessionUser':

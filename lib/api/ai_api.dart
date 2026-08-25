@@ -16,16 +16,16 @@ class AiApi {
 
   final ApiClient apiClient;
 
-  /// Tools reports what THIS PROCESS's MCP door carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed.
+  /// Tools reports what THIS PROCESS's MCP server carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed.
   ///
-  /// Tools reports what THIS PROCESS's MCP door carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed. It is the answer to \"is this door up and does it have anything behind it\" — a question a status code cannot answer, since an empty door and a full one are both 200. What the FLEET's door carries is the fleet door's own answer: POST /v1/mcp, tools/list, which asks every subsystem and names the ones that did not reply.
+  /// Tools reports what THIS PROCESS's MCP server carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed. It is the answer to \"is this MCP server up and does it have anything behind it\" — a question a status code cannot answer, since an empty server and a full one are both 200. What the FLEET's server carries is the fleet server's own answer: POST /v1/mcp, tools/list, which asks every subsystem and names the ones that did not reply.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
   /// * [bool] names:
-  ///   Names asks for this process's tool NAMES and not only how many there are. Off by default: a list of names is a page, and the question this op exists to answer (\"is the door up and does it have anything behind it\") is answered by the count.
+  ///   Names asks for this process's tool NAMES and not only how many there are. Off by default: a list of names is a page, and the question this op exists to answer (\"is the MCP server up and does it have anything behind it\") is answered by the count.
   Future<Response> aiMCPToolsWithHttpInfo({ bool? names, }) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/ai/mcp/tools';
@@ -55,14 +55,14 @@ class AiApi {
     );
   }
 
-  /// Tools reports what THIS PROCESS's MCP door carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed.
+  /// Tools reports what THIS PROCESS's MCP server carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed.
   ///
-  /// Tools reports what THIS PROCESS's MCP door carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed. It is the answer to \"is this door up and does it have anything behind it\" — a question a status code cannot answer, since an empty door and a full one are both 200. What the FLEET's door carries is the fleet door's own answer: POST /v1/mcp, tools/list, which asks every subsystem and names the ones that did not reply.
+  /// Tools reports what THIS PROCESS's MCP server carries: how many tools its own registry projects, optionally their names, and which subsystems this process composed. It is the answer to \"is this MCP server up and does it have anything behind it\" — a question a status code cannot answer, since an empty server and a full one are both 200. What the FLEET's server carries is the fleet server's own answer: POST /v1/mcp, tools/list, which asks every subsystem and names the ones that did not reply.
   ///
   /// Parameters:
   ///
   /// * [bool] names:
-  ///   Names asks for this process's tool NAMES and not only how many there are. Off by default: a list of names is a page, and the question this op exists to answer (\"is the door up and does it have anything behind it\") is answered by the count.
+  ///   Names asks for this process's tool NAMES and not only how many there are. Off by default: a list of names is a page, and the question this op exists to answer (\"is the MCP server up and does it have anything behind it\") is answered by the count.
   Future<AiMCPSurface?> aiMCPTools({ bool? names, }) async {
     final response = await aiMCPToolsWithHttpInfo( names: names, );
     if (response.statusCode >= HttpStatus.badRequest) {

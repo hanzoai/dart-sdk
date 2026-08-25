@@ -14,6 +14,7 @@ class Sandbox {
   /// Returns a new [Sandbox] instance.
   Sandbox({
     this.class_,
+    this.connectedAt,
     this.createdAt,
     this.error,
     this.expiresAt,
@@ -35,6 +36,15 @@ class Sandbox {
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
   String? class_;
+
+  /// ConnectedAt is when somebody was last known to have this sandbox's project OPEN, Unix seconds. It is a fact with an EXPIRY rather than a flag: a watcher restamps it every beat of its stream, and it goes stale on its own when the stream dies, so nothing has to be turned off by a process that may not be there any more. The reaper reads it to choose WHICH idle allowance applies — see lifecycle.go.  Zero means nobody has said so, which puts the sandbox on the short clock.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  int? connectedAt;
 
   /// CreatedAt is when the lease was first taken, Unix seconds.
   ///
@@ -147,6 +157,7 @@ class Sandbox {
   @override
   bool operator ==(Object other) => identical(this, other) || other is Sandbox &&
     other.class_ == class_ &&
+    other.connectedAt == connectedAt &&
     other.createdAt == createdAt &&
     other.error == error &&
     other.expiresAt == expiresAt &&
@@ -164,6 +175,7 @@ class Sandbox {
   int get hashCode =>
     // ignore: unnecessary_parenthesis
     (class_ == null ? 0 : class_!.hashCode) +
+    (connectedAt == null ? 0 : connectedAt!.hashCode) +
     (createdAt == null ? 0 : createdAt!.hashCode) +
     (error == null ? 0 : error!.hashCode) +
     (expiresAt == null ? 0 : expiresAt!.hashCode) +
@@ -178,7 +190,7 @@ class Sandbox {
     (volume == null ? 0 : volume!.hashCode);
 
   @override
-  String toString() => 'Sandbox[class_=$class_, createdAt=$createdAt, error=$error, expiresAt=$expiresAt, id=$id, image=$image, kind=$kind, lastUsedAt=$lastUsedAt, org=$org, project=$project, runtime=$runtime, status=$status, volume=$volume]';
+  String toString() => 'Sandbox[class_=$class_, connectedAt=$connectedAt, createdAt=$createdAt, error=$error, expiresAt=$expiresAt, id=$id, image=$image, kind=$kind, lastUsedAt=$lastUsedAt, org=$org, project=$project, runtime=$runtime, status=$status, volume=$volume]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -186,6 +198,11 @@ class Sandbox {
       json[r'class'] = this.class_;
     } else {
       json[r'class'] = null;
+    }
+    if (this.connectedAt != null) {
+      json[r'connectedAt'] = this.connectedAt;
+    } else {
+      json[r'connectedAt'] = null;
     }
     if (this.createdAt != null) {
       json[r'createdAt'] = this.createdAt;
@@ -270,6 +287,7 @@ class Sandbox {
 
       return Sandbox(
         class_: mapValueOfType<String>(json, r'class'),
+        connectedAt: mapValueOfType<int>(json, r'connectedAt'),
         createdAt: mapValueOfType<int>(json, r'createdAt'),
         error: mapValueOfType<String>(json, r'error'),
         expiresAt: mapValueOfType<int>(json, r'expiresAt'),
