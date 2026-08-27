@@ -207,6 +207,9 @@ class TodoApi {
   /// * [String] repo:
   ///   Repo keeps issues bound to one git repository.
   ///
+  /// * [String] room:
+  ///   Room keeps issues bound to one collaboration room, spelled \"<workspace>_<room>\" — the exact value GET /v1/meet/call answers with, so a channel's call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board.
+  ///
   /// * [String] source_:
   ///   Source keeps one origin: team, git, crm, helpdesk, cms, agent. \"git\" is how you ask for the mirrored GitHub issues specifically.
   ///
@@ -215,7 +218,7 @@ class TodoApi {
   ///
   /// * [int] limit:
   ///   Limit caps the answer; 0 means the default, and anything above the ceiling is clamped rather than refused — a search that errors on being too broad teaches people to guess.
-  Future<Response> getTodoIssuesWithHttpInfo({ String? q, String? project, String? status, String? kind, String? repo, String? source_, String? assignee, int? limit, }) async {
+  Future<Response> getTodoIssuesWithHttpInfo({ String? q, String? project, String? status, String? kind, String? repo, String? room, String? source_, String? assignee, int? limit, }) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/todo/issues';
 
@@ -240,6 +243,9 @@ class TodoApi {
     }
     if (repo != null) {
       queryParams.addAll(_queryParams('', 'repo', repo));
+    }
+    if (room != null) {
+      queryParams.addAll(_queryParams('', 'room', room));
     }
     if (source_ != null) {
       queryParams.addAll(_queryParams('', 'source', source_));
@@ -286,6 +292,9 @@ class TodoApi {
   /// * [String] repo:
   ///   Repo keeps issues bound to one git repository.
   ///
+  /// * [String] room:
+  ///   Room keeps issues bound to one collaboration room, spelled \"<workspace>_<room>\" — the exact value GET /v1/meet/call answers with, so a channel's call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board.
+  ///
   /// * [String] source_:
   ///   Source keeps one origin: team, git, crm, helpdesk, cms, agent. \"git\" is how you ask for the mirrored GitHub issues specifically.
   ///
@@ -294,8 +303,8 @@ class TodoApi {
   ///
   /// * [int] limit:
   ///   Limit caps the answer; 0 means the default, and anything above the ceiling is clamped rather than refused — a search that errors on being too broad teaches people to guess.
-  Future<IssueHits?> getTodoIssues({ String? q, String? project, String? status, String? kind, String? repo, String? source_, String? assignee, int? limit, }) async {
-    final response = await getTodoIssuesWithHttpInfo( q: q, project: project, status: status, kind: kind, repo: repo, source_: source_, assignee: assignee, limit: limit, );
+  Future<IssueHits?> getTodoIssues({ String? q, String? project, String? status, String? kind, String? repo, String? room, String? source_, String? assignee, int? limit, }) async {
+    final response = await getTodoIssuesWithHttpInfo( q: q, project: project, status: status, kind: kind, repo: repo, room: room, source_: source_, assignee: assignee, limit: limit, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -597,6 +606,65 @@ class TodoApi {
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
       return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IssueView',) as IssueView;
+    
+    }
+    return null;
+  }
+
+  /// Summarises one room's work.
+  ///
+  /// Summarises one room's work.  The room is opaque here and is deliberately not resolved: this package cannot say whether a room exists — apps/team owns that document — so an unknown room answers an EMPTY board rather than a 404. That is the honest answer and the useful one: a channel that has never had an item filed in it and a channel id that was mistyped both have no work, and inventing a distinction would require this surface to hold a second copy of the room list (HIP-0523 §2 forbids it, and it would drift the first time a room was renamed).  Tenancy is the validated principal's org and nothing else, so a caller cannot read another tenant's channel by naming its room.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] room (required):
+  ///   Room is the room, spelled \"<workspace>_<room>\" — the same value GET /v1/meet/call answers with, so a channel's call and its work name the room identically. From the path.
+  Future<Response> getTodoRoomsByRoomWithHttpInfo(String room,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/todo/rooms/{room}'
+      .replaceAll('{room}', room);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Summarises one room's work.
+  ///
+  /// Summarises one room's work.  The room is opaque here and is deliberately not resolved: this package cannot say whether a room exists — apps/team owns that document — so an unknown room answers an EMPTY board rather than a 404. That is the honest answer and the useful one: a channel that has never had an item filed in it and a channel id that was mistyped both have no work, and inventing a distinction would require this surface to hold a second copy of the room list (HIP-0523 §2 forbids it, and it would drift the first time a room was renamed).  Tenancy is the validated principal's org and nothing else, so a caller cannot read another tenant's channel by naming its room.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] room (required):
+  ///   Room is the room, spelled \"<workspace>_<room>\" — the same value GET /v1/meet/call answers with, so a channel's call and its work name the room identically. From the path.
+  Future<RoomWork?> getTodoRoomsByRoom(String room,) async {
+    final response = await getTodoRoomsByRoomWithHttpInfo(room,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'RoomWork',) as RoomWork;
     
     }
     return null;

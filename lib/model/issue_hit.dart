@@ -19,6 +19,7 @@ class IssueHit {
     this.priority,
     this.project,
     this.repo,
+    this.room,
     this.source_,
     this.status,
     this.title,
@@ -78,6 +79,15 @@ class IssueHit {
   ///
   String? repo;
 
+  /// Room is the collaboration room the issue belongs to, spelled \"<workspace>_<room>\" — empty when it is not room-bound, which is most of them. It is here so an org-wide search says which channel each item came from without a second read.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? room;
+
   /// Source is which surface opened it: team, git, crm, helpdesk, cms or agent. \"git\" is how the mirrored forge and GitHub rows are spelled.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -122,6 +132,7 @@ class IssueHit {
     other.priority == priority &&
     other.project == project &&
     other.repo == repo &&
+    other.room == room &&
     other.source_ == source_ &&
     other.status == status &&
     other.title == title &&
@@ -136,13 +147,14 @@ class IssueHit {
     (priority == null ? 0 : priority!.hashCode) +
     (project == null ? 0 : project!.hashCode) +
     (repo == null ? 0 : repo!.hashCode) +
+    (room == null ? 0 : room!.hashCode) +
     (source_ == null ? 0 : source_!.hashCode) +
     (status == null ? 0 : status!.hashCode) +
     (title == null ? 0 : title!.hashCode) +
     (url == null ? 0 : url!.hashCode);
 
   @override
-  String toString() => 'IssueHit[assignee=$assignee, kind=$kind, number=$number, priority=$priority, project=$project, repo=$repo, source_=$source_, status=$status, title=$title, url=$url]';
+  String toString() => 'IssueHit[assignee=$assignee, kind=$kind, number=$number, priority=$priority, project=$project, repo=$repo, room=$room, source_=$source_, status=$status, title=$title, url=$url]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -175,6 +187,11 @@ class IssueHit {
       json[r'repo'] = this.repo;
     } else {
       json[r'repo'] = null;
+    }
+    if (this.room != null) {
+      json[r'room'] = this.room;
+    } else {
+      json[r'room'] = null;
     }
     if (this.source_ != null) {
       json[r'source'] = this.source_;
@@ -224,6 +241,7 @@ class IssueHit {
         priority: mapValueOfType<String>(json, r'priority'),
         project: mapValueOfType<String>(json, r'project'),
         repo: mapValueOfType<String>(json, r'repo'),
+        room: mapValueOfType<String>(json, r'room'),
         source_: mapValueOfType<String>(json, r'source'),
         status: mapValueOfType<String>(json, r'status'),
         title: mapValueOfType<String>(json, r'title'),

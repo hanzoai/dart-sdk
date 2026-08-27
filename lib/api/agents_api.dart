@@ -760,9 +760,12 @@ class AgentsApi {
   /// * [String] project:
   ///   Project filters to the sessions tagged with one product slug.
   ///
+  /// * [String] room:
+  ///   Room filters to the sessions started in one collaborative room — the query a workspace view runs to show what has been run in it.
+  ///
   /// * [int] limit:
   ///   Limit caps the page. Absent, zero or over 500 reads as 100.
-  Future<Response> getAgentsSessionsWithHttpInfo({ String? root, String? parent, String? status, String? project, int? limit, }) async {
+  Future<Response> getAgentsSessionsWithHttpInfo({ String? root, String? parent, String? status, String? project, String? room, int? limit, }) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/agents/sessions';
 
@@ -784,6 +787,9 @@ class AgentsApi {
     }
     if (project != null) {
       queryParams.addAll(_queryParams('', 'project', project));
+    }
+    if (room != null) {
+      queryParams.addAll(_queryParams('', 'room', room));
     }
     if (limit != null) {
       queryParams.addAll(_queryParams('', 'limit', limit));
@@ -821,10 +827,13 @@ class AgentsApi {
   /// * [String] project:
   ///   Project filters to the sessions tagged with one product slug.
   ///
+  /// * [String] room:
+  ///   Room filters to the sessions started in one collaborative room — the query a workspace view runs to show what has been run in it.
+  ///
   /// * [int] limit:
   ///   Limit caps the page. Absent, zero or over 500 reads as 100.
-  Future<SessionList?> getAgentsSessions({ String? root, String? parent, String? status, String? project, int? limit, }) async {
-    final response = await getAgentsSessionsWithHttpInfo( root: root, parent: parent, status: status, project: project, limit: limit, );
+  Future<SessionList?> getAgentsSessions({ String? root, String? parent, String? status, String? project, String? room, int? limit, }) async {
+    final response = await getAgentsSessionsWithHttpInfo( root: root, parent: parent, status: status, project: project, room: room, limit: limit, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }

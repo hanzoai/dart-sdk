@@ -55,7 +55,7 @@ class NewIssue {
   ///
   String? status;
 
-  /// Title is required.
+  /// Title is the one line the card is read by on the board. Blank or whitespace is refused — an untitled card cannot be told apart from any other.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

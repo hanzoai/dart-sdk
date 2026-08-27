@@ -18,6 +18,7 @@ class Allowance {
     this.resets,
     this.spent,
     this.used,
+    this.window,
   });
   /// calls the plan allows per period; 0 = unbounded
   ///
@@ -37,7 +38,7 @@ class Allowance {
   ///
   String? plan;
 
-  /// unix seconds; when the count starts again
+  /// unix seconds; when THAT window starts again
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -64,13 +65,23 @@ class Allowance {
   ///
   int? used;
 
+  /// Window is which ceiling these numbers describe — \"hour\" or \"day\" — because a caller is held to both and only one of them is the answer. It is the window that REFUSED where one did, and otherwise the one with least left, so Limit-Used is always the number that will actually stop them next. Empty where no window bounds the subject at all.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? window;
+
   @override
   bool operator ==(Object other) => identical(this, other) || other is Allowance &&
     other.limit == limit &&
     other.plan == plan &&
     other.resets == resets &&
     other.spent == spent &&
-    other.used == used;
+    other.used == used &&
+    other.window == window;
 
   @override
   int get hashCode =>
@@ -79,10 +90,11 @@ class Allowance {
     (plan == null ? 0 : plan!.hashCode) +
     (resets == null ? 0 : resets!.hashCode) +
     (spent == null ? 0 : spent!.hashCode) +
-    (used == null ? 0 : used!.hashCode);
+    (used == null ? 0 : used!.hashCode) +
+    (window == null ? 0 : window!.hashCode);
 
   @override
-  String toString() => 'Allowance[limit=$limit, plan=$plan, resets=$resets, spent=$spent, used=$used]';
+  String toString() => 'Allowance[limit=$limit, plan=$plan, resets=$resets, spent=$spent, used=$used, window=$window]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -111,6 +123,11 @@ class Allowance {
     } else {
       json[r'used'] = null;
     }
+    if (this.window != null) {
+      json[r'window'] = this.window;
+    } else {
+      json[r'window'] = null;
+    }
     return json;
   }
 
@@ -138,6 +155,7 @@ class Allowance {
         resets: mapValueOfType<int>(json, r'resets'),
         spent: mapValueOfType<bool>(json, r'spent'),
         used: mapValueOfType<int>(json, r'used'),
+        window: mapValueOfType<String>(json, r'window'),
       );
     }
     return null;

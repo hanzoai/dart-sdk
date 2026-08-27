@@ -75,7 +75,7 @@ class FrameworkRow {
   ///
   String? unit;
 
-  /// Units is the plural of Unit.
+  /// Units is Unit's plural, carried so a caller renders \"12 controls\" without having to pluralise a word it does not know.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

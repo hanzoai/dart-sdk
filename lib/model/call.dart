@@ -13,120 +13,69 @@ part of hanzoai.cloud;
 class Call {
   /// Returns a new [Call] instance.
   Call({
-    this.agent,
-    this.from,
-    this.id,
-    this.org,
-    this.status,
-    this.to,
+    this.name,
+    this.ready,
+    this.ws,
   });
-  /// Agent names the Hanzo assistant handling the call. Set means the call was answered by that assistant rather than connected to a person.
+  /// Name is the media room to join: the value POST /v1/meet/getToken takes as roomName, and the value the media server keys participants on.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? agent;
+  String? name;
 
-  /// From is the calling number in E.164. It must be one this org holds: a carrier refuses an origination from a number nobody proved they own.
+  /// Ready reports that this deployment can mint a join token for this room. It is false on a deployment holding no media-server key, where Name is still correct — the name is a property of the room and the key is a property of the deployment, so a caller learns the room's identity either way and learns not to offer a join button.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? from;
+  bool? ready;
 
-  /// ID is the carrier's handle for the call — what a hangup or a lookup names.
+  /// WS is where the media plane is — the address a client opens its own browser-to-server connection to. Empty when this deployment has not been told where its media server lives, which is reported rather than refused: a surface can say a call is unavailable without a second request.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? id;
-
-  /// Org is the tenant the call was placed for or received by.
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? org;
-
-  /// Status is where the call is: \"queued\", \"ringing\", \"answered\", \"completed\" or \"failed\". Only the last two are terminal.
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? status;
-
-  /// To is the called number in E.164.
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? to;
+  String? ws;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is Call &&
-    other.agent == agent &&
-    other.from == from &&
-    other.id == id &&
-    other.org == org &&
-    other.status == status &&
-    other.to == to;
+    other.name == name &&
+    other.ready == ready &&
+    other.ws == ws;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (agent == null ? 0 : agent!.hashCode) +
-    (from == null ? 0 : from!.hashCode) +
-    (id == null ? 0 : id!.hashCode) +
-    (org == null ? 0 : org!.hashCode) +
-    (status == null ? 0 : status!.hashCode) +
-    (to == null ? 0 : to!.hashCode);
+    (name == null ? 0 : name!.hashCode) +
+    (ready == null ? 0 : ready!.hashCode) +
+    (ws == null ? 0 : ws!.hashCode);
 
   @override
-  String toString() => 'Call[agent=$agent, from=$from, id=$id, org=$org, status=$status, to=$to]';
+  String toString() => 'Call[name=$name, ready=$ready, ws=$ws]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.agent != null) {
-      json[r'agent'] = this.agent;
+    if (this.name != null) {
+      json[r'name'] = this.name;
     } else {
-      json[r'agent'] = null;
+      json[r'name'] = null;
     }
-    if (this.from != null) {
-      json[r'from'] = this.from;
+    if (this.ready != null) {
+      json[r'ready'] = this.ready;
     } else {
-      json[r'from'] = null;
+      json[r'ready'] = null;
     }
-    if (this.id != null) {
-      json[r'id'] = this.id;
+    if (this.ws != null) {
+      json[r'ws'] = this.ws;
     } else {
-      json[r'id'] = null;
-    }
-    if (this.org != null) {
-      json[r'org'] = this.org;
-    } else {
-      json[r'org'] = null;
-    }
-    if (this.status != null) {
-      json[r'status'] = this.status;
-    } else {
-      json[r'status'] = null;
-    }
-    if (this.to != null) {
-      json[r'to'] = this.to;
-    } else {
-      json[r'to'] = null;
+      json[r'ws'] = null;
     }
     return json;
   }
@@ -150,12 +99,9 @@ class Call {
       }());
 
       return Call(
-        agent: mapValueOfType<String>(json, r'agent'),
-        from: mapValueOfType<String>(json, r'from'),
-        id: mapValueOfType<String>(json, r'id'),
-        org: mapValueOfType<String>(json, r'org'),
-        status: mapValueOfType<String>(json, r'status'),
-        to: mapValueOfType<String>(json, r'to'),
+        name: mapValueOfType<String>(json, r'name'),
+        ready: mapValueOfType<bool>(json, r'ready'),
+        ws: mapValueOfType<String>(json, r'ws'),
       );
     }
     return null;

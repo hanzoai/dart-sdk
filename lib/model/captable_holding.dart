@@ -65,7 +65,7 @@ class CaptableHolding {
   ///
   int? shares;
 
-  /// StakeholderID is the stakeholder.
+  /// StakeholderID addresses the stakeholder these totals are for.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

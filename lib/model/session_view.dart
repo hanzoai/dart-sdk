@@ -30,6 +30,7 @@ class SessionView {
     this.provider,
     this.published,
     this.repo,
+    this.room,
     this.rootSessionId,
     this.startedAt,
     this.status,
@@ -193,6 +194,15 @@ class SessionView {
   ///
   String? repo;
 
+  /// Room is the collaborative room this run was started in (HIP-0523), empty when it came from anywhere else — a CLI, a schedule, an API call. It is what lets a workspace view show the runs of one room beside its messages.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? room;
+
   /// RootSessionID is the top of this session's tree, inherited from the parent and shared by every node in one flow. A root session's own id, when it has no parent. It is the key one indexed read pulls a whole flow by, and what ?root= narrows a list or a stream to.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -293,6 +303,7 @@ class SessionView {
     other.provider == provider &&
     other.published == published &&
     other.repo == repo &&
+    other.room == room &&
     other.rootSessionId == rootSessionId &&
     other.startedAt == startedAt &&
     other.status == status &&
@@ -323,6 +334,7 @@ class SessionView {
     (provider == null ? 0 : provider!.hashCode) +
     (published == null ? 0 : published!.hashCode) +
     (repo == null ? 0 : repo!.hashCode) +
+    (room == null ? 0 : room!.hashCode) +
     (rootSessionId == null ? 0 : rootSessionId!.hashCode) +
     (startedAt == null ? 0 : startedAt!.hashCode) +
     (status == null ? 0 : status!.hashCode) +
@@ -334,7 +346,7 @@ class SessionView {
     (updatedAt == null ? 0 : updatedAt!.hashCode);
 
   @override
-  String toString() => 'SessionView[account=$account, actor=$actor, agent=$agent, children=$children, createdAt=$createdAt, cwd=$cwd, endedAt=$endedAt, events=$events, host=$host, id=$id, lastEvent=$lastEvent, org=$org, parentSessionId=$parentSessionId, project=$project, provider=$provider, published=$published, repo=$repo, rootSessionId=$rootSessionId, startedAt=$startedAt, status=$status, target=$target, taskRunId=$taskRunId, taskWorkflowId=$taskWorkflowId, terminal=$terminal, title=$title, updatedAt=$updatedAt]';
+  String toString() => 'SessionView[account=$account, actor=$actor, agent=$agent, children=$children, createdAt=$createdAt, cwd=$cwd, endedAt=$endedAt, events=$events, host=$host, id=$id, lastEvent=$lastEvent, org=$org, parentSessionId=$parentSessionId, project=$project, provider=$provider, published=$published, repo=$repo, room=$room, rootSessionId=$rootSessionId, startedAt=$startedAt, status=$status, target=$target, taskRunId=$taskRunId, taskWorkflowId=$taskWorkflowId, terminal=$terminal, title=$title, updatedAt=$updatedAt]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -423,6 +435,11 @@ class SessionView {
     } else {
       json[r'repo'] = null;
     }
+    if (this.room != null) {
+      json[r'room'] = this.room;
+    } else {
+      json[r'room'] = null;
+    }
     if (this.rootSessionId != null) {
       json[r'rootSessionId'] = this.rootSessionId;
     } else {
@@ -507,6 +524,7 @@ class SessionView {
         provider: mapValueOfType<String>(json, r'provider'),
         published: mapValueOfType<bool>(json, r'published'),
         repo: mapValueOfType<String>(json, r'repo'),
+        room: mapValueOfType<String>(json, r'room'),
         rootSessionId: mapValueOfType<String>(json, r'rootSessionId'),
         startedAt: mapValueOfType<String>(json, r'startedAt'),
         status: mapValueOfType<String>(json, r'status'),

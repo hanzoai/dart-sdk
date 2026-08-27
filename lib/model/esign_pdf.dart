@@ -28,7 +28,7 @@ class EsignPDF {
   ///
   String? filename;
 
-  /// ID is the document.
+  /// ID is the document this PDF was rendered from.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

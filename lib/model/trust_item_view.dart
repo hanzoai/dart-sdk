@@ -80,7 +80,7 @@ class TrustItemView {
   ///
   String? id;
 
-  /// Kind is what it is.
+  /// Kind is one of report, letter, policy, questionnaire, subprocessor, article or update — the closed set the public centre knows how to draw.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -89,7 +89,7 @@ class TrustItemView {
   ///
   String? kind;
 
-  /// Name is its title.
+  /// Name is the label the centre lists it under.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

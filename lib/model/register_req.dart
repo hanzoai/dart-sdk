@@ -23,6 +23,7 @@ class RegisterReq {
     this.provider,
     this.published,
     this.repo,
+    this.room,
     this.status,
     this.target,
     this.taskRunId,
@@ -120,6 +121,15 @@ class RegisterReq {
   ///
   String? repo;
 
+  /// Room is the collaborative room this run was started in (HIP-0523), so a workspace view can list the sessions of one room. It is PROVENANCE and is set only here: there is deliberately no way to move a session to another room, so it is absent from the patch input and from UpdateSession's SET list.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? room;
+
   /// Status opens the session in one of running, paused, done or error. Empty means running. A TERMINAL status here (done, error) records a session that has already finished — its end time is stamped now — and nothing can move it afterwards.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -186,6 +196,7 @@ class RegisterReq {
     other.provider == provider &&
     other.published == published &&
     other.repo == repo &&
+    other.room == room &&
     other.status == status &&
     other.target == target &&
     other.taskRunId == taskRunId &&
@@ -206,6 +217,7 @@ class RegisterReq {
     (provider == null ? 0 : provider!.hashCode) +
     (published == null ? 0 : published!.hashCode) +
     (repo == null ? 0 : repo!.hashCode) +
+    (room == null ? 0 : room!.hashCode) +
     (status == null ? 0 : status!.hashCode) +
     (target == null ? 0 : target!.hashCode) +
     (taskRunId == null ? 0 : taskRunId!.hashCode) +
@@ -214,7 +226,7 @@ class RegisterReq {
     (title == null ? 0 : title!.hashCode);
 
   @override
-  String toString() => 'RegisterReq[account=$account, actor=$actor, agent=$agent, cwd=$cwd, host=$host, parentSessionId=$parentSessionId, project=$project, provider=$provider, published=$published, repo=$repo, status=$status, target=$target, taskRunId=$taskRunId, taskWorkflowId=$taskWorkflowId, terminal=$terminal, title=$title]';
+  String toString() => 'RegisterReq[account=$account, actor=$actor, agent=$agent, cwd=$cwd, host=$host, parentSessionId=$parentSessionId, project=$project, provider=$provider, published=$published, repo=$repo, room=$room, status=$status, target=$target, taskRunId=$taskRunId, taskWorkflowId=$taskWorkflowId, terminal=$terminal, title=$title]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -267,6 +279,11 @@ class RegisterReq {
       json[r'repo'] = this.repo;
     } else {
       json[r'repo'] = null;
+    }
+    if (this.room != null) {
+      json[r'room'] = this.room;
+    } else {
+      json[r'room'] = null;
     }
     if (this.status != null) {
       json[r'status'] = this.status;
@@ -330,6 +347,7 @@ class RegisterReq {
         provider: mapValueOfType<String>(json, r'provider'),
         published: mapValueOfType<bool>(json, r'published'),
         repo: mapValueOfType<String>(json, r'repo'),
+        room: mapValueOfType<String>(json, r'room'),
         status: mapValueOfType<String>(json, r'status'),
         target: mapValueOfType<String>(json, r'target'),
         taskRunId: mapValueOfType<String>(json, r'taskRunId'),

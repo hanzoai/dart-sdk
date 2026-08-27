@@ -10,36 +10,36 @@
 
 part of hanzoai.cloud;
 
-class PolicyList {
-  /// Returns a new [PolicyList] instance.
-  PolicyList({
-    this.policies = const [],
+class TeamRooms {
+  /// Returns a new [TeamRooms] instance.
+  TeamRooms({
+    this.rooms = const [],
   });
-  /// Policies is the organization's published policy documents, each as the centre holds it.
-  List<Object> policies;
+  /// Rooms is every room of every workspace the caller's org owns, each with the work facet it carries.
+  List<TeamRoom> rooms;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is PolicyList &&
-    _deepEquality.equals(other.policies, policies);
+  bool operator ==(Object other) => identical(this, other) || other is TeamRooms &&
+    _deepEquality.equals(other.rooms, rooms);
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (policies.hashCode);
+    (rooms.hashCode);
 
   @override
-  String toString() => 'PolicyList[policies=$policies]';
+  String toString() => 'TeamRooms[rooms=$rooms]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-      json[r'policies'] = this.policies;
+      json[r'rooms'] = this.rooms;
     return json;
   }
 
-  /// Returns a new [PolicyList] instance and imports its values from
+  /// Returns a new [TeamRooms] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static PolicyList? fromJson(dynamic value) {
+  static TeamRooms? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -48,26 +48,24 @@ class PolicyList {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "PolicyList[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "PolicyList[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "TeamRooms[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "TeamRooms[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return PolicyList(
-        policies: json[r'policies'] is Iterable
-            ? (json[r'policies'] as Iterable).cast<Object>().toList(growable: false)
-            : const [],
+      return TeamRooms(
+        rooms: TeamRoom.listFromJson(json[r'rooms']),
       );
     }
     return null;
   }
 
-  static List<PolicyList> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <PolicyList>[];
+  static List<TeamRooms> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <TeamRooms>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = PolicyList.fromJson(row);
+        final value = TeamRooms.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -76,12 +74,12 @@ class PolicyList {
     return result.toList(growable: growable);
   }
 
-  static Map<String, PolicyList> mapFromJson(dynamic json) {
-    final map = <String, PolicyList>{};
+  static Map<String, TeamRooms> mapFromJson(dynamic json) {
+    final map = <String, TeamRooms>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = PolicyList.fromJson(entry.value);
+        final value = TeamRooms.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -90,14 +88,14 @@ class PolicyList {
     return map;
   }
 
-  // maps a json object with a list of PolicyList-objects as value to a dart map
-  static Map<String, List<PolicyList>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<PolicyList>>{};
+  // maps a json object with a list of TeamRooms-objects as value to a dart map
+  static Map<String, List<TeamRooms>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<TeamRooms>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = PolicyList.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = TeamRooms.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

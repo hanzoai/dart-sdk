@@ -19,7 +19,7 @@ class CaptableRoundDetail {
   /// Investments is every investment into this round, oldest first.
   List<CaptableRoundInvestment> investments;
 
-  /// Round is the round itself.
+  /// Round is the round's own terms — name, type, valuation, target and status — as against the investments beside it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

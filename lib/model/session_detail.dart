@@ -32,6 +32,7 @@ class SessionDetail {
     this.published,
     this.recentEvents = const [],
     this.repo,
+    this.room,
     this.rootSessionId,
     this.startedAt,
     this.status,
@@ -190,6 +191,14 @@ class SessionDetail {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
+  String? room;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
   String? rootSessionId;
 
   ///
@@ -277,6 +286,7 @@ class SessionDetail {
     other.published == published &&
     _deepEquality.equals(other.recentEvents, recentEvents) &&
     other.repo == repo &&
+    other.room == room &&
     other.rootSessionId == rootSessionId &&
     other.startedAt == startedAt &&
     other.status == status &&
@@ -309,6 +319,7 @@ class SessionDetail {
     (published == null ? 0 : published!.hashCode) +
     (recentEvents.hashCode) +
     (repo == null ? 0 : repo!.hashCode) +
+    (room == null ? 0 : room!.hashCode) +
     (rootSessionId == null ? 0 : rootSessionId!.hashCode) +
     (startedAt == null ? 0 : startedAt!.hashCode) +
     (status == null ? 0 : status!.hashCode) +
@@ -320,7 +331,7 @@ class SessionDetail {
     (updatedAt == null ? 0 : updatedAt!.hashCode);
 
   @override
-  String toString() => 'SessionDetail[account=$account, actor=$actor, agent=$agent, childSessions=$childSessions, children=$children, createdAt=$createdAt, cwd=$cwd, endedAt=$endedAt, events=$events, host=$host, id=$id, lastEvent=$lastEvent, org=$org, parentSessionId=$parentSessionId, project=$project, provider=$provider, published=$published, recentEvents=$recentEvents, repo=$repo, rootSessionId=$rootSessionId, startedAt=$startedAt, status=$status, target=$target, taskRunId=$taskRunId, taskWorkflowId=$taskWorkflowId, terminal=$terminal, title=$title, updatedAt=$updatedAt]';
+  String toString() => 'SessionDetail[account=$account, actor=$actor, agent=$agent, childSessions=$childSessions, children=$children, createdAt=$createdAt, cwd=$cwd, endedAt=$endedAt, events=$events, host=$host, id=$id, lastEvent=$lastEvent, org=$org, parentSessionId=$parentSessionId, project=$project, provider=$provider, published=$published, recentEvents=$recentEvents, repo=$repo, room=$room, rootSessionId=$rootSessionId, startedAt=$startedAt, status=$status, target=$target, taskRunId=$taskRunId, taskWorkflowId=$taskWorkflowId, terminal=$terminal, title=$title, updatedAt=$updatedAt]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -411,6 +422,11 @@ class SessionDetail {
     } else {
       json[r'repo'] = null;
     }
+    if (this.room != null) {
+      json[r'room'] = this.room;
+    } else {
+      json[r'room'] = null;
+    }
     if (this.rootSessionId != null) {
       json[r'rootSessionId'] = this.rootSessionId;
     } else {
@@ -497,6 +513,7 @@ class SessionDetail {
         published: mapValueOfType<bool>(json, r'published'),
         recentEvents: EventView.listFromJson(json[r'recentEvents']),
         repo: mapValueOfType<String>(json, r'repo'),
+        room: mapValueOfType<String>(json, r'room'),
         rootSessionId: mapValueOfType<String>(json, r'rootSessionId'),
         startedAt: mapValueOfType<String>(json, r'startedAt'),
         status: mapValueOfType<String>(json, r'status'),

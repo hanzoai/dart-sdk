@@ -32,6 +32,7 @@ lib/api/dataroom_api.dart
 lib/api/dataset_api.dart
 lib/api/deploy_api.dart
 lib/api/destination_api.dart
+lib/api/dns_api.dart
 lib/api/domain_api.dart
 lib/api/engine_api.dart
 lib/api/entitlement_api.dart
@@ -2129,6 +2130,7 @@ lib/model/rollback_req.dart
 lib/model/rollup.dart
 lib/model/rollup_allotment.dart
 lib/model/rollup_balance.dart
+lib/model/room_work.dart
 lib/model/root.dart
 lib/model/round_input.dart
 lib/model/round_out.dart
@@ -2326,6 +2328,9 @@ lib/model/tariff_in.dart
 lib/model/taxon.dart
 lib/model/taxon_in.dart
 lib/model/taxonomy.dart
+lib/model/team_room.dart
+lib/model/team_room_bind.dart
+lib/model/team_rooms.dart
 lib/model/template_catalog.dart
 lib/model/template_override.dart
 lib/model/template_reply.dart

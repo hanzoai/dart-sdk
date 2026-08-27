@@ -15,7 +15,7 @@ class DataroomDocumentOne {
   DataroomDocumentOne({
     this.document,
   });
-  /// Document is the document itself.
+  /// Document is the requested document's METADATA. Its bytes are a separate read, GET /v1/dataroom/documents/{id}/file.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

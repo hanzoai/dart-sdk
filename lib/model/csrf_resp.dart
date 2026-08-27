@@ -16,7 +16,7 @@ class CsrfResp {
     this.csrfToken,
     this.expiresIn,
   });
-  /// Token is the value to send back in the X-CSRF-Token header. It is bound to the caller's identity, so it authorizes writes as them and as nobody else.
+  /// Token is the value to send back in the X-CSRF-Token header. It is bound to the caller's identity, so it authorizes changes as them and as nobody else.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -25,7 +25,7 @@ class CsrfResp {
   ///
   String? csrfToken;
 
-  /// ExpiresIn is the token's lifetime in seconds. Fetch a new one when it lapses; a write with an expired token is refused.
+  /// ExpiresIn is the token's lifetime in seconds. Fetch a new one when it lapses; a change with an expired token is refused.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

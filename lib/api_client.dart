@@ -4191,6 +4191,8 @@ class ApiClient {
           return RollupAllotment.fromJson(value);
         case 'RollupBalance':
           return RollupBalance.fromJson(value);
+        case 'RoomWork':
+          return RoomWork.fromJson(value);
         case 'Root':
           return Root.fromJson(value);
         case 'RoundInput':
@@ -4587,6 +4589,12 @@ class ApiClient {
           return TaxonIn.fromJson(value);
         case 'Taxonomy':
           return Taxonomy.fromJson(value);
+        case 'TeamRoom':
+          return TeamRoom.fromJson(value);
+        case 'TeamRoomBind':
+          return TeamRoomBind.fromJson(value);
+        case 'TeamRooms':
+          return TeamRooms.fromJson(value);
         case 'TemplateCatalog':
           return TemplateCatalog.fromJson(value);
         case 'TemplateOverride':

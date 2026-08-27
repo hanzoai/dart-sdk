@@ -527,6 +527,54 @@ class TeamApi {
     return null;
   }
 
+  /// Returns every room of the caller's org, across the workspaces it owns, with the work facet each carries.
+  ///
+  /// Returns every room of the caller's org, across the workspaces it owns, with the work facet each carries.  It reads the SAME Chunter documents the transactor serves, so a room opened in the Team client appears here with no sync, and a facet written here is read by anything holding the document. Direct messages are included: a room between two people is a room with no name, not a different kind of thing.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> getTeamRoomsWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/team/rooms';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Returns every room of the caller's org, across the workspaces it owns, with the work facet each carries.
+  ///
+  /// Returns every room of the caller's org, across the workspaces it owns, with the work facet each carries.  It reads the SAME Chunter documents the transactor serves, so a room opened in the Team client appears here with no sync, and a facet written here is read by anything holding the document. Direct messages are included: a room between two people is a room with no name, not a different kind of thing.
+  Future<TeamRooms?> getTeamRooms() async {
+    final response = await getTeamRoomsWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'TeamRooms',) as TeamRooms;
+    
+    }
+    return null;
+  }
+
   /// Statistics returns the transactor's live sessions for the workspace the caller's credential names — the endpoint the front's workspace switcher and server panel poll on the transactor base.
   ///
   /// Statistics returns the transactor's live sessions for the workspace the caller's credential names — the endpoint the front's workspace switcher and server panel poll on the transactor base. `token` carries the same two lanes the socket's path segment does: a workspace UUID names the workspace and is authorized against the membership rows, an HS256 workspace token names it in its signed claims. activeSessions carries ONLY that one workspace, never another tenant's sessions. An unverifiable credential, or one the caller is no member under, is 401.
@@ -955,6 +1003,69 @@ class TeamApi {
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
       return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'CookieAck',) as CookieAck;
+    
+    }
+    return null;
+  }
+
+  /// States what a room is for: its lifecycle intent, and what it is about.
+  ///
+  /// States what a room is for: its lifecycle intent, and what it is about. It answers the room as it now stands.  The write is a platform MIXIN on the room document, applied through the SAME applyTx path the Team client's own writes take and broadcast to every connected client — so a room bound here updates live in an open workspace rather than on the next reload.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the room to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write.
+  ///
+  /// * [TeamRoomBind] teamRoomBind (required):
+  Future<Response> putTeamRoomsByIdWithHttpInfo(String id, TeamRoomBind teamRoomBind,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/team/rooms/{id}'
+      .replaceAll('{id}', id);
+
+    // ignore: prefer_final_locals
+    Object? postBody = teamRoomBind;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'PUT',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// States what a room is for: its lifecycle intent, and what it is about.
+  ///
+  /// States what a room is for: its lifecycle intent, and what it is about. It answers the room as it now stands.  The write is a platform MIXIN on the room document, applied through the SAME applyTx path the Team client's own writes take and broadcast to every connected client — so a room bound here updates live in an open workspace rather than on the next reload.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] id (required):
+  ///   ID is the room to bind, from the path. The URL is the authority; a body carrying another id cannot redirect the write.
+  ///
+  /// * [TeamRoomBind] teamRoomBind (required):
+  Future<TeamRoom?> putTeamRoomsById(String id, TeamRoomBind teamRoomBind,) async {
+    final response = await putTeamRoomsByIdWithHttpInfo(id, teamRoomBind,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'TeamRoom',) as TeamRoom;
     
     }
     return null;
