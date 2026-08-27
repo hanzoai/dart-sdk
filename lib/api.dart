@@ -2251,6 +2251,7 @@ part 'model/series_point.dart';
 part 'model/session_detail.dart';
 part 'model/session_ended.dart';
 part 'model/session_list.dart';
+part 'model/session_progress.dart';
 part 'model/session_user.dart';
 part 'model/session_view.dart';
 part 'model/set_env_req.dart';

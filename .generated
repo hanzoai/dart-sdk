@@ -2228,6 +2228,7 @@ lib/model/series_point.dart
 lib/model/session_detail.dart
 lib/model/session_ended.dart
 lib/model/session_list.dart
+lib/model/session_progress.dart
 lib/model/session_user.dart
 lib/model/session_view.dart
 lib/model/set_env_req.dart

@@ -27,6 +27,7 @@ class SessionDetail {
     this.lastEvent,
     this.org,
     this.parentSessionId,
+    this.progress,
     this.project,
     this.provider,
     this.published,
@@ -149,6 +150,14 @@ class SessionDetail {
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
   String? parentSessionId;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  SessionProgress? progress;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -281,6 +290,7 @@ class SessionDetail {
     other.lastEvent == lastEvent &&
     other.org == org &&
     other.parentSessionId == parentSessionId &&
+    other.progress == progress &&
     other.project == project &&
     other.provider == provider &&
     other.published == published &&
@@ -314,6 +324,7 @@ class SessionDetail {
     (lastEvent == null ? 0 : lastEvent!.hashCode) +
     (org == null ? 0 : org!.hashCode) +
     (parentSessionId == null ? 0 : parentSessionId!.hashCode) +
+    (progress == null ? 0 : progress!.hashCode) +
     (project == null ? 0 : project!.hashCode) +
     (provider == null ? 0 : provider!.hashCode) +
     (published == null ? 0 : published!.hashCode) +
@@ -331,7 +342,7 @@ class SessionDetail {
     (updatedAt == null ? 0 : updatedAt!.hashCode);
 
   @override
-  String toString() => 'SessionDetail[account=$account, actor=$actor, agent=$agent, childSessions=$childSessions, children=$children, createdAt=$createdAt, cwd=$cwd, endedAt=$endedAt, events=$events, host=$host, id=$id, lastEvent=$lastEvent, org=$org, parentSessionId=$parentSessionId, project=$project, provider=$provider, published=$published, recentEvents=$recentEvents, repo=$repo, room=$room, rootSessionId=$rootSessionId, startedAt=$startedAt, status=$status, target=$target, taskRunId=$taskRunId, taskWorkflowId=$taskWorkflowId, terminal=$terminal, title=$title, updatedAt=$updatedAt]';
+  String toString() => 'SessionDetail[account=$account, actor=$actor, agent=$agent, childSessions=$childSessions, children=$children, createdAt=$createdAt, cwd=$cwd, endedAt=$endedAt, events=$events, host=$host, id=$id, lastEvent=$lastEvent, org=$org, parentSessionId=$parentSessionId, progress=$progress, project=$project, provider=$provider, published=$published, recentEvents=$recentEvents, repo=$repo, room=$room, rootSessionId=$rootSessionId, startedAt=$startedAt, status=$status, target=$target, taskRunId=$taskRunId, taskWorkflowId=$taskWorkflowId, terminal=$terminal, title=$title, updatedAt=$updatedAt]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -400,6 +411,11 @@ class SessionDetail {
       json[r'parentSessionId'] = this.parentSessionId;
     } else {
       json[r'parentSessionId'] = null;
+    }
+    if (this.progress != null) {
+      json[r'progress'] = this.progress;
+    } else {
+      json[r'progress'] = null;
     }
     if (this.project != null) {
       json[r'project'] = this.project;
@@ -508,6 +524,7 @@ class SessionDetail {
         lastEvent: LastEventView.fromJson(json[r'lastEvent']),
         org: mapValueOfType<String>(json, r'org'),
         parentSessionId: mapValueOfType<String>(json, r'parentSessionId'),
+        progress: SessionProgress.fromJson(json[r'progress']),
         project: mapValueOfType<String>(json, r'project'),
         provider: mapValueOfType<String>(json, r'provider'),
         published: mapValueOfType<bool>(json, r'published'),

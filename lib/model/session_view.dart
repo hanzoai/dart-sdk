@@ -26,6 +26,7 @@ class SessionView {
     this.lastEvent,
     this.org,
     this.parentSessionId,
+    this.progress,
     this.project,
     this.provider,
     this.published,
@@ -157,6 +158,15 @@ class SessionView {
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
   String? parentSessionId;
+
+  /// Progress is how far along this run is — a share of its goal, a phase, and a line saying what it is doing. Always present, so a board never branches on whether it is there; `phase` says \"unknown\" when nothing has estimated it. It is a MODEL ESTIMATE wherever `estimated` is true, and the row's own word where it is false. See progress.go.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  SessionProgress? progress;
 
   /// The readable build: the product this session built and whether its story is public (provenance.go).
   ///
@@ -299,6 +309,7 @@ class SessionView {
     other.lastEvent == lastEvent &&
     other.org == org &&
     other.parentSessionId == parentSessionId &&
+    other.progress == progress &&
     other.project == project &&
     other.provider == provider &&
     other.published == published &&
@@ -330,6 +341,7 @@ class SessionView {
     (lastEvent == null ? 0 : lastEvent!.hashCode) +
     (org == null ? 0 : org!.hashCode) +
     (parentSessionId == null ? 0 : parentSessionId!.hashCode) +
+    (progress == null ? 0 : progress!.hashCode) +
     (project == null ? 0 : project!.hashCode) +
     (provider == null ? 0 : provider!.hashCode) +
     (published == null ? 0 : published!.hashCode) +
@@ -346,7 +358,7 @@ class SessionView {
     (updatedAt == null ? 0 : updatedAt!.hashCode);
 
   @override
-  String toString() => 'SessionView[account=$account, actor=$actor, agent=$agent, children=$children, createdAt=$createdAt, cwd=$cwd, endedAt=$endedAt, events=$events, host=$host, id=$id, lastEvent=$lastEvent, org=$org, parentSessionId=$parentSessionId, project=$project, provider=$provider, published=$published, repo=$repo, room=$room, rootSessionId=$rootSessionId, startedAt=$startedAt, status=$status, target=$target, taskRunId=$taskRunId, taskWorkflowId=$taskWorkflowId, terminal=$terminal, title=$title, updatedAt=$updatedAt]';
+  String toString() => 'SessionView[account=$account, actor=$actor, agent=$agent, children=$children, createdAt=$createdAt, cwd=$cwd, endedAt=$endedAt, events=$events, host=$host, id=$id, lastEvent=$lastEvent, org=$org, parentSessionId=$parentSessionId, progress=$progress, project=$project, provider=$provider, published=$published, repo=$repo, room=$room, rootSessionId=$rootSessionId, startedAt=$startedAt, status=$status, target=$target, taskRunId=$taskRunId, taskWorkflowId=$taskWorkflowId, terminal=$terminal, title=$title, updatedAt=$updatedAt]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -414,6 +426,11 @@ class SessionView {
       json[r'parentSessionId'] = this.parentSessionId;
     } else {
       json[r'parentSessionId'] = null;
+    }
+    if (this.progress != null) {
+      json[r'progress'] = this.progress;
+    } else {
+      json[r'progress'] = null;
     }
     if (this.project != null) {
       json[r'project'] = this.project;
@@ -520,6 +537,7 @@ class SessionView {
         lastEvent: LastEventView.fromJson(json[r'lastEvent']),
         org: mapValueOfType<String>(json, r'org'),
         parentSessionId: mapValueOfType<String>(json, r'parentSessionId'),
+        progress: SessionProgress.fromJson(json[r'progress']),
         project: mapValueOfType<String>(json, r'project'),
         provider: mapValueOfType<String>(json, r'provider'),
         published: mapValueOfType<bool>(json, r'published'),

@@ -4389,6 +4389,8 @@ class ApiClient {
           return SessionEnded.fromJson(value);
         case 'SessionList':
           return SessionList.fromJson(value);
+        case 'SessionProgress':
+          return SessionProgress.fromJson(value);
         case 'SessionUser':
           return SessionUser.fromJson(value);
         case 'SessionView':
