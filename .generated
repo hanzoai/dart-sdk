@@ -1901,7 +1901,6 @@ lib/model/pool_scale.dart
 lib/model/populated_flow.dart
 lib/model/position.dart
 lib/model/post_event_request.dart
-lib/model/post_index_indexes_by_uid_documents_delete_batch_request.dart
 lib/model/post_list.dart
 lib/model/prefs_view.dart
 lib/model/preset.dart

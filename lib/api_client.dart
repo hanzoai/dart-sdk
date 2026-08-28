@@ -3733,8 +3733,6 @@ class ApiClient {
           return Position.fromJson(value);
         case 'PostEventRequest':
           return PostEventRequest.fromJson(value);
-        case 'PostIndexIndexesByUidDocumentsDeleteBatchRequest':
-          return PostIndexIndexesByUidDocumentsDeleteBatchRequest.fromJson(value);
         case 'PostList':
           return PostList.fromJson(value);
         case 'PrefsView':

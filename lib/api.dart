@@ -1923,7 +1923,6 @@ part 'model/pool_scale.dart';
 part 'model/populated_flow.dart';
 part 'model/position.dart';
 part 'model/post_event_request.dart';
-part 'model/post_index_indexes_by_uid_documents_delete_batch_request.dart';
 part 'model/post_list.dart';
 part 'model/prefs_view.dart';
 part 'model/preset.dart';

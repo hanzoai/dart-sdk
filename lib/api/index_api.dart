@@ -820,14 +820,14 @@ class IndexApi {
   ///
   /// * [String] uid (required):
   ///
-  /// * [PostIndexIndexesByUidDocumentsDeleteBatchRequest] postIndexIndexesByUidDocumentsDeleteBatchRequest:
-  Future<Response> postIndexIndexesByUidDocumentsDeleteBatchWithHttpInfo(String uid, { PostIndexIndexesByUidDocumentsDeleteBatchRequest? postIndexIndexesByUidDocumentsDeleteBatchRequest, }) async {
+  /// * [List<Object>] requestBody:
+  Future<Response> postIndexIndexesByUidDocumentsDeleteBatchWithHttpInfo(String uid, { List<Object>? requestBody, }) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/index/indexes/{uid}/documents/delete-batch'
       .replaceAll('{uid}', uid);
 
     // ignore: prefer_final_locals
-    Object? postBody = postIndexIndexesByUidDocumentsDeleteBatchRequest;
+    Object? postBody = requestBody;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
@@ -855,9 +855,9 @@ class IndexApi {
   ///
   /// * [String] uid (required):
   ///
-  /// * [PostIndexIndexesByUidDocumentsDeleteBatchRequest] postIndexIndexesByUidDocumentsDeleteBatchRequest:
-  Future<IndexEnqueued?> postIndexIndexesByUidDocumentsDeleteBatch(String uid, { PostIndexIndexesByUidDocumentsDeleteBatchRequest? postIndexIndexesByUidDocumentsDeleteBatchRequest, }) async {
-    final response = await postIndexIndexesByUidDocumentsDeleteBatchWithHttpInfo(uid,  postIndexIndexesByUidDocumentsDeleteBatchRequest: postIndexIndexesByUidDocumentsDeleteBatchRequest, );
+  /// * [List<Object>] requestBody:
+  Future<IndexEnqueued?> postIndexIndexesByUidDocumentsDeleteBatch(String uid, { List<Object>? requestBody, }) async {
+    final response = await postIndexIndexesByUidDocumentsDeleteBatchWithHttpInfo(uid,  requestBody: requestBody, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
