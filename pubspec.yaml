@@ -1,6 +1,6 @@
 name: hanzoai
 description: The Dart client for the Hanzo Cloud API — every /v1 route on api.hanzo.ai, generated from the document the platform emits.
-version: 0.1.0
+version: 8.5.156
 repository: https://github.com/hanzo-dart/sdk
 homepage: https://hanzo.ai
 issue_tracker: https://github.com/hanzo-dart/sdk/issues
