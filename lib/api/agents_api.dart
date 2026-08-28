@@ -1688,7 +1688,7 @@ class AgentsApi {
 
   /// Records one turn of a session's transcript and answers 201 with it.
   ///
-  /// Records one turn of a session's transcript and answers 201 with it.  THE TURN IS SCANNED BEFORE IT IS STORED. The same engine the code-security surface runs reads the payload at this boundary, and a credential in it refuses the append with 422 rather than redacting it — a redacted transcript is one that still had the secret in it once, and this way the author learns which value to rotate. The refusal carries every finding: the rule, the severity, the line, a MASKED preview and the fingerprint. The secret is never in the answer.
+  /// Records one turn of a session's transcript and answers 201 with it.  A `progress` turn additionally MOVES THE SESSION'S PROGRESS, marked as the run's own word rather than an estimate, and pushes the updated session onto the live stream — so a board's bar follows the run without polling and without a second write path. See progress.go.  THE TURN IS SCANNED BEFORE IT IS STORED. The same engine the code-security surface runs reads the payload at this boundary, and a credential in it refuses the append with 422 rather than redacting it — a redacted transcript is one that still had the secret in it once, and this way the author learns which value to rotate. The refusal carries every finding: the rule, the severity, the line, a MASKED preview and the fingerprint. The secret is never in the answer.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -1726,7 +1726,7 @@ class AgentsApi {
 
   /// Records one turn of a session's transcript and answers 201 with it.
   ///
-  /// Records one turn of a session's transcript and answers 201 with it.  THE TURN IS SCANNED BEFORE IT IS STORED. The same engine the code-security surface runs reads the payload at this boundary, and a credential in it refuses the append with 422 rather than redacting it — a redacted transcript is one that still had the secret in it once, and this way the author learns which value to rotate. The refusal carries every finding: the rule, the severity, the line, a MASKED preview and the fingerprint. The secret is never in the answer.
+  /// Records one turn of a session's transcript and answers 201 with it.  A `progress` turn additionally MOVES THE SESSION'S PROGRESS, marked as the run's own word rather than an estimate, and pushes the updated session onto the live stream — so a board's bar follows the run without polling and without a second write path. See progress.go.  THE TURN IS SCANNED BEFORE IT IS STORED. The same engine the code-security surface runs reads the payload at this boundary, and a credential in it refuses the append with 422 rather than redacting it — a redacted transcript is one that still had the secret in it once, and this way the author learns which value to rotate. The refusal carries every finding: the rule, the severity, the line, a MASKED preview and the fingerprint. The secret is never in the answer.
   ///
   /// Parameters:
   ///
