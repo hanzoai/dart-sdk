@@ -156,7 +156,7 @@ class MeetApi {
   ///
   /// * [String] room (required):
   ///   Room is the room's own id within that workspace, as GET /v1/team/rooms reports it. It is opaque here: meet keeps no rooms and cannot say whether one exists, only whether this caller may be seated in the workspace holding it.
-  Future<Call?> meetCall(String workspace, String room,) async {
+  Future<Venue?> meetCall(String workspace, String room,) async {
     final response = await meetCallWithHttpInfo(workspace, room,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
@@ -165,7 +165,7 @@ class MeetApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Call',) as Call;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Venue',) as Venue;
     
     }
     return null;

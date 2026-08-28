@@ -2421,6 +2421,7 @@ lib/model/validator_list.dart
 lib/model/variant.dart
 lib/model/vendor_row.dart
 lib/model/vendors_out.dart
+lib/model/venue.dart
 lib/model/verdict.dart
 lib/model/verification_decision.dart
 lib/model/verification_req.dart

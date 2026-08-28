@@ -4773,6 +4773,8 @@ class ApiClient {
           return VendorRow.fromJson(value);
         case 'VendorsOut':
           return VendorsOut.fromJson(value);
+        case 'Venue':
+          return Venue.fromJson(value);
         case 'Verdict':
           return Verdict.fromJson(value);
         case 'VerificationDecision':

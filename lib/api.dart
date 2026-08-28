@@ -2443,6 +2443,7 @@ part 'model/validator_list.dart';
 part 'model/variant.dart';
 part 'model/vendor_row.dart';
 part 'model/vendors_out.dart';
+part 'model/venue.dart';
 part 'model/verdict.dart';
 part 'model/verification_decision.dart';
 part 'model/verification_req.dart';
