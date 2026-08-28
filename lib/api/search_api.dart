@@ -57,7 +57,7 @@ class SearchApi {
   /// Parameters:
   ///
   /// * [Request] request (required):
-  Future<Response?> search(Request request,) async {
+  Future<Fusion?> search(Request request,) async {
     final response = await searchWithHttpInfo(request,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
@@ -66,7 +66,7 @@ class SearchApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Response',) as Response;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Fusion',) as Fusion;
     
     }
     return null;

@@ -34,7 +34,7 @@ Future<void> main() async {
     return;
   }
 
-  final keys = await KeysApi(hanzo(token: token)).getKeys();
+  final keys = await AccountApi(hanzo(token: token)).getAccountKeys();
   for (final key in keys?.keys ?? const <ApiKey>[]) {
     print('${key.type}  ${key.prefix ?? ''}  created ${key.createdAt}');
   }

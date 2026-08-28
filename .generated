@@ -678,6 +678,7 @@ lib/model/framework_row.dart
 lib/model/function_detail.dart
 lib/model/function_view.dart
 lib/model/funnel.dart
+lib/model/fusion.dart
 lib/model/gc_out.dart
 lib/model/generate_input.dart
 lib/model/generate_request.dart
@@ -981,7 +982,6 @@ lib/model/machine_view.dart
 lib/model/make_in.dart
 lib/model/market_catalog.dart
 lib/model/market_item.dart
-lib/model/match.dart
 lib/model/mcp_catalog.dart
 lib/model/mcp_catalog_sync.dart
 lib/model/mcp_error.dart
@@ -1960,6 +1960,7 @@ lib/model/prompt_list.dart
 lib/model/prompt_meta.dart
 lib/model/prompt_req.dart
 lib/model/prop_spec.dart
+lib/model/provenance.dart
 lib/model/provider_breakdown.dart
 lib/model/provider_info.dart
 lib/model/provider_row.dart
@@ -2064,7 +2065,6 @@ lib/model/request.dart
 lib/model/resolve_reference_in.dart
 lib/model/resolve_reference_out.dart
 lib/model/resource_usage.dart
-lib/model/response.dart
 lib/model/responsible.dart
 lib/model/restart_ref.dart
 lib/model/restarted.dart

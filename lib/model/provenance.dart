@@ -10,14 +10,14 @@
 
 part of hanzoai.cloud;
 
-class Match {
-  /// Returns a new [Match] instance.
-  Match({
+class Provenance {
+  /// Returns a new [Provenance] instance.
+  Provenance({
     this.backend,
     this.rank,
     this.score,
   });
-  /// Backend is the leg that contributed this match: \"index\" (lexical), \"vector\" (semantic) or \"code\" (the org's repositories). It is the same name that leg reports itself under in Response.Backends, so a hit can be traced to a status.
+  /// Backend is the leg that contributed this match: \"index\" (lexical), \"vector\" (semantic) or \"code\" (the org's repositories). It is the same name that leg reports itself under in Fusion.Backends, so a hit can be traced to a status.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -45,7 +45,7 @@ class Match {
   num? score;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is Match &&
+  bool operator ==(Object other) => identical(this, other) || other is Provenance &&
     other.backend == backend &&
     other.rank == rank &&
     other.score == score;
@@ -58,7 +58,7 @@ class Match {
     (score == null ? 0 : score!.hashCode);
 
   @override
-  String toString() => 'Match[backend=$backend, rank=$rank, score=$score]';
+  String toString() => 'Provenance[backend=$backend, rank=$rank, score=$score]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -80,10 +80,10 @@ class Match {
     return json;
   }
 
-  /// Returns a new [Match] instance and imports its values from
+  /// Returns a new [Provenance] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static Match? fromJson(dynamic value) {
+  static Provenance? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -92,13 +92,13 @@ class Match {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "Match[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "Match[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "Provenance[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "Provenance[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return Match(
+      return Provenance(
         backend: mapValueOfType<String>(json, r'backend'),
         rank: mapValueOfType<int>(json, r'rank'),
         score: num.parse('${json[r'score']}'),
@@ -107,11 +107,11 @@ class Match {
     return null;
   }
 
-  static List<Match> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <Match>[];
+  static List<Provenance> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <Provenance>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = Match.fromJson(row);
+        final value = Provenance.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -120,12 +120,12 @@ class Match {
     return result.toList(growable: growable);
   }
 
-  static Map<String, Match> mapFromJson(dynamic json) {
-    final map = <String, Match>{};
+  static Map<String, Provenance> mapFromJson(dynamic json) {
+    final map = <String, Provenance>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = Match.fromJson(entry.value);
+        final value = Provenance.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -134,14 +134,14 @@ class Match {
     return map;
   }
 
-  // maps a json object with a list of Match-objects as value to a dart map
-  static Map<String, List<Match>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<Match>>{};
+  // maps a json object with a list of Provenance-objects as value to a dart map
+  static Map<String, List<Provenance>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<Provenance>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = Match.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = Provenance.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

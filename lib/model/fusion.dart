@@ -10,9 +10,9 @@
 
 part of hanzoai.cloud;
 
-class Response {
-  /// Returns a new [Response] instance.
-  Response({
+class Fusion {
+  /// Returns a new [Fusion] instance.
+  Fusion({
     this.backends = const [],
     this.hits = const [],
     this.mode,
@@ -53,7 +53,7 @@ class Response {
   int? tookMs;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is Response &&
+  bool operator ==(Object other) => identical(this, other) || other is Fusion &&
     _deepEquality.equals(other.backends, backends) &&
     _deepEquality.equals(other.hits, hits) &&
     other.mode == mode &&
@@ -70,7 +70,7 @@ class Response {
     (tookMs == null ? 0 : tookMs!.hashCode);
 
   @override
-  String toString() => 'Response[backends=$backends, hits=$hits, mode=$mode, status=$status, tookMs=$tookMs]';
+  String toString() => 'Fusion[backends=$backends, hits=$hits, mode=$mode, status=$status, tookMs=$tookMs]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -94,10 +94,10 @@ class Response {
     return json;
   }
 
-  /// Returns a new [Response] instance and imports its values from
+  /// Returns a new [Fusion] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static Response? fromJson(dynamic value) {
+  static Fusion? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -106,13 +106,13 @@ class Response {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "Response[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "Response[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "Fusion[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "Fusion[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return Response(
+      return Fusion(
         backends: BackendStatus.listFromJson(json[r'backends']),
         hits: Hit.listFromJson(json[r'hits']),
         mode: mapValueOfType<String>(json, r'mode'),
@@ -123,11 +123,11 @@ class Response {
     return null;
   }
 
-  static List<Response> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <Response>[];
+  static List<Fusion> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <Fusion>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = Response.fromJson(row);
+        final value = Fusion.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -136,12 +136,12 @@ class Response {
     return result.toList(growable: growable);
   }
 
-  static Map<String, Response> mapFromJson(dynamic json) {
-    final map = <String, Response>{};
+  static Map<String, Fusion> mapFromJson(dynamic json) {
+    final map = <String, Fusion>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = Response.fromJson(entry.value);
+        final value = Fusion.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -150,14 +150,14 @@ class Response {
     return map;
   }
 
-  // maps a json object with a list of Response-objects as value to a dart map
-  static Map<String, List<Response>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<Response>>{};
+  // maps a json object with a list of Fusion-objects as value to a dart map
+  static Map<String, List<Fusion>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<Fusion>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = Response.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = Fusion.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

@@ -8,7 +8,7 @@ import 'package:hanzoai/hanzoai.dart';
 Future<void> main() async {
   final client = hanzo(token: 'sk-...');
 
-  final keys = await KeysApi(client).getKeys();
+  final keys = await AccountApi(client).getAccountKeys();
   for (final key in keys!.keys) {
     print('${key.type} created ${key.createdAt}');
   }

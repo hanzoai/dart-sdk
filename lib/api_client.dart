@@ -1287,6 +1287,8 @@ class ApiClient {
           return FunctionView.fromJson(value);
         case 'Funnel':
           return Funnel.fromJson(value);
+        case 'Fusion':
+          return Fusion.fromJson(value);
         case 'GLRow':
           return GLRow.fromJson(value);
         case 'GPU':
@@ -1907,8 +1909,6 @@ class ApiClient {
           return MarketCatalog.fromJson(value);
         case 'MarketItem':
           return MarketItem.fromJson(value);
-        case 'Match':
-          return Match.fromJson(value);
         case 'McpCatalog':
           return McpCatalog.fromJson(value);
         case 'McpCatalogSync':
@@ -3851,6 +3851,8 @@ class ApiClient {
           return PromptReq.fromJson(value);
         case 'PropSpec':
           return PropSpec.fromJson(value);
+        case 'Provenance':
+          return Provenance.fromJson(value);
         case 'ProviderBreakdown':
           return ProviderBreakdown.fromJson(value);
         case 'ProviderInfo':
@@ -4059,8 +4061,6 @@ class ApiClient {
           return ResolveReferenceOut.fromJson(value);
         case 'ResourceUsage':
           return ResourceUsage.fromJson(value);
-        case 'Response':
-          return Response.fromJson(value);
         case 'Responsible':
           return Responsible.fromJson(value);
         case 'RestartRef':

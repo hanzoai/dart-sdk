@@ -23,7 +23,7 @@ void main() {
     final seen = <http.BaseRequest>[];
     final client = hanzo()..client = recording(seen);
 
-    await ModelsApi(client).getModelsWithHttpInfo();
+    await AiApi(client).getModelsWithHttpInfo();
 
     expect(seen.single.url.path, '/v1/models');
     expect(seen.single.headers.containsKey('Authorization'), isFalse);
@@ -33,7 +33,7 @@ void main() {
     final seen = <http.BaseRequest>[];
     final client = hanzo(token: 'sk-not-a-real-key')..client = recording(seen);
 
-    await ModelsApi(client).getModelsWithHttpInfo();
+    await AiApi(client).getModelsWithHttpInfo();
 
     expect(seen.single.headers['Authorization'], 'Bearer sk-not-a-real-key');
   });
@@ -43,7 +43,7 @@ void main() {
     final client = hanzo(token: 'sk-not-a-real-key')
       ..client = recording(seen, body: '{"keys":[{"type":"secret","prefix":"sk-abc"}]}');
 
-    final keys = await KeysApi(client).getKeys();
+    final keys = await AccountApi(client).getAccountKeys();
 
     expect(seen.single.url.path, '/v1/keys');
     expect(keys!.keys.single.type, 'secret');

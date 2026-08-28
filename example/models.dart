@@ -14,7 +14,7 @@ import 'dart:convert';
 import 'package:hanzoai/hanzoai.dart';
 
 Future<void> main() async {
-  final api = ModelsApi(hanzo());
+  final api = AiApi(hanzo());
 
   final response = await api.getModelsWithHttpInfo();
   if (response.statusCode >= 400) {
