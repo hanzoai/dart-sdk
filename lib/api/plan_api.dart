@@ -169,7 +169,7 @@ class PlanApi {
   /// Parameters:
   ///
   /// * [String] id (required):
-  ///   ID is the plan's catalog id or slug — \"pro\", \"team\", \"world-enterprise\", \"rpc-growth\". Both are matched, so a slug resolves the plan it names.
+  ///   ID is the plan's catalog id or slug — \"dev\", \"max\", \"team\", \"rpc-growth\". Both are matched, so a slug resolves the plan it names. A withdrawn id still resolves for a renewal, which is why this takes an id rather than a ladder position.
   Future<Response> getPlanEntitlementsByIdWithHttpInfo(String id,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/plan/entitlements/{id}'
@@ -203,7 +203,7 @@ class PlanApi {
   /// Parameters:
   ///
   /// * [String] id (required):
-  ///   ID is the plan's catalog id or slug — \"pro\", \"team\", \"world-enterprise\", \"rpc-growth\". Both are matched, so a slug resolves the plan it names.
+  ///   ID is the plan's catalog id or slug — \"dev\", \"max\", \"team\", \"rpc-growth\". Both are matched, so a slug resolves the plan it names. A withdrawn id still resolves for a renewal, which is why this takes an id rather than a ladder position.
   Future<PlanEntitlements?> getPlanEntitlementsById(String id,) async {
     final response = await getPlanEntitlementsByIdWithHttpInfo(id,);
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -420,7 +420,7 @@ class PlanApi {
   /// Parameters:
   ///
   /// * [String] id (required):
-  ///   ID is the plan's catalog id or slug — \"pro\", \"team\", \"world-enterprise\", \"rpc-growth\". Both are matched, so a slug resolves the plan it names.
+  ///   ID is the plan's catalog id or slug — \"dev\", \"max\", \"team\", \"rpc-growth\". Both are matched, so a slug resolves the plan it names. A withdrawn id still resolves for a renewal, which is why this takes an id rather than a ladder position.
   Future<Response> getPlanResolveByIdWithHttpInfo(String id,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/plan/resolve/{id}'
@@ -454,7 +454,7 @@ class PlanApi {
   /// Parameters:
   ///
   /// * [String] id (required):
-  ///   ID is the plan's catalog id or slug — \"pro\", \"team\", \"world-enterprise\", \"rpc-growth\". Both are matched, so a slug resolves the plan it names.
+  ///   ID is the plan's catalog id or slug — \"dev\", \"max\", \"team\", \"rpc-growth\". Both are matched, so a slug resolves the plan it names. A withdrawn id still resolves for a renewal, which is why this takes an id rather than a ladder position.
   Future<PlanResolution?> getPlanResolveById(String id,) async {
     final response = await getPlanResolveByIdWithHttpInfo(id,);
     if (response.statusCode >= HttpStatus.badRequest) {

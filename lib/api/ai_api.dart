@@ -125,11 +125,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> deleteAiArticlesByOwnerByName(String owner, String name,) async {
+  Future<PostAiArticles200Response?> deleteAiArticlesByOwnerByName(String owner, String name,) async {
     final response = await deleteAiArticlesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiArticles200Response',) as PostAiArticles200Response;
+    
+    }
+    return null;
   }
 
   /// Delete a asset
@@ -179,11 +187,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> deleteAiAssetsByOwnerByName(String owner, String name,) async {
+  Future<PostAiAssets200Response?> deleteAiAssetsByOwnerByName(String owner, String name,) async {
     final response = await deleteAiAssetsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiAssets200Response',) as PostAiAssets200Response;
+    
+    }
+    return null;
   }
 
   /// Delete a chat
@@ -233,11 +249,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> deleteAiChatsByOwnerByName(String owner, String name,) async {
+  Future<PostAiChats200Response?> deleteAiChatsByOwnerByName(String owner, String name,) async {
     final response = await deleteAiChatsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiChats200Response',) as PostAiChats200Response;
+    
+    }
+    return null;
   }
 
   /// Disconnects a third-party AI account: it deactivates the org's row so completion resolution falls back to the global Hanzo account (no BYO), and best-effort tombstones the sealed secret.
@@ -282,11 +306,19 @@ class AiApi {
   /// Parameters:
   ///
   /// * [String] provider (required):
-  Future<void> deleteAiConnectionsByProvider(String provider,) async {
+  Future<PostAiConnections200Response?> deleteAiConnectionsByProvider(String provider,) async {
     final response = await deleteAiConnectionsByProviderWithHttpInfo(provider,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiConnections200Response',) as PostAiConnections200Response;
+    
+    }
+    return null;
   }
 
   /// Delete a application
@@ -336,11 +368,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> deleteAiDeploymentsByOwnerByName(String owner, String name,) async {
+  Future<PostAiDeployments200Response?> deleteAiDeploymentsByOwnerByName(String owner, String name,) async {
     final response = await deleteAiDeploymentsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiDeployments200Response',) as PostAiDeployments200Response;
+    
+    }
+    return null;
   }
 
   /// Delete a file
@@ -390,11 +430,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> deleteAiFilesByOwnerByName(String owner, String name,) async {
+  Future<PostAiFiles200Response?> deleteAiFilesByOwnerByName(String owner, String name,) async {
     final response = await deleteAiFilesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiFiles200Response',) as PostAiFiles200Response;
+    
+    }
+    return null;
   }
 
   /// Delete a form
@@ -444,11 +492,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> deleteAiFormsByOwnerByName(String owner, String name,) async {
+  Future<PostAiForms200Response?> deleteAiFormsByOwnerByName(String owner, String name,) async {
     final response = await deleteAiFormsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiForms200Response',) as PostAiForms200Response;
+    
+    }
+    return null;
   }
 
   /// Delete a graph
@@ -498,11 +554,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> deleteAiGraphsByOwnerByName(String owner, String name,) async {
+  Future<PostAiGraphs200Response?> deleteAiGraphsByOwnerByName(String owner, String name,) async {
     final response = await deleteAiGraphsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiGraphs200Response',) as PostAiGraphs200Response;
+    
+    }
+    return null;
   }
 
   /// Delete a message
@@ -552,11 +616,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> deleteAiMessagesByOwnerByName(String owner, String name,) async {
+  Future<PostAiMessages200Response?> deleteAiMessagesByOwnerByName(String owner, String name,) async {
     final response = await deleteAiMessagesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiMessages200Response',) as PostAiMessages200Response;
+    
+    }
+    return null;
   }
 
   /// Welcome (message)
@@ -588,11 +660,19 @@ class AiApi {
   }
 
   /// Welcome (message)
-  Future<void> deleteAiMessagesWelcome() async {
+  Future<Envelope?> deleteAiMessagesWelcome() async {
     final response = await deleteAiMessagesWelcomeWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Delete a node
@@ -642,11 +722,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> deleteAiNodesByOwnerByName(String owner, String name,) async {
+  Future<PostAiNodes200Response?> deleteAiNodesByOwnerByName(String owner, String name,) async {
     final response = await deleteAiNodesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiNodes200Response',) as PostAiNodes200Response;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -682,11 +770,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> deleteAiOrgSettings() async {
+  Future<AiResponse?> deleteAiOrgSettings() async {
     final response = await deleteAiOrgSettingsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -722,11 +818,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> deleteAiOrgSettingsList() async {
+  Future<AiResponse?> deleteAiOrgSettingsList() async {
     final response = await deleteAiOrgSettingsListWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// Delete a provider
@@ -776,11 +880,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> deleteAiProvidersByOwnerByName(String owner, String name,) async {
+  Future<PostAiProviders200Response?> deleteAiProvidersByOwnerByName(String owner, String name,) async {
     final response = await deleteAiProvidersByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiProviders200Response',) as PostAiProviders200Response;
+    
+    }
+    return null;
   }
 
   /// Delete a record
@@ -830,11 +942,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> deleteAiRecordsByOwnerByName(String owner, String name,) async {
+  Future<PostAiRecords200Response?> deleteAiRecordsByOwnerByName(String owner, String name,) async {
     final response = await deleteAiRecordsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiRecords200Response',) as PostAiRecords200Response;
+    
+    }
+    return null;
   }
 
   /// Delete a connection
@@ -884,11 +1004,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> deleteAiRemoteConnectionsByOwnerByName(String owner, String name,) async {
+  Future<PostAiRemoteConnections200Response?> deleteAiRemoteConnectionsByOwnerByName(String owner, String name,) async {
     final response = await deleteAiRemoteConnectionsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiRemoteConnections200Response',) as PostAiRemoteConnections200Response;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -924,11 +1052,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> deleteAiRouterArtifactMeta() async {
+  Future<AiResponse?> deleteAiRouterArtifactMeta() async {
     final response = await deleteAiRouterArtifactMetaWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// Router Data
@@ -960,11 +1096,19 @@ class AiApi {
   }
 
   /// Router Data
-  Future<void> deleteAiRouterData() async {
+  Future<Envelope?> deleteAiRouterData() async {
     final response = await deleteAiRouterDataWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -1000,11 +1144,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> deleteAiRouterDefaults() async {
+  Future<AiResponse?> deleteAiRouterDefaults() async {
     final response = await deleteAiRouterDefaultsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -1040,11 +1192,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> deleteAiRouterLedger() async {
+  Future<AiResponse?> deleteAiRouterLedger() async {
     final response = await deleteAiRouterLedgerWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -1080,11 +1240,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> deleteAiRouterPolicy() async {
+  Future<AiResponse?> deleteAiRouterPolicy() async {
     final response = await deleteAiRouterPolicyWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -1120,11 +1288,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> deleteAiRouterRewards() async {
+  Future<AiResponse?> deleteAiRouterRewards() async {
     final response = await deleteAiRouterRewardsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// Delete a model-route
@@ -1174,11 +1350,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> deleteAiRoutesByOwnerByName(String owner, String name,) async {
+  Future<PostAiRoutes200Response?> deleteAiRoutesByOwnerByName(String owner, String name,) async {
     final response = await deleteAiRoutesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiRoutes200Response',) as PostAiRoutes200Response;
+    
+    }
+    return null;
   }
 
   /// Delete a scale
@@ -1228,11 +1412,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> deleteAiScalesByOwnerByName(String owner, String name,) async {
+  Future<PostAiScales200Response?> deleteAiScalesByOwnerByName(String owner, String name,) async {
     final response = await deleteAiScalesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiScales200Response',) as PostAiScales200Response;
+    
+    }
+    return null;
   }
 
   /// Delete a scan
@@ -1282,11 +1474,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> deleteAiScansByOwnerByName(String owner, String name,) async {
+  Future<PostAiScans200Response?> deleteAiScansByOwnerByName(String owner, String name,) async {
     final response = await deleteAiScansByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiScans200Response',) as PostAiScans200Response;
+    
+    }
+    return null;
   }
 
   /// Delete a session
@@ -1336,11 +1536,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> deleteAiSigninSessionsByOwnerByName(String owner, String name,) async {
+  Future<PostAiSigninSessions200Response?> deleteAiSigninSessionsByOwnerByName(String owner, String name,) async {
     final response = await deleteAiSigninSessionsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiSigninSessions200Response',) as PostAiSigninSessions200Response;
+    
+    }
+    return null;
   }
 
   /// Delete a store
@@ -1390,11 +1598,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> deleteAiStoresByOwnerByName(String owner, String name,) async {
+  Future<PostAiStores200Response?> deleteAiStoresByOwnerByName(String owner, String name,) async {
     final response = await deleteAiStoresByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiStores200Response',) as PostAiStores200Response;
+    
+    }
+    return null;
   }
 
   /// Delete a task
@@ -1444,11 +1660,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> deleteAiTasksByOwnerByName(String owner, String name,) async {
+  Future<PostAiTasks200Response?> deleteAiTasksByOwnerByName(String owner, String name,) async {
     final response = await deleteAiTasksByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiTasks200Response',) as PostAiTasks200Response;
+    
+    }
+    return null;
   }
 
   /// Delete a template
@@ -1498,11 +1722,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> deleteAiTemplatesByOwnerByName(String owner, String name,) async {
+  Future<PostAiTemplates200Response?> deleteAiTemplatesByOwnerByName(String owner, String name,) async {
     final response = await deleteAiTemplatesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiTemplates200Response',) as PostAiTemplates200Response;
+    
+    }
+    return null;
   }
 
   /// Delete a tree-file
@@ -1552,11 +1784,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> deleteAiTreeFilesByOwnerByName(String owner, String name,) async {
+  Future<PostAiTreeFiles200Response?> deleteAiTreeFilesByOwnerByName(String owner, String name,) async {
     final response = await deleteAiTreeFilesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiTreeFiles200Response',) as PostAiTreeFiles200Response;
+    
+    }
+    return null;
   }
 
   /// All (vector)
@@ -1588,11 +1828,19 @@ class AiApi {
   }
 
   /// All (vector)
-  Future<void> deleteAiVectorsAll() async {
+  Future<Envelope?> deleteAiVectorsAll() async {
     final response = await deleteAiVectorsAllWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Delete a vector
@@ -1642,11 +1890,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> deleteAiVectorsByOwnerByName(String owner, String name,) async {
+  Future<PostAiVectors200Response?> deleteAiVectorsByOwnerByName(String owner, String name,) async {
     final response = await deleteAiVectorsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiVectors200Response',) as PostAiVectors200Response;
+    
+    }
+    return null;
   }
 
   /// Delete a video
@@ -1696,11 +1952,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> deleteAiVideosByOwnerByName(String owner, String name,) async {
+  Future<PostAiVideos200Response?> deleteAiVideosByOwnerByName(String owner, String name,) async {
     final response = await deleteAiVideosByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiVideos200Response',) as PostAiVideos200Response;
+    
+    }
+    return null;
   }
 
   /// Delete a workflow
@@ -1750,11 +2014,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> deleteAiWorkflowsByOwnerByName(String owner, String name,) async {
+  Future<PostAiWorkflows200Response?> deleteAiWorkflowsByOwnerByName(String owner, String name,) async {
     final response = await deleteAiWorkflowsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiWorkflows200Response',) as PostAiWorkflows200Response;
+    
+    }
+    return null;
   }
 
   /// Account
@@ -1786,11 +2058,19 @@ class AiApi {
   }
 
   /// Account
-  Future<void> getAiAccount() async {
+  Future<Envelope?> getAiAccount() async {
     final response = await getAiAccountWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// List activities
@@ -1826,11 +2106,19 @@ class AiApi {
   /// List activities
   ///
   /// List the caller's activities.
-  Future<void> getAiActivities() async {
+  Future<GetAiActivities200Response?> getAiActivities() async {
     final response = await getAiActivitiesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiActivities200Response',) as GetAiActivities200Response;
+    
+    }
+    return null;
   }
 
   /// Answer
@@ -1862,11 +2150,19 @@ class AiApi {
   }
 
   /// Answer
-  Future<void> getAiAnswer() async {
+  Future<Envelope?> getAiAnswer() async {
     final response = await getAiAnswerWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// List articles
@@ -1902,11 +2198,19 @@ class AiApi {
   /// List articles
   ///
   /// List the caller's articles.
-  Future<void> getAiArticles() async {
+  Future<GetAiArticles200Response?> getAiArticles() async {
     final response = await getAiArticlesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiArticles200Response',) as GetAiArticles200Response;
+    
+    }
+    return null;
   }
 
   /// Retrieve a article
@@ -1956,11 +2260,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> getAiArticlesByOwnerByName(String owner, String name,) async {
+  Future<PostAiArticles200Response?> getAiArticlesByOwnerByName(String owner, String name,) async {
     final response = await getAiArticlesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiArticles200Response',) as PostAiArticles200Response;
+    
+    }
+    return null;
   }
 
   /// List articles across tenants
@@ -1996,11 +2308,19 @@ class AiApi {
   /// List articles across tenants
   ///
   /// Cross-tenant listing. Admin-only; a tenant caller is refused.
-  Future<void> getAiArticlesGlobal() async {
+  Future<GetAiArticles200Response?> getAiArticlesGlobal() async {
     final response = await getAiArticlesGlobalWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiArticles200Response',) as GetAiArticles200Response;
+    
+    }
+    return null;
   }
 
   /// List assets
@@ -2036,11 +2356,19 @@ class AiApi {
   /// List assets
   ///
   /// List the caller's assets.
-  Future<void> getAiAssets() async {
+  Future<GetAiAssets200Response?> getAiAssets() async {
     final response = await getAiAssetsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiAssets200Response',) as GetAiAssets200Response;
+    
+    }
+    return null;
   }
 
   /// Retrieve a asset
@@ -2090,11 +2418,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> getAiAssetsByOwnerByName(String owner, String name,) async {
+  Future<PostAiAssets200Response?> getAiAssetsByOwnerByName(String owner, String name,) async {
     final response = await getAiAssetsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiAssets200Response',) as PostAiAssets200Response;
+    
+    }
+    return null;
   }
 
   /// List chats
@@ -2130,11 +2466,19 @@ class AiApi {
   /// List chats
   ///
   /// List the caller's chats.
-  Future<void> getAiChats() async {
+  Future<GetAiChats200Response?> getAiChats() async {
     final response = await getAiChatsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiChats200Response',) as GetAiChats200Response;
+    
+    }
+    return null;
   }
 
   /// Retrieve a chat
@@ -2184,11 +2528,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> getAiChatsByOwnerByName(String owner, String name,) async {
+  Future<PostAiChats200Response?> getAiChatsByOwnerByName(String owner, String name,) async {
     final response = await getAiChatsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiChats200Response',) as PostAiChats200Response;
+    
+    }
+    return null;
   }
 
   /// List chats across tenants
@@ -2224,11 +2576,19 @@ class AiApi {
   /// List chats across tenants
   ///
   /// Cross-tenant listing. Admin-only; a tenant caller is refused.
-  Future<void> getAiChatsGlobal() async {
+  Future<GetAiChats200Response?> getAiChatsGlobal() async {
     final response = await getAiChatsGlobalWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiChats200Response',) as GetAiChats200Response;
+    
+    }
+    return null;
   }
 
   /// Lists the org's connectable AI accounts and whether each is currently connected.
@@ -2264,11 +2624,19 @@ class AiApi {
   /// Lists the org's connectable AI accounts and whether each is currently connected.
   ///
   /// Lists the org's connectable AI accounts and whether each is currently connected. Never returns a key or a kms:// reference.
-  Future<void> getAiConnections() async {
+  Future<GetAiConnections200Response?> getAiConnections() async {
     final response = await getAiConnectionsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiConnections200Response',) as GetAiConnections200Response;
+    
+    }
+    return null;
   }
 
   /// Begins an OAuth connection for the caller's org: it binds the org into a signed state and sends the caller to the provider's authorize URL.
@@ -2313,11 +2681,19 @@ class AiApi {
   /// Parameters:
   ///
   /// * [String] provider (required):
-  Future<void> getAiConnectionsByProviderAuthorize(String provider,) async {
+  Future<GetAiConnectionsByProviderAuthorize200Response?> getAiConnectionsByProviderAuthorize(String provider,) async {
     final response = await getAiConnectionsByProviderAuthorizeWithHttpInfo(provider,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiConnectionsByProviderAuthorize200Response',) as GetAiConnectionsByProviderAuthorize200Response;
+    
+    }
+    return null;
   }
 
   /// Completes OAuth: the org is recovered from the SIGNED state (not a header), the code is exchanged for a token, the token is SEALED into KMS (never the row/logs) through the same path as a BYOK key, and the org's provider row is upserted to \"connected\".
@@ -2411,11 +2787,19 @@ class AiApi {
   /// Parameters:
   ///
   /// * [String] provider (required):
-  Future<void> getAiConnectionsByProviderUsage(String provider,) async {
+  Future<GetAiConnectionsByProviderUsage200Response?> getAiConnectionsByProviderUsage(String provider,) async {
     final response = await getAiConnectionsByProviderUsageWithHttpInfo(provider,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiConnectionsByProviderUsage200Response',) as GetAiConnectionsByProviderUsage200Response;
+    
+    }
+    return null;
   }
 
   /// Dashboards Agents
@@ -2447,11 +2831,19 @@ class AiApi {
   }
 
   /// Dashboards Agents
-  Future<void> getAiDashboardsAgents() async {
+  Future<Envelope?> getAiDashboardsAgents() async {
     final response = await getAiDashboardsAgentsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Dashboards Vm
@@ -2483,11 +2875,19 @@ class AiApi {
   }
 
   /// Dashboards Vm
-  Future<void> getAiDashboardsVm() async {
+  Future<Envelope?> getAiDashboardsVm() async {
     final response = await getAiDashboardsVmWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// List deployments
@@ -2523,11 +2923,19 @@ class AiApi {
   /// List deployments
   ///
   /// List the caller's deployments.
-  Future<void> getAiDeployments() async {
+  Future<GetAiDeployments200Response?> getAiDeployments() async {
     final response = await getAiDeploymentsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiDeployments200Response',) as GetAiDeployments200Response;
+    
+    }
+    return null;
   }
 
   /// Retrieve a application
@@ -2577,11 +2985,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> getAiDeploymentsByOwnerByName(String owner, String name,) async {
+  Future<PostAiDeployments200Response?> getAiDeploymentsByOwnerByName(String owner, String name,) async {
     final response = await getAiDeploymentsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiDeployments200Response',) as PostAiDeployments200Response;
+    
+    }
+    return null;
   }
 
   /// List files
@@ -2617,11 +3033,19 @@ class AiApi {
   /// List files
   ///
   /// List the caller's files.
-  Future<void> getAiFiles() async {
+  Future<GetAiFiles200Response?> getAiFiles() async {
     final response = await getAiFilesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiFiles200Response',) as GetAiFiles200Response;
+    
+    }
+    return null;
   }
 
   /// Active (file)
@@ -2653,11 +3077,19 @@ class AiApi {
   }
 
   /// Active (file)
-  Future<void> getAiFilesActive() async {
+  Future<Envelope?> getAiFilesActive() async {
     final response = await getAiFilesActiveWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Retrieve a file
@@ -2707,11 +3139,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> getAiFilesByOwnerByName(String owner, String name,) async {
+  Future<PostAiFiles200Response?> getAiFilesByOwnerByName(String owner, String name,) async {
     final response = await getAiFilesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiFiles200Response',) as PostAiFiles200Response;
+    
+    }
+    return null;
   }
 
   /// List files across tenants
@@ -2747,11 +3187,19 @@ class AiApi {
   /// List files across tenants
   ///
   /// Cross-tenant listing. Admin-only; a tenant caller is refused.
-  Future<void> getAiFilesGlobal() async {
+  Future<GetAiFiles200Response?> getAiFilesGlobal() async {
     final response = await getAiFilesGlobalWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiFiles200Response',) as GetAiFiles200Response;
+    
+    }
+    return null;
   }
 
   /// Proxies a HuggingFace dataset search (dataset picker).
@@ -2787,11 +3235,19 @@ class AiApi {
   /// Proxies a HuggingFace dataset search (dataset picker).
   ///
   /// Proxies a HuggingFace dataset search (dataset picker).
-  Future<void> getAiFinetuneHfDatasets() async {
+  Future<GetAiFinetuneHfDatasets200Response?> getAiFinetuneHfDatasets() async {
     final response = await getAiFinetuneHfDatasetsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiFinetuneHfDatasets200Response',) as GetAiFinetuneHfDatasets200Response;
+    
+    }
+    return null;
   }
 
   /// Proxies a HuggingFace model search (base-model picker).
@@ -2827,11 +3283,19 @@ class AiApi {
   /// Proxies a HuggingFace model search (base-model picker).
   ///
   /// Proxies a HuggingFace model search (base-model picker).
-  Future<void> getAiFinetuneHfModels() async {
+  Future<GetAiFinetuneHfModels200Response?> getAiFinetuneHfModels() async {
     final response = await getAiFinetuneHfModelsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiFinetuneHfModels200Response',) as GetAiFinetuneHfModels200Response;
+    
+    }
+    return null;
   }
 
   /// Returns a repo's detail (files, gated/private state).
@@ -2867,11 +3331,19 @@ class AiApi {
   /// Returns a repo's detail (files, gated/private state).
   ///
   /// Returns a repo's detail (files, gated/private state). ?id=&kind=model|dataset
-  Future<void> getAiFinetuneHfRepo() async {
+  Future<GetAiFinetuneHfRepo200Response?> getAiFinetuneHfRepo() async {
     final response = await getAiFinetuneHfRepoWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiFinetuneHfRepo200Response',) as GetAiFinetuneHfRepo200Response;
+    
+    }
+    return null;
   }
 
   /// Returns one job with refreshed live status.
@@ -2907,11 +3379,19 @@ class AiApi {
   /// Returns one job with refreshed live status.
   ///
   /// Returns one job with refreshed live status. ?id=owner/name or ?name=
-  Future<void> getAiFinetuneJob() async {
+  Future<PostAiFinetuneCancel200Response?> getAiFinetuneJob() async {
     final response = await getAiFinetuneJobWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiFinetuneCancel200Response',) as PostAiFinetuneCancel200Response;
+    
+    }
+    return null;
   }
 
   /// Returns the org's jobs, refreshing live status for active ones.
@@ -2947,11 +3427,19 @@ class AiApi {
   /// Returns the org's jobs, refreshing live status for active ones.
   ///
   /// Returns the org's jobs, refreshing live status for active ones.
-  Future<void> getAiFinetuneJobs() async {
+  Future<GetAiFinetuneJobs200Response?> getAiFinetuneJobs() async {
     final response = await getAiFinetuneJobsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiFinetuneJobs200Response',) as GetAiFinetuneJobs200Response;
+    
+    }
+    return null;
   }
 
   /// Returns the new-job catalog plus, when a selection is passed (?baseModel&method&task&preset[&datasetExamples]), the recommended config so the console can render \"Recommended\" as a one-click, ready-to-run default.
@@ -2987,11 +3475,19 @@ class AiApi {
   /// Returns the new-job catalog plus, when a selection is passed (?baseModel&method&task&preset[&datasetExamples]), the recommended config so the console can render \"Recommended\" as a one-click, ready-to-run default.
   ///
   /// Returns the new-job catalog plus, when a selection is passed (?baseModel&method&task&preset[&datasetExamples]), the recommended config so the console can render \"Recommended\" as a one-click, ready-to-run default.
-  Future<void> getAiFinetunePresets() async {
+  Future<GetAiFinetunePresets200Response?> getAiFinetunePresets() async {
     final response = await getAiFinetunePresetsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiFinetunePresets200Response',) as GetAiFinetunePresets200Response;
+    
+    }
+    return null;
   }
 
   /// List forms
@@ -3027,11 +3523,19 @@ class AiApi {
   /// List forms
   ///
   /// List the caller's forms.
-  Future<void> getAiForms() async {
+  Future<GetAiForms200Response?> getAiForms() async {
     final response = await getAiFormsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiForms200Response',) as GetAiForms200Response;
+    
+    }
+    return null;
   }
 
   /// Retrieve a form
@@ -3081,11 +3585,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> getAiFormsByOwnerByName(String owner, String name,) async {
+  Future<PostAiForms200Response?> getAiFormsByOwnerByName(String owner, String name,) async {
     final response = await getAiFormsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiForms200Response',) as PostAiForms200Response;
+    
+    }
+    return null;
   }
 
   /// Data (form)
@@ -3117,11 +3629,19 @@ class AiApi {
   }
 
   /// Data (form)
-  Future<void> getAiFormsData() async {
+  Future<Envelope?> getAiFormsData() async {
     final response = await getAiFormsDataWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// List forms across tenants
@@ -3157,11 +3677,19 @@ class AiApi {
   /// List forms across tenants
   ///
   /// Cross-tenant listing. Admin-only; a tenant caller is refused.
-  Future<void> getAiFormsGlobal() async {
+  Future<GetAiForms200Response?> getAiFormsGlobal() async {
     final response = await getAiFormsGlobalWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiForms200Response',) as GetAiForms200Response;
+    
+    }
+    return null;
   }
 
   /// List graphs
@@ -3197,11 +3725,19 @@ class AiApi {
   /// List graphs
   ///
   /// List the caller's graphs.
-  Future<void> getAiGraphs() async {
+  Future<GetAiGraphs200Response?> getAiGraphs() async {
     final response = await getAiGraphsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiGraphs200Response',) as GetAiGraphs200Response;
+    
+    }
+    return null;
   }
 
   /// Retrieve a graph
@@ -3251,11 +3787,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> getAiGraphsByOwnerByName(String owner, String name,) async {
+  Future<PostAiGraphs200Response?> getAiGraphsByOwnerByName(String owner, String name,) async {
     final response = await getAiGraphsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiGraphs200Response',) as PostAiGraphs200Response;
+    
+    }
+    return null;
   }
 
   /// List graphs across tenants
@@ -3291,11 +3835,19 @@ class AiApi {
   /// List graphs across tenants
   ///
   /// Cross-tenant listing. Admin-only; a tenant caller is refused.
-  Future<void> getAiGraphsGlobal() async {
+  Future<GetAiGraphs200Response?> getAiGraphsGlobal() async {
     final response = await getAiGraphsGlobalWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiGraphs200Response',) as GetAiGraphs200Response;
+    
+    }
+    return null;
   }
 
   /// K8s Status
@@ -3327,11 +3879,19 @@ class AiApi {
   }
 
   /// K8s Status
-  Future<void> getAiK8sStatus() async {
+  Future<Envelope?> getAiK8sStatus() async {
     final response = await getAiK8sStatusWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// List the authenticated user's stored facts
@@ -3367,11 +3927,19 @@ class AiApi {
   /// List the authenticated user's stored facts
   ///
   /// List the authenticated user's stored facts
-  Future<void> getAiMemoryFacts() async {
+  Future<GetAiMemoryFacts200Response?> getAiMemoryFacts() async {
     final response = await getAiMemoryFactsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiMemoryFacts200Response',) as GetAiMemoryFacts200Response;
+    
+    }
+    return null;
   }
 
   /// List the authenticated user's memories, newest first
@@ -3407,11 +3975,19 @@ class AiApi {
   /// List the authenticated user's memories, newest first
   ///
   /// List the authenticated user's memories, newest first
-  Future<void> getAiMemoryList() async {
+  Future<GetAiMemoryFacts200Response?> getAiMemoryList() async {
     final response = await getAiMemoryListWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiMemoryFacts200Response',) as GetAiMemoryFacts200Response;
+    
+    }
+    return null;
   }
 
   /// Recall recent/relevant memories for context injection; with q it
@@ -3447,11 +4023,19 @@ class AiApi {
   /// Recall recent/relevant memories for context injection; with q it
   ///
   /// Recall recent/relevant memories for context injection; with q it ranks semantically, without q it returns the most recent
-  Future<void> getAiMemoryRecall() async {
+  Future<GetAiMemoryFacts200Response?> getAiMemoryRecall() async {
     final response = await getAiMemoryRecallWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiMemoryFacts200Response',) as GetAiMemoryFacts200Response;
+    
+    }
+    return null;
   }
 
   /// Search the authenticated user's memories (semantic, text fallback)
@@ -3487,11 +4071,19 @@ class AiApi {
   /// Search the authenticated user's memories (semantic, text fallback)
   ///
   /// Search the authenticated user's memories (semantic, text fallback)
-  Future<void> getAiMemorySearch() async {
+  Future<GetAiMemoryFacts200Response?> getAiMemorySearch() async {
     final response = await getAiMemorySearchWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiMemoryFacts200Response',) as GetAiMemoryFacts200Response;
+    
+    }
+    return null;
   }
 
   /// List messages
@@ -3527,11 +4119,19 @@ class AiApi {
   /// List messages
   ///
   /// List the caller's messages.
-  Future<void> getAiMessages() async {
+  Future<GetAiMessages200Response?> getAiMessages() async {
     final response = await getAiMessagesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiMessages200Response',) as GetAiMessages200Response;
+    
+    }
+    return null;
   }
 
   /// Retrieve a message
@@ -3581,11 +4181,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> getAiMessagesByOwnerByName(String owner, String name,) async {
+  Future<PostAiMessages200Response?> getAiMessagesByOwnerByName(String owner, String name,) async {
     final response = await getAiMessagesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiMessages200Response',) as PostAiMessages200Response;
+    
+    }
+    return null;
   }
 
   /// Answer (message)
@@ -3631,11 +4239,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> getAiMessagesByOwnerByNameAnswer(String owner, String name,) async {
+  Future<Envelope?> getAiMessagesByOwnerByNameAnswer(String owner, String name,) async {
     final response = await getAiMessagesByOwnerByNameAnswerWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// List messages across tenants
@@ -3671,11 +4287,19 @@ class AiApi {
   /// List messages across tenants
   ///
   /// Cross-tenant listing. Admin-only; a tenant caller is refused.
-  Future<void> getAiMessagesGlobal() async {
+  Future<GetAiMessages200Response?> getAiMessagesGlobal() async {
     final response = await getAiMessagesGlobalWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiMessages200Response',) as GetAiMessages200Response;
+    
+    }
+    return null;
   }
 
   /// List nodes
@@ -3711,11 +4335,19 @@ class AiApi {
   /// List nodes
   ///
   /// List the caller's nodes.
-  Future<void> getAiNodes() async {
+  Future<GetAiNodes200Response?> getAiNodes() async {
     final response = await getAiNodesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiNodes200Response',) as GetAiNodes200Response;
+    
+    }
+    return null;
   }
 
   /// Retrieve a node
@@ -3765,11 +4397,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> getAiNodesByOwnerByName(String owner, String name,) async {
+  Future<PostAiNodes200Response?> getAiNodesByOwnerByName(String owner, String name,) async {
     final response = await getAiNodesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiNodes200Response',) as PostAiNodes200Response;
+    
+    }
+    return null;
   }
 
   /// Tunnel (node)
@@ -3815,11 +4455,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> getAiNodesByOwnerByNameTunnel(String owner, String name,) async {
+  Future<Envelope?> getAiNodesByOwnerByNameTunnel(String owner, String name,) async {
     final response = await getAiNodesByOwnerByNameTunnelWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -3855,11 +4503,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> getAiOrgSettings() async {
+  Future<AiResponse?> getAiOrgSettings() async {
     final response = await getAiOrgSettingsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -3895,11 +4551,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> getAiOrgSettingsList() async {
+  Future<AiResponse?> getAiOrgSettingsList() async {
     final response = await getAiOrgSettingsListWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// Prometheus
@@ -3931,11 +4595,19 @@ class AiApi {
   }
 
   /// Prometheus
-  Future<void> getAiPrometheus() async {
+  Future<Envelope?> getAiPrometheus() async {
     final response = await getAiPrometheusWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// List providers
@@ -3971,11 +4643,19 @@ class AiApi {
   /// List providers
   ///
   /// List the caller's providers.
-  Future<void> getAiProviders() async {
+  Future<GetAiProviders200Response?> getAiProviders() async {
     final response = await getAiProvidersWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiProviders200Response',) as GetAiProviders200Response;
+    
+    }
+    return null;
   }
 
   /// Retrieve a provider
@@ -4025,11 +4705,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> getAiProvidersByOwnerByName(String owner, String name,) async {
+  Future<PostAiProviders200Response?> getAiProvidersByOwnerByName(String owner, String name,) async {
     final response = await getAiProvidersByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiProviders200Response',) as PostAiProviders200Response;
+    
+    }
+    return null;
   }
 
   /// List providers across tenants
@@ -4065,11 +4753,19 @@ class AiApi {
   /// List providers across tenants
   ///
   /// Cross-tenant listing. Admin-only; a tenant caller is refused.
-  Future<void> getAiProvidersGlobal() async {
+  Future<GetAiProviders200Response?> getAiProvidersGlobal() async {
     final response = await getAiProvidersGlobalWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiProviders200Response',) as GetAiProviders200Response;
+    
+    }
+    return null;
   }
 
   /// Return every stored chunk of one file_id (full document context).
@@ -4105,11 +4801,22 @@ class AiApi {
   /// Return every stored chunk of one file_id (full document context).
   ///
   /// Return every stored chunk of one file_id (full document context). Consolidates the retired chat-rag-api GET /documents/{id}/context.
-  Future<void> getAiRagContext() async {
+  Future<List<DocSearchResult>?> getAiRagContext() async {
     final response = await getAiRagContextWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      final responseBody = await _decodeBodyBytes(response);
+      return (await apiClient.deserializeAsync(responseBody, 'List<DocSearchResult>') as List)
+        .cast<DocSearchResult>()
+        .toList(growable: false);
+
+    }
+    return null;
   }
 
   /// List records
@@ -4145,11 +4852,19 @@ class AiApi {
   /// List records
   ///
   /// List the caller's records.
-  Future<void> getAiRecords() async {
+  Future<GetAiRecords200Response?> getAiRecords() async {
     final response = await getAiRecordsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiRecords200Response',) as GetAiRecords200Response;
+    
+    }
+    return null;
   }
 
   /// Retrieve a record
@@ -4199,11 +4914,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> getAiRecordsByOwnerByName(String owner, String name,) async {
+  Future<PostAiRecords200Response?> getAiRecordsByOwnerByName(String owner, String name,) async {
     final response = await getAiRecordsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiRecords200Response',) as PostAiRecords200Response;
+    
+    }
+    return null;
   }
 
   /// Query (record)
@@ -4235,11 +4958,19 @@ class AiApi {
   }
 
   /// Query (record)
-  Future<void> getAiRecordsQuery() async {
+  Future<Envelope?> getAiRecordsQuery() async {
     final response = await getAiRecordsQueryWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Query Second (record)
@@ -4271,11 +5002,19 @@ class AiApi {
   }
 
   /// Query Second (record)
-  Future<void> getAiRecordsQuerySecond() async {
+  Future<Envelope?> getAiRecordsQuerySecond() async {
     final response = await getAiRecordsQuerySecondWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// List remote-connections
@@ -4311,11 +5050,19 @@ class AiApi {
   /// List remote-connections
   ///
   /// List the caller's remote-connections.
-  Future<void> getAiRemoteConnections() async {
+  Future<GetAiRemoteConnections200Response?> getAiRemoteConnections() async {
     final response = await getAiRemoteConnectionsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiRemoteConnections200Response',) as GetAiRemoteConnections200Response;
+    
+    }
+    return null;
   }
 
   /// Retrieve a connection
@@ -4365,11 +5112,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> getAiRemoteConnectionsByOwnerByName(String owner, String name,) async {
+  Future<PostAiRemoteConnections200Response?> getAiRemoteConnectionsByOwnerByName(String owner, String name,) async {
     final response = await getAiRemoteConnectionsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiRemoteConnections200Response',) as PostAiRemoteConnections200Response;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -4405,11 +5160,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> getAiRouterArtifactMeta() async {
+  Future<AiResponse?> getAiRouterArtifactMeta() async {
     final response = await getAiRouterArtifactMetaWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// Router Data
@@ -4441,11 +5204,19 @@ class AiApi {
   }
 
   /// Router Data
-  Future<void> getAiRouterData() async {
+  Future<Envelope?> getAiRouterData() async {
     final response = await getAiRouterDataWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -4481,11 +5252,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> getAiRouterDefaults() async {
+  Future<AiResponse?> getAiRouterDefaults() async {
     final response = await getAiRouterDefaultsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// Returns the router-improvement time-series.
@@ -4521,11 +5300,19 @@ class AiApi {
   /// Returns the router-improvement time-series.
   ///
   /// Returns the router-improvement time-series. Two scopes, one route, mirroring /v1/ai/router/stats:    - ?scope=platform — PUBLIC-safe aggregate over ALL orgs, no authentication. Emits     the daily reward/cost-saved/adoption series (task mix included, model ids NOT)     and the retrain timeline. This is what world.hanzo.ai polls.   - default (org scope) — requires a signed-in principal, scoped to the caller's OWN     org (a super admin may pass ?org= to target another or \"\" for all).  Window: ?days=N (default 30, capped at 90). Aggregates only.
-  Future<void> getAiRouterHistory() async {
+  Future<GetAiRouterHistory200Response?> getAiRouterHistory() async {
     final response = await getAiRouterHistoryWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiRouterHistory200Response',) as GetAiRouterHistory200Response;
+    
+    }
+    return null;
   }
 
   /// Returns the LIVE Mean-Field Judge Panel state: the configured panel + dynamic judge posture (enabled/sample) resolved from the \"*\" GlobalDefaultOwner row, the live in-process per-judge calibration (weight/mean/n), and the static published benchmark.
@@ -4561,11 +5348,19 @@ class AiApi {
   /// Returns the LIVE Mean-Field Judge Panel state: the configured panel + dynamic judge posture (enabled/sample) resolved from the \"*\" GlobalDefaultOwner row, the live in-process per-judge calibration (weight/mean/n), and the static published benchmark.
   ///
   /// Returns the LIVE Mean-Field Judge Panel state: the configured panel + dynamic judge posture (enabled/sample) resolved from the \"*\" GlobalDefaultOwner row, the live in-process per-judge calibration (weight/mean/n), and the static published benchmark. PUBLIC-safe and platform-global (model ids + scalars only), so it rides the same unauthenticated, balance-exempt class as /v1/ai/router/stats?scope=platform — the world widget polls it with no auth. The judge state is a single in-process population (not per-org), so there is nothing to scope; ?scope=platform is accepted for symmetry with router-stats.
-  Future<void> getAiRouterJudgePanel() async {
+  Future<GetAiRouterJudgePanel200Response?> getAiRouterJudgePanel() async {
     final response = await getAiRouterJudgePanelWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiRouterJudgePanel200Response',) as GetAiRouterJudgePanel200Response;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -4601,11 +5396,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> getAiRouterLedger() async {
+  Future<AiResponse?> getAiRouterLedger() async {
     final response = await getAiRouterLedgerWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -4641,11 +5444,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> getAiRouterPolicy() async {
+  Future<AiResponse?> getAiRouterPolicy() async {
     final response = await getAiRouterPolicyWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -4681,11 +5492,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> getAiRouterRewards() async {
+  Future<AiResponse?> getAiRouterRewards() async {
     final response = await getAiRouterRewardsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// Returns the router observability aggregate.
@@ -4721,11 +5540,19 @@ class AiApi {
   /// Returns the router observability aggregate.
   ///
   /// Returns the router observability aggregate. Two scopes, one route:    - ?scope=platform — PUBLIC-safe aggregate over ALL orgs, no authentication.     Emits rates, shares, per-task/per-model counts, throughput, and the cost     RATIO (saved_pct) + counterfactual model id, but NEVER absolute $ levels,     org identity, raw events, or feature vectors. This is what world.hanzo.ai     polls.   - default (org scope) — requires a signed-in principal; scoped to the caller's     OWN org (a super admin may pass ?org= to target another org or \"\" for all).     Carries the absolute $/MTok indices for the admin savings panel.  Window: ?since= (RFC3339) or ?hours= (default 24, capped). Aggregates only.
-  Future<void> getAiRouterStats() async {
+  Future<GetAiRouterStats200Response?> getAiRouterStats() async {
     final response = await getAiRouterStatsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiRouterStats200Response',) as GetAiRouterStats200Response;
+    
+    }
+    return null;
   }
 
   /// List routes
@@ -4761,11 +5588,19 @@ class AiApi {
   /// List routes
   ///
   /// List the caller's routes.
-  Future<void> getAiRoutes() async {
+  Future<GetAiRoutes200Response?> getAiRoutes() async {
     final response = await getAiRoutesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiRoutes200Response',) as GetAiRoutes200Response;
+    
+    }
+    return null;
   }
 
   /// Retrieve a model-route
@@ -4815,11 +5650,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> getAiRoutesByOwnerByName(String owner, String name,) async {
+  Future<PostAiRoutes200Response?> getAiRoutesByOwnerByName(String owner, String name,) async {
     final response = await getAiRoutesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiRoutes200Response',) as PostAiRoutes200Response;
+    
+    }
+    return null;
   }
 
   /// List scales
@@ -4855,11 +5698,19 @@ class AiApi {
   /// List scales
   ///
   /// List the caller's scales.
-  Future<void> getAiScales() async {
+  Future<GetAiScales200Response?> getAiScales() async {
     final response = await getAiScalesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiScales200Response',) as GetAiScales200Response;
+    
+    }
+    return null;
   }
 
   /// Retrieve a scale
@@ -4909,11 +5760,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> getAiScalesByOwnerByName(String owner, String name,) async {
+  Future<PostAiScales200Response?> getAiScalesByOwnerByName(String owner, String name,) async {
     final response = await getAiScalesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiScales200Response',) as PostAiScales200Response;
+    
+    }
+    return null;
   }
 
   /// List scales across tenants
@@ -4949,11 +5808,19 @@ class AiApi {
   /// List scales across tenants
   ///
   /// Cross-tenant listing. Admin-only; a tenant caller is refused.
-  Future<void> getAiScalesGlobal() async {
+  Future<GetAiScales200Response?> getAiScalesGlobal() async {
     final response = await getAiScalesGlobalWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiScales200Response',) as GetAiScales200Response;
+    
+    }
+    return null;
   }
 
   /// Public (scale)
@@ -4985,11 +5852,19 @@ class AiApi {
   }
 
   /// Public (scale)
-  Future<void> getAiScalesPublic() async {
+  Future<Envelope?> getAiScalesPublic() async {
     final response = await getAiScalesPublicWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// List scans
@@ -5025,11 +5900,19 @@ class AiApi {
   /// List scans
   ///
   /// List the caller's scans.
-  Future<void> getAiScans() async {
+  Future<GetAiScans200Response?> getAiScans() async {
     final response = await getAiScansWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiScans200Response',) as GetAiScans200Response;
+    
+    }
+    return null;
   }
 
   /// Retrieve a scan
@@ -5079,11 +5962,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> getAiScansByOwnerByName(String owner, String name,) async {
+  Future<PostAiScans200Response?> getAiScansByOwnerByName(String owner, String name,) async {
     final response = await getAiScansByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiScans200Response',) as PostAiScans200Response;
+    
+    }
+    return null;
   }
 
   /// List signin-sessions
@@ -5119,11 +6010,19 @@ class AiApi {
   /// List signin-sessions
   ///
   /// List the caller's signin-sessions.
-  Future<void> getAiSigninSessions() async {
+  Future<GetAiSigninSessions200Response?> getAiSigninSessions() async {
     final response = await getAiSigninSessionsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiSigninSessions200Response',) as GetAiSigninSessions200Response;
+    
+    }
+    return null;
   }
 
   /// Retrieve a session
@@ -5173,11 +6072,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> getAiSigninSessionsByOwnerByName(String owner, String name,) async {
+  Future<PostAiSigninSessions200Response?> getAiSigninSessionsByOwnerByName(String owner, String name,) async {
     final response = await getAiSigninSessionsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiSigninSessions200Response',) as PostAiSigninSessions200Response;
+    
+    }
+    return null;
   }
 
   /// Duplicated (session)
@@ -5209,11 +6116,19 @@ class AiApi {
   }
 
   /// Duplicated (session)
-  Future<void> getAiSigninSessionsDuplicated() async {
+  Future<Envelope?> getAiSigninSessionsDuplicated() async {
     final response = await getAiSigninSessionsDuplicatedWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// List stores
@@ -5249,11 +6164,19 @@ class AiApi {
   /// List stores
   ///
   /// List the caller's stores.
-  Future<void> getAiStores() async {
+  Future<GetAiStores200Response?> getAiStores() async {
     final response = await getAiStoresWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiStores200Response',) as GetAiStores200Response;
+    
+    }
+    return null;
   }
 
   /// Retrieve a store
@@ -5303,11 +6226,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> getAiStoresByOwnerByName(String owner, String name,) async {
+  Future<PostAiStores200Response?> getAiStoresByOwnerByName(String owner, String name,) async {
     final response = await getAiStoresByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiStores200Response',) as PostAiStores200Response;
+    
+    }
+    return null;
   }
 
   /// List stores across tenants
@@ -5343,11 +6274,19 @@ class AiApi {
   /// List stores across tenants
   ///
   /// Cross-tenant listing. Admin-only; a tenant caller is refused.
-  Future<void> getAiStoresGlobal() async {
+  Future<GetAiStores200Response?> getAiStoresGlobal() async {
     final response = await getAiStoresGlobalWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiStores200Response',) as GetAiStores200Response;
+    
+    }
+    return null;
   }
 
   /// Names (store)
@@ -5379,11 +6318,19 @@ class AiApi {
   }
 
   /// Names (store)
-  Future<void> getAiStoresNames() async {
+  Future<Envelope?> getAiStoresNames() async {
     final response = await getAiStoresNamesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Providers (store)
@@ -5415,11 +6362,19 @@ class AiApi {
   }
 
   /// Providers (store)
-  Future<void> getAiStoresProviders() async {
+  Future<Envelope?> getAiStoresProviders() async {
     final response = await getAiStoresProvidersWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// System
@@ -5451,11 +6406,19 @@ class AiApi {
   }
 
   /// System
-  Future<void> getAiSystem() async {
+  Future<Envelope?> getAiSystem() async {
     final response = await getAiSystemWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// List tasks
@@ -5491,11 +6454,19 @@ class AiApi {
   /// List tasks
   ///
   /// List the caller's tasks.
-  Future<void> getAiTasks() async {
+  Future<GetAiTasks200Response?> getAiTasks() async {
     final response = await getAiTasksWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiTasks200Response',) as GetAiTasks200Response;
+    
+    }
+    return null;
   }
 
   /// Retrieve a task
@@ -5545,11 +6516,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> getAiTasksByOwnerByName(String owner, String name,) async {
+  Future<PostAiTasks200Response?> getAiTasksByOwnerByName(String owner, String name,) async {
     final response = await getAiTasksByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiTasks200Response',) as PostAiTasks200Response;
+    
+    }
+    return null;
   }
 
   /// List tasks across tenants
@@ -5585,11 +6564,19 @@ class AiApi {
   /// List tasks across tenants
   ///
   /// Cross-tenant listing. Admin-only; a tenant caller is refused.
-  Future<void> getAiTasksGlobal() async {
+  Future<GetAiTasks200Response?> getAiTasksGlobal() async {
     final response = await getAiTasksGlobalWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiTasks200Response',) as GetAiTasks200Response;
+    
+    }
+    return null;
   }
 
   /// List templates
@@ -5625,11 +6612,19 @@ class AiApi {
   /// List templates
   ///
   /// List the caller's templates.
-  Future<void> getAiTemplates() async {
+  Future<GetAiTemplates200Response?> getAiTemplates() async {
     final response = await getAiTemplatesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiTemplates200Response',) as GetAiTemplates200Response;
+    
+    }
+    return null;
   }
 
   /// Retrieve a template
@@ -5679,11 +6674,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> getAiTemplatesByOwnerByName(String owner, String name,) async {
+  Future<PostAiTemplates200Response?> getAiTemplatesByOwnerByName(String owner, String name,) async {
     final response = await getAiTemplatesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiTemplates200Response',) as PostAiTemplates200Response;
+    
+    }
+    return null;
   }
 
   /// Returns the PUBLIC live request-geo aggregate for the world.hanzo.ai \"Hanzo mode\" globe: WHERE requests to api.hanzo.ai are coming from, as country/region points with per-service-class counts, plus headline throughput rates.
@@ -5719,11 +6722,19 @@ class AiApi {
   /// Returns the PUBLIC live request-geo aggregate for the world.hanzo.ai \"Hanzo mode\" globe: WHERE requests to api.hanzo.ai are coming from, as country/region points with per-service-class counts, plus headline throughput rates.
   ///
   /// Returns the PUBLIC live request-geo aggregate for the world.hanzo.ai \"Hanzo mode\" globe: WHERE requests to api.hanzo.ai are coming from, as country/region points with per-service-class counts, plus headline throughput rates.  It is AUTH-exempt and BALANCE-exempt exactly like /v1/ai/router/stats?scope=platform:   - auth: the controller name \"traffic/globe\" is neither a get-/update- CRUD name     nor a super-admin/present-credential endpoint, so the authz filter passes it     through, and this handler requires no principal.   - balance: isBalanceExempt(\"/v1/ai/traffic/...\") returns true.  It exposes ONLY aggregates — counts, rates, and country/region centroids — and NEVER any IP, per-request row, org, or user dimension (see object/traffic.go). Marketing telemetry; nothing sensitive.
-  Future<void> getAiTrafficGlobe() async {
+  Future<GetAiTrafficGlobe200Response?> getAiTrafficGlobe() async {
     final response = await getAiTrafficGlobeWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiTrafficGlobe200Response',) as GetAiTrafficGlobe200Response;
+    
+    }
+    return null;
   }
 
   /// Training Contribution
@@ -5755,11 +6766,19 @@ class AiApi {
   }
 
   /// Training Contribution
-  Future<void> getAiTrainingContribution() async {
+  Future<Envelope?> getAiTrainingContribution() async {
     final response = await getAiTrainingContributionWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// List usages
@@ -5795,11 +6814,19 @@ class AiApi {
   /// List usages
   ///
   /// List the caller's usages.
-  Future<void> getAiUsages() async {
+  Future<GetAiUsages200Response?> getAiUsages() async {
     final response = await getAiUsagesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiUsages200Response',) as GetAiUsages200Response;
+    
+    }
+    return null;
   }
 
   /// By User (usage)
@@ -5831,11 +6858,19 @@ class AiApi {
   }
 
   /// By User (usage)
-  Future<void> getAiUsagesByUser() async {
+  Future<Envelope?> getAiUsagesByUser() async {
     final response = await getAiUsagesByUserWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Cloud (usage)
@@ -5867,11 +6902,19 @@ class AiApi {
   }
 
   /// Cloud (usage)
-  Future<void> getAiUsagesCloud() async {
+  Future<Envelope?> getAiUsagesCloud() async {
     final response = await getAiUsagesCloudWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Range (usage)
@@ -5903,11 +6946,19 @@ class AiApi {
   }
 
   /// Range (usage)
-  Future<void> getAiUsagesRange() async {
+  Future<Envelope?> getAiUsagesRange() async {
     final response = await getAiUsagesRangeWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// User Names (usage)
@@ -5939,11 +6990,19 @@ class AiApi {
   }
 
   /// User Names (usage)
-  Future<void> getAiUsagesUserNames() async {
+  Future<Envelope?> getAiUsagesUserNames() async {
     final response = await getAiUsagesUserNamesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// List vectors
@@ -5979,11 +7038,19 @@ class AiApi {
   /// List vectors
   ///
   /// List the caller's vectors.
-  Future<void> getAiVectors() async {
+  Future<GetAiVectors200Response?> getAiVectors() async {
     final response = await getAiVectorsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiVectors200Response',) as GetAiVectors200Response;
+    
+    }
+    return null;
   }
 
   /// Retrieve a vector
@@ -6033,11 +7100,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> getAiVectorsByOwnerByName(String owner, String name,) async {
+  Future<PostAiVectors200Response?> getAiVectorsByOwnerByName(String owner, String name,) async {
     final response = await getAiVectorsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiVectors200Response',) as PostAiVectors200Response;
+    
+    }
+    return null;
   }
 
   /// List vectors across tenants
@@ -6073,11 +7148,19 @@ class AiApi {
   /// List vectors across tenants
   ///
   /// Cross-tenant listing. Admin-only; a tenant caller is refused.
-  Future<void> getAiVectorsGlobal() async {
+  Future<GetAiVectors200Response?> getAiVectorsGlobal() async {
     final response = await getAiVectorsGlobalWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiVectors200Response',) as GetAiVectors200Response;
+    
+    }
+    return null;
   }
 
   /// Version
@@ -6109,11 +7192,19 @@ class AiApi {
   }
 
   /// Version
-  Future<void> getAiVersion() async {
+  Future<Envelope?> getAiVersion() async {
     final response = await getAiVersionWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// List videos
@@ -6149,11 +7240,19 @@ class AiApi {
   /// List videos
   ///
   /// List the caller's videos.
-  Future<void> getAiVideos() async {
+  Future<GetAiVideos200Response?> getAiVideos() async {
     final response = await getAiVideosWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiVideos200Response',) as GetAiVideos200Response;
+    
+    }
+    return null;
   }
 
   /// Retrieve a video
@@ -6203,11 +7302,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> getAiVideosByOwnerByName(String owner, String name,) async {
+  Future<PostAiVideos200Response?> getAiVideosByOwnerByName(String owner, String name,) async {
     final response = await getAiVideosByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiVideos200Response',) as PostAiVideos200Response;
+    
+    }
+    return null;
   }
 
   /// List videos across tenants
@@ -6243,11 +7350,19 @@ class AiApi {
   /// List videos across tenants
   ///
   /// Cross-tenant listing. Admin-only; a tenant caller is refused.
-  Future<void> getAiVideosGlobal() async {
+  Future<GetAiVideos200Response?> getAiVideosGlobal() async {
     final response = await getAiVideosGlobalWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiVideos200Response',) as GetAiVideos200Response;
+    
+    }
+    return null;
   }
 
   /// List workflows
@@ -6283,11 +7398,19 @@ class AiApi {
   /// List workflows
   ///
   /// List the caller's workflows.
-  Future<void> getAiWorkflows() async {
+  Future<GetAiWorkflows200Response?> getAiWorkflows() async {
     final response = await getAiWorkflowsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiWorkflows200Response',) as GetAiWorkflows200Response;
+    
+    }
+    return null;
   }
 
   /// Retrieve a workflow
@@ -6337,11 +7460,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> getAiWorkflowsByOwnerByName(String owner, String name,) async {
+  Future<PostAiWorkflows200Response?> getAiWorkflowsByOwnerByName(String owner, String name,) async {
     final response = await getAiWorkflowsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiWorkflows200Response',) as PostAiWorkflows200Response;
+    
+    }
+    return null;
   }
 
   /// List workflows across tenants
@@ -6377,11 +7508,19 @@ class AiApi {
   /// List workflows across tenants
   ///
   /// Cross-tenant listing. Admin-only; a tenant caller is refused.
-  Future<void> getAiWorkflowsGlobal() async {
+  Future<GetAiWorkflows200Response?> getAiWorkflowsGlobal() async {
     final response = await getAiWorkflowsGlobalWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiWorkflows200Response',) as GetAiWorkflows200Response;
+    
+    }
+    return null;
   }
 
   /// Returns the list of available models from the routing table.
@@ -6417,11 +7556,19 @@ class AiApi {
   /// Returns the list of available models from the routing table.
   ///
   /// Returns the list of available models from the routing table.  PUBLIC BY DESIGN, AND IT DOES NOT AUTHENTICATE — that is the whole contract, so it is stated here rather than left to be inferred. The catalogue is the same for everyone (listAvailableModels takes no principal), docs.hanzo.ai fetches it from the browser, and every policy layer around it already says so out loud: the authz filter lists \"models\" as public, filter_balance refuses to gate it (a 402 here was a console-wide outage), the rate limiter excludes it, and cloud's spend.Reachable carries /v1/models/ as \"the model catalog the shell reads for discovery\".  SO THE Authorization HEADER IS NOT AN ADMISSION CHECK HERE. It is read for ONE thing — annotating gated SKUs with the caller's own access standing — and annotation degrades to nothing when there is no verified principal.  It used to hold a \"require authentication\" gate that authenticated nobody: it rejected an ABSENT credential and a MALFORMED one, then accepted any string that merely looked like a key. `Bearer sk-` followed by 36 zeroes returned 200 in production; so did a JWT three days expired. It was a shape check wearing an auth check's clothes, and its cost was diagnostic: /v1/models is the natural \"is my auth working?\" probe, and answering 200 to a dead credential sent people debugging the wrong system. A public endpoint must not appear to validate. Either check the credential or ignore it — this one ignores it, deliberately and visibly.  Removing that gate discloses nothing new: the catalogue was already reachable by anyone willing to type three characters, so there is no confidentiality delta, only an honesty one.
-  Future<void> getModels() async {
+  Future<AiModelList?> getModels() async {
     final response = await getModelsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiModelList',) as AiModelList;
+    
+    }
+    return null;
   }
 
   /// Returns the caller's own standing for a gated model: \"granted\", \"requested\", or empty when they have never asked.
@@ -6466,11 +7613,19 @@ class AiApi {
   /// Parameters:
   ///
   /// * [String] model (required):
-  Future<void> getModelsByModelAccess(String model,) async {
+  Future<GetAiConnectionsByProviderAuthorize200Response?> getModelsByModelAccess(String model,) async {
     final response = await getModelsByModelAccessWithHttpInfo(model,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiConnectionsByProviderAuthorize200Response',) as GetAiConnectionsByProviderAuthorize200Response;
+    
+    }
+    return null;
   }
 
   /// Public, secret-free list of the providers serving the models that GET /v1/models lists — the same source, projected.
@@ -6506,11 +7661,19 @@ class AiApi {
   /// Public, secret-free list of the providers serving the models that GET /v1/models lists — the same source, projected.
   ///
   /// Public, secret-free list of the providers serving the models that GET /v1/models lists — the same source, projected. Safe unauthenticated: no keys, URLs, or config are returned, and it reports a SET of names, never which provider serves which model.
-  Future<void> getModelsProviders() async {
+  Future<GetModelsProviders200Response?> getModelsProviders() async {
     final response = await getModelsProvidersWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetModelsProviders200Response',) as GetModelsProviders200Response;
+    
+    }
+    return null;
   }
 
   /// Implements GET /v1/videos/{id} — poll a job's status.
@@ -6555,11 +7718,19 @@ class AiApi {
   /// Parameters:
   ///
   /// * [String] id (required):
-  Future<void> getVideosById(String id,) async {
+  Future<AiVideoStatus?> getVideosById(String id,) async {
     final response = await getVideosByIdWithHttpInfo(id,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiVideoStatus',) as AiVideoStatus;
+    
+    }
+    return null;
   }
 
   /// Implements GET /v1/videos/{id}/content — download the finished MP4.
@@ -6658,11 +7829,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> patchAiArticlesByOwnerByName(String owner, String name,) async {
+  Future<PostAiArticles200Response?> patchAiArticlesByOwnerByName(String owner, String name,) async {
     final response = await patchAiArticlesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiArticles200Response',) as PostAiArticles200Response;
+    
+    }
+    return null;
   }
 
   /// Update a asset
@@ -6712,11 +7891,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> patchAiAssetsByOwnerByName(String owner, String name,) async {
+  Future<PostAiAssets200Response?> patchAiAssetsByOwnerByName(String owner, String name,) async {
     final response = await patchAiAssetsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiAssets200Response',) as PostAiAssets200Response;
+    
+    }
+    return null;
   }
 
   /// Update a chat
@@ -6766,11 +7953,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> patchAiChatsByOwnerByName(String owner, String name,) async {
+  Future<PostAiChats200Response?> patchAiChatsByOwnerByName(String owner, String name,) async {
     final response = await patchAiChatsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiChats200Response',) as PostAiChats200Response;
+    
+    }
+    return null;
   }
 
   /// Update a application
@@ -6820,11 +8015,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> patchAiDeploymentsByOwnerByName(String owner, String name,) async {
+  Future<PostAiDeployments200Response?> patchAiDeploymentsByOwnerByName(String owner, String name,) async {
     final response = await patchAiDeploymentsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiDeployments200Response',) as PostAiDeployments200Response;
+    
+    }
+    return null;
   }
 
   /// Update a file
@@ -6874,11 +8077,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> patchAiFilesByOwnerByName(String owner, String name,) async {
+  Future<PostAiFiles200Response?> patchAiFilesByOwnerByName(String owner, String name,) async {
     final response = await patchAiFilesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiFiles200Response',) as PostAiFiles200Response;
+    
+    }
+    return null;
   }
 
   /// Update a form
@@ -6928,11 +8139,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> patchAiFormsByOwnerByName(String owner, String name,) async {
+  Future<PostAiForms200Response?> patchAiFormsByOwnerByName(String owner, String name,) async {
     final response = await patchAiFormsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiForms200Response',) as PostAiForms200Response;
+    
+    }
+    return null;
   }
 
   /// Update a graph
@@ -6982,11 +8201,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> patchAiGraphsByOwnerByName(String owner, String name,) async {
+  Future<PostAiGraphs200Response?> patchAiGraphsByOwnerByName(String owner, String name,) async {
     final response = await patchAiGraphsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiGraphs200Response',) as PostAiGraphs200Response;
+    
+    }
+    return null;
   }
 
   /// Update a message
@@ -7036,11 +8263,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> patchAiMessagesByOwnerByName(String owner, String name,) async {
+  Future<PostAiMessages200Response?> patchAiMessagesByOwnerByName(String owner, String name,) async {
     final response = await patchAiMessagesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiMessages200Response',) as PostAiMessages200Response;
+    
+    }
+    return null;
   }
 
   /// Update a node
@@ -7090,11 +8325,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> patchAiNodesByOwnerByName(String owner, String name,) async {
+  Future<PostAiNodes200Response?> patchAiNodesByOwnerByName(String owner, String name,) async {
     final response = await patchAiNodesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiNodes200Response',) as PostAiNodes200Response;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -7130,11 +8373,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> patchAiOrgSettings() async {
+  Future<AiResponse?> patchAiOrgSettings() async {
     final response = await patchAiOrgSettingsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -7170,11 +8421,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> patchAiOrgSettingsList() async {
+  Future<AiResponse?> patchAiOrgSettingsList() async {
     final response = await patchAiOrgSettingsListWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// Preferences
@@ -7206,11 +8465,19 @@ class AiApi {
   }
 
   /// Preferences
-  Future<void> patchAiPreferences() async {
+  Future<Envelope?> patchAiPreferences() async {
     final response = await patchAiPreferencesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Update a provider
@@ -7260,11 +8527,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> patchAiProvidersByOwnerByName(String owner, String name,) async {
+  Future<PostAiProviders200Response?> patchAiProvidersByOwnerByName(String owner, String name,) async {
     final response = await patchAiProvidersByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiProviders200Response',) as PostAiProviders200Response;
+    
+    }
+    return null;
   }
 
   /// Update a record
@@ -7314,11 +8589,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> patchAiRecordsByOwnerByName(String owner, String name,) async {
+  Future<PostAiRecords200Response?> patchAiRecordsByOwnerByName(String owner, String name,) async {
     final response = await patchAiRecordsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiRecords200Response',) as PostAiRecords200Response;
+    
+    }
+    return null;
   }
 
   /// Update a connection
@@ -7368,11 +8651,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> patchAiRemoteConnectionsByOwnerByName(String owner, String name,) async {
+  Future<PostAiRemoteConnections200Response?> patchAiRemoteConnectionsByOwnerByName(String owner, String name,) async {
     final response = await patchAiRemoteConnectionsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiRemoteConnections200Response',) as PostAiRemoteConnections200Response;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -7408,11 +8699,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> patchAiRouterArtifactMeta() async {
+  Future<AiResponse?> patchAiRouterArtifactMeta() async {
     final response = await patchAiRouterArtifactMetaWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -7448,11 +8747,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> patchAiRouterDefaults() async {
+  Future<AiResponse?> patchAiRouterDefaults() async {
     final response = await patchAiRouterDefaultsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -7488,11 +8795,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> patchAiRouterLedger() async {
+  Future<AiResponse?> patchAiRouterLedger() async {
     final response = await patchAiRouterLedgerWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -7528,11 +8843,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> patchAiRouterPolicy() async {
+  Future<AiResponse?> patchAiRouterPolicy() async {
     final response = await patchAiRouterPolicyWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -7568,11 +8891,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> patchAiRouterRewards() async {
+  Future<AiResponse?> patchAiRouterRewards() async {
     final response = await patchAiRouterRewardsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// Update a model-route
@@ -7622,11 +8953,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> patchAiRoutesByOwnerByName(String owner, String name,) async {
+  Future<PostAiRoutes200Response?> patchAiRoutesByOwnerByName(String owner, String name,) async {
     final response = await patchAiRoutesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiRoutes200Response',) as PostAiRoutes200Response;
+    
+    }
+    return null;
   }
 
   /// Update a scale
@@ -7676,11 +9015,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> patchAiScalesByOwnerByName(String owner, String name,) async {
+  Future<PostAiScales200Response?> patchAiScalesByOwnerByName(String owner, String name,) async {
     final response = await patchAiScalesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiScales200Response',) as PostAiScales200Response;
+    
+    }
+    return null;
   }
 
   /// Update a scan
@@ -7730,11 +9077,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> patchAiScansByOwnerByName(String owner, String name,) async {
+  Future<PostAiScans200Response?> patchAiScansByOwnerByName(String owner, String name,) async {
     final response = await patchAiScansByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiScans200Response',) as PostAiScans200Response;
+    
+    }
+    return null;
   }
 
   /// Update a session
@@ -7784,11 +9139,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> patchAiSigninSessionsByOwnerByName(String owner, String name,) async {
+  Future<PostAiSigninSessions200Response?> patchAiSigninSessionsByOwnerByName(String owner, String name,) async {
     final response = await patchAiSigninSessionsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiSigninSessions200Response',) as PostAiSigninSessions200Response;
+    
+    }
+    return null;
   }
 
   /// Update a store
@@ -7838,11 +9201,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> patchAiStoresByOwnerByName(String owner, String name,) async {
+  Future<PostAiStores200Response?> patchAiStoresByOwnerByName(String owner, String name,) async {
     final response = await patchAiStoresByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiStores200Response',) as PostAiStores200Response;
+    
+    }
+    return null;
   }
 
   /// Update a task
@@ -7892,11 +9263,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> patchAiTasksByOwnerByName(String owner, String name,) async {
+  Future<PostAiTasks200Response?> patchAiTasksByOwnerByName(String owner, String name,) async {
     final response = await patchAiTasksByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiTasks200Response',) as PostAiTasks200Response;
+    
+    }
+    return null;
   }
 
   /// Update a template
@@ -7946,11 +9325,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> patchAiTemplatesByOwnerByName(String owner, String name,) async {
+  Future<PostAiTemplates200Response?> patchAiTemplatesByOwnerByName(String owner, String name,) async {
     final response = await patchAiTemplatesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiTemplates200Response',) as PostAiTemplates200Response;
+    
+    }
+    return null;
   }
 
   /// Training Contribution
@@ -7982,11 +9369,19 @@ class AiApi {
   }
 
   /// Training Contribution
-  Future<void> patchAiTrainingContribution() async {
+  Future<Envelope?> patchAiTrainingContribution() async {
     final response = await patchAiTrainingContributionWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Update a tree-file
@@ -8036,11 +9431,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> patchAiTreeFilesByOwnerByName(String owner, String name,) async {
+  Future<PostAiTreeFiles200Response?> patchAiTreeFilesByOwnerByName(String owner, String name,) async {
     final response = await patchAiTreeFilesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiTreeFiles200Response',) as PostAiTreeFiles200Response;
+    
+    }
+    return null;
   }
 
   /// Update a vector
@@ -8090,11 +9493,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> patchAiVectorsByOwnerByName(String owner, String name,) async {
+  Future<PostAiVectors200Response?> patchAiVectorsByOwnerByName(String owner, String name,) async {
     final response = await patchAiVectorsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiVectors200Response',) as PostAiVectors200Response;
+    
+    }
+    return null;
   }
 
   /// Update a video
@@ -8144,11 +9555,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> patchAiVideosByOwnerByName(String owner, String name,) async {
+  Future<PostAiVideos200Response?> patchAiVideosByOwnerByName(String owner, String name,) async {
     final response = await patchAiVideosByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiVideos200Response',) as PostAiVideos200Response;
+    
+    }
+    return null;
   }
 
   /// Update a workflow
@@ -8198,11 +9617,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> patchAiWorkflowsByOwnerByName(String owner, String name,) async {
+  Future<PostAiWorkflows200Response?> patchAiWorkflowsByOwnerByName(String owner, String name,) async {
     final response = await patchAiWorkflowsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiWorkflows200Response',) as PostAiWorkflows200Response;
+    
+    }
+    return null;
   }
 
   /// Create a article
@@ -8238,11 +9665,19 @@ class AiApi {
   /// Create a article
   ///
   /// Create one article.
-  Future<void> postAiArticles() async {
+  Future<PostAiArticles200Response?> postAiArticles() async {
     final response = await postAiArticlesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiArticles200Response',) as PostAiArticles200Response;
+    
+    }
+    return null;
   }
 
   /// Create a asset
@@ -8278,11 +9713,19 @@ class AiApi {
   /// Create a asset
   ///
   /// Create one asset.
-  Future<void> postAiAssets() async {
+  Future<PostAiAssets200Response?> postAiAssets() async {
     final response = await postAiAssetsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiAssets200Response',) as PostAiAssets200Response;
+    
+    }
+    return null;
   }
 
   /// Scan (asset)
@@ -8328,11 +9771,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> postAiAssetsByOwnerByNameScan(String owner, String name,) async {
+  Future<Envelope?> postAiAssetsByOwnerByNameScan(String owner, String name,) async {
     final response = await postAiAssetsByOwnerByNameScanWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Scan (asset)
@@ -8364,11 +9815,19 @@ class AiApi {
   }
 
   /// Scan (asset)
-  Future<void> postAiAssetsScan() async {
+  Future<Envelope?> postAiAssetsScan() async {
     final response = await postAiAssetsScanWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Create a chat
@@ -8404,11 +9863,19 @@ class AiApi {
   /// Create a chat
   ///
   /// Create one chat.
-  Future<void> postAiChats() async {
+  Future<PostAiChats200Response?> postAiChats() async {
     final response = await postAiChatsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiChats200Response',) as PostAiChats200Response;
+    
+    }
+    return null;
   }
 
   /// Connects (or reconnects) a third-party AI account for the org by sealing the supplied key into KMS and upserting the org's provider row.
@@ -8444,11 +9911,19 @@ class AiApi {
   /// Connects (or reconnects) a third-party AI account for the org by sealing the supplied key into KMS and upserting the org's provider row.
   ///
   /// Connects (or reconnects) a third-party AI account for the org by sealing the supplied key into KMS and upserting the org's provider row. The raw key is sealed BEFORE the row is built and is never persisted or echoed.
-  Future<void> postAiConnections() async {
+  Future<PostAiConnections200Response?> postAiConnections() async {
     final response = await postAiConnectionsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiConnections200Response',) as PostAiConnections200Response;
+    
+    }
+    return null;
   }
 
   /// Disconnects a third-party AI account: it deactivates the org's row so completion resolution falls back to the global Hanzo account (no BYO), and best-effort tombstones the sealed secret.
@@ -8493,11 +9968,19 @@ class AiApi {
   /// Parameters:
   ///
   /// * [String] provider (required):
-  Future<void> postAiConnectionsByProvider(String provider,) async {
+  Future<PostAiConnections200Response?> postAiConnectionsByProvider(String provider,) async {
     final response = await postAiConnectionsByProviderWithHttpInfo(provider,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiConnections200Response',) as PostAiConnections200Response;
+    
+    }
+    return null;
   }
 
   /// Create a application
@@ -8533,11 +10016,19 @@ class AiApi {
   /// Create a application
   ///
   /// Create one application.
-  Future<void> postAiDeployments() async {
+  Future<PostAiDeployments200Response?> postAiDeployments() async {
     final response = await postAiDeploymentsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiDeployments200Response',) as PostAiDeployments200Response;
+    
+    }
+    return null;
   }
 
   /// Deploy (application)
@@ -8583,11 +10074,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> postAiDeploymentsByOwnerByNameDeploy(String owner, String name,) async {
+  Future<Envelope?> postAiDeploymentsByOwnerByNameDeploy(String owner, String name,) async {
     final response = await postAiDeploymentsByOwnerByNameDeployWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Undeploy (application)
@@ -8633,11 +10132,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> postAiDeploymentsByOwnerByNameUndeploy(String owner, String name,) async {
+  Future<Envelope?> postAiDeploymentsByOwnerByNameUndeploy(String owner, String name,) async {
     final response = await postAiDeploymentsByOwnerByNameUndeployWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Attaches a per-request outcome reward to the routing decision that served request_id — the enso training loop's quality signal.
@@ -8673,11 +10180,19 @@ class AiApi {
   /// Attaches a per-request outcome reward to the routing decision that served request_id — the enso training loop's quality signal.
   ///
   /// Attaches a per-request outcome reward to the routing decision that served request_id — the enso training loop's quality signal. Org-scoped via the same session-OR-Bearer principal the usage read uses (RequirePrincipal): the reward lands only on the caller's OWN org's event, so a request_id from another org (or unknown) is a 404 — cross-org writes are impossible and unknown ids are indistinguishable from foreign ones. Idempotent: a repeat overwrites. The body carries NO prompt text — only {request_id, reward|rating}.
-  Future<void> postAiFeedback() async {
+  Future<PostAiFeedback200Response?> postAiFeedback() async {
     final response = await postAiFeedbackWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiFeedback200Response',) as PostAiFeedback200Response;
+    
+    }
+    return null;
   }
 
   /// Create a file
@@ -8713,11 +10228,19 @@ class AiApi {
   /// Create a file
   ///
   /// Create one file.
-  Future<void> postAiFiles() async {
+  Future<PostAiFiles200Response?> postAiFiles() async {
     final response = await postAiFilesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiFiles200Response',) as PostAiFiles200Response;
+    
+    }
+    return null;
   }
 
   /// Activate (file)
@@ -8749,11 +10272,19 @@ class AiApi {
   }
 
   /// Activate (file)
-  Future<void> postAiFilesActivate() async {
+  Future<Envelope?> postAiFilesActivate() async {
     final response = await postAiFilesActivateWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Vectors (file)
@@ -8799,11 +10330,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> postAiFilesByOwnerByNameVectors(String owner, String name,) async {
+  Future<Envelope?> postAiFilesByOwnerByNameVectors(String owner, String name,) async {
     final response = await postAiFilesByOwnerByNameVectorsWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Upload (file)
@@ -8835,11 +10374,19 @@ class AiApi {
   }
 
   /// Upload (file)
-  Future<void> postAiFilesUpload() async {
+  Future<Envelope?> postAiFilesUpload() async {
     final response = await postAiFilesUploadWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Deletes the TrainJob CR, meters the GPU-hours used so far, and marks the job cancelled.
@@ -8875,11 +10422,19 @@ class AiApi {
   /// Deletes the TrainJob CR, meters the GPU-hours used so far, and marks the job cancelled.
   ///
   /// Deletes the TrainJob CR, meters the GPU-hours used so far, and marks the job cancelled. ?id= or ?name=
-  Future<void> postAiFinetuneCancel() async {
+  Future<PostAiFinetuneCancel200Response?> postAiFinetuneCancel() async {
     final response = await postAiFinetuneCancelWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiFinetuneCancel200Response',) as PostAiFinetuneCancel200Response;
+    
+    }
+    return null;
   }
 
   /// Serves a completed job's checkpoints and registers the result as a routable model on api.hanzo.ai.
@@ -8915,11 +10470,19 @@ class AiApi {
   /// Serves a completed job's checkpoints and registers the result as a routable model on api.hanzo.ai.
   ///
   /// Serves a completed job's checkpoints and registers the result as a routable model on api.hanzo.ai. ?id= or ?name=
-  Future<void> postAiFinetuneDeploy() async {
+  Future<PostAiFinetuneDeploy200Response?> postAiFinetuneDeploy() async {
     final response = await postAiFinetuneDeployWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiFinetuneDeploy200Response',) as PostAiFinetuneDeploy200Response;
+    
+    }
+    return null;
   }
 
   /// Validates the request, resolves efficient defaults, persists the job, and submits a real TrainJob CR.
@@ -8955,11 +10518,19 @@ class AiApi {
   /// Validates the request, resolves efficient defaults, persists the job, and submits a real TrainJob CR.
   ///
   /// Validates the request, resolves efficient defaults, persists the job, and submits a real TrainJob CR. A submit failure (e.g. no cluster wired) is surfaced honestly: the job is saved with status \"failed\" + the reason, never faked.
-  Future<void> postAiFinetuneJobs() async {
+  Future<PostAiFinetuneCancel200Response?> postAiFinetuneJobs() async {
     final response = await postAiFinetuneJobsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiFinetuneCancel200Response',) as PostAiFinetuneCancel200Response;
+    
+    }
+    return null;
   }
 
   /// Create a form
@@ -8995,11 +10566,19 @@ class AiApi {
   /// Create a form
   ///
   /// Create one form.
-  Future<void> postAiForms() async {
+  Future<PostAiForms200Response?> postAiForms() async {
     final response = await postAiFormsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiForms200Response',) as PostAiForms200Response;
+    
+    }
+    return null;
   }
 
   /// Create a graph
@@ -9035,11 +10614,19 @@ class AiApi {
   /// Create a graph
   ///
   /// Create one graph.
-  Future<void> postAiGraphs() async {
+  Future<PostAiGraphs200Response?> postAiGraphs() async {
     final response = await postAiGraphsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiGraphs200Response',) as PostAiGraphs200Response;
+    
+    }
+    return null;
   }
 
   /// Delete one of the authenticated user's memories
@@ -9075,11 +10662,19 @@ class AiApi {
   /// Delete one of the authenticated user's memories
   ///
   /// Delete one of the authenticated user's memories
-  Future<void> postAiMemoryDelete() async {
+  Future<PostAiMemoryDelete200Response?> postAiMemoryDelete() async {
     final response = await postAiMemoryDeleteWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiMemoryDelete200Response',) as PostAiMemoryDelete200Response;
+    
+    }
+    return null;
   }
 
   /// Store a memory for the authenticated user
@@ -9115,11 +10710,19 @@ class AiApi {
   /// Store a memory for the authenticated user
   ///
   /// Store a memory for the authenticated user
-  Future<void> postAiMemoryRemember() async {
+  Future<PostAiMemoryRemember200Response?> postAiMemoryRemember() async {
     final response = await postAiMemoryRememberWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiMemoryRemember200Response',) as PostAiMemoryRemember200Response;
+    
+    }
+    return null;
   }
 
   /// Update one of the authenticated user's memories
@@ -9155,11 +10758,19 @@ class AiApi {
   /// Update one of the authenticated user's memories
   ///
   /// Update one of the authenticated user's memories
-  Future<void> postAiMemoryUpdate() async {
+  Future<PostAiMemoryDelete200Response?> postAiMemoryUpdate() async {
     final response = await postAiMemoryUpdateWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiMemoryDelete200Response',) as PostAiMemoryDelete200Response;
+    
+    }
+    return null;
   }
 
   /// Create a message
@@ -9195,11 +10806,19 @@ class AiApi {
   /// Create a message
   ///
   /// Create one message.
-  Future<void> postAiMessages() async {
+  Future<PostAiMessages200Response?> postAiMessages() async {
     final response = await postAiMessagesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiMessages200Response',) as PostAiMessages200Response;
+    
+    }
+    return null;
   }
 
   /// Create a node
@@ -9235,11 +10854,19 @@ class AiApi {
   /// Create a node
   ///
   /// Create one node.
-  Future<void> postAiNodes() async {
+  Future<PostAiNodes200Response?> postAiNodes() async {
     final response = await postAiNodesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiNodes200Response',) as PostAiNodes200Response;
+    
+    }
+    return null;
   }
 
   /// Tunnel (node)
@@ -9285,11 +10912,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> postAiNodesByOwnerByNameTunnel(String owner, String name,) async {
+  Future<Envelope?> postAiNodesByOwnerByNameTunnel(String owner, String name,) async {
     final response = await postAiNodesByOwnerByNameTunnelWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -9325,11 +10960,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> postAiOrgSettings() async {
+  Future<AiResponse?> postAiOrgSettings() async {
     final response = await postAiOrgSettingsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -9365,11 +11008,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> postAiOrgSettingsList() async {
+  Future<AiResponse?> postAiOrgSettingsList() async {
     final response = await postAiOrgSettingsListWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// Create a provider
@@ -9405,11 +11056,19 @@ class AiApi {
   /// Create a provider
   ///
   /// Create one provider.
-  Future<void> postAiProviders() async {
+  Future<PostAiProviders200Response?> postAiProviders() async {
     final response = await postAiProvidersWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiProviders200Response',) as PostAiProviders200Response;
+    
+    }
+    return null;
   }
 
   /// Mcp Tools (provider)
@@ -9441,11 +11100,19 @@ class AiApi {
   }
 
   /// Mcp Tools (provider)
-  Future<void> postAiProvidersMcpTools() async {
+  Future<Envelope?> postAiProvidersMcpTools() async {
     final response = await postAiProvidersMcpToolsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Delete all chunks of one or more uploaded files (by file_id) from the owner's Search+Vector index.
@@ -9481,11 +11148,19 @@ class AiApi {
   /// Delete all chunks of one or more uploaded files (by file_id) from the owner's Search+Vector index.
   ///
   /// Delete all chunks of one or more uploaded files (by file_id) from the owner's Search+Vector index. Consolidates the retired chat-rag-api DELETE /documents.
-  Future<void> postAiRagDelete() async {
+  Future<GetAiFinetunePresets200Response?> postAiRagDelete() async {
     final response = await postAiRagDeleteWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'GetAiFinetunePresets200Response',) as GetAiFinetunePresets200Response;
+    
+    }
+    return null;
   }
 
   /// Parse, chunk, and embed one uploaded file under its file_id into the unified Search+Vector index, scoped to the authenticated owner.
@@ -9521,11 +11196,19 @@ class AiApi {
   /// Parse, chunk, and embed one uploaded file under its file_id into the unified Search+Vector index, scoped to the authenticated owner.
   ///
   /// Parse, chunk, and embed one uploaded file under its file_id into the unified Search+Vector index, scoped to the authenticated owner. Provide inline `content` or a `url` to fetch+parse (PDF/CSV/XLSX/PPTX/…). Re-embedding the same file_id replaces its chunks. Consolidates the retired chat-rag-api POST /embed and /local/embed.
-  Future<void> postAiRagEmbed() async {
+  Future<PostAiRagEmbed200Response?> postAiRagEmbed() async {
     final response = await postAiRagEmbedWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiRagEmbed200Response',) as PostAiRagEmbed200Response;
+    
+    }
+    return null;
   }
 
   /// Unified RAG ingest: parse + chunk + embed documents and pipe them to BOTH Hanzo Vector (semantic) AND Hanzo Search (keyword) under the tenant index {owner}-{store}-docs — the same index /v1/chat retrieval reads.
@@ -9561,11 +11244,19 @@ class AiApi {
   /// Unified RAG ingest: parse + chunk + embed documents and pipe them to BOTH Hanzo Vector (semantic) AND Hanzo Search (keyword) under the tenant index {owner}-{store}-docs — the same index /v1/chat retrieval reads.
   ///
   /// Unified RAG ingest: parse + chunk + embed documents and pipe them to BOTH Hanzo Vector (semantic) AND Hanzo Search (keyword) under the tenant index {owner}-{store}-docs — the same index /v1/chat retrieval reads. The source is pluggable: \"upload\" (inline files/documents), \"github\" (index a repo), \"crawl\" (web), or \"s3\" (the store's object-storage space). The owner is bound to the authenticated principal; the client-supplied owner is never trusted.
-  Future<void> postAiRagIngest() async {
+  Future<PostAiRagIngest200Response?> postAiRagIngest() async {
     final response = await postAiRagIngestWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiRagIngest200Response',) as PostAiRagIngest200Response;
+    
+    }
+    return null;
   }
 
   /// Retrieve the top-K chunks relevant to a query, scoped to a single uploaded file (`file_id`).
@@ -9601,11 +11292,22 @@ class AiApi {
   /// Retrieve the top-K chunks relevant to a query, scoped to a single uploaded file (`file_id`).
   ///
   /// Retrieve the top-K chunks relevant to a query, scoped to a single uploaded file (`file_id`). Hybrid keyword+vector retrieval over the same index. Consolidates the retired chat-rag-api POST /query.
-  Future<void> postAiRagQuery() async {
+  Future<List<DocSearchResult>?> postAiRagQuery() async {
     final response = await postAiRagQueryWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      final responseBody = await _decodeBodyBytes(response);
+      return (await apiClient.deserializeAsync(responseBody, 'List<DocSearchResult>') as List)
+        .cast<DocSearchResult>()
+        .toList(growable: false);
+
+    }
+    return null;
   }
 
   /// Retrieve the top-K chunks relevant to a query, scoped to a SET of uploaded files (`file_ids`).
@@ -9641,11 +11343,22 @@ class AiApi {
   /// Retrieve the top-K chunks relevant to a query, scoped to a SET of uploaded files (`file_ids`).
   ///
   /// Retrieve the top-K chunks relevant to a query, scoped to a SET of uploaded files (`file_ids`). Consolidates the retired chat-rag-api POST /query_multiple. Shares one retrieval path with /rag/query.
-  Future<void> postAiRagQueryMultiple() async {
+  Future<List<DocSearchResult>?> postAiRagQueryMultiple() async {
     final response = await postAiRagQueryMultipleWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      final responseBody = await _decodeBodyBytes(response);
+      return (await apiClient.deserializeAsync(responseBody, 'List<DocSearchResult>') as List)
+        .cast<DocSearchResult>()
+        .toList(growable: false);
+
+    }
+    return null;
   }
 
   /// Create a record
@@ -9681,11 +11394,19 @@ class AiApi {
   /// Create a record
   ///
   /// Create one record.
-  Future<void> postAiRecords() async {
+  Future<PostAiRecords200Response?> postAiRecords() async {
     final response = await postAiRecordsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiRecords200Response',) as PostAiRecords200Response;
+    
+    }
+    return null;
   }
 
   /// Batch (record)
@@ -9717,11 +11438,19 @@ class AiApi {
   }
 
   /// Batch (record)
-  Future<void> postAiRecordsBatch() async {
+  Future<Envelope?> postAiRecordsBatch() async {
     final response = await postAiRecordsBatchWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Commit (record)
@@ -9753,11 +11482,19 @@ class AiApi {
   }
 
   /// Commit (record)
-  Future<void> postAiRecordsCommit() async {
+  Future<Envelope?> postAiRecordsCommit() async {
     final response = await postAiRecordsCommitWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Commit Second (record)
@@ -9789,11 +11526,19 @@ class AiApi {
   }
 
   /// Commit Second (record)
-  Future<void> postAiRecordsCommitSecond() async {
+  Future<Envelope?> postAiRecordsCommitSecond() async {
     final response = await postAiRecordsCommitSecondWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Create a connection
@@ -9829,11 +11574,19 @@ class AiApi {
   /// Create a connection
   ///
   /// Create one connection.
-  Future<void> postAiRemoteConnections() async {
+  Future<PostAiRemoteConnections200Response?> postAiRemoteConnections() async {
     final response = await postAiRemoteConnectionsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiRemoteConnections200Response',) as PostAiRemoteConnections200Response;
+    
+    }
+    return null;
   }
 
   /// Start (connection)
@@ -9879,11 +11632,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> postAiRemoteConnectionsByOwnerByNameStart(String owner, String name,) async {
+  Future<Envelope?> postAiRemoteConnectionsByOwnerByNameStart(String owner, String name,) async {
     final response = await postAiRemoteConnectionsByOwnerByNameStartWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Stop (connection)
@@ -9929,11 +11690,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> postAiRemoteConnectionsByOwnerByNameStop(String owner, String name,) async {
+  Future<Envelope?> postAiRemoteConnectionsByOwnerByNameStop(String owner, String name,) async {
     final response = await postAiRemoteConnectionsByOwnerByNameStopWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -9969,11 +11738,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> postAiRouterArtifactMeta() async {
+  Future<AiResponse?> postAiRouterArtifactMeta() async {
     final response = await postAiRouterArtifactMetaWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -10009,11 +11786,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> postAiRouterDefaults() async {
+  Future<AiResponse?> postAiRouterDefaults() async {
     final response = await postAiRouterDefaultsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -10049,11 +11834,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> postAiRouterLedger() async {
+  Future<AiResponse?> postAiRouterLedger() async {
     final response = await postAiRouterLedgerWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -10089,11 +11882,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> postAiRouterPolicy() async {
+  Future<AiResponse?> postAiRouterPolicy() async {
     final response = await postAiRouterPolicyWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -10129,11 +11930,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> postAiRouterRewards() async {
+  Future<AiResponse?> postAiRouterRewards() async {
     final response = await postAiRouterRewardsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// Create a model-route
@@ -10169,11 +11978,19 @@ class AiApi {
   /// Create a model-route
   ///
   /// Create one model-route.
-  Future<void> postAiRoutes() async {
+  Future<PostAiRoutes200Response?> postAiRoutes() async {
     final response = await postAiRoutesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiRoutes200Response',) as PostAiRoutes200Response;
+    
+    }
+    return null;
   }
 
   /// Create a scale
@@ -10209,11 +12026,19 @@ class AiApi {
   /// Create a scale
   ///
   /// Create one scale.
-  Future<void> postAiScales() async {
+  Future<PostAiScales200Response?> postAiScales() async {
     final response = await postAiScalesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiScales200Response',) as PostAiScales200Response;
+    
+    }
+    return null;
   }
 
   /// Create a scan
@@ -10249,11 +12074,19 @@ class AiApi {
   /// Create a scan
   ///
   /// Create one scan.
-  Future<void> postAiScans() async {
+  Future<PostAiScans200Response?> postAiScans() async {
     final response = await postAiScansWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiScans200Response',) as PostAiScans200Response;
+    
+    }
+    return null;
   }
 
   /// Signin
@@ -10285,11 +12118,19 @@ class AiApi {
   }
 
   /// Signin
-  Future<void> postAiSignin() async {
+  Future<Envelope?> postAiSignin() async {
     final response = await postAiSigninWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Create a session
@@ -10325,11 +12166,19 @@ class AiApi {
   /// Create a session
   ///
   /// Create one session.
-  Future<void> postAiSigninSessions() async {
+  Future<PostAiSigninSessions200Response?> postAiSigninSessions() async {
     final response = await postAiSigninSessionsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiSigninSessions200Response',) as PostAiSigninSessions200Response;
+    
+    }
+    return null;
   }
 
   /// Signout
@@ -10361,11 +12210,19 @@ class AiApi {
   }
 
   /// Signout
-  Future<void> postAiSignout() async {
+  Future<Envelope?> postAiSignout() async {
     final response = await postAiSignoutWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Create a store
@@ -10401,11 +12258,19 @@ class AiApi {
   /// Create a store
   ///
   /// Create one store.
-  Future<void> postAiStores() async {
+  Future<PostAiStores200Response?> postAiStores() async {
     final response = await postAiStoresWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiStores200Response',) as PostAiStores200Response;
+    
+    }
+    return null;
   }
 
   /// Vectors (store)
@@ -10451,11 +12316,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> postAiStoresByOwnerByNameVectors(String owner, String name,) async {
+  Future<Envelope?> postAiStoresByOwnerByNameVectors(String owner, String name,) async {
     final response = await postAiStoresByOwnerByNameVectorsWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Create a task
@@ -10491,11 +12364,19 @@ class AiApi {
   /// Create a task
   ///
   /// Create one task.
-  Future<void> postAiTasks() async {
+  Future<PostAiTasks200Response?> postAiTasks() async {
     final response = await postAiTasksWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiTasks200Response',) as PostAiTasks200Response;
+    
+    }
+    return null;
   }
 
   /// Analyze (task)
@@ -10541,11 +12422,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> postAiTasksByOwnerByNameAnalyze(String owner, String name,) async {
+  Future<Envelope?> postAiTasksByOwnerByNameAnalyze(String owner, String name,) async {
     final response = await postAiTasksByOwnerByNameAnalyzeWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Document (task)
@@ -10591,11 +12480,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> postAiTasksByOwnerByNameDocument(String owner, String name,) async {
+  Future<Envelope?> postAiTasksByOwnerByNameDocument(String owner, String name,) async {
     final response = await postAiTasksByOwnerByNameDocumentWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Create a template
@@ -10631,11 +12528,19 @@ class AiApi {
   /// Create a template
   ///
   /// Create one template.
-  Future<void> postAiTemplates() async {
+  Future<PostAiTemplates200Response?> postAiTemplates() async {
     final response = await postAiTemplatesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiTemplates200Response',) as PostAiTemplates200Response;
+    
+    }
+    return null;
   }
 
   /// Create a tree-file
@@ -10671,11 +12576,19 @@ class AiApi {
   /// Create a tree-file
   ///
   /// Create one tree-file.
-  Future<void> postAiTreeFiles() async {
+  Future<PostAiTreeFiles200Response?> postAiTreeFiles() async {
     final response = await postAiTreeFilesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiTreeFiles200Response',) as PostAiTreeFiles200Response;
+    
+    }
+    return null;
   }
 
   /// Create a vector
@@ -10711,11 +12624,19 @@ class AiApi {
   /// Create a vector
   ///
   /// Create one vector.
-  Future<void> postAiVectors() async {
+  Future<PostAiVectors200Response?> postAiVectors() async {
     final response = await postAiVectorsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiVectors200Response',) as PostAiVectors200Response;
+    
+    }
+    return null;
   }
 
   /// Create a video
@@ -10751,11 +12672,19 @@ class AiApi {
   /// Create a video
   ///
   /// Create one video.
-  Future<void> postAiVideos() async {
+  Future<PostAiVideos200Response?> postAiVideos() async {
     final response = await postAiVideosWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiVideos200Response',) as PostAiVideos200Response;
+    
+    }
+    return null;
   }
 
   /// Upload (video)
@@ -10787,11 +12716,19 @@ class AiApi {
   }
 
   /// Upload (video)
-  Future<void> postAiVideosUpload() async {
+  Future<Envelope?> postAiVideosUpload() async {
     final response = await postAiVideosUploadWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Create a workflow
@@ -10827,11 +12764,19 @@ class AiApi {
   /// Create a workflow
   ///
   /// Create one workflow.
-  Future<void> postAiWorkflows() async {
+  Future<PostAiWorkflows200Response?> postAiWorkflows() async {
     final response = await postAiWorkflowsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiWorkflows200Response',) as PostAiWorkflows200Response;
+    
+    }
+    return null;
   }
 
   /// Serves the generative audio verbs — /v1/audio/voice (TTS), /music, /foley — that the Zen family serves natively.
@@ -10987,11 +12932,19 @@ class AiApi {
   /// The OpenAI-compatible STT endpoint (POST /v1/audio/transcriptions, multipart: file + model [+ language + response_format]).
   ///
   /// The OpenAI-compatible STT endpoint (POST /v1/audio/transcriptions, multipart: file + model [+ language + response_format]). It mirrors AudioSpeech exactly: authenticate the caller, resolve `model` to its STT provider through the SAME model-route resolution (so the in-cluster speech service — or any BYO node registered as an STT provider — works transparently), transcribe, and return the OpenAI body. This is the ONE way to transcribe: OpenAI-shaped, with no store coupling, so a caller needs no chat to be heard.
-  Future<void> postAudioTranscriptions() async {
+  Future<OpenaiAudioResponse?> postAudioTranscriptions() async {
     final response = await postAudioTranscriptionsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'OpenaiAudioResponse',) as OpenaiAudioResponse;
+    
+    }
+    return null;
   }
 
   /// Serves the generative audio verbs — /v1/audio/voice (TTS), /music, /foley — that the Zen family serves natively.
@@ -11067,11 +13020,19 @@ class AiApi {
   /// Implements the OpenAI-compatible chat completions API
   ///
   /// Implements the OpenAI-compatible chat completions API
-  Future<void> postChat() async {
+  Future<OpenaiChatCompletionResponse?> postChat() async {
     final response = await postChatWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'OpenaiChatCompletionResponse',) as OpenaiChatCompletionResponse;
+    
+    }
+    return null;
   }
 
   /// Implements the OpenAI-compatible chat completions API
@@ -11107,11 +13068,19 @@ class AiApi {
   /// Implements the OpenAI-compatible chat completions API
   ///
   /// Implements the OpenAI-compatible chat completions API
-  Future<void> postChatCompletions() async {
+  Future<OpenaiChatCompletionResponse?> postChatCompletions() async {
     final response = await postChatCompletionsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'OpenaiChatCompletionResponse',) as OpenaiChatCompletionResponse;
+    
+    }
+    return null;
   }
 
   /// Serves one completion to a caller with no account.
@@ -11147,11 +13116,19 @@ class AiApi {
   /// Serves one completion to a caller with no account.
   ///
   /// Serves one completion to a caller with no account.
-  Future<void> postChatPublic() async {
+  Future<OpenaiChatCompletionResponse?> postChatPublic() async {
     final response = await postChatPublicWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'OpenaiChatCompletionResponse',) as OpenaiChatCompletionResponse;
+    
+    }
+    return null;
   }
 
   /// Implements the OpenAI-compatible chat completions API
@@ -11187,11 +13164,19 @@ class AiApi {
   /// Implements the OpenAI-compatible chat completions API
   ///
   /// Implements the OpenAI-compatible chat completions API
-  Future<void> postCompletions() async {
+  Future<OpenaiChatCompletionResponse?> postCompletions() async {
     final response = await postCompletionsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'OpenaiChatCompletionResponse',) as OpenaiChatCompletionResponse;
+    
+    }
+    return null;
   }
 
   /// Implements POST /v1/embeddings (OpenAI-compatible).
@@ -11227,11 +13212,19 @@ class AiApi {
   /// Implements POST /v1/embeddings (OpenAI-compatible).
   ///
   /// Implements POST /v1/embeddings (OpenAI-compatible).  Body: {\"model\": \"...\", \"input\": \"...\"|[\"...\", ...], \"encoding_format\"?, \"dimensions\"?} It authenticates the caller, resolves the model to its upstream provider via the shared routing table, rewrites the user-facing model name to the upstream id, and proxies the request to the provider's /embeddings endpoint verbatim.
-  Future<void> postEmbeddings() async {
+  Future<OpenaiEmbeddingResponse?> postEmbeddings() async {
     final response = await postEmbeddingsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'OpenaiEmbeddingResponse',) as OpenaiEmbeddingResponse;
+    
+    }
+    return null;
   }
 
   /// Implements POST /v1/images/generations (OpenAI-compatible).
@@ -11267,11 +13260,19 @@ class AiApi {
   /// Implements POST /v1/images/generations (OpenAI-compatible).
   ///
   /// Implements POST /v1/images/generations (OpenAI-compatible).  Body: {\"model\": \"...\", \"prompt\": \"...\", \"n\"?: int, \"size\"?: \"1024x1024\",   \"response_format\"?: \"url\"|\"b64_json\"}  It authenticates the caller, resolves the model to its upstream provider via the shared routing table (zen3-image* → do-ai fal diffusion), reserves the per-image budget, generates the image(s) through the do-ai async image client, records usage for billing, and returns the OpenAI images response.
-  Future<void> postImagesGenerations() async {
+  Future<OpenaiImageResponse?> postImagesGenerations() async {
     final response = await postImagesGenerationsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'OpenaiImageResponse',) as OpenaiImageResponse;
+    
+    }
+    return null;
   }
 
   /// Implements the Anthropic Messages API.
@@ -11307,11 +13308,19 @@ class AiApi {
   /// Implements the Anthropic Messages API.
   ///
   /// Implements the Anthropic Messages API.
-  Future<void> postMessages() async {
+  Future<AiAnthropicResponse?> postMessages() async {
     final response = await postMessagesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiAnthropicResponse',) as AiAnthropicResponse;
+    
+    }
+    return null;
   }
 
   /// Implements POST /v1/messages/count_tokens.
@@ -11347,11 +13356,19 @@ class AiApi {
   /// Implements POST /v1/messages/count_tokens.
   ///
   /// Implements POST /v1/messages/count_tokens. Claude Code calls it before a request; it returns {\"input_tokens\": N} for the given model + messages + tools.
-  Future<void> postMessagesCountTokens() async {
+  Future<AiTokenCount?> postMessagesCountTokens() async {
     final response = await postMessagesCountTokensWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiTokenCount',) as AiTokenCount;
+    
+    }
+    return null;
   }
 
   /// Records the caller's waitlist request for a gated model and answers their new standing.
@@ -11396,11 +13413,19 @@ class AiApi {
   /// Parameters:
   ///
   /// * [String] model (required):
-  Future<void> postModelsByModelAccess(String model,) async {
+  Future<PostModelsByModelAccess200Response?> postModelsByModelAccess(String model,) async {
     final response = await postModelsByModelAccessWithHttpInfo(model,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostModelsByModelAccess200Response',) as PostModelsByModelAccess200Response;
+    
+    }
+    return null;
   }
 
   /// Implements POST /v1/rerank (Cohere/Jina-compatible).
@@ -11436,11 +13461,19 @@ class AiApi {
   /// Implements POST /v1/rerank (Cohere/Jina-compatible).
   ///
   /// Implements POST /v1/rerank (Cohere/Jina-compatible).  Body: {\"model\": \"...\", \"query\": \"...\", \"documents\": [\"...\", ...]|[{\"text\":\"...\"}],   \"top_n\"?: int, \"return_documents\"?: bool}  Response: {\"object\":\"list\",\"model\":...,\"results\":[{\"index\",\"relevance_score\",\"document\"?}],\"usage\":{...}}  Backend selection is provider-driven (one endpoint, one contract):   - If the model routes to a native rerank provider (Jina/Cohere/Voyage) the     request is proxied to that provider's /rerank endpoint.   - Otherwise scores are computed as a real bi-encoder ranking: embed the     query and documents through the resolved embedding model and rank by     cosine similarity. No rerank-specific key required.
-  Future<void> postRerank() async {
+  Future<AiRanking?> postRerank() async {
     final response = await postRerankWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiRanking',) as AiRanking;
+    
+    }
+    return null;
   }
 
   /// Implements POST /v1/responses.
@@ -11476,11 +13509,19 @@ class AiApi {
   /// Implements POST /v1/responses.
   ///
   /// Implements POST /v1/responses. The converted request is completed by the chat path, which is handed a sink saying where the answer goes: a stream is translated as it is produced, a whole body is translated entire.
-  Future<void> postResponses() async {
+  Future<AiResponsesResource?> postResponses() async {
     final response = await postResponsesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponsesResource',) as AiResponsesResource;
+    
+    }
+    return null;
   }
 
   /// Implements POST /v1/videos/generations — the ASYNC create.
@@ -11516,11 +13557,19 @@ class AiApi {
   /// Implements POST /v1/videos/generations — the ASYNC create.
   ///
   /// Implements POST /v1/videos/generations — the ASYNC create.  Body: {\"model\": \"...\", \"prompt\": \"...\", \"size\"?: \"1280x720\", \"seconds\"?: int}  It authenticates the caller, resolves the model to its upstream provider via the shared routing table (zen3-video* / wan2-2-t2v-a14b → the spark-video backend), reserves the per-video budget (the balance gate), creates ONE upstream job, registers it in the in-pod store, and returns the OpenAI-shaped video object with status \"queued\" IMMEDIATELY. The client then polls GET /v1/videos/{id} and downloads GET /v1/videos/{id}/content. Nothing is billed here — the debit lands on completion.
-  Future<void> postVideosGenerations() async {
+  Future<AiVideoStatus?> postVideosGenerations() async {
     final response = await postVideosGenerationsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiVideoStatus',) as AiVideoStatus;
+    
+    }
+    return null;
   }
 
   /// Replace a article
@@ -11570,11 +13619,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> putAiArticlesByOwnerByName(String owner, String name,) async {
+  Future<PostAiArticles200Response?> putAiArticlesByOwnerByName(String owner, String name,) async {
     final response = await putAiArticlesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiArticles200Response',) as PostAiArticles200Response;
+    
+    }
+    return null;
   }
 
   /// Replace a asset
@@ -11624,11 +13681,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> putAiAssetsByOwnerByName(String owner, String name,) async {
+  Future<PostAiAssets200Response?> putAiAssetsByOwnerByName(String owner, String name,) async {
     final response = await putAiAssetsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiAssets200Response',) as PostAiAssets200Response;
+    
+    }
+    return null;
   }
 
   /// Replace a chat
@@ -11678,11 +13743,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> putAiChatsByOwnerByName(String owner, String name,) async {
+  Future<PostAiChats200Response?> putAiChatsByOwnerByName(String owner, String name,) async {
     final response = await putAiChatsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiChats200Response',) as PostAiChats200Response;
+    
+    }
+    return null;
   }
 
   /// Replace a application
@@ -11732,11 +13805,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> putAiDeploymentsByOwnerByName(String owner, String name,) async {
+  Future<PostAiDeployments200Response?> putAiDeploymentsByOwnerByName(String owner, String name,) async {
     final response = await putAiDeploymentsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiDeployments200Response',) as PostAiDeployments200Response;
+    
+    }
+    return null;
   }
 
   /// Replace a file
@@ -11786,11 +13867,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> putAiFilesByOwnerByName(String owner, String name,) async {
+  Future<PostAiFiles200Response?> putAiFilesByOwnerByName(String owner, String name,) async {
     final response = await putAiFilesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiFiles200Response',) as PostAiFiles200Response;
+    
+    }
+    return null;
   }
 
   /// Replace a form
@@ -11840,11 +13929,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> putAiFormsByOwnerByName(String owner, String name,) async {
+  Future<PostAiForms200Response?> putAiFormsByOwnerByName(String owner, String name,) async {
     final response = await putAiFormsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiForms200Response',) as PostAiForms200Response;
+    
+    }
+    return null;
   }
 
   /// Replace a graph
@@ -11894,11 +13991,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> putAiGraphsByOwnerByName(String owner, String name,) async {
+  Future<PostAiGraphs200Response?> putAiGraphsByOwnerByName(String owner, String name,) async {
     final response = await putAiGraphsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiGraphs200Response',) as PostAiGraphs200Response;
+    
+    }
+    return null;
   }
 
   /// Replace a message
@@ -11948,11 +14053,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> putAiMessagesByOwnerByName(String owner, String name,) async {
+  Future<PostAiMessages200Response?> putAiMessagesByOwnerByName(String owner, String name,) async {
     final response = await putAiMessagesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiMessages200Response',) as PostAiMessages200Response;
+    
+    }
+    return null;
   }
 
   /// Replace a node
@@ -12002,11 +14115,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> putAiNodesByOwnerByName(String owner, String name,) async {
+  Future<PostAiNodes200Response?> putAiNodesByOwnerByName(String owner, String name,) async {
     final response = await putAiNodesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiNodes200Response',) as PostAiNodes200Response;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -12042,11 +14163,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> putAiOrgSettings() async {
+  Future<AiResponse?> putAiOrgSettings() async {
     final response = await putAiOrgSettingsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -12082,11 +14211,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> putAiOrgSettingsList() async {
+  Future<AiResponse?> putAiOrgSettingsList() async {
     final response = await putAiOrgSettingsListWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// Preferences
@@ -12118,11 +14255,19 @@ class AiApi {
   }
 
   /// Preferences
-  Future<void> putAiPreferences() async {
+  Future<Envelope?> putAiPreferences() async {
     final response = await putAiPreferencesWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Replace a provider
@@ -12172,11 +14317,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> putAiProvidersByOwnerByName(String owner, String name,) async {
+  Future<PostAiProviders200Response?> putAiProvidersByOwnerByName(String owner, String name,) async {
     final response = await putAiProvidersByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiProviders200Response',) as PostAiProviders200Response;
+    
+    }
+    return null;
   }
 
   /// Replace a record
@@ -12226,11 +14379,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> putAiRecordsByOwnerByName(String owner, String name,) async {
+  Future<PostAiRecords200Response?> putAiRecordsByOwnerByName(String owner, String name,) async {
     final response = await putAiRecordsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiRecords200Response',) as PostAiRecords200Response;
+    
+    }
+    return null;
   }
 
   /// Replace a connection
@@ -12280,11 +14441,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> putAiRemoteConnectionsByOwnerByName(String owner, String name,) async {
+  Future<PostAiRemoteConnections200Response?> putAiRemoteConnectionsByOwnerByName(String owner, String name,) async {
     final response = await putAiRemoteConnectionsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiRemoteConnections200Response',) as PostAiRemoteConnections200Response;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -12320,11 +14489,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> putAiRouterArtifactMeta() async {
+  Future<AiResponse?> putAiRouterArtifactMeta() async {
     final response = await putAiRouterArtifactMetaWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -12360,11 +14537,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> putAiRouterDefaults() async {
+  Future<AiResponse?> putAiRouterDefaults() async {
     final response = await putAiRouterDefaultsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -12400,11 +14585,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> putAiRouterLedger() async {
+  Future<AiResponse?> putAiRouterLedger() async {
     final response = await putAiRouterLedgerWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -12440,11 +14633,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> putAiRouterPolicy() async {
+  Future<AiResponse?> putAiRouterPolicy() async {
     final response = await putAiRouterPolicyWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
@@ -12480,11 +14681,19 @@ class AiApi {
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]).
   ///
   /// The HTTP transport binding for the RESTful router-config nouns (/v1/ai/router/{policy,defaults,ledger,rewards,artifact-meta} and /v1/ai/org/settings[/list]). It dispatches IN-PROCESS through dispatchGateway — the SAME canonical ZAP gateway registry (zap_registry.go) that the MsgType 200 handler serves over the gateway transport. The native ZAP handler is the ONE and ONLY implementation of these routes; this is purely the api.hanzo.ai HTTP binding, so there is NO controller twin to drift from and the split-brain the router refactor removed stays removed.  Why a bridge and not a twin controller method: every other migrated route (get-records, get-connections, …) carries BOTH a controller method and a ZAP handler — the exact dual-impl drift that silently NULLed customer router settings (the update-router-policy data-wipe). Routing these nouns through the ZAP handler over one adapter keeps a single source of truth.  Identity is the request's own Bearer credential (Authorization header), which the native handlers resolve exactly as the gateway does — every caller (console, chat, app) already sends it. The dispatched handler returns a ZAP message whose status is field 0 and body is field 4 (BuildCloudResponse / BuildGatewayResponse layout); both are relayed verbatim. The route is mapped \"*\" (any verb) because the native handler is method-aware: /v1/ai/router/policy splits GET (read) vs PUT (write), /v1/ai/org/settings GET/PUT/DELETE, and returns 405 for a verb it does not own.
-  Future<void> putAiRouterRewards() async {
+  Future<AiResponse?> putAiRouterRewards() async {
     final response = await putAiRouterRewardsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AiResponse',) as AiResponse;
+    
+    }
+    return null;
   }
 
   /// Replace a model-route
@@ -12534,11 +14743,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> putAiRoutesByOwnerByName(String owner, String name,) async {
+  Future<PostAiRoutes200Response?> putAiRoutesByOwnerByName(String owner, String name,) async {
     final response = await putAiRoutesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiRoutes200Response',) as PostAiRoutes200Response;
+    
+    }
+    return null;
   }
 
   /// Replace a scale
@@ -12588,11 +14805,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> putAiScalesByOwnerByName(String owner, String name,) async {
+  Future<PostAiScales200Response?> putAiScalesByOwnerByName(String owner, String name,) async {
     final response = await putAiScalesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiScales200Response',) as PostAiScales200Response;
+    
+    }
+    return null;
   }
 
   /// Replace a scan
@@ -12642,11 +14867,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> putAiScansByOwnerByName(String owner, String name,) async {
+  Future<PostAiScans200Response?> putAiScansByOwnerByName(String owner, String name,) async {
     final response = await putAiScansByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiScans200Response',) as PostAiScans200Response;
+    
+    }
+    return null;
   }
 
   /// Replace a session
@@ -12696,11 +14929,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> putAiSigninSessionsByOwnerByName(String owner, String name,) async {
+  Future<PostAiSigninSessions200Response?> putAiSigninSessionsByOwnerByName(String owner, String name,) async {
     final response = await putAiSigninSessionsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiSigninSessions200Response',) as PostAiSigninSessions200Response;
+    
+    }
+    return null;
   }
 
   /// Replace a store
@@ -12750,11 +14991,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> putAiStoresByOwnerByName(String owner, String name,) async {
+  Future<PostAiStores200Response?> putAiStoresByOwnerByName(String owner, String name,) async {
     final response = await putAiStoresByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiStores200Response',) as PostAiStores200Response;
+    
+    }
+    return null;
   }
 
   /// Replace a task
@@ -12804,11 +15053,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> putAiTasksByOwnerByName(String owner, String name,) async {
+  Future<PostAiTasks200Response?> putAiTasksByOwnerByName(String owner, String name,) async {
     final response = await putAiTasksByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiTasks200Response',) as PostAiTasks200Response;
+    
+    }
+    return null;
   }
 
   /// Replace a template
@@ -12858,11 +15115,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> putAiTemplatesByOwnerByName(String owner, String name,) async {
+  Future<PostAiTemplates200Response?> putAiTemplatesByOwnerByName(String owner, String name,) async {
     final response = await putAiTemplatesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiTemplates200Response',) as PostAiTemplates200Response;
+    
+    }
+    return null;
   }
 
   /// Training Contribution
@@ -12894,11 +15159,19 @@ class AiApi {
   }
 
   /// Training Contribution
-  Future<void> putAiTrainingContribution() async {
+  Future<Envelope?> putAiTrainingContribution() async {
     final response = await putAiTrainingContributionWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Envelope',) as Envelope;
+    
+    }
+    return null;
   }
 
   /// Replace a tree-file
@@ -12948,11 +15221,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> putAiTreeFilesByOwnerByName(String owner, String name,) async {
+  Future<PostAiTreeFiles200Response?> putAiTreeFilesByOwnerByName(String owner, String name,) async {
     final response = await putAiTreeFilesByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiTreeFiles200Response',) as PostAiTreeFiles200Response;
+    
+    }
+    return null;
   }
 
   /// Replace a vector
@@ -13002,11 +15283,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> putAiVectorsByOwnerByName(String owner, String name,) async {
+  Future<PostAiVectors200Response?> putAiVectorsByOwnerByName(String owner, String name,) async {
     final response = await putAiVectorsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiVectors200Response',) as PostAiVectors200Response;
+    
+    }
+    return null;
   }
 
   /// Replace a video
@@ -13056,11 +15345,19 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> putAiVideosByOwnerByName(String owner, String name,) async {
+  Future<PostAiVideos200Response?> putAiVideosByOwnerByName(String owner, String name,) async {
     final response = await putAiVideosByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiVideos200Response',) as PostAiVideos200Response;
+    
+    }
+    return null;
   }
 
   /// Replace a workflow
@@ -13110,10 +15407,18 @@ class AiApi {
   /// * [String] owner (required):
   ///
   /// * [String] name (required):
-  Future<void> putAiWorkflowsByOwnerByName(String owner, String name,) async {
+  Future<PostAiWorkflows200Response?> putAiWorkflowsByOwnerByName(String owner, String name,) async {
     final response = await putAiWorkflowsByOwnerByNameWithHttpInfo(owner, name,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PostAiWorkflows200Response',) as PostAiWorkflows200Response;
+    
+    }
+    return null;
   }
 }

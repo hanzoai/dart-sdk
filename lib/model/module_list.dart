@@ -15,8 +15,8 @@ class ModuleList {
   ModuleList({
     this.data = const [],
   });
-  /// Data is every module compiled into this binary, with the DocTypes it installs.
-  List<ModuleInfo> data;
+  /// Data is every module compiled into this binary, with the DocTypes it installs and whether the caller's org has turned it on.
+  List<Module> data;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is ModuleList &&
@@ -55,7 +55,7 @@ class ModuleList {
       }());
 
       return ModuleList(
-        data: ModuleInfo.listFromJson(json[r'data']),
+        data: Module.listFromJson(json[r'data']),
       );
     }
     return null;
