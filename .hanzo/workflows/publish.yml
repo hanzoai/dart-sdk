@@ -1,0 +1,110 @@
+name: Publish
+# Publishing follows a push to main. pubspec.yaml holds the version, and the
+# receipt is what pub.dev serves — not what `dart pub publish` printed.
+#
+# No `paths:` filter, deliberately, for the same reason js-sdk has none: the
+# question is "does the registry serve something older than this tree?", and
+# only the comparison below reads that.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Serialized, newest wins. Two runs in flight both read the registry before
+# either writes, so both believe the same version is unpublished.
+concurrency:
+  group: publish
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: hanzo-build-linux-amd64
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+
+      - run: dart pub get
+
+      # `analyze` is the gate. There is no build step for a Dart library, so
+      # this is the only thing that type-checks the generated tree, and it runs
+      # before the version becomes immutable: pub.dev versions cannot be taken
+      # back, only superseded. Errors only — the generated tree carries lints
+      # by construction and gating on those would gate on style.
+      - name: Analyze
+        run: |
+          set -euo pipefail
+          n=$(dart analyze 2>&1 | grep -c '^ *error -' || true)
+          [ "$n" = "0" ] || { dart analyze 2>&1 | grep '^ *error -' | head -20; echo "::error::$n analyzer errors"; exit 1; }
+
+      - name: Read the version to publish
+        id: what
+        run: echo "version=$(dart pub deps --json 2>/dev/null | jq -r '.packages[] | select(.kind=="root") | .version')" >> "$GITHUB_OUTPUT"
+
+      - name: Ahead of the registry?
+        id: ahead
+        # FORWARD ONLY, and "never published" counts as behind: pub.dev answers
+        # 404 for a package it has never seen, which is not an error here.
+        run: |
+          set -euo pipefail
+          NEW='${{ steps.what.outputs.version }}'
+          OLD=$(curl -sf https://pub.dev/api/packages/hanzoai 2>/dev/null | jq -r '.latest.version // "0.0.0"' || echo "0.0.0")
+          NEWEST=$(printf '%s\n%s\n' "$OLD" "$NEW" | sort -V | tail -1)
+          if [ "$OLD" = "$NEW" ] || [ "$NEWEST" != "$NEW" ]; then
+            echo "registry serves $OLD; tree is $NEW — nothing to publish."
+            echo "yes=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "yes=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Load the publish credential from KMS
+        if: steps.ahead.outputs.yes == 'true'
+        env:
+          KMS_CLIENT_ID: ${{ secrets.KMS_CLIENT_ID }}
+          KMS_CLIENT_SECRET: ${{ secrets.KMS_CLIENT_SECRET }}
+        run: |
+          if [ -z "$KMS_CLIENT_ID" ] || [ -z "$KMS_CLIENT_SECRET" ]; then
+            echo "::error::KMS machine identity absent — cannot pull the pub.dev credential. Seed KMS_CLIENT_ID/KMS_CLIENT_SECRET as git.hanzo.ai Actions secrets." >&2
+            exit 1
+          fi
+          KMS=https://kms.hanzo.ai; ENVN=prod
+          TOKEN=$(curl -sf "$KMS/v1/kms/auth/login" -H 'Content-Type: application/json' \
+            -d "{\"clientId\":\"$KMS_CLIENT_ID\",\"clientSecret\":\"$KMS_CLIENT_SECRET\"}" | jq -r .accessToken)
+          [ -n "$TOKEN" ] && [ "$TOKEN" != null ] || { echo "::error::KMS login failed"; exit 1; }
+          URL="$KMS/v1/kms/secrets/PUB_TOKEN?env=$ENVN"
+          BODY=$(curl -s -w '\n%{http_code}' "$URL" -H "Authorization: Bearer $TOKEN") || true
+          CODE=$(printf '%s' "$BODY" | tail -1)
+          VAL=$(printf '%s' "$BODY" | sed '$d' | jq -r '.value // empty' 2>/dev/null || true)
+          if [ -z "$VAL" ]; then
+            echo "::error::KMS returned HTTP $CODE for $URL with no value — seed PUB_TOKEN there (a pub.dev OAuth token), not as a Hanzo Git secret." >&2
+            exit 1
+          fi
+          echo "::add-mask::$VAL"
+          echo "PUB_TOKEN=$VAL" >> "$GITHUB_ENV"
+
+      - name: Publish
+        if: steps.ahead.outputs.yes == 'true'
+        run: |
+          set -euo pipefail
+          dart pub token add https://pub.dev --env-var PUB_TOKEN
+          dart pub publish --force
+
+      - name: Prove it from outside
+        if: steps.ahead.outputs.yes == 'true'
+        # A green publish step is not the receipt — only pub.dev serving the
+        # version is.
+        run: |
+          set -euo pipefail
+          VERSION='${{ steps.what.outputs.version }}'
+          for _ in $(seq 1 30); do
+            THEIRS=$(curl -sf https://pub.dev/api/packages/hanzoai 2>/dev/null | jq -r '.latest.version // ""' || true)
+            if [ "$THEIRS" = "$VERSION" ]; then
+              echo "pub.dev serves hanzoai $VERSION"
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "::error::pub.dev never served hanzoai $VERSION"
+          exit 1
