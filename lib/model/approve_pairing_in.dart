@@ -16,7 +16,7 @@ class ApprovePairingIn {
     this.channel,
     this.code,
   });
-  /// Channel is the transport the request came in on: discord, slack, teams or telegram.
+  /// Channel is the transport the request came in on: discord, slack, teams, telegram or whatsapp.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

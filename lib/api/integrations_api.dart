@@ -1168,6 +1168,46 @@ class IntegrationsApi {
     }
   }
 
+  /// WhatsApp Cloud API subscription challenge
+  ///
+  /// Meta calls this once when the webhook is subscribed, carrying the verify token this deployment was configured with and a challenge to echo. The token is compared in constant time before the echo — answering the challenge without checking it would let anyone point their own app at this address and have it confirm the subscription.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> getIntegrationsWhatsappWebhookWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/integrations/whatsapp/webhook';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// WhatsApp Cloud API subscription challenge
+  ///
+  /// Meta calls this once when the webhook is subscribed, carrying the verify token this deployment was configured with and a challenge to echo. The token is compared in constant time before the echo — answering the challenge without checking it would let anyone point their own app at this address and have it confirm the subscription.
+  Future<void> getIntegrationsWhatsappWebhook() async {
+    final response = await getIntegrationsWhatsappWebhookWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+  }
+
   /// Acquires the org's credential for one provider.
   ///
   /// Acquires the org's credential for one provider. It has TWO paths and the REQUEST picks which: a \"token\" key in the body seals that credential directly (verify-before-store), and its absence begins the 3-legged OAuth flow — minting a single-use nonce plus an HMAC-signed state that binds this org to this provider, and answering with the provider's authorize URL for the caller to redirect to.  Fail-closed order, unchanged: no principal → 403; unknown provider → 404; an AdminOnly connector without the caller's own-org admin bit → 403; not configured → 503; KMS not ready → 503 (the flow WILL need to seal a token, so refuse now rather than dead-end at the callback).
@@ -2341,6 +2381,46 @@ class IntegrationsApi {
   /// The update webhook for the Telegram bot. It does two jobs: `/start <code>` or `/connect <code>` binds the chat it was sent from to an org, idempotently; anything else is treated as a possible agent trigger.  What counts as a trigger differs by chat type, and it is easy to get wrong: in a private chat every message is a trigger, while in a group the message must mention the bot or use the `/hanzo` command. Non-triggers and non-message updates are acknowledged and dropped.  Authentication is the secret token Telegram echoes on every update, compared in constant time. A message in a chat that has never been bound is dropped, which is why the bind command exists.  The caller here is the PLATFORM, not a Hanzo tenant, so there is no bearer and no principal. The signature check IS the authentication, and it fails closed. The tenant is never read from the payload either: it is resolved from the verified platform identifier through the connection map, so an event from a workspace nobody connected does nothing. Refusals are written with their own status rather than being flattened to a 500, so a rejected signature reads as 401 and a malformed body as 400.  The answer is acknowledged immediately and the work happens afterwards, because every one of these platforms times out a slow webhook. Duplicate deliveries are absorbed durably, so a platform retry of an event that already ran never runs it a second time or bills for it twice. When the agent pool is full nothing at all is recorded and the delivery is refused as retriable, so the message is re-delivered later rather than being lost or half-processed.
   Future<void> postIntegrationsTelegramWebhook() async {
     final response = await postIntegrationsTelegramWebhookWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+  }
+
+  /// WhatsApp Cloud API webhook
+  ///
+  /// One delivery from Meta. Authenticity is the X-Hub-Signature-256 HMAC over the raw body, and it is the whole of it: a message accepted here creates the reply route that authorises this org to answer, so an unsigned delivery would let anyone hand an org a conversation to answer under its own number.  Meta batches (entry × changes × messages) and sends status callbacks — sent/delivered/read — through this same address with no message at all. Those are acknowledged and dropped rather than refused, because a non-2xx is retried with backoff and eventually disables the subscription: the only refusals here are an unconfigured endpoint and a bad signature, which are ours to fix and not Meta's to retry.  The answer is acknowledged immediately and the work happens afterwards, because every one of these platforms times out a slow webhook. Duplicate deliveries are absorbed durably, so a platform retry of an event that already ran never runs it a second time or bills for it twice. When the agent pool is full nothing at all is recorded and the delivery is refused as retriable, so the message is re-delivered later rather than being lost or half-processed.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> postIntegrationsWhatsappWebhookWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/integrations/whatsapp/webhook';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// WhatsApp Cloud API webhook
+  ///
+  /// One delivery from Meta. Authenticity is the X-Hub-Signature-256 HMAC over the raw body, and it is the whole of it: a message accepted here creates the reply route that authorises this org to answer, so an unsigned delivery would let anyone hand an org a conversation to answer under its own number.  Meta batches (entry × changes × messages) and sends status callbacks — sent/delivered/read — through this same address with no message at all. Those are acknowledged and dropped rather than refused, because a non-2xx is retried with backoff and eventually disables the subscription: the only refusals here are an unconfigured endpoint and a bad signature, which are ours to fix and not Meta's to retry.  The answer is acknowledged immediately and the work happens afterwards, because every one of these platforms times out a slow webhook. Duplicate deliveries are absorbed durably, so a platform retry of an event that already ran never runs it a second time or bills for it twice. When the agent pool is full nothing at all is recorded and the delivery is refused as retriable, so the message is re-delivered later rather than being lost or half-processed.
+  Future<void> postIntegrationsWhatsappWebhook() async {
+    final response = await postIntegrationsWhatsappWebhookWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }

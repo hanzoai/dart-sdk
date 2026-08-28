@@ -76,7 +76,7 @@ class ChannelView {
   ///
   String? groupPolicy;
 
-  /// ID is the fixed transport identifier — discord, slack, teams or telegram — and the value every route on this surface names a channel by, including the `:channel` segment of the send path. The listing is always in that order.
+  /// ID is the fixed transport identifier — discord, slack, teams, telegram or whatsapp — and the value every route on this surface names a channel by, including the `:channel` segment of the send path. The listing is always in that order.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

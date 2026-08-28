@@ -23,7 +23,7 @@ class AllowlistPutIn {
   /// AccessGroups REPLACES the org's named access groups, as group name -> channel -> entries. Absent or null leaves them alone.
   Map<String, Map<String, List<String>>> accessGroups;
 
-  /// Channel is the transport to edit: discord, slack, teams or telegram. Required; an unknown value is a 404.
+  /// Channel is the transport to edit: discord, slack, teams, telegram or whatsapp. Required; an unknown value is a 404.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
