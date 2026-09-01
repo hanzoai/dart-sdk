@@ -64,6 +64,68 @@ class ChannelsApi {
     return null;
   }
 
+  /// Returns which agent answers the caller org's channel: the default and every room bound to another agent.
+  ///
+  /// Returns which agent answers the caller org's channel: the default and every room bound to another agent.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] channel:
+  ///   Channel is the transport: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404.
+  Future<Response> getChannelsAgentWithHttpInfo({ String? channel, }) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/channels/agent';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    if (channel != null) {
+      queryParams.addAll(_queryParams('', 'channel', channel));
+    }
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Returns which agent answers the caller org's channel: the default and every room bound to another agent.
+  ///
+  /// Returns which agent answers the caller org's channel: the default and every room bound to another agent.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] channel:
+  ///   Channel is the transport: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404.
+  Future<ChannelAgents?> getChannelsAgent({ String? channel, }) async {
+    final response = await getChannelsAgentWithHttpInfo( channel: channel, );
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'ChannelAgents',) as ChannelAgents;
+    
+    }
+    return null;
+  }
+
   /// Returns the caller org's access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org's named access groups.
   ///
   /// Returns the caller org's access policy for one channel: whether DMs are pairing-gated, allowlisted or open, whether group rooms are open, allowlisted or disabled, the config-managed DM and group allow entries, the senders approved through PAIRING (read-only here), and the org's named access groups. An unknown channel is a 404.
@@ -73,7 +135,7 @@ class ChannelsApi {
   /// Parameters:
   ///
   /// * [String] channel:
-  ///   Channel is the transport to read: discord, slack, teams, telegram or whatsapp. Required; an unknown value is a 404.
+  ///   Channel is the transport to read: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404.
   Future<Response> getChannelsAllowlistWithHttpInfo({ String? channel, }) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/channels/allowlist';
@@ -110,7 +172,7 @@ class ChannelsApi {
   /// Parameters:
   ///
   /// * [String] channel:
-  ///   Channel is the transport to read: discord, slack, teams, telegram or whatsapp. Required; an unknown value is a 404.
+  ///   Channel is the transport to read: discord, github, linear, slack, teams, telegram or whatsapp. Required; an unknown value is a 404.
   Future<AllowlistView?> getChannelsAllowlist({ String? channel, }) async {
     final response = await getChannelsAllowlistWithHttpInfo( channel: channel, );
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -247,7 +309,7 @@ class ChannelsApi {
 
   /// Send a message from your org's bot to one chat room
   ///
-  /// Delivers text, attachments and actions to one room on a connected chat transport — discord, slack, teams, telegram or whatsapp — and answers that transport's own receipt, the `messageId` it assigned and the Unix second it landed. An unknown channel is a 404.  The body is the envelope's NARROW outbound projection: `room`, `text`, `attachments`, `actions`, `replyTo` and `idempotency`, and nothing else. Identity is not a field — the channel is the path segment and the sender is the caller's validated org — so a body carrying `sender`, `account` or `channel` is refused with 400 rather than having it silently dropped. `room.id` is required, and so is something to say: text, or at least one attachment.  Requires a validated principal; 403 without one. The room must already belong to the caller's org — each transport verifies the binding itself, so a room this org has not bound is 403 and a room whose route the bot has never learned is 409, meaning someone has to message the bot there first. A route learned only so a pairing reply could be delivered lasts exactly as long as that pairing request does, so a room whose sender was never approved goes back to 409 within the hour. A transport that fails answers 502 carrying status and shape only, never a token.  Sending is at-most-once only if you ask for it: pass an `idempotency` string and a replay answers 200 with the PRIOR receipt instead of sending twice, while a send that fails releases the key so the caller can re-attempt. Bodies over 1 MiB are refused. Every transport currently renders text only, so attachments and actions are flattened deterministically to one line each after the text rather than dropped.
+  /// Delivers text, attachments and actions to one room on a connected chat transport — discord, github, linear, slack, teams, telegram or whatsapp — and answers that transport's own receipt, the `messageId` it assigned and the Unix second it landed. An unknown channel is a 404.  The body is the envelope's NARROW outbound projection: `room`, `text`, `attachments`, `actions`, `replyTo` and `idempotency`, and nothing else. Identity is not a field — the channel is the path segment and the sender is the caller's validated org — so a body carrying `sender`, `account` or `channel` is refused with 400 rather than having it silently dropped. `room.id` is required, and so is something to say: text, or at least one attachment.  Requires a validated principal; 403 without one. The room must already belong to the caller's org — each transport verifies the binding itself, so a room this org has not bound is 403 and a room whose route the bot has never learned is 409, meaning someone has to message the bot there first. A route learned only so a pairing reply could be delivered lasts exactly as long as that pairing request does, so a room whose sender was never approved goes back to 409 within the hour. A transport that fails answers 502 carrying status and shape only, never a token.  Sending is at-most-once only if you ask for it: pass an `idempotency` string and a replay answers 200 with the PRIOR receipt instead of sending twice, while a send that fails releases the key so the caller can re-attempt. Bodies over 1 MiB are refused. Every transport currently renders text only, so attachments and actions are flattened deterministically to one line each after the text rather than dropped.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -282,7 +344,7 @@ class ChannelsApi {
 
   /// Send a message from your org's bot to one chat room
   ///
-  /// Delivers text, attachments and actions to one room on a connected chat transport — discord, slack, teams, telegram or whatsapp — and answers that transport's own receipt, the `messageId` it assigned and the Unix second it landed. An unknown channel is a 404.  The body is the envelope's NARROW outbound projection: `room`, `text`, `attachments`, `actions`, `replyTo` and `idempotency`, and nothing else. Identity is not a field — the channel is the path segment and the sender is the caller's validated org — so a body carrying `sender`, `account` or `channel` is refused with 400 rather than having it silently dropped. `room.id` is required, and so is something to say: text, or at least one attachment.  Requires a validated principal; 403 without one. The room must already belong to the caller's org — each transport verifies the binding itself, so a room this org has not bound is 403 and a room whose route the bot has never learned is 409, meaning someone has to message the bot there first. A route learned only so a pairing reply could be delivered lasts exactly as long as that pairing request does, so a room whose sender was never approved goes back to 409 within the hour. A transport that fails answers 502 carrying status and shape only, never a token.  Sending is at-most-once only if you ask for it: pass an `idempotency` string and a replay answers 200 with the PRIOR receipt instead of sending twice, while a send that fails releases the key so the caller can re-attempt. Bodies over 1 MiB are refused. Every transport currently renders text only, so attachments and actions are flattened deterministically to one line each after the text rather than dropped.
+  /// Delivers text, attachments and actions to one room on a connected chat transport — discord, github, linear, slack, teams, telegram or whatsapp — and answers that transport's own receipt, the `messageId` it assigned and the Unix second it landed. An unknown channel is a 404.  The body is the envelope's NARROW outbound projection: `room`, `text`, `attachments`, `actions`, `replyTo` and `idempotency`, and nothing else. Identity is not a field — the channel is the path segment and the sender is the caller's validated org — so a body carrying `sender`, `account` or `channel` is refused with 400 rather than having it silently dropped. `room.id` is required, and so is something to say: text, or at least one attachment.  Requires a validated principal; 403 without one. The room must already belong to the caller's org — each transport verifies the binding itself, so a room this org has not bound is 403 and a room whose route the bot has never learned is 409, meaning someone has to message the bot there first. A route learned only so a pairing reply could be delivered lasts exactly as long as that pairing request does, so a room whose sender was never approved goes back to 409 within the hour. A transport that fails answers 502 carrying status and shape only, never a token.  Sending is at-most-once only if you ask for it: pass an `idempotency` string and a replay answers 200 with the PRIOR receipt instead of sending twice, while a send that fails releases the key so the caller can re-attempt. Bodies over 1 MiB are refused. Every transport currently renders text only, so attachments and actions are flattened deterministically to one line each after the text rather than dropped.
   ///
   /// Parameters:
   ///
@@ -345,6 +407,62 @@ class ChannelsApi {
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
       return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PairingApproved',) as PairingApproved;
+    
+    }
+    return null;
+  }
+
+  /// Binds agents to the caller org's channel and answers the bindings as GET would.
+  ///
+  /// Binds agents to the caller org's channel and answers the bindings as GET would. It requires ORG ADMIN. The agent is named by its ref — the name an org gave it at POST /v1/agents, or a built-in such as dev, des or vi.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [ChannelAgentsPut] channelAgentsPut (required):
+  Future<Response> putChannelsAgentWithHttpInfo(ChannelAgentsPut channelAgentsPut,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/channels/agent';
+
+    // ignore: prefer_final_locals
+    Object? postBody = channelAgentsPut;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'PUT',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Binds agents to the caller org's channel and answers the bindings as GET would.
+  ///
+  /// Binds agents to the caller org's channel and answers the bindings as GET would. It requires ORG ADMIN. The agent is named by its ref — the name an org gave it at POST /v1/agents, or a built-in such as dev, des or vi.
+  ///
+  /// Parameters:
+  ///
+  /// * [ChannelAgentsPut] channelAgentsPut (required):
+  Future<ChannelAgents?> putChannelsAgent(ChannelAgentsPut channelAgentsPut,) async {
+    final response = await putChannelsAgentWithHttpInfo(channelAgentsPut,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'ChannelAgents',) as ChannelAgents;
     
     }
     return null;

@@ -13,9 +13,11 @@ part of hanzoai.cloud;
 class AgentDetail {
   /// Returns a new [AgentDetail] instance.
   AgentDetail({
+    this.avatar,
     this.computeRef,
     this.createdAt,
     this.description,
+    this.emoji,
     this.executionMode,
     this.id,
     this.instructions,
@@ -29,6 +31,14 @@ class AgentDetail {
     this.tools = const [],
     this.updatedAt,
   });
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? avatar;
+
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -52,6 +62,14 @@ class AgentDetail {
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
   String? description;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? emoji;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -141,9 +159,11 @@ class AgentDetail {
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is AgentDetail &&
+    other.avatar == avatar &&
     other.computeRef == computeRef &&
     other.createdAt == createdAt &&
     other.description == description &&
+    other.emoji == emoji &&
     other.executionMode == executionMode &&
     other.id == id &&
     other.instructions == instructions &&
@@ -160,9 +180,11 @@ class AgentDetail {
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
+    (avatar == null ? 0 : avatar!.hashCode) +
     (computeRef == null ? 0 : computeRef!.hashCode) +
     (createdAt == null ? 0 : createdAt!.hashCode) +
     (description == null ? 0 : description!.hashCode) +
+    (emoji == null ? 0 : emoji!.hashCode) +
     (executionMode == null ? 0 : executionMode!.hashCode) +
     (id == null ? 0 : id!.hashCode) +
     (instructions == null ? 0 : instructions!.hashCode) +
@@ -177,10 +199,15 @@ class AgentDetail {
     (updatedAt == null ? 0 : updatedAt!.hashCode);
 
   @override
-  String toString() => 'AgentDetail[computeRef=$computeRef, createdAt=$createdAt, description=$description, executionMode=$executionMode, id=$id, instructions=$instructions, model=$model, name=$name, recentRuns=$recentRuns, runs=$runs, schedule=$schedule, serviceAccountId=$serviceAccountId, status=$status, tools=$tools, updatedAt=$updatedAt]';
+  String toString() => 'AgentDetail[avatar=$avatar, computeRef=$computeRef, createdAt=$createdAt, description=$description, emoji=$emoji, executionMode=$executionMode, id=$id, instructions=$instructions, model=$model, name=$name, recentRuns=$recentRuns, runs=$runs, schedule=$schedule, serviceAccountId=$serviceAccountId, status=$status, tools=$tools, updatedAt=$updatedAt]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
+    if (this.avatar != null) {
+      json[r'avatar'] = this.avatar;
+    } else {
+      json[r'avatar'] = null;
+    }
     if (this.computeRef != null) {
       json[r'computeRef'] = this.computeRef;
     } else {
@@ -195,6 +222,11 @@ class AgentDetail {
       json[r'description'] = this.description;
     } else {
       json[r'description'] = null;
+    }
+    if (this.emoji != null) {
+      json[r'emoji'] = this.emoji;
+    } else {
+      json[r'emoji'] = null;
     }
     if (this.executionMode != null) {
       json[r'executionMode'] = this.executionMode;
@@ -270,9 +302,11 @@ class AgentDetail {
       }());
 
       return AgentDetail(
+        avatar: mapValueOfType<String>(json, r'avatar'),
         computeRef: mapValueOfType<String>(json, r'computeRef'),
         createdAt: mapValueOfType<String>(json, r'createdAt'),
         description: mapValueOfType<String>(json, r'description'),
+        emoji: mapValueOfType<String>(json, r'emoji'),
         executionMode: mapValueOfType<String>(json, r'executionMode'),
         id: mapValueOfType<String>(json, r'id'),
         instructions: mapValueOfType<String>(json, r'instructions'),

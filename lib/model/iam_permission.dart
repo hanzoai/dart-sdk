@@ -24,7 +24,6 @@ class IamPermission {
     this.displayName,
     this.domains = const [],
     this.effect,
-    this.groups = const [],
     this.id,
     this.isEnabled,
     this.model,
@@ -35,6 +34,7 @@ class IamPermission {
     this.roles = const [],
     this.state,
     this.submitter,
+    this.teams = const [],
     this.updatedAt,
     this.users = const [],
   });
@@ -115,8 +115,6 @@ class IamPermission {
   ///
   String? effect;
 
-  List<String> groups;
-
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -188,6 +186,8 @@ class IamPermission {
   ///
   String? submitter;
 
+  List<String> teams;
+
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -212,7 +212,6 @@ class IamPermission {
     other.displayName == displayName &&
     _deepEquality.equals(other.domains, domains) &&
     other.effect == effect &&
-    _deepEquality.equals(other.groups, groups) &&
     other.id == id &&
     other.isEnabled == isEnabled &&
     other.model == model &&
@@ -223,6 +222,7 @@ class IamPermission {
     _deepEquality.equals(other.roles, roles) &&
     other.state == state &&
     other.submitter == submitter &&
+    _deepEquality.equals(other.teams, teams) &&
     other.updatedAt == updatedAt &&
     _deepEquality.equals(other.users, users);
 
@@ -240,7 +240,6 @@ class IamPermission {
     (displayName == null ? 0 : displayName!.hashCode) +
     (domains.hashCode) +
     (effect == null ? 0 : effect!.hashCode) +
-    (groups.hashCode) +
     (id == null ? 0 : id!.hashCode) +
     (isEnabled == null ? 0 : isEnabled!.hashCode) +
     (model == null ? 0 : model!.hashCode) +
@@ -251,11 +250,12 @@ class IamPermission {
     (roles.hashCode) +
     (state == null ? 0 : state!.hashCode) +
     (submitter == null ? 0 : submitter!.hashCode) +
+    (teams.hashCode) +
     (updatedAt == null ? 0 : updatedAt!.hashCode) +
     (users.hashCode);
 
   @override
-  String toString() => 'IamPermission[actions=$actions, adapter=$adapter, approveTime=$approveTime, approver=$approver, createdAt=$createdAt, createdTime=$createdTime, deleted=$deleted, description=$description, displayName=$displayName, domains=$domains, effect=$effect, groups=$groups, id=$id, isEnabled=$isEnabled, model=$model, name=$name, owner=$owner, resourceType=$resourceType, resources=$resources, roles=$roles, state=$state, submitter=$submitter, updatedAt=$updatedAt, users=$users]';
+  String toString() => 'IamPermission[actions=$actions, adapter=$adapter, approveTime=$approveTime, approver=$approver, createdAt=$createdAt, createdTime=$createdTime, deleted=$deleted, description=$description, displayName=$displayName, domains=$domains, effect=$effect, id=$id, isEnabled=$isEnabled, model=$model, name=$name, owner=$owner, resourceType=$resourceType, resources=$resources, roles=$roles, state=$state, submitter=$submitter, teams=$teams, updatedAt=$updatedAt, users=$users]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -306,7 +306,6 @@ class IamPermission {
     } else {
       json[r'effect'] = null;
     }
-      json[r'groups'] = this.groups;
     if (this.id != null) {
       json[r'id'] = this.id;
     } else {
@@ -349,6 +348,7 @@ class IamPermission {
     } else {
       json[r'submitter'] = null;
     }
+      json[r'teams'] = this.teams;
     if (this.updatedAt != null) {
       json[r'updatedAt'] = this.updatedAt!.toUtc().toIso8601String();
     } else {
@@ -392,9 +392,6 @@ class IamPermission {
             ? (json[r'domains'] as Iterable).cast<String>().toList(growable: false)
             : const [],
         effect: mapValueOfType<String>(json, r'effect'),
-        groups: json[r'groups'] is Iterable
-            ? (json[r'groups'] as Iterable).cast<String>().toList(growable: false)
-            : const [],
         id: mapValueOfType<String>(json, r'id'),
         isEnabled: mapValueOfType<bool>(json, r'isEnabled'),
         model: mapValueOfType<String>(json, r'model'),
@@ -409,6 +406,9 @@ class IamPermission {
             : const [],
         state: mapValueOfType<String>(json, r'state'),
         submitter: mapValueOfType<String>(json, r'submitter'),
+        teams: json[r'teams'] is Iterable
+            ? (json[r'teams'] as Iterable).cast<String>().toList(growable: false)
+            : const [],
         updatedAt: mapDateTime(json, r'updatedAt', r''),
         users: json[r'users'] is Iterable
             ? (json[r'users'] as Iterable).cast<String>().toList(growable: false)

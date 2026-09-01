@@ -25,7 +25,7 @@ class FrameworkApi {
   /// Parameters:
   ///
   /// * [String] doctype (required):
-  ///   DocType is the document's DocType, from the path.
+  ///   DocType is the document's DocType, by ADDRESS — \"module.name\", from the path.
   ///
   /// * [String] name (required):
   ///   Name is the document's name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one.
@@ -63,7 +63,7 @@ class FrameworkApi {
   /// Parameters:
   ///
   /// * [String] doctype (required):
-  ///   DocType is the document's DocType, from the path.
+  ///   DocType is the document's DocType, by ADDRESS — \"module.name\", from the path.
   ///
   /// * [String] name (required):
   ///   Name is the document's name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one.
@@ -83,7 +83,7 @@ class FrameworkApi {
   /// Parameters:
   ///
   /// * [String] name (required):
-  ///   Name is the DocType's name, from the path. A name containing a space (\"Sales Invoice\") arrives percent-encoded and is decoded before it is matched against the stored one.
+  ///   Name is the DocType's ADDRESS — \"module.name\", e.g. \"kb.page\". A name containing a space (\"erp.Sales Invoice\") arrives percent-encoded and is decoded before it is matched against the stored one.
   Future<Response> deleteFrameworkDoctypesByNameWithHttpInfo(String name,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/framework/doctypes/{name}'
@@ -117,67 +117,9 @@ class FrameworkApi {
   /// Parameters:
   ///
   /// * [String] name (required):
-  ///   Name is the DocType's name, from the path. A name containing a space (\"Sales Invoice\") arrives percent-encoded and is decoded before it is matched against the stored one.
+  ///   Name is the DocType's ADDRESS — \"module.name\", e.g. \"kb.page\". A name containing a space (\"erp.Sales Invoice\") arrives percent-encoded and is decoded before it is matched against the stored one.
   Future<void> deleteFrameworkDoctypesByName(String name,) async {
     final response = await deleteFrameworkDoctypesByNameWithHttpInfo(name,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-  }
-
-  /// Removes one (user, role) grant in the caller's org.
-  ///
-  /// Removes one (user, role) grant in the caller's org. Manager-only. Answers 204; a grant that does not exist is not found.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [String] user (required):
-  ///   User is the assignee whose grant is being revoked, from the path.
-  ///
-  /// * [String] role (required):
-  ///   Role is the role to revoke, from the path. A role name containing a space (\"System Manager\") arrives percent-encoded and is decoded before it is matched against the stored assignment.
-  Future<Response> deleteFrameworkRolesByUserByRoleWithHttpInfo(String user, String role,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/framework/roles/{user}/{role}'
-      .replaceAll('{user}', user)
-      .replaceAll('{role}', role);
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'DELETE',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Removes one (user, role) grant in the caller's org.
-  ///
-  /// Removes one (user, role) grant in the caller's org. Manager-only. Answers 204; a grant that does not exist is not found.
-  ///
-  /// Parameters:
-  ///
-  /// * [String] user (required):
-  ///   User is the assignee whose grant is being revoked, from the path.
-  ///
-  /// * [String] role (required):
-  ///   Role is the role to revoke, from the path. A role name containing a space (\"System Manager\") arrives percent-encoded and is decoded before it is matched against the stored assignment.
-  Future<void> deleteFrameworkRolesByUserByRole(String user, String role,) async {
-    final response = await deleteFrameworkRolesByUserByRoleWithHttpInfo(user, role,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -192,7 +134,7 @@ class FrameworkApi {
   /// Parameters:
   ///
   /// * [String] doctype (required):
-  ///   DocType is the DocType to list, from the path.
+  ///   DocType is the DocType to list, by ADDRESS — \"module.name\", from the path.
   ///
   /// * [String] filters:
   ///   Filters is a JSON object of equality matches, e.g. {\"priority\":\"High\"}. Every key must be a field the DocType declares (or the managed name / docstatus); an undeclared one is refused rather than silently ignored.
@@ -251,7 +193,7 @@ class FrameworkApi {
   /// Parameters:
   ///
   /// * [String] doctype (required):
-  ///   DocType is the DocType to list, from the path.
+  ///   DocType is the DocType to list, by ADDRESS — \"module.name\", from the path.
   ///
   /// * [String] filters:
   ///   Filters is a JSON object of equality matches, e.g. {\"priority\":\"High\"}. Every key must be a field the DocType declares (or the managed name / docstatus); an undeclared one is refused rather than silently ignored.
@@ -288,7 +230,7 @@ class FrameworkApi {
   /// Parameters:
   ///
   /// * [String] doctype (required):
-  ///   DocType is the document's DocType, from the path.
+  ///   DocType is the document's DocType, by ADDRESS — \"module.name\", from the path.
   ///
   /// * [String] name (required):
   ///   Name is the document's name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one.
@@ -326,7 +268,7 @@ class FrameworkApi {
   /// Parameters:
   ///
   /// * [String] doctype (required):
-  ///   DocType is the document's DocType, from the path.
+  ///   DocType is the document's DocType, by ADDRESS — \"module.name\", from the path.
   ///
   /// * [String] name (required):
   ///   Name is the document's name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one.
@@ -402,7 +344,7 @@ class FrameworkApi {
   /// Parameters:
   ///
   /// * [String] name (required):
-  ///   Name is the DocType's name, from the path. A name containing a space (\"Sales Invoice\") arrives percent-encoded and is decoded before it is matched against the stored one.
+  ///   Name is the DocType's ADDRESS — \"module.name\", e.g. \"kb.page\". A name containing a space (\"erp.Sales Invoice\") arrives percent-encoded and is decoded before it is matched against the stored one.
   Future<Response> getFrameworkDoctypesByNameWithHttpInfo(String name,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/framework/doctypes/{name}'
@@ -436,7 +378,7 @@ class FrameworkApi {
   /// Parameters:
   ///
   /// * [String] name (required):
-  ///   Name is the DocType's name, from the path. A name containing a space (\"Sales Invoice\") arrives percent-encoded and is decoded before it is matched against the stored one.
+  ///   Name is the DocType's ADDRESS — \"module.name\", e.g. \"kb.page\". A name containing a space (\"erp.Sales Invoice\") arrives percent-encoded and is decoded before it is matched against the stored one.
   Future<DocType?> getFrameworkDoctypesByName(String name,) async {
     final response = await getFrameworkDoctypesByNameWithHttpInfo(name,);
     if (response.statusCode >= HttpStatus.badRequest) {
@@ -559,54 +501,6 @@ class FrameworkApi {
     return null;
   }
 
-  /// Returns every (user, role) assignment in the caller's org.
-  ///
-  /// Returns every (user, role) assignment in the caller's org. Roles are what DocType permissions are written against, so this is the grant table the permission calculus resolves a member's rights from.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  Future<Response> getFrameworkRolesWithHttpInfo() async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/framework/roles';
-
-    // ignore: prefer_final_locals
-    Object? postBody;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>[];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'GET',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Returns every (user, role) assignment in the caller's org.
-  ///
-  /// Returns every (user, role) assignment in the caller's org. Roles are what DocType permissions are written against, so this is the grant table the permission calculus resolves a member's rights from.
-  Future<RoleList?> getFrameworkRoles() async {
-    final response = await getFrameworkRolesWithHttpInfo();
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'RoleList',) as RoleList;
-    
-    }
-    return null;
-  }
-
   /// Reports how much of the DocType surface the caller's org uses: how many DocTypes it has defined, and how many documents exist across them.
   ///
   /// Reports how much of the DocType surface the caller's org uses: how many DocTypes it has defined, and how many documents exist across them.
@@ -713,7 +607,7 @@ class FrameworkApi {
   /// Parameters:
   ///
   /// * [String] doctype (required):
-  ///   DocType is the document's DocType, from the path.
+  ///   DocType is the document's DocType, by ADDRESS — \"module.name\", from the path.
   ///
   /// * [String] name (required):
   ///   Name is the document's name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one.
@@ -751,7 +645,7 @@ class FrameworkApi {
   /// Parameters:
   ///
   /// * [String] doctype (required):
-  ///   DocType is the document's DocType, from the path.
+  ///   DocType is the document's DocType, by ADDRESS — \"module.name\", from the path.
   ///
   /// * [String] name (required):
   ///   Name is the document's name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one.
@@ -779,7 +673,7 @@ class FrameworkApi {
   /// Parameters:
   ///
   /// * [String] doctype (required):
-  ///   DocType is the document's DocType, from the path.
+  ///   DocType is the document's DocType, by ADDRESS — \"module.name\", from the path.
   ///
   /// * [String] name (required):
   ///   Name is the document's name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one.
@@ -817,7 +711,7 @@ class FrameworkApi {
   /// Parameters:
   ///
   /// * [String] doctype (required):
-  ///   DocType is the document's DocType, from the path.
+  ///   DocType is the document's DocType, by ADDRESS — \"module.name\", from the path.
   ///
   /// * [String] name (required):
   ///   Name is the document's name — its key within the DocType — from the path. A name containing a space arrives percent-encoded and is decoded before it is matched against the stored one.
@@ -946,62 +840,6 @@ class FrameworkApi {
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
       return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Install',) as Install;
-    
-    }
-    return null;
-  }
-
-  /// Grants one user one role in the caller's org — how a member gains rights on a DocType, since permissions name roles and never users.
-  ///
-  /// Grants one user one role in the caller's org — how a member gains rights on a DocType, since permissions name roles and never users. Manager-only. Answers 201.
-  ///
-  /// Note: This method returns the HTTP [Response].
-  ///
-  /// Parameters:
-  ///
-  /// * [RoleAssignment] roleAssignment (required):
-  Future<Response> postFrameworkRolesWithHttpInfo(RoleAssignment roleAssignment,) async {
-    // ignore: prefer_const_declarations
-    final path = r'/v1/framework/roles';
-
-    // ignore: prefer_final_locals
-    Object? postBody = roleAssignment;
-
-    final queryParams = <QueryParam>[];
-    final headerParams = <String, String>{};
-    final formParams = <String, String>{};
-
-    const contentTypes = <String>['application/json'];
-
-
-    return apiClient.invokeAPI(
-      path,
-      'POST',
-      queryParams,
-      postBody,
-      headerParams,
-      formParams,
-      contentTypes.isEmpty ? null : contentTypes.first,
-    );
-  }
-
-  /// Grants one user one role in the caller's org — how a member gains rights on a DocType, since permissions name roles and never users.
-  ///
-  /// Grants one user one role in the caller's org — how a member gains rights on a DocType, since permissions name roles and never users. Manager-only. Answers 201.
-  ///
-  /// Parameters:
-  ///
-  /// * [RoleAssignment] roleAssignment (required):
-  Future<RoleAssignment?> postFrameworkRoles(RoleAssignment roleAssignment,) async {
-    final response = await postFrameworkRolesWithHttpInfo(roleAssignment,);
-    if (response.statusCode >= HttpStatus.badRequest) {
-      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
-    }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'RoleAssignment',) as RoleAssignment;
     
     }
     return null;

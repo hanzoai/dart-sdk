@@ -445,6 +445,8 @@ class ApiClient {
           return Arm.fromJson(value);
         case 'Article':
           return Article.fromJson(value);
+        case 'Artifact':
+          return Artifact.fromJson(value);
         case 'AskAnswer':
           return AskAnswer.fromJson(value);
         case 'AskPostIn':
@@ -481,6 +483,10 @@ class ApiClient {
           return AuthoredSkillList.fromJson(value);
         case 'AuthorizeOut':
           return AuthorizeOut.fromJson(value);
+        case 'AutoRecharge':
+          return AutoRecharge.fromJson(value);
+        case 'AutoRechargeEdit':
+          return AutoRechargeEdit.fromJson(value);
         case 'Backend':
           return Backend.fromJson(value);
         case 'BackendStatus':
@@ -797,6 +803,10 @@ class ApiClient {
           return Channel.fromJson(value);
         case 'ChannelAdd':
           return ChannelAdd.fromJson(value);
+        case 'ChannelAgents':
+          return ChannelAgents.fromJson(value);
+        case 'ChannelAgentsPut':
+          return ChannelAgentsPut.fromJson(value);
         case 'ChannelList':
           return ChannelList.fromJson(value);
         case 'ChannelMetric':
@@ -819,6 +829,8 @@ class ApiClient {
           return ChatRequest.fromJson(value);
         case 'ChatResponse':
           return ChatResponse.fromJson(value);
+        case 'Check':
+          return Check.fromJson(value);
         case 'CheckList':
           return CheckList.fromJson(value);
         case 'CheckView':
@@ -1073,6 +1085,8 @@ class ApiClient {
           return DatasetReq.fromJson(value);
         case 'DatasetView':
           return DatasetView.fromJson(value);
+        case 'Day':
+          return Day.fromJson(value);
         case 'DecideBody':
           return DecideBody.fromJson(value);
         case 'DecisionIn':
@@ -1175,6 +1189,12 @@ class ApiClient {
           return DriftFlag.fromJson(value);
         case 'DriftTally':
           return DriftTally.fromJson(value);
+        case 'DriveIn':
+          return DriveIn.fromJson(value);
+        case 'DriveItem':
+          return DriveItem.fromJson(value);
+        case 'DriveList':
+          return DriveList.fromJson(value);
         case 'Dropped':
           return Dropped.fromJson(value);
         case 'Durable':
@@ -1309,6 +1329,10 @@ class ApiClient {
           return ExecRequest.fromJson(value);
         case 'ExecResult':
           return ExecResult.fromJson(value);
+        case 'Execution':
+          return Execution.fromJson(value);
+        case 'Executions':
+          return Executions.fromJson(value);
         case 'ExperimentList':
           return ExperimentList.fromJson(value);
         case 'Extracted':
@@ -1319,12 +1343,18 @@ class ApiClient {
           return Field.fromJson(value);
         case 'Figure':
           return Figure.fromJson(value);
+        case 'Figures':
+          return Figures.fromJson(value);
         case 'FileContent':
           return FileContent.fromJson(value);
         case 'FileInput':
           return FileInput.fromJson(value);
+        case 'FileItem':
+          return FileItem.fromJson(value);
         case 'FileJSON':
           return FileJSON.fromJson(value);
+        case 'FileList':
+          return FileList.fromJson(value);
         case 'FilesJSON':
           return FilesJSON.fromJson(value);
         case 'Filing':
@@ -1633,6 +1663,8 @@ class ApiClient {
           return HfRepoInfo.fromJson(value);
         case 'HfSibling':
           return HfSibling.fromJson(value);
+        case 'History':
+          return History.fromJson(value);
         case 'HistoryOut':
           return HistoryOut.fromJson(value);
         case 'Hit':
@@ -1781,12 +1813,22 @@ class ApiClient {
           return IamSession.fromJson(value);
         case 'IamSetAvatarInput':
           return IamSetAvatarInput.fromJson(value);
+        case 'IamSetProfileInput':
+          return IamSetProfileInput.fromJson(value);
         case 'IamSigninItem':
           return IamSigninItem.fromJson(value);
         case 'IamSigninMethod':
           return IamSigninMethod.fromJson(value);
         case 'IamSignupItem':
           return IamSignupItem.fromJson(value);
+        case 'IamTeam':
+          return IamTeam.fromJson(value);
+        case 'IamTeamsDeleteOutput':
+          return IamTeamsDeleteOutput.fromJson(value);
+        case 'IamTeamsInput':
+          return IamTeamsInput.fromJson(value);
+        case 'IamTeamsListOutput':
+          return IamTeamsListOutput.fromJson(value);
         case 'IamThemeData':
           return IamThemeData.fromJson(value);
         case 'IamToggle':
@@ -2067,6 +2109,18 @@ class ApiClient {
           return LimitsView.fromJson(value);
         case 'LineItem':
           return LineItem.fromJson(value);
+        case 'LinearBackfillIn':
+          return LinearBackfillIn.fromJson(value);
+        case 'LinearBackfillResult':
+          return LinearBackfillResult.fromJson(value);
+        case 'LinearClaimIn':
+          return LinearClaimIn.fromJson(value);
+        case 'LinearClaimOut':
+          return LinearClaimOut.fromJson(value);
+        case 'LinearCommentIn':
+          return LinearCommentIn.fromJson(value);
+        case 'LinearCommentOut':
+          return LinearCommentOut.fromJson(value);
         case 'Link':
           return Link.fromJson(value);
         case 'LinkList':
@@ -2111,6 +2165,8 @@ class ApiClient {
           return MachineView.fromJson(value);
         case 'MakeIn':
           return MakeIn.fromJson(value);
+        case 'Market':
+          return Market.fromJson(value);
         case 'MarketCatalog':
           return MarketCatalog.fromJson(value);
         case 'MarketItem':
@@ -3939,18 +3995,14 @@ class ApiClient {
           return PathIn.fromJson(value);
         case 'PaymentConfig':
           return PaymentConfig.fromJson(value);
-        case 'PaymentIn':
-          return PaymentIn.fromJson(value);
-        case 'PaymentOut':
-          return PaymentOut.fromJson(value);
-        case 'PaymentRecord':
-          return PaymentRecord.fromJson(value);
         case 'Payout':
           return Payout.fromJson(value);
         case 'PeriodEarningView':
           return PeriodEarningView.fromJson(value);
         case 'PickOut':
           return PickOut.fromJson(value);
+        case 'Pipeline':
+          return Pipeline.fromJson(value);
         case 'PipelineBoard':
           return PipelineBoard.fromJson(value);
         case 'PipelineReq':
@@ -3959,6 +4011,8 @@ class ApiClient {
           return PipelineRow.fromJson(value);
         case 'PipelineView':
           return PipelineView.fromJson(value);
+        case 'Pipelines':
+          return Pipelines.fromJson(value);
         case 'PlanEntitlements':
           return PlanEntitlements.fromJson(value);
         case 'PlanHealth':
@@ -3995,10 +4049,14 @@ class ApiClient {
           return Policy.fromJson(value);
         case 'PolicyList':
           return PolicyList.fromJson(value);
+        case 'Pool':
+          return Pool.fromJson(value);
         case 'PoolCreate':
           return PoolCreate.fromJson(value);
         case 'PoolScale':
           return PoolScale.fromJson(value);
+        case 'Pools':
+          return Pools.fromJson(value);
         case 'PopulatedFlow':
           return PopulatedFlow.fromJson(value);
         case 'Position':
@@ -4071,6 +4129,8 @@ class ApiClient {
           return PostList.fromJson(value);
         case 'PostModelsByModelAccess200Response':
           return PostModelsByModelAccess200Response.fromJson(value);
+        case 'Precompile':
+          return Precompile.fromJson(value);
         case 'PrefsView':
           return PrefsView.fromJson(value);
         case 'Preset':
@@ -4263,6 +4323,8 @@ class ApiClient {
           return Range.fromJson(value);
         case 'RateCard':
           return RateCard.fromJson(value);
+        case 'Reach':
+          return Reach.fromJson(value);
         case 'Reachability':
           return Reachability.fromJson(value);
         case 'ReadOut':
@@ -4525,10 +4587,6 @@ class ApiClient {
           return RiskTrial.fromJson(value);
         case 'RiskValue':
           return RiskValue.fromJson(value);
-        case 'RoleAssignment':
-          return RoleAssignment.fromJson(value);
-        case 'RoleList':
-          return RoleList.fromJson(value);
         case 'RollbackReq':
           return RollbackReq.fromJson(value);
         case 'Rollup':
@@ -4541,6 +4599,8 @@ class ApiClient {
           return RoomWork.fromJson(value);
         case 'Root':
           return Root.fromJson(value);
+        case 'Roster':
+          return Roster.fromJson(value);
         case 'RoundInput':
           return RoundInput.fromJson(value);
         case 'RoundOut':
@@ -4815,6 +4875,14 @@ class ApiClient {
           return SourceToolList.fromJson(value);
         case 'Sources':
           return Sources.fromJson(value);
+        case 'SpaceHealth':
+          return SpaceHealth.fromJson(value);
+        case 'SpaceIn':
+          return SpaceIn.fromJson(value);
+        case 'SpaceItem':
+          return SpaceItem.fromJson(value);
+        case 'SpaceList':
+          return SpaceList.fromJson(value);
         case 'Span':
           return Span.fromJson(value);
         case 'SpanBody':
@@ -4913,6 +4981,8 @@ class ApiClient {
           return Suppression.fromJson(value);
         case 'SuppressionList':
           return SuppressionList.fromJson(value);
+        case 'Survey':
+          return Survey.fromJson(value);
         case 'Sweep':
           return Sweep.fromJson(value);
         case 'SyncList':
@@ -4949,10 +5019,18 @@ class ApiClient {
           return TaxonIn.fromJson(value);
         case 'Taxonomy':
           return Taxonomy.fromJson(value);
+        case 'TeamMessage':
+          return TeamMessage.fromJson(value);
+        case 'TeamMessageWrite':
+          return TeamMessageWrite.fromJson(value);
+        case 'TeamMessages':
+          return TeamMessages.fromJson(value);
         case 'TeamRoom':
           return TeamRoom.fromJson(value);
         case 'TeamRoomBind':
           return TeamRoomBind.fromJson(value);
+        case 'TeamRoomNew':
+          return TeamRoomNew.fromJson(value);
         case 'TeamRooms':
           return TeamRooms.fromJson(value);
         case 'Template':
@@ -4979,8 +5057,14 @@ class ApiClient {
           return TierLimits.fromJson(value);
         case 'Timeseries':
           return Timeseries.fromJson(value);
+        case 'Tip':
+          return Tip.fromJson(value);
         case 'TodoProject':
           return TodoProject.fromJson(value);
+        case 'Token':
+          return Token.fromJson(value);
+        case 'Tokens':
+          return Tokens.fromJson(value);
         case 'Tool':
           return Tool.fromJson(value);
         case 'ToolCall':

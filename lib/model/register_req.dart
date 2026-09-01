@@ -121,7 +121,7 @@ class RegisterReq {
   ///
   String? repo;
 
-  /// Room is the collaborative room this run was started in (HIP-0523), so a workspace view can list the sessions of one room. It is PROVENANCE and is set only here: there is deliberately no way to move a session to another room, so it is absent from the patch input and from UpdateSession's SET list.
+  /// Room is the collaborative room this run was started in (HIP-0523), so a space view can list the sessions of one room. It is PROVENANCE and is set only here: there is deliberately no way to move a session to another room, so it is absent from the patch input and from UpdateSession's SET list.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

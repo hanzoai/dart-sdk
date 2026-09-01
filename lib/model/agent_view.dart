@@ -13,9 +13,11 @@ part of hanzoai.cloud;
 class AgentView {
   /// Returns a new [AgentView] instance.
   AgentView({
+    this.avatar,
     this.computeRef,
     this.createdAt,
     this.description,
+    this.emoji,
     this.executionMode,
     this.id,
     this.model,
@@ -27,6 +29,15 @@ class AgentView {
     this.tools = const [],
     this.updatedAt,
   });
+  /// Avatar is an image the agent is drawn as — a link to one, or the bytes inline as a data URL, up to 96 KiB. Emoji is the one glyph a caller picked when they had no image. At most one is ever set; neither means the agent is drawn as its initial, the same way a person with no photo is. Both are iam/pkg/schema's Mark, so a face means the same thing on an agent as it does on a person or an org. Avatar is the agent's picture: an image URL, or the image itself inline as a data URL up to 96 KiB. Empty when the agent has no image.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? avatar;
+
   /// ComputeRef is the visor machine this bot is bound to, opaque here: this package stores and echoes it, and the binding's lifecycle belongs elsewhere. Empty means unbound, which is what every one-shot agent is.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -53,6 +64,15 @@ class AgentView {
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
   String? description;
+
+  /// Emoji is the single glyph a caller picked when they had no image. At most one of avatar and emoji is ever set; neither means the agent is drawn as its initial, the same way a person with no photo is.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? emoji;
 
   /// ExecutionMode is one-shot or long-running, and it decides who may start this agent. one-shot runs only when something POSTs to it; long-running is additionally invoked by the scheduler on Schedule, once a minute against the cron. An org's long-running agents are capped, so a switch INTO it can be refused with 409.
   ///
@@ -140,9 +160,11 @@ class AgentView {
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is AgentView &&
+    other.avatar == avatar &&
     other.computeRef == computeRef &&
     other.createdAt == createdAt &&
     other.description == description &&
+    other.emoji == emoji &&
     other.executionMode == executionMode &&
     other.id == id &&
     other.model == model &&
@@ -157,9 +179,11 @@ class AgentView {
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
+    (avatar == null ? 0 : avatar!.hashCode) +
     (computeRef == null ? 0 : computeRef!.hashCode) +
     (createdAt == null ? 0 : createdAt!.hashCode) +
     (description == null ? 0 : description!.hashCode) +
+    (emoji == null ? 0 : emoji!.hashCode) +
     (executionMode == null ? 0 : executionMode!.hashCode) +
     (id == null ? 0 : id!.hashCode) +
     (model == null ? 0 : model!.hashCode) +
@@ -172,10 +196,15 @@ class AgentView {
     (updatedAt == null ? 0 : updatedAt!.hashCode);
 
   @override
-  String toString() => 'AgentView[computeRef=$computeRef, createdAt=$createdAt, description=$description, executionMode=$executionMode, id=$id, model=$model, name=$name, runs=$runs, schedule=$schedule, serviceAccountId=$serviceAccountId, status=$status, tools=$tools, updatedAt=$updatedAt]';
+  String toString() => 'AgentView[avatar=$avatar, computeRef=$computeRef, createdAt=$createdAt, description=$description, emoji=$emoji, executionMode=$executionMode, id=$id, model=$model, name=$name, runs=$runs, schedule=$schedule, serviceAccountId=$serviceAccountId, status=$status, tools=$tools, updatedAt=$updatedAt]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
+    if (this.avatar != null) {
+      json[r'avatar'] = this.avatar;
+    } else {
+      json[r'avatar'] = null;
+    }
     if (this.computeRef != null) {
       json[r'computeRef'] = this.computeRef;
     } else {
@@ -190,6 +219,11 @@ class AgentView {
       json[r'description'] = this.description;
     } else {
       json[r'description'] = null;
+    }
+    if (this.emoji != null) {
+      json[r'emoji'] = this.emoji;
+    } else {
+      json[r'emoji'] = null;
     }
     if (this.executionMode != null) {
       json[r'executionMode'] = this.executionMode;
@@ -259,9 +293,11 @@ class AgentView {
       }());
 
       return AgentView(
+        avatar: mapValueOfType<String>(json, r'avatar'),
         computeRef: mapValueOfType<String>(json, r'computeRef'),
         createdAt: mapValueOfType<String>(json, r'createdAt'),
         description: mapValueOfType<String>(json, r'description'),
+        emoji: mapValueOfType<String>(json, r'emoji'),
         executionMode: mapValueOfType<String>(json, r'executionMode'),
         id: mapValueOfType<String>(json, r'id'),
         model: mapValueOfType<String>(json, r'model'),

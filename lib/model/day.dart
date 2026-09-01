@@ -10,165 +10,175 @@
 
 part of hanzoai.cloud;
 
-class PaymentRecord {
-  /// Returns a new [PaymentRecord] instance.
-  PaymentRecord({
-    this.amountCents,
-    this.createdAt,
-    this.currency,
-    this.id,
-    this.notes,
-    this.status,
-    this.subject,
-    this.test,
+class Day {
+  /// Returns a new [Day] instance.
+  Day({
+    this.close,
+    this.count,
+    this.date,
+    this.high,
+    this.locked,
+    this.low,
+    this.open,
+    this.price,
+    this.volume,
   });
-  /// AmountCents is the credited amount in whole cents.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  int? amountCents;
+  String? close;
 
-  /// CreatedAt is when the credit was written, RFC3339.
+  /// Count is transactions in the day, where the table keeps one.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? createdAt;
+  int? count;
 
-  /// Currency is the ISO 4217 code.
+  /// Date is the day's start, unix seconds.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? currency;
+  int? date;
 
-  /// ID is the ledger transaction id.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? id;
+  String? high;
 
-  /// Notes is the ledger memo, carrying the processor and its reference.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? notes;
+  String? locked;
 
-  /// Status is the payment's state. This ledger writes a deposit only AFTER the processor settled, so a payment that can be read is one that succeeded.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? status;
+  String? low;
 
-  /// Subject is the billing key this payment credited.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? subject;
+  String? open;
 
-  /// Test reports whether this was a sandbox charge (test balance) or live money.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  bool? test;
+  String? price;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? volume;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is PaymentRecord &&
-    other.amountCents == amountCents &&
-    other.createdAt == createdAt &&
-    other.currency == currency &&
-    other.id == id &&
-    other.notes == notes &&
-    other.status == status &&
-    other.subject == subject &&
-    other.test == test;
+  bool operator ==(Object other) => identical(this, other) || other is Day &&
+    other.close == close &&
+    other.count == count &&
+    other.date == date &&
+    other.high == high &&
+    other.locked == locked &&
+    other.low == low &&
+    other.open == open &&
+    other.price == price &&
+    other.volume == volume;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (amountCents == null ? 0 : amountCents!.hashCode) +
-    (createdAt == null ? 0 : createdAt!.hashCode) +
-    (currency == null ? 0 : currency!.hashCode) +
-    (id == null ? 0 : id!.hashCode) +
-    (notes == null ? 0 : notes!.hashCode) +
-    (status == null ? 0 : status!.hashCode) +
-    (subject == null ? 0 : subject!.hashCode) +
-    (test == null ? 0 : test!.hashCode);
+    (close == null ? 0 : close!.hashCode) +
+    (count == null ? 0 : count!.hashCode) +
+    (date == null ? 0 : date!.hashCode) +
+    (high == null ? 0 : high!.hashCode) +
+    (locked == null ? 0 : locked!.hashCode) +
+    (low == null ? 0 : low!.hashCode) +
+    (open == null ? 0 : open!.hashCode) +
+    (price == null ? 0 : price!.hashCode) +
+    (volume == null ? 0 : volume!.hashCode);
 
   @override
-  String toString() => 'PaymentRecord[amountCents=$amountCents, createdAt=$createdAt, currency=$currency, id=$id, notes=$notes, status=$status, subject=$subject, test=$test]';
+  String toString() => 'Day[close=$close, count=$count, date=$date, high=$high, locked=$locked, low=$low, open=$open, price=$price, volume=$volume]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.amountCents != null) {
-      json[r'amountCents'] = this.amountCents;
+    if (this.close != null) {
+      json[r'close'] = this.close;
     } else {
-      json[r'amountCents'] = null;
+      json[r'close'] = null;
     }
-    if (this.createdAt != null) {
-      json[r'createdAt'] = this.createdAt;
+    if (this.count != null) {
+      json[r'count'] = this.count;
     } else {
-      json[r'createdAt'] = null;
+      json[r'count'] = null;
     }
-    if (this.currency != null) {
-      json[r'currency'] = this.currency;
+    if (this.date != null) {
+      json[r'date'] = this.date;
     } else {
-      json[r'currency'] = null;
+      json[r'date'] = null;
     }
-    if (this.id != null) {
-      json[r'id'] = this.id;
+    if (this.high != null) {
+      json[r'high'] = this.high;
     } else {
-      json[r'id'] = null;
+      json[r'high'] = null;
     }
-    if (this.notes != null) {
-      json[r'notes'] = this.notes;
+    if (this.locked != null) {
+      json[r'locked'] = this.locked;
     } else {
-      json[r'notes'] = null;
+      json[r'locked'] = null;
     }
-    if (this.status != null) {
-      json[r'status'] = this.status;
+    if (this.low != null) {
+      json[r'low'] = this.low;
     } else {
-      json[r'status'] = null;
+      json[r'low'] = null;
     }
-    if (this.subject != null) {
-      json[r'subject'] = this.subject;
+    if (this.open != null) {
+      json[r'open'] = this.open;
     } else {
-      json[r'subject'] = null;
+      json[r'open'] = null;
     }
-    if (this.test != null) {
-      json[r'test'] = this.test;
+    if (this.price != null) {
+      json[r'price'] = this.price;
     } else {
-      json[r'test'] = null;
+      json[r'price'] = null;
+    }
+    if (this.volume != null) {
+      json[r'volume'] = this.volume;
+    } else {
+      json[r'volume'] = null;
     }
     return json;
   }
 
-  /// Returns a new [PaymentRecord] instance and imports its values from
+  /// Returns a new [Day] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static PaymentRecord? fromJson(dynamic value) {
+  static Day? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -177,31 +187,32 @@ class PaymentRecord {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "PaymentRecord[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "PaymentRecord[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "Day[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "Day[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return PaymentRecord(
-        amountCents: mapValueOfType<int>(json, r'amountCents'),
-        createdAt: mapValueOfType<String>(json, r'createdAt'),
-        currency: mapValueOfType<String>(json, r'currency'),
-        id: mapValueOfType<String>(json, r'id'),
-        notes: mapValueOfType<String>(json, r'notes'),
-        status: mapValueOfType<String>(json, r'status'),
-        subject: mapValueOfType<String>(json, r'subject'),
-        test: mapValueOfType<bool>(json, r'test'),
+      return Day(
+        close: mapValueOfType<String>(json, r'close'),
+        count: mapValueOfType<int>(json, r'count'),
+        date: mapValueOfType<int>(json, r'date'),
+        high: mapValueOfType<String>(json, r'high'),
+        locked: mapValueOfType<String>(json, r'locked'),
+        low: mapValueOfType<String>(json, r'low'),
+        open: mapValueOfType<String>(json, r'open'),
+        price: mapValueOfType<String>(json, r'price'),
+        volume: mapValueOfType<String>(json, r'volume'),
       );
     }
     return null;
   }
 
-  static List<PaymentRecord> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <PaymentRecord>[];
+  static List<Day> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <Day>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = PaymentRecord.fromJson(row);
+        final value = Day.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -210,12 +221,12 @@ class PaymentRecord {
     return result.toList(growable: growable);
   }
 
-  static Map<String, PaymentRecord> mapFromJson(dynamic json) {
-    final map = <String, PaymentRecord>{};
+  static Map<String, Day> mapFromJson(dynamic json) {
+    final map = <String, Day>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = PaymentRecord.fromJson(entry.value);
+        final value = Day.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -224,14 +235,14 @@ class PaymentRecord {
     return map;
   }
 
-  // maps a json object with a list of PaymentRecord-objects as value to a dart map
-  static Map<String, List<PaymentRecord>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<PaymentRecord>>{};
+  // maps a json object with a list of Day-objects as value to a dart map
+  static Map<String, List<Day>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<Day>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = PaymentRecord.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = Day.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

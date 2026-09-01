@@ -25,7 +25,7 @@ class OnboardReq {
   ///
   String? name;
 
-  /// Personal asks for the caller's own workspace: the name is derived from their username and the slug auto-suffixes to stay unique. Meaningless — and refused — for a caller who already has an organization.
+  /// Personal asks for the caller's own space: the name is derived from their username and the slug auto-suffixes to stay unique. Meaningless — and refused — for a caller who already has an organization.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

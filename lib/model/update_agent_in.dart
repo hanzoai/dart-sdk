@@ -13,8 +13,10 @@ part of hanzoai.cloud;
 class UpdateAgentIn {
   /// Returns a new [UpdateAgentIn] instance.
   UpdateAgentIn({
+    this.avatar,
     this.computeRef,
     this.description,
+    this.emoji,
     this.executionMode,
     this.instructions,
     this.model,
@@ -23,6 +25,15 @@ class UpdateAgentIn {
     this.serviceAccountId,
     this.tools = const [],
   });
+  /// Avatar and Emoji re-draw the agent. Sending either replaces the pair, so setting an image clears a glyph and \"\" for both goes back to the initial — there is no state where a row holds two answers.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? avatar;
+
   /// ComputeRef re-binds (or, with \"\", unbinds) the visor machine. Opaque here.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -40,6 +51,15 @@ class UpdateAgentIn {
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
   String? description;
+
+  /// Emoji re-draws the agent as a glyph. Sending either of the pair replaces BOTH, so setting a glyph clears an image and \"\" for both goes back to the initial — there is no state where a row holds two answers.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? emoji;
 
   /// ExecutionMode switches between one-shot and long-running. The RESULTING mode+schedule are validated together, so switching to long-running without a stored or supplied cron is refused rather than accepted into an agent the scheduler would skip forever. A switch INTO long-running counts against the per-org cap and can be a 409.
   ///
@@ -100,8 +120,10 @@ class UpdateAgentIn {
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is UpdateAgentIn &&
+    other.avatar == avatar &&
     other.computeRef == computeRef &&
     other.description == description &&
+    other.emoji == emoji &&
     other.executionMode == executionMode &&
     other.instructions == instructions &&
     other.model == model &&
@@ -113,8 +135,10 @@ class UpdateAgentIn {
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
+    (avatar == null ? 0 : avatar!.hashCode) +
     (computeRef == null ? 0 : computeRef!.hashCode) +
     (description == null ? 0 : description!.hashCode) +
+    (emoji == null ? 0 : emoji!.hashCode) +
     (executionMode == null ? 0 : executionMode!.hashCode) +
     (instructions == null ? 0 : instructions!.hashCode) +
     (model == null ? 0 : model!.hashCode) +
@@ -124,10 +148,15 @@ class UpdateAgentIn {
     (tools.hashCode);
 
   @override
-  String toString() => 'UpdateAgentIn[computeRef=$computeRef, description=$description, executionMode=$executionMode, instructions=$instructions, model=$model, ref=$ref, schedule=$schedule, serviceAccountId=$serviceAccountId, tools=$tools]';
+  String toString() => 'UpdateAgentIn[avatar=$avatar, computeRef=$computeRef, description=$description, emoji=$emoji, executionMode=$executionMode, instructions=$instructions, model=$model, ref=$ref, schedule=$schedule, serviceAccountId=$serviceAccountId, tools=$tools]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
+    if (this.avatar != null) {
+      json[r'avatar'] = this.avatar;
+    } else {
+      json[r'avatar'] = null;
+    }
     if (this.computeRef != null) {
       json[r'computeRef'] = this.computeRef;
     } else {
@@ -137,6 +166,11 @@ class UpdateAgentIn {
       json[r'description'] = this.description;
     } else {
       json[r'description'] = null;
+    }
+    if (this.emoji != null) {
+      json[r'emoji'] = this.emoji;
+    } else {
+      json[r'emoji'] = null;
     }
     if (this.executionMode != null) {
       json[r'executionMode'] = this.executionMode;
@@ -191,8 +225,10 @@ class UpdateAgentIn {
       }());
 
       return UpdateAgentIn(
+        avatar: mapValueOfType<String>(json, r'avatar'),
         computeRef: mapValueOfType<String>(json, r'computeRef'),
         description: mapValueOfType<String>(json, r'description'),
+        emoji: mapValueOfType<String>(json, r'emoji'),
         executionMode: mapValueOfType<String>(json, r'executionMode'),
         instructions: mapValueOfType<String>(json, r'instructions'),
         model: mapValueOfType<String>(json, r'model'),

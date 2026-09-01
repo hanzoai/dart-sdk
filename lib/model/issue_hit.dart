@@ -79,7 +79,7 @@ class IssueHit {
   ///
   String? repo;
 
-  /// Room is the collaboration room the issue belongs to, spelled \"<workspace>_<room>\" — empty when it is not room-bound, which is most of them. It is here so an org-wide search says which channel each item came from without a second read.
+  /// Room is the collaboration room the issue belongs to, spelled \"<space>_<room>\" — empty when it is not room-bound, which is most of them. It is here so an org-wide search says which channel each item came from without a second read.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

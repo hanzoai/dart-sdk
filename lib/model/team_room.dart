@@ -21,8 +21,8 @@ class TeamRoom {
     this.members = const [],
     this.name,
     this.private,
+    this.space,
     this.topic,
-    this.workspace,
   });
   /// Archived reports that the room has been closed. It is the platform's own Space attribute — the same one the Team client writes — and NOT a field of the work facet, so there is exactly one answer to \"is this room open\".
   ///
@@ -45,7 +45,7 @@ class TeamRoom {
   ///
   bool? direct;
 
-  /// ID is the room document's own id, and the value the bind op addresses. It is unique within a workspace, not across the org.
+  /// ID is the room document's own id, and the value the bind op addresses. It is unique within a space, not across the org.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -63,7 +63,7 @@ class TeamRoom {
   ///
   String? life;
 
-  /// Members are the account uuids in the room, agents included: an agent projects as a workspace member under a uuid derived from its id, so a caller comparing this against GET /v1/team/bots learns which rooms an agent is in.
+  /// Members are the account uuids in the room, agents included: an agent projects as a space member under a uuid derived from its id, so a caller comparing this against GET /v1/team/bots learns which rooms an agent is in.
   List<String> members;
 
   /// Name is what a person sees in a sidebar. A direct message carries none, so this is empty for one — the members are its name.
@@ -84,6 +84,15 @@ class TeamRoom {
   ///
   bool? private;
 
+  /// Space is the space uuid holding this room. It is part of the room's address: two spaces of one org may each hold a room with the same name, and only the pair identifies one.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? space;
+
   /// Topic is the room's own one-line subject, as the Team client sets it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -92,15 +101,6 @@ class TeamRoom {
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
   String? topic;
-
-  /// Workspace is the workspace uuid holding this room. It is part of the room's address: two workspaces of one org may each hold a room with the same name, and only the pair identifies one.
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? workspace;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is TeamRoom &&
@@ -112,8 +112,8 @@ class TeamRoom {
     _deepEquality.equals(other.members, members) &&
     other.name == name &&
     other.private == private &&
-    other.topic == topic &&
-    other.workspace == workspace;
+    other.space == space &&
+    other.topic == topic;
 
   @override
   int get hashCode =>
@@ -126,11 +126,11 @@ class TeamRoom {
     (members.hashCode) +
     (name == null ? 0 : name!.hashCode) +
     (private == null ? 0 : private!.hashCode) +
-    (topic == null ? 0 : topic!.hashCode) +
-    (workspace == null ? 0 : workspace!.hashCode);
+    (space == null ? 0 : space!.hashCode) +
+    (topic == null ? 0 : topic!.hashCode);
 
   @override
-  String toString() => 'TeamRoom[archived=$archived, bindings=$bindings, direct=$direct, id=$id, life=$life, members=$members, name=$name, private=$private, topic=$topic, workspace=$workspace]';
+  String toString() => 'TeamRoom[archived=$archived, bindings=$bindings, direct=$direct, id=$id, life=$life, members=$members, name=$name, private=$private, space=$space, topic=$topic]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -166,15 +166,15 @@ class TeamRoom {
     } else {
       json[r'private'] = null;
     }
+    if (this.space != null) {
+      json[r'space'] = this.space;
+    } else {
+      json[r'space'] = null;
+    }
     if (this.topic != null) {
       json[r'topic'] = this.topic;
     } else {
       json[r'topic'] = null;
-    }
-    if (this.workspace != null) {
-      json[r'workspace'] = this.workspace;
-    } else {
-      json[r'workspace'] = null;
     }
     return json;
   }
@@ -210,8 +210,8 @@ class TeamRoom {
             : const [],
         name: mapValueOfType<String>(json, r'name'),
         private: mapValueOfType<bool>(json, r'private'),
+        space: mapValueOfType<String>(json, r'space'),
         topic: mapValueOfType<String>(json, r'topic'),
-        workspace: mapValueOfType<String>(json, r'workspace'),
       );
     }
     return null;

@@ -761,7 +761,7 @@ class AgentsApi {
   ///   Project filters to the sessions tagged with one product slug.
   ///
   /// * [String] room:
-  ///   Room filters to the sessions started in one collaborative room — the query a workspace view runs to show what has been run in it.
+  ///   Room filters to the sessions started in one collaborative room — the query a space view runs to show what has been run in it.
   ///
   /// * [int] limit:
   ///   Limit caps the page. Absent, zero or over 500 reads as 100.
@@ -828,7 +828,7 @@ class AgentsApi {
   ///   Project filters to the sessions tagged with one product slug.
   ///
   /// * [String] room:
-  ///   Room filters to the sessions started in one collaborative room — the query a workspace view runs to show what has been run in it.
+  ///   Room filters to the sessions started in one collaborative room — the query a space view runs to show what has been run in it.
   ///
   /// * [int] limit:
   ///   Limit caps the page. Absent, zero or over 500 reads as 100.
@@ -1569,6 +1569,46 @@ class AgentsApi {
   /// Answers one turn of a conversation with four things: the model's `reply`, the `actions` the server executed on the caller's behalf, the `ops` the client must apply itself, and the `conversationId` the turn was recorded under.  The split between actions and ops is the rule most easily got wrong. A tool call is executed HERE only when the chosen preset is server-executing AND the tool resolves in the caller's own scope; every other call is handed back as an op for the client to apply to its own graph or UI. A tool that fails still comes back as an action, carrying its error rather than failing the round.  `preset` selects the system prompt and the tool set (`capability` is a legacy alias for it); an unknown one is refused. `conversationId` continues an existing thread, and its absence starts one. A validated principal with a non-empty org is required — the org is the sole authority for both persistence and tool scope, and is NEVER read from the body.  A completion refused for the caller's own reason — 402 insufficient balance, 429, 403 — is relayed with its own status and body verbatim, so the real billing message reaches the client instead of an opaque gateway error. Only a genuine upstream fault becomes a 502.
   Future<void> postAgentsChat() async {
     final response = await postAgentsChatWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+  }
+
+  /// Record turns in a conversation
+  ///
+  /// Writes turns to the caller's thread store without running a completion, and answers the `conversationId` they were written under. An absent `conversationId` opens a new thread; supplying one appends to it.  This is for a client that streams its own turn through /v1/chat/completions and still wants the conversation in its history — the round records what IT answers, and is otherwise the only writer. It takes the same store, the same per-org isolation and the same notion of a thread: what is recorded here reads back through the two GETs beside it and the round can continue it by id. A validated principal with a non-empty org is required; 403 without one.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> postAgentsChatConversationsWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/agents/chat/conversations';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Record turns in a conversation
+  ///
+  /// Writes turns to the caller's thread store without running a completion, and answers the `conversationId` they were written under. An absent `conversationId` opens a new thread; supplying one appends to it.  This is for a client that streams its own turn through /v1/chat/completions and still wants the conversation in its history — the round records what IT answers, and is otherwise the only writer. It takes the same store, the same per-org isolation and the same notion of a thread: what is recorded here reads back through the two GETs beside it and the round can continue it by id. A validated principal with a non-empty org is required; 403 without one.
+  Future<void> postAgentsChatConversations() async {
+    final response = await postAgentsChatConversationsWithHttpInfo();
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }

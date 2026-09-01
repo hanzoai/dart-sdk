@@ -13,6 +13,7 @@ part of hanzoai.cloud;
 class IssueEdit {
   /// Returns a new [IssueEdit] instance.
   IssueEdit({
+    this.assignee,
     this.description,
     this.key,
     this.num_,
@@ -20,6 +21,15 @@ class IssueEdit {
     this.status,
     this.title,
   });
+  /// Assignee hands the work to somebody — a person or an agent, by the name they are known by on the forge. \"\" TAKES IT OFF whoever holds it, which is why this is a pointer: absent leaves the holder alone.  It is the other half of `claim`, which that handler already named: a claim takes work for the CALLER and refuses to name anyone else, because giving work away is a different act with different authority. This is that act, and until it existed a board could only be worked by whoever clicked first — an agent could never be given anything.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? assignee;
+
   /// Description rewrites the body.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -76,6 +86,7 @@ class IssueEdit {
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is IssueEdit &&
+    other.assignee == assignee &&
     other.description == description &&
     other.key == key &&
     other.num_ == num_ &&
@@ -86,6 +97,7 @@ class IssueEdit {
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
+    (assignee == null ? 0 : assignee!.hashCode) +
     (description == null ? 0 : description!.hashCode) +
     (key == null ? 0 : key!.hashCode) +
     (num_ == null ? 0 : num_!.hashCode) +
@@ -94,10 +106,15 @@ class IssueEdit {
     (title == null ? 0 : title!.hashCode);
 
   @override
-  String toString() => 'IssueEdit[description=$description, key=$key, num_=$num_, priority=$priority, status=$status, title=$title]';
+  String toString() => 'IssueEdit[assignee=$assignee, description=$description, key=$key, num_=$num_, priority=$priority, status=$status, title=$title]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
+    if (this.assignee != null) {
+      json[r'assignee'] = this.assignee;
+    } else {
+      json[r'assignee'] = null;
+    }
     if (this.description != null) {
       json[r'description'] = this.description;
     } else {
@@ -150,6 +167,7 @@ class IssueEdit {
       }());
 
       return IssueEdit(
+        assignee: mapValueOfType<String>(json, r'assignee'),
         description: mapValueOfType<String>(json, r'description'),
         key: mapValueOfType<String>(json, r'key'),
         num_: mapValueOfType<int>(json, r'num'),

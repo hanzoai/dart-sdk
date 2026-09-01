@@ -16,7 +16,7 @@ class TeamRoomBind {
     this.bindings = const [],
     this.id,
     this.life,
-    this.workspace,
+    this.space,
   });
   /// Bindings REPLACES what the room is about, wholly. It is a replace and not a merge because a caller that cannot remove a binding would have no way to correct a wrong one, and an empty list sent explicitly is how a room is unbound. Absent (null) leaves the existing list alone.
   List<String> bindings;
@@ -39,21 +39,21 @@ class TeamRoomBind {
   ///
   String? life;
 
-  /// Workspace names the workspace holding the room. It is required, because a room id is unique only within one and searching every workspace for a matching id would make the write's target depend on iteration order.
+  /// Space names the space holding the room. It is required, because a room id is unique only within one and searching every space for a matching id would make the write's target depend on iteration order.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? workspace;
+  String? space;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is TeamRoomBind &&
     _deepEquality.equals(other.bindings, bindings) &&
     other.id == id &&
     other.life == life &&
-    other.workspace == workspace;
+    other.space == space;
 
   @override
   int get hashCode =>
@@ -61,10 +61,10 @@ class TeamRoomBind {
     (bindings.hashCode) +
     (id == null ? 0 : id!.hashCode) +
     (life == null ? 0 : life!.hashCode) +
-    (workspace == null ? 0 : workspace!.hashCode);
+    (space == null ? 0 : space!.hashCode);
 
   @override
-  String toString() => 'TeamRoomBind[bindings=$bindings, id=$id, life=$life, workspace=$workspace]';
+  String toString() => 'TeamRoomBind[bindings=$bindings, id=$id, life=$life, space=$space]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -79,10 +79,10 @@ class TeamRoomBind {
     } else {
       json[r'life'] = null;
     }
-    if (this.workspace != null) {
-      json[r'workspace'] = this.workspace;
+    if (this.space != null) {
+      json[r'space'] = this.space;
     } else {
-      json[r'workspace'] = null;
+      json[r'space'] = null;
     }
     return json;
   }
@@ -111,7 +111,7 @@ class TeamRoomBind {
             : const [],
         id: mapValueOfType<String>(json, r'id'),
         life: mapValueOfType<String>(json, r'life'),
-        workspace: mapValueOfType<String>(json, r'workspace'),
+        space: mapValueOfType<String>(json, r'space'),
       );
     }
     return null;

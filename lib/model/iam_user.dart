@@ -82,7 +82,6 @@ class IamUser {
     this.github,
     this.gitlab,
     this.google,
-    this.groups = const [],
     this.hash,
     this.heroku,
     this.homepage,
@@ -151,7 +150,6 @@ class IamUser {
     this.patreon,
     this.paypal,
     this.permanentAvatar,
-    this.permissions = const [],
     this.phone,
     this.preHash,
     this.preferredMfaType,
@@ -163,7 +161,6 @@ class IamUser {
     this.region,
     this.registerSource,
     this.registerType,
-    this.roles = const [],
     this.salesforce,
     this.score,
     this.shopify,
@@ -201,7 +198,7 @@ class IamUser {
     this.yandex,
     this.zoom,
   });
-  /// API credentials. AccessSecret / AccessSecretHash / the OAuth tokens are bearer material. AccessSecretHash MUST persist (orm stores via JSON; a json:\"-\" field is never saved), so it carries a real json tag and the handler's redact() strips it (and AccessSecret + the token fields) before responding.
+  /// API credentials. AccessSecret / AccessSecretHash / the OAuth tokens are bearer material, so Mask blanks them and the handler's redact() strips them before responding. They carry real json tags because a field orm never saves is a field that silently vanishes.  A presented secret is resolved through Key.AccessSecretDigest and nowhere else, so no credential is ISSUED into these columns: they hold what older rows left behind, and every writer that touches them clears them.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -728,8 +725,6 @@ class IamUser {
   ///
   String? google;
 
-  List<String> groups;
-
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -1255,8 +1250,6 @@ class IamUser {
   ///
   String? permanentAvatar;
 
-  List<IamPermission> permissions;
-
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -1332,9 +1325,6 @@ class IamUser {
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
   String? registerType;
-
-  /// Authorization attachments. Roles and Permissions are computed on read from the authz store and carried here for API parity with v1.
-  List<IamRole> roles;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -1690,7 +1680,6 @@ class IamUser {
     other.github == github &&
     other.gitlab == gitlab &&
     other.google == google &&
-    _deepEquality.equals(other.groups, groups) &&
     other.hash == hash &&
     other.heroku == heroku &&
     other.homepage == homepage &&
@@ -1759,7 +1748,6 @@ class IamUser {
     other.patreon == patreon &&
     other.paypal == paypal &&
     other.permanentAvatar == permanentAvatar &&
-    _deepEquality.equals(other.permissions, permissions) &&
     other.phone == phone &&
     other.preHash == preHash &&
     other.preferredMfaType == preferredMfaType &&
@@ -1771,7 +1759,6 @@ class IamUser {
     other.region == region &&
     other.registerSource == registerSource &&
     other.registerType == registerType &&
-    _deepEquality.equals(other.roles, roles) &&
     other.salesforce == salesforce &&
     other.score == score &&
     other.shopify == shopify &&
@@ -1881,7 +1868,6 @@ class IamUser {
     (github == null ? 0 : github!.hashCode) +
     (gitlab == null ? 0 : gitlab!.hashCode) +
     (google == null ? 0 : google!.hashCode) +
-    (groups.hashCode) +
     (hash == null ? 0 : hash!.hashCode) +
     (heroku == null ? 0 : heroku!.hashCode) +
     (homepage == null ? 0 : homepage!.hashCode) +
@@ -1950,7 +1936,6 @@ class IamUser {
     (patreon == null ? 0 : patreon!.hashCode) +
     (paypal == null ? 0 : paypal!.hashCode) +
     (permanentAvatar == null ? 0 : permanentAvatar!.hashCode) +
-    (permissions.hashCode) +
     (phone == null ? 0 : phone!.hashCode) +
     (preHash == null ? 0 : preHash!.hashCode) +
     (preferredMfaType == null ? 0 : preferredMfaType!.hashCode) +
@@ -1962,7 +1947,6 @@ class IamUser {
     (region == null ? 0 : region!.hashCode) +
     (registerSource == null ? 0 : registerSource!.hashCode) +
     (registerType == null ? 0 : registerType!.hashCode) +
-    (roles.hashCode) +
     (salesforce == null ? 0 : salesforce!.hashCode) +
     (score == null ? 0 : score!.hashCode) +
     (shopify == null ? 0 : shopify!.hashCode) +
@@ -2001,7 +1985,7 @@ class IamUser {
     (zoom == null ? 0 : zoom!.hashCode);
 
   @override
-  String toString() => 'IamUser[accessKey=$accessKey, accessSecret=$accessSecret, accessSecretHash=$accessSecretHash, accessToken=$accessToken, address=$address, addresses=$addresses, adfs=$adfs, affiliation=$affiliation, alipay=$alipay, amazon=$amazon, apple=$apple, applicationScopes=$applicationScopes, auth0=$auth0, avatar=$avatar, avatarType=$avatarType, azuread=$azuread, azureadb2c=$azureadb2c, baidu=$baidu, balance=$balance, balanceCredit=$balanceCredit, balanceCurrency=$balanceCurrency, battlenet=$battlenet, bilibili=$bilibili, bio=$bio, birthday=$birthday, bitbucket=$bitbucket, box=$box, cart=$cart, cloudfoundry=$cloudfoundry, countryCode=$countryCode, createdAt=$createdAt, createdIp=$createdIp, createdTime=$createdTime, currency=$currency, custom=$custom, custom2=$custom2, custom3=$custom3, custom4=$custom4, custom5=$custom5, custom6=$custom6, custom7=$custom7, custom8=$custom8, custom9=$custom9, custom10=$custom10, dailymotion=$dailymotion, deezer=$deezer, deleted=$deleted, deletedTime=$deletedTime, digitalocean=$digitalocean, dingtalk=$dingtalk, discord=$discord, displayName=$displayName, douyin=$douyin, dropbox=$dropbox, education=$education, email=$email, emailVerified=$emailVerified, eveonline=$eveonline, externalId=$externalId, faceIds=$faceIds, facebook=$facebook, firstName=$firstName, fitbit=$fitbit, gender=$gender, gitea=$gitea, gitee=$gitee, github=$github, gitlab=$gitlab, google=$google, groups=$groups, hash=$hash, heroku=$heroku, homepage=$homepage, iam=$iam, id=$id, idCard=$idCard, idCardType=$idCardType, influxcloud=$influxcloud, infoflow=$infoflow, instagram=$instagram, intercom=$intercom, invitation=$invitation, invitationCode=$invitationCode, ipWhitelist=$ipWhitelist, isAdmin=$isAdmin, isDefaultAvatar=$isDefaultAvatar, isDeleted=$isDeleted, isForbidden=$isForbidden, isOnline=$isOnline, isVerified=$isVerified, kakao=$kakao, karma=$karma, kwai=$kwai, language=$language, lark=$lark, lastChangePasswordTime=$lastChangePasswordTime, lastName=$lastName, lastSigninIp=$lastSigninIp, lastSigninTime=$lastSigninTime, lastSigninWrongTime=$lastSigninWrongTime, lastfm=$lastfm, ldap=$ldap, line=$line, linkedin=$linkedin, location=$location, mailru=$mailru, managedAccounts=$managedAccounts, meetup=$meetup, mfaAccounts=$mfaAccounts, mfaEmailEnabled=$mfaEmailEnabled, mfaItems=$mfaItems, mfaPhoneEnabled=$mfaPhoneEnabled, mfaPushEnabled=$mfaPushEnabled, mfaPushProvider=$mfaPushProvider, mfaPushReceiver=$mfaPushReceiver, mfaRadiusEnabled=$mfaRadiusEnabled, mfaRadiusProvider=$mfaRadiusProvider, mfaRadiusUsername=$mfaRadiusUsername, mfaRememberDeadline=$mfaRememberDeadline, mfaRememberDigest=$mfaRememberDigest, microsoftonline=$microsoftonline, multiFactorAuths=$multiFactorAuths, name=$name, naver=$naver, needUpdatePassword=$needUpdatePassword, nextcloud=$nextcloud, okta=$okta, onedrive=$onedrive, originalRefreshToken=$originalRefreshToken, originalToken=$originalToken, oura=$oura, owner=$owner, passwordHash=$passwordHash, passwordSalt=$passwordSalt, passwordType=$passwordType, patreon=$patreon, paypal=$paypal, permanentAvatar=$permanentAvatar, permissions=$permissions, phone=$phone, preHash=$preHash, preferredMfaType=$preferredMfaType, properties=$properties, qq=$qq, ranking=$ranking, realName=$realName, recoveryCodes=$recoveryCodes, region=$region, registerSource=$registerSource, registerType=$registerType, roles=$roles, salesforce=$salesforce, score=$score, shopify=$shopify, signinWrongTimes=$signinWrongTimes, signupApplication=$signupApplication, slack=$slack, soundcloud=$soundcloud, spotify=$spotify, steam=$steam, strava=$strava, stripe=$stripe, tag=$tag, telegram=$telegram, tiktok=$tiktok, title=$title, totpSecret=$totpSecret, tumblr=$tumblr, twitch=$twitch, twitter=$twitter, type=$type, typetalk=$typetalk, uber=$uber, updatedAt=$updatedAt, updatedTime=$updatedTime, verificationCode=$verificationCode, vk=$vk, webauthnCredentials=$webauthnCredentials, wechat=$wechat, wecom=$wecom, weibo=$weibo, wepay=$wepay, xero=$xero, yahoo=$yahoo, yammer=$yammer, yandex=$yandex, zoom=$zoom]';
+  String toString() => 'IamUser[accessKey=$accessKey, accessSecret=$accessSecret, accessSecretHash=$accessSecretHash, accessToken=$accessToken, address=$address, addresses=$addresses, adfs=$adfs, affiliation=$affiliation, alipay=$alipay, amazon=$amazon, apple=$apple, applicationScopes=$applicationScopes, auth0=$auth0, avatar=$avatar, avatarType=$avatarType, azuread=$azuread, azureadb2c=$azureadb2c, baidu=$baidu, balance=$balance, balanceCredit=$balanceCredit, balanceCurrency=$balanceCurrency, battlenet=$battlenet, bilibili=$bilibili, bio=$bio, birthday=$birthday, bitbucket=$bitbucket, box=$box, cart=$cart, cloudfoundry=$cloudfoundry, countryCode=$countryCode, createdAt=$createdAt, createdIp=$createdIp, createdTime=$createdTime, currency=$currency, custom=$custom, custom2=$custom2, custom3=$custom3, custom4=$custom4, custom5=$custom5, custom6=$custom6, custom7=$custom7, custom8=$custom8, custom9=$custom9, custom10=$custom10, dailymotion=$dailymotion, deezer=$deezer, deleted=$deleted, deletedTime=$deletedTime, digitalocean=$digitalocean, dingtalk=$dingtalk, discord=$discord, displayName=$displayName, douyin=$douyin, dropbox=$dropbox, education=$education, email=$email, emailVerified=$emailVerified, eveonline=$eveonline, externalId=$externalId, faceIds=$faceIds, facebook=$facebook, firstName=$firstName, fitbit=$fitbit, gender=$gender, gitea=$gitea, gitee=$gitee, github=$github, gitlab=$gitlab, google=$google, hash=$hash, heroku=$heroku, homepage=$homepage, iam=$iam, id=$id, idCard=$idCard, idCardType=$idCardType, influxcloud=$influxcloud, infoflow=$infoflow, instagram=$instagram, intercom=$intercom, invitation=$invitation, invitationCode=$invitationCode, ipWhitelist=$ipWhitelist, isAdmin=$isAdmin, isDefaultAvatar=$isDefaultAvatar, isDeleted=$isDeleted, isForbidden=$isForbidden, isOnline=$isOnline, isVerified=$isVerified, kakao=$kakao, karma=$karma, kwai=$kwai, language=$language, lark=$lark, lastChangePasswordTime=$lastChangePasswordTime, lastName=$lastName, lastSigninIp=$lastSigninIp, lastSigninTime=$lastSigninTime, lastSigninWrongTime=$lastSigninWrongTime, lastfm=$lastfm, ldap=$ldap, line=$line, linkedin=$linkedin, location=$location, mailru=$mailru, managedAccounts=$managedAccounts, meetup=$meetup, mfaAccounts=$mfaAccounts, mfaEmailEnabled=$mfaEmailEnabled, mfaItems=$mfaItems, mfaPhoneEnabled=$mfaPhoneEnabled, mfaPushEnabled=$mfaPushEnabled, mfaPushProvider=$mfaPushProvider, mfaPushReceiver=$mfaPushReceiver, mfaRadiusEnabled=$mfaRadiusEnabled, mfaRadiusProvider=$mfaRadiusProvider, mfaRadiusUsername=$mfaRadiusUsername, mfaRememberDeadline=$mfaRememberDeadline, mfaRememberDigest=$mfaRememberDigest, microsoftonline=$microsoftonline, multiFactorAuths=$multiFactorAuths, name=$name, naver=$naver, needUpdatePassword=$needUpdatePassword, nextcloud=$nextcloud, okta=$okta, onedrive=$onedrive, originalRefreshToken=$originalRefreshToken, originalToken=$originalToken, oura=$oura, owner=$owner, passwordHash=$passwordHash, passwordSalt=$passwordSalt, passwordType=$passwordType, patreon=$patreon, paypal=$paypal, permanentAvatar=$permanentAvatar, phone=$phone, preHash=$preHash, preferredMfaType=$preferredMfaType, properties=$properties, qq=$qq, ranking=$ranking, realName=$realName, recoveryCodes=$recoveryCodes, region=$region, registerSource=$registerSource, registerType=$registerType, salesforce=$salesforce, score=$score, shopify=$shopify, signinWrongTimes=$signinWrongTimes, signupApplication=$signupApplication, slack=$slack, soundcloud=$soundcloud, spotify=$spotify, steam=$steam, strava=$strava, stripe=$stripe, tag=$tag, telegram=$telegram, tiktok=$tiktok, title=$title, totpSecret=$totpSecret, tumblr=$tumblr, twitch=$twitch, twitter=$twitter, type=$type, typetalk=$typetalk, uber=$uber, updatedAt=$updatedAt, updatedTime=$updatedTime, verificationCode=$verificationCode, vk=$vk, webauthnCredentials=$webauthnCredentials, wechat=$wechat, wecom=$wecom, weibo=$weibo, wepay=$wepay, xero=$xero, yahoo=$yahoo, yammer=$yammer, yandex=$yandex, zoom=$zoom]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -2330,7 +2314,6 @@ class IamUser {
     } else {
       json[r'google'] = null;
     }
-      json[r'groups'] = this.groups;
     if (this.hash != null) {
       json[r'hash'] = this.hash;
     } else {
@@ -2655,7 +2638,6 @@ class IamUser {
     } else {
       json[r'permanentAvatar'] = null;
     }
-      json[r'permissions'] = this.permissions;
     if (this.phone != null) {
       json[r'phone'] = this.phone;
     } else {
@@ -2703,7 +2685,6 @@ class IamUser {
     } else {
       json[r'registerType'] = null;
     }
-      json[r'roles'] = this.roles;
     if (this.salesforce != null) {
       json[r'salesforce'] = this.salesforce;
     } else {
@@ -2973,9 +2954,6 @@ class IamUser {
         github: mapValueOfType<String>(json, r'github'),
         gitlab: mapValueOfType<String>(json, r'gitlab'),
         google: mapValueOfType<String>(json, r'google'),
-        groups: json[r'groups'] is Iterable
-            ? (json[r'groups'] as Iterable).cast<String>().toList(growable: false)
-            : const [],
         hash: mapValueOfType<String>(json, r'hash'),
         heroku: mapValueOfType<String>(json, r'heroku'),
         homepage: mapValueOfType<String>(json, r'homepage'),
@@ -3044,7 +3022,6 @@ class IamUser {
         patreon: mapValueOfType<String>(json, r'patreon'),
         paypal: mapValueOfType<String>(json, r'paypal'),
         permanentAvatar: mapValueOfType<String>(json, r'permanentAvatar'),
-        permissions: IamPermission.listFromJson(json[r'permissions']),
         phone: mapValueOfType<String>(json, r'phone'),
         preHash: mapValueOfType<String>(json, r'preHash'),
         preferredMfaType: mapValueOfType<String>(json, r'preferredMfaType'),
@@ -3058,7 +3035,6 @@ class IamUser {
         region: mapValueOfType<String>(json, r'region'),
         registerSource: mapValueOfType<String>(json, r'registerSource'),
         registerType: mapValueOfType<String>(json, r'registerType'),
-        roles: IamRole.listFromJson(json[r'roles']),
         salesforce: mapValueOfType<String>(json, r'salesforce'),
         score: mapValueOfType<int>(json, r'score'),
         shopify: mapValueOfType<String>(json, r'shopify'),

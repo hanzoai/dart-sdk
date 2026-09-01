@@ -208,7 +208,7 @@ class TodoApi {
   ///   Repo keeps issues bound to one git repository.
   ///
   /// * [String] room:
-  ///   Room keeps issues bound to one collaboration room, spelled \"<workspace>_<room>\" — the exact value GET /v1/meet/call answers with, so a channel's call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board.
+  ///   Room keeps issues bound to one collaboration room, spelled \"<space>_<room>\" — the exact value GET /v1/meet/call answers with, so a channel's call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board.
   ///
   /// * [String] source_:
   ///   Source keeps one origin: team, git, crm, helpdesk, cms, agent. \"git\" is how you ask for the mirrored GitHub issues specifically.
@@ -293,7 +293,7 @@ class TodoApi {
   ///   Repo keeps issues bound to one git repository.
   ///
   /// * [String] room:
-  ///   Room keeps issues bound to one collaboration room, spelled \"<workspace>_<room>\" — the exact value GET /v1/meet/call answers with, so a channel's call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board.
+  ///   Room keeps issues bound to one collaboration room, spelled \"<space>_<room>\" — the exact value GET /v1/meet/call answers with, so a channel's call and its todo list name the room the same way. This is the read a channel view runs to draw its own list; it spans every board of the org, because the work a channel is about is not confined to one board.
   ///
   /// * [String] source_:
   ///   Source keeps one origin: team, git, crm, helpdesk, cms, agent. \"git\" is how you ask for the mirrored GitHub issues specifically.
@@ -620,7 +620,7 @@ class TodoApi {
   /// Parameters:
   ///
   /// * [String] room (required):
-  ///   Room is the room, spelled \"<workspace>_<room>\" — the same value GET /v1/meet/call answers with, so a channel's call and its work name the room identically. From the path.
+  ///   Room is the room, spelled \"<space>_<room>\" — the same value GET /v1/meet/call answers with, so a channel's call and its work name the room identically. From the path.
   Future<Response> getTodoRoomsByRoomWithHttpInfo(String room,) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/todo/rooms/{room}'
@@ -654,7 +654,7 @@ class TodoApi {
   /// Parameters:
   ///
   /// * [String] room (required):
-  ///   Room is the room, spelled \"<workspace>_<room>\" — the same value GET /v1/meet/call answers with, so a channel's call and its work name the room identically. From the path.
+  ///   Room is the room, spelled \"<space>_<room>\" — the same value GET /v1/meet/call answers with, so a channel's call and its work name the room identically. From the path.
   Future<RoomWork?> getTodoRoomsByRoom(String room,) async {
     final response = await getTodoRoomsByRoomWithHttpInfo(room,);
     if (response.statusCode >= HttpStatus.badRequest) {

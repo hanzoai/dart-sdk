@@ -21,7 +21,7 @@ class Hit {
     this.title,
     this.url,
   });
-  /// DocType is which kind of knowledge matched: kb-page (a wiki page), kb-memory (a unit of agent memory) or kb-source (a document a connector ingested). Those three are the whole indexed set, and searchIn.DocTypes filters on them.
+  /// DocType is which kind of knowledge matched, by address: kb.page (a wiki page), kb.memory (a unit of agent memory) or kb.source (a document a connector ingested). Those three are the whole indexed set, and searchIn.DocTypes filters on them.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

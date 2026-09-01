@@ -17,11 +17,11 @@ class IamRolesInput {
     this.description,
     this.displayName,
     this.domains = const [],
-    this.groups = const [],
     this.isEnabled,
     this.name,
     this.owner,
     this.roles = const [],
+    this.teams = const [],
     this.users = const [],
   });
   ///
@@ -50,8 +50,6 @@ class IamRolesInput {
 
   List<String> domains;
 
-  List<String> groups;
-
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -78,6 +76,8 @@ class IamRolesInput {
 
   List<String> roles;
 
+  List<String> teams;
+
   List<String> users;
 
   @override
@@ -86,11 +86,11 @@ class IamRolesInput {
     other.description == description &&
     other.displayName == displayName &&
     _deepEquality.equals(other.domains, domains) &&
-    _deepEquality.equals(other.groups, groups) &&
     other.isEnabled == isEnabled &&
     other.name == name &&
     other.owner == owner &&
     _deepEquality.equals(other.roles, roles) &&
+    _deepEquality.equals(other.teams, teams) &&
     _deepEquality.equals(other.users, users);
 
   @override
@@ -100,15 +100,15 @@ class IamRolesInput {
     (description == null ? 0 : description!.hashCode) +
     (displayName == null ? 0 : displayName!.hashCode) +
     (domains.hashCode) +
-    (groups.hashCode) +
     (isEnabled == null ? 0 : isEnabled!.hashCode) +
     (name == null ? 0 : name!.hashCode) +
     (owner == null ? 0 : owner!.hashCode) +
     (roles.hashCode) +
+    (teams.hashCode) +
     (users.hashCode);
 
   @override
-  String toString() => 'IamRolesInput[createdTime=$createdTime, description=$description, displayName=$displayName, domains=$domains, groups=$groups, isEnabled=$isEnabled, name=$name, owner=$owner, roles=$roles, users=$users]';
+  String toString() => 'IamRolesInput[createdTime=$createdTime, description=$description, displayName=$displayName, domains=$domains, isEnabled=$isEnabled, name=$name, owner=$owner, roles=$roles, teams=$teams, users=$users]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -128,7 +128,6 @@ class IamRolesInput {
       json[r'displayName'] = null;
     }
       json[r'domains'] = this.domains;
-      json[r'groups'] = this.groups;
     if (this.isEnabled != null) {
       json[r'isEnabled'] = this.isEnabled;
     } else {
@@ -145,6 +144,7 @@ class IamRolesInput {
       json[r'owner'] = null;
     }
       json[r'roles'] = this.roles;
+      json[r'teams'] = this.teams;
       json[r'users'] = this.users;
     return json;
   }
@@ -174,14 +174,14 @@ class IamRolesInput {
         domains: json[r'domains'] is Iterable
             ? (json[r'domains'] as Iterable).cast<String>().toList(growable: false)
             : const [],
-        groups: json[r'groups'] is Iterable
-            ? (json[r'groups'] as Iterable).cast<String>().toList(growable: false)
-            : const [],
         isEnabled: mapValueOfType<bool>(json, r'isEnabled'),
         name: mapValueOfType<String>(json, r'name'),
         owner: mapValueOfType<String>(json, r'owner'),
         roles: json[r'roles'] is Iterable
             ? (json[r'roles'] as Iterable).cast<String>().toList(growable: false)
+            : const [],
+        teams: json[r'teams'] is Iterable
+            ? (json[r'teams'] as Iterable).cast<String>().toList(growable: false)
             : const [],
         users: json[r'users'] is Iterable
             ? (json[r'users'] as Iterable).cast<String>().toList(growable: false)

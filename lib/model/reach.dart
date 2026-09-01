@@ -10,63 +10,63 @@
 
 part of hanzoai.cloud;
 
-class RoleAssignment {
-  /// Returns a new [RoleAssignment] instance.
-  RoleAssignment({
-    this.role,
-    this.user,
+class Reach {
+  /// Returns a new [Reach] instance.
+  Reach({
+    this.at,
+    this.why,
   });
-  /// Role is the granted role's name.
+  /// At is `read`, `unconfigured`, `unreachable` or `refused`.  The four values are written out here because this document cannot carry an enum, so the description IS the contract a client reads. Spelling the Go constant names instead would name four identifiers no caller can see.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? role;
+  String? at;
 
-  /// User is the member the role is granted to.
+  /// Why is the upstream's own words, on Unreachable and Refused, and empty otherwise. It is the upstream's and not ours: a failure reported without its reason sends the reader to look at the venue, which is the one place the fault is not.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? user;
+  String? why;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is RoleAssignment &&
-    other.role == role &&
-    other.user == user;
+  bool operator ==(Object other) => identical(this, other) || other is Reach &&
+    other.at == at &&
+    other.why == why;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (role == null ? 0 : role!.hashCode) +
-    (user == null ? 0 : user!.hashCode);
+    (at == null ? 0 : at!.hashCode) +
+    (why == null ? 0 : why!.hashCode);
 
   @override
-  String toString() => 'RoleAssignment[role=$role, user=$user]';
+  String toString() => 'Reach[at=$at, why=$why]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.role != null) {
-      json[r'role'] = this.role;
+    if (this.at != null) {
+      json[r'at'] = this.at;
     } else {
-      json[r'role'] = null;
+      json[r'at'] = null;
     }
-    if (this.user != null) {
-      json[r'user'] = this.user;
+    if (this.why != null) {
+      json[r'why'] = this.why;
     } else {
-      json[r'user'] = null;
+      json[r'why'] = null;
     }
     return json;
   }
 
-  /// Returns a new [RoleAssignment] instance and imports its values from
+  /// Returns a new [Reach] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static RoleAssignment? fromJson(dynamic value) {
+  static Reach? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -75,25 +75,25 @@ class RoleAssignment {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "RoleAssignment[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "RoleAssignment[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "Reach[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "Reach[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return RoleAssignment(
-        role: mapValueOfType<String>(json, r'role'),
-        user: mapValueOfType<String>(json, r'user'),
+      return Reach(
+        at: mapValueOfType<String>(json, r'at'),
+        why: mapValueOfType<String>(json, r'why'),
       );
     }
     return null;
   }
 
-  static List<RoleAssignment> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <RoleAssignment>[];
+  static List<Reach> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <Reach>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = RoleAssignment.fromJson(row);
+        final value = Reach.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -102,12 +102,12 @@ class RoleAssignment {
     return result.toList(growable: growable);
   }
 
-  static Map<String, RoleAssignment> mapFromJson(dynamic json) {
-    final map = <String, RoleAssignment>{};
+  static Map<String, Reach> mapFromJson(dynamic json) {
+    final map = <String, Reach>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = RoleAssignment.fromJson(entry.value);
+        final value = Reach.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -116,14 +116,14 @@ class RoleAssignment {
     return map;
   }
 
-  // maps a json object with a list of RoleAssignment-objects as value to a dart map
-  static Map<String, List<RoleAssignment>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<RoleAssignment>>{};
+  // maps a json object with a list of Reach-objects as value to a dart map
+  static Map<String, List<Reach>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<Reach>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = RoleAssignment.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = Reach.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

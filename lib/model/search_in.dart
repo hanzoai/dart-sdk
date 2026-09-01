@@ -18,7 +18,7 @@ class SearchIn {
     this.project,
     this.query,
   });
-  /// DocTypes restricts retrieval to a subset of the indexed knowledge doctypes (kb-page, kb-memory, kb-source). An empty or foreign list reads all of them.
+  /// DocTypes restricts retrieval to a subset of the indexed knowledge doctypes (kb.page, kb.memory, kb.source). An empty or foreign list reads all of them.
   List<String> doctypes;
 
   /// Limit bounds the hits returned. Default 10, maximum 50.

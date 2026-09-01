@@ -10,36 +10,36 @@
 
 part of hanzoai.cloud;
 
-class RoleList {
-  /// Returns a new [RoleList] instance.
-  RoleList({
-    this.data = const [],
+class TeamMessages {
+  /// Returns a new [TeamMessages] instance.
+  TeamMessages({
+    this.messages = const [],
   });
-  /// Data is every (user, role) assignment in the caller's org.
-  List<RoleAssignment> data;
+  /// Messages are the room's, oldest first, at most `messageMax` of them.
+  List<TeamMessage> messages;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is RoleList &&
-    _deepEquality.equals(other.data, data);
+  bool operator ==(Object other) => identical(this, other) || other is TeamMessages &&
+    _deepEquality.equals(other.messages, messages);
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (data.hashCode);
+    (messages.hashCode);
 
   @override
-  String toString() => 'RoleList[data=$data]';
+  String toString() => 'TeamMessages[messages=$messages]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-      json[r'data'] = this.data;
+      json[r'messages'] = this.messages;
     return json;
   }
 
-  /// Returns a new [RoleList] instance and imports its values from
+  /// Returns a new [TeamMessages] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static RoleList? fromJson(dynamic value) {
+  static TeamMessages? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -48,24 +48,24 @@ class RoleList {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "RoleList[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "RoleList[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "TeamMessages[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "TeamMessages[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return RoleList(
-        data: RoleAssignment.listFromJson(json[r'data']),
+      return TeamMessages(
+        messages: TeamMessage.listFromJson(json[r'messages']),
       );
     }
     return null;
   }
 
-  static List<RoleList> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <RoleList>[];
+  static List<TeamMessages> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <TeamMessages>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = RoleList.fromJson(row);
+        final value = TeamMessages.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -74,12 +74,12 @@ class RoleList {
     return result.toList(growable: growable);
   }
 
-  static Map<String, RoleList> mapFromJson(dynamic json) {
-    final map = <String, RoleList>{};
+  static Map<String, TeamMessages> mapFromJson(dynamic json) {
+    final map = <String, TeamMessages>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = RoleList.fromJson(entry.value);
+        final value = TeamMessages.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -88,14 +88,14 @@ class RoleList {
     return map;
   }
 
-  // maps a json object with a list of RoleList-objects as value to a dart map
-  static Map<String, List<RoleList>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<RoleList>>{};
+  // maps a json object with a list of TeamMessages-objects as value to a dart map
+  static Map<String, List<TeamMessages>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<TeamMessages>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = RoleList.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = TeamMessages.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

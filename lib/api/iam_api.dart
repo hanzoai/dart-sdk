@@ -240,9 +240,9 @@ class IamApi {
     return null;
   }
 
-  /// Records a sign-in.
+  /// Records a sign-in and answers with the cookie id it minted.
   ///
-  /// Records a sign-in. Signing in again from another browser adds to the session rather than replacing it, so one person can be signed in from a laptop and a phone at once.  Ask for an exclusive sign-in and the opposite holds: the new sign-in is the only one left and every other browser is signed out. That is the setting to use when one person may hold only one live session at a time.
+  /// Records a sign-in and answers with the cookie id it minted. Signing in again from another browser adds to the session rather than replacing it, so one person can be signed in from a laptop and a phone at once.  Ask for an exclusive sign-in and the opposite holds: the new sign-in is the only one left and every other browser is signed out. That is the setting to use when one person may hold only one live session at a time.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -274,9 +274,9 @@ class IamApi {
     );
   }
 
-  /// Records a sign-in.
+  /// Records a sign-in and answers with the cookie id it minted.
   ///
-  /// Records a sign-in. Signing in again from another browser adds to the session rather than replacing it, so one person can be signed in from a laptop and a phone at once.  Ask for an exclusive sign-in and the opposite holds: the new sign-in is the only one left and every other browser is signed out. That is the setting to use when one person may hold only one live session at a time.
+  /// Records a sign-in and answers with the cookie id it minted. Signing in again from another browser adds to the session rather than replacing it, so one person can be signed in from a laptop and a phone at once.  Ask for an exclusive sign-in and the opposite holds: the new sign-in is the only one left and every other browser is signed out. That is the setting to use when one person may hold only one live session at a time.
   ///
   /// Parameters:
   ///
@@ -933,6 +933,63 @@ class IamApi {
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
+  }
+
+  /// Removes a team.
+  ///
+  /// Removes a team. Everyone in it loses the access it carried; their accounts, and any other team they are in, are untouched.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] name (required):
+  Future<Response> deleteIamTeamsByNameWithHttpInfo(String name,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/teams/{name}'
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'DELETE',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Removes a team.
+  ///
+  /// Removes a team. Everyone in it loses the access it carried; their accounts, and any other team they are in, are untouched.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] name (required):
+  Future<IamTeamsDeleteOutput?> deleteIamTeamsByName(String name,) async {
+    final response = await deleteIamTeamsByNameWithHttpInfo(name,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamTeamsDeleteOutput',) as IamTeamsDeleteOutput;
+    
+    }
+    return null;
   }
 
   /// Removes a person from your organization.
@@ -2127,9 +2184,9 @@ class IamApi {
     return null;
   }
 
-  /// Returns your organization's API keys, newest first — what each is called, what it may reach, and its publishable half.
+  /// Returns an organization's API keys, newest first — what each is called, what it may reach, and its publishable half.
   ///
-  /// Returns your organization's API keys, newest first — what each is called, what it may reach, and its publishable half. Secret halves are never listed.
+  /// Returns an organization's API keys, newest first — what each is called, what it may reach, and its publishable half. Secret halves are never listed.  Which organization comes from your credentials, not from the request: you read your own and no one else's. The capability that admits a confidential client to this collection does not itself name a tenant, so the tenant is decided here.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -2165,9 +2222,9 @@ class IamApi {
     );
   }
 
-  /// Returns your organization's API keys, newest first — what each is called, what it may reach, and its publishable half.
+  /// Returns an organization's API keys, newest first — what each is called, what it may reach, and its publishable half.
   ///
-  /// Returns your organization's API keys, newest first — what each is called, what it may reach, and its publishable half. Secret halves are never listed.
+  /// Returns an organization's API keys, newest first — what each is called, what it may reach, and its publishable half. Secret halves are never listed.  Which organization comes from your credentials, not from the request: you read your own and no one else's. The capability that admits a confidential client to this collection does not itself name a tenant, so the tenant is decided here.
   ///
   /// Parameters:
   ///
@@ -2371,7 +2428,7 @@ class IamApi {
 
   /// Answers either question about who belongs where: which organizations one person can act in, or who can act in one organization.
   ///
-  /// Answers either question about who belongs where: which organizations one person can act in, or who can act in one organization.  Both are org-scoped: a non-SuperAdmin may ask about ITS OWN org's roster, or about a user whose home org is its own, and nothing else. The bound comes from the verified credential via authz.Scope, so a request parameter can never widen it — a membership row names who may act and spend in an org, so a cross-tenant read is a customer roster leak.
+  /// Answers either question about who belongs where: which organizations one person can act in, or who can act in one organization.  Both are org-scoped: a non-SuperAdmin may ask about ITS OWN org's roster, or about a user whose home org is its own, and nothing else. The bound comes from the verified credential via principal.Scope, so a request parameter can never widen it — a membership row names who may act and spend in an org, so a cross-tenant read is a customer roster leak.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -2416,7 +2473,7 @@ class IamApi {
 
   /// Answers either question about who belongs where: which organizations one person can act in, or who can act in one organization.
   ///
-  /// Answers either question about who belongs where: which organizations one person can act in, or who can act in one organization.  Both are org-scoped: a non-SuperAdmin may ask about ITS OWN org's roster, or about a user whose home org is its own, and nothing else. The bound comes from the verified credential via authz.Scope, so a request parameter can never widen it — a membership row names who may act and spend in an org, so a cross-tenant read is a customer roster leak.
+  /// Answers either question about who belongs where: which organizations one person can act in, or who can act in one organization.  Both are org-scoped: a non-SuperAdmin may ask about ITS OWN org's roster, or about a user whose home org is its own, and nothing else. The bound comes from the verified credential via principal.Scope, so a request parameter can never widen it — a membership row names who may act and spend in an org, so a cross-tenant read is a customer roster leak.
   ///
   /// Parameters:
   ///
@@ -3478,15 +3535,120 @@ class IamApi {
     return null;
   }
 
-  /// Returns a page of the people in your organization, with the total so you can page through the rest.
+  /// Returns your organization's teams, newest first — each a named set of people that roles and permissions are granted to.
   ///
-  /// Returns a page of the people in your organization, with the total so you can page through the rest. Passwords, API secrets and MFA material are stripped from every entry.
+  /// Returns your organization's teams, newest first — each a named set of people that roles and permissions are granted to.  You see your own organization's teams and no one else's; which organization that is comes from your credentials, not from the request.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> getIamTeamsWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/teams';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Returns your organization's teams, newest first — each a named set of people that roles and permissions are granted to.
+  ///
+  /// Returns your organization's teams, newest first — each a named set of people that roles and permissions are granted to.  You see your own organization's teams and no one else's; which organization that is comes from your credentials, not from the request.
+  Future<IamTeamsListOutput?> getIamTeams() async {
+    final response = await getIamTeamsWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamTeamsListOutput',) as IamTeamsListOutput;
+    
+    }
+    return null;
+  }
+
+  /// Returns one team: who is in it.
+  ///
+  /// Returns one team: who is in it.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
-  /// * [String] owner (required):
+  /// * [String] name (required):
+  Future<Response> getIamTeamsByNameWithHttpInfo(String name,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/teams/{name}'
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Returns one team: who is in it.
+  ///
+  /// Returns one team: who is in it.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] name (required):
+  Future<IamTeam?> getIamTeamsByName(String name,) async {
+    final response = await getIamTeamsByNameWithHttpInfo(name,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamTeam',) as IamTeam;
+    
+    }
+    return null;
+  }
+
+  /// Returns a page of the people in an organization, with the total so you can page through the rest.
+  ///
+  /// Returns a page of the people in an organization, with the total so you can page through the rest. Passwords, API secrets and MFA material are stripped from every entry.  Which organization comes from your credentials, not from the request: you read your own and no one else's, and a credential whose scope spans tenants reads the tenant it names — or, naming none, every one of them.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] owner:
   ///
   /// * [String] email:
   ///   Email narrows the page to the accounts carrying one address. Looking a person up by their address is a QUERY over the collection, not an item read: an address is not the natural key, two rows in one org can carry one, and a caller that gets a page SEES both — where a single-item read would have to choose, and choosing is how somebody joins a team under a colleague's identity.
@@ -3494,7 +3656,7 @@ class IamApi {
   /// * [int] limit:
   ///
   /// * [int] offset:
-  Future<Response> getIamUsersWithHttpInfo(String owner, { String? email, int? limit, int? offset, }) async {
+  Future<Response> getIamUsersWithHttpInfo({ String? owner, String? email, int? limit, int? offset, }) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/iam/users';
 
@@ -3505,7 +3667,9 @@ class IamApi {
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
+    if (owner != null) {
       queryParams.addAll(_queryParams('', 'owner', owner));
+    }
     if (email != null) {
       queryParams.addAll(_queryParams('', 'email', email));
     }
@@ -3530,13 +3694,13 @@ class IamApi {
     );
   }
 
-  /// Returns a page of the people in your organization, with the total so you can page through the rest.
+  /// Returns a page of the people in an organization, with the total so you can page through the rest.
   ///
-  /// Returns a page of the people in your organization, with the total so you can page through the rest. Passwords, API secrets and MFA material are stripped from every entry.
+  /// Returns a page of the people in an organization, with the total so you can page through the rest. Passwords, API secrets and MFA material are stripped from every entry.  Which organization comes from your credentials, not from the request: you read your own and no one else's, and a credential whose scope spans tenants reads the tenant it names — or, naming none, every one of them.
   ///
   /// Parameters:
   ///
-  /// * [String] owner (required):
+  /// * [String] owner:
   ///
   /// * [String] email:
   ///   Email narrows the page to the accounts carrying one address. Looking a person up by their address is a QUERY over the collection, not an item read: an address is not the natural key, two rows in one org can carry one, and a caller that gets a page SEES both — where a single-item read would have to choose, and choosing is how somebody joins a team under a colleague's identity.
@@ -3544,8 +3708,8 @@ class IamApi {
   /// * [int] limit:
   ///
   /// * [int] offset:
-  Future<IamUsersListOutput?> getIamUsers(String owner, { String? email, int? limit, int? offset, }) async {
-    final response = await getIamUsersWithHttpInfo(owner,  email: email, limit: limit, offset: offset, );
+  Future<IamUsersListOutput?> getIamUsers({ String? owner, String? email, int? limit, int? offset, }) async {
+    final response = await getIamUsersWithHttpInfo( owner: owner, email: email, limit: limit, offset: offset, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -4488,20 +4652,20 @@ class IamApi {
     return null;
   }
 
-  /// Returns who is currently signed in to your organization, newest first, and can be narrowed to one person or one application.
+  /// Returns who is currently signed in to an organization, newest first, and can be narrowed to one person or one application.
   ///
-  /// Returns who is currently signed in to your organization, newest first, and can be narrowed to one person or one application. It is what you read before signing someone out.
+  /// Returns who is currently signed in to an organization, newest first, and can be narrowed to one person or one application. It is what you read before signing someone out.  Which organization comes from your credentials, not from the request: you read your own and no one else's. A session row names a live account and the applications it is signed in to, so the tenant is decided here rather than taken from the query.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
   /// Parameters:
   ///
-  /// * [String] owner (required):
+  /// * [String] owner:
   ///
   /// * [String] name:
   ///
   /// * [String] application:
-  Future<Response> listSessionsWithHttpInfo(String owner, { String? name, String? application, }) async {
+  Future<Response> listSessionsWithHttpInfo({ String? owner, String? name, String? application, }) async {
     // ignore: prefer_const_declarations
     final path = r'/v1/iam/sessions';
 
@@ -4512,7 +4676,9 @@ class IamApi {
     final headerParams = <String, String>{};
     final formParams = <String, String>{};
 
+    if (owner != null) {
       queryParams.addAll(_queryParams('', 'owner', owner));
+    }
     if (name != null) {
       queryParams.addAll(_queryParams('', 'name', name));
     }
@@ -4534,19 +4700,19 @@ class IamApi {
     );
   }
 
-  /// Returns who is currently signed in to your organization, newest first, and can be narrowed to one person or one application.
+  /// Returns who is currently signed in to an organization, newest first, and can be narrowed to one person or one application.
   ///
-  /// Returns who is currently signed in to your organization, newest first, and can be narrowed to one person or one application. It is what you read before signing someone out.
+  /// Returns who is currently signed in to an organization, newest first, and can be narrowed to one person or one application. It is what you read before signing someone out.  Which organization comes from your credentials, not from the request: you read your own and no one else's. A session row names a live account and the applications it is signed in to, so the tenant is decided here rather than taken from the query.
   ///
   /// Parameters:
   ///
-  /// * [String] owner (required):
+  /// * [String] owner:
   ///
   /// * [String] name:
   ///
   /// * [String] application:
-  Future<IamListSessionsOut?> listSessions(String owner, { String? name, String? application, }) async {
-    final response = await listSessionsWithHttpInfo(owner,  name: name, application: application, );
+  Future<IamListSessionsOut?> listSessions({ String? owner, String? name, String? application, }) async {
+    final response = await listSessionsWithHttpInfo( owner: owner, name: name, application: application, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -6340,6 +6506,62 @@ class IamApi {
     }
   }
 
+  /// Makes a team — a named set of people that roles and permissions grant to.
+  ///
+  /// Makes a team — a named set of people that roles and permissions grant to. Granting to a team rather than to each person keeps access correct as people come and go: add someone and they inherit what the team can do. A name already used in your organization is refused.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [IamTeamsInput] iamTeamsInput (required):
+  Future<Response> postIamTeamsWithHttpInfo(IamTeamsInput iamTeamsInput,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/teams';
+
+    // ignore: prefer_final_locals
+    Object? postBody = iamTeamsInput;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Makes a team — a named set of people that roles and permissions grant to.
+  ///
+  /// Makes a team — a named set of people that roles and permissions grant to. Granting to a team rather than to each person keeps access correct as people come and go: add someone and they inherit what the team can do. A name already used in your organization is refused.
+  ///
+  /// Parameters:
+  ///
+  /// * [IamTeamsInput] iamTeamsInput (required):
+  Future<IamTeam?> postIamTeams(IamTeamsInput iamTeamsInput,) async {
+    final response = await postIamTeamsWithHttpInfo(iamTeamsInput,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamTeam',) as IamTeam;
+    
+    }
+    return null;
+  }
+
   /// Mints an access token for the `?id=<owner>/<name>` target user (optional `?aud=` resource, RFC 8707), issued by the authenticated + allow-listed confidential client.
   ///
   /// Mints an access token for the `?id=<owner>/<name>` target user (optional `?aud=` resource, RFC 8707), issued by the authenticated + allow-listed confidential client. The token's subject + owner are the TARGET USER's, so a resource server scopes on the validated owner claim to the user's tenant — indistinguishable from a token the user obtained directly. Response is the camelCase `{accessToken, expiresIn}` body identity.ts consumes. Equivalent to the RFC 8693 token-exchange grant, minus the subject_token proof (the console has the user's id, not a token) — the reason this compat shim exists.
@@ -7514,6 +7736,69 @@ class IamApi {
     }
   }
 
+  /// Changes who is in a team.
+  ///
+  /// Changes who is in a team. Access changes for everyone in it as soon as the write lands. The name and the created stamp do not change.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] name (required):
+  ///   Name addresses the team on update and names it on create; every other field is content and binds from the BODY, never the URL.
+  ///
+  /// * [IamTeamsInput] iamTeamsInput (required):
+  Future<Response> putIamTeamsByNameWithHttpInfo(String name, IamTeamsInput iamTeamsInput,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/teams/{name}'
+      .replaceAll('{name}', name);
+
+    // ignore: prefer_final_locals
+    Object? postBody = iamTeamsInput;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'PUT',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Changes who is in a team.
+  ///
+  /// Changes who is in a team. Access changes for everyone in it as soon as the write lands. The name and the created stamp do not change.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] name (required):
+  ///   Name addresses the team on update and names it on create; every other field is content and binds from the BODY, never the URL.
+  ///
+  /// * [IamTeamsInput] iamTeamsInput (required):
+  Future<IamTeam?> putIamTeamsByName(String name, IamTeamsInput iamTeamsInput,) async {
+    final response = await putIamTeamsByNameWithHttpInfo(name, iamTeamsInput,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamTeam',) as IamTeam;
+    
+    }
+    return null;
+  }
+
   /// Changes a person's profile, their roles, or the credentials they sign in with.
   ///
   /// Changes a person's profile, their roles, or the credentials they sign in with. Send a password to reset it; leave it out and their current one keeps working.  Who they are does not change: their organization, username and the identifier their existing sessions are keyed on all survive the write, so an update never signs anyone out.
@@ -7702,6 +7987,62 @@ class IamApi {
     return null;
   }
 
+  /// Changes how an organization reads: its display name, its website and its favicon.
+  ///
+  /// Changes how an organization reads: its display name, its website and its favicon.  IT EXISTS FOR THE REASON SetAvatar DOES, and the reason is worth stating because the obvious alternative is a trap. Update REPLACES the whole record, so a caller that wants to change one field has to send every other field back — and a record read back first arrives MASKED, so the read half of that read-modify-write hands you \"***\" for the master password and the salt, and the write half stores it. Renaming an organization through Update therefore costs it its credential settings; sending only the new name costs it everything else. Neither is a rename.  So this writes the fields it names and touches nothing else. A nil pointer is not sent and not changed; an empty string is sent and clears the field.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [IamSetProfileInput] iamSetProfileInput (required):
+  Future<Response> setOrganizationProfileWithHttpInfo(IamSetProfileInput iamSetProfileInput,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/iam/organizations/profile';
+
+    // ignore: prefer_final_locals
+    Object? postBody = iamSetProfileInput;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Changes how an organization reads: its display name, its website and its favicon.
+  ///
+  /// Changes how an organization reads: its display name, its website and its favicon.  IT EXISTS FOR THE REASON SetAvatar DOES, and the reason is worth stating because the obvious alternative is a trap. Update REPLACES the whole record, so a caller that wants to change one field has to send every other field back — and a record read back first arrives MASKED, so the read half of that read-modify-write hands you \"***\" for the master password and the salt, and the write half stores it. Renaming an organization through Update therefore costs it its credential settings; sending only the new name costs it everything else. Neither is a rename.  So this writes the fields it names and touches nothing else. A nil pointer is not sent and not changed; an empty string is sent and clears the field.
+  ///
+  /// Parameters:
+  ///
+  /// * [IamSetProfileInput] iamSetProfileInput (required):
+  Future<IamOrganization?> setOrganizationProfile(IamSetProfileInput iamSetProfileInput,) async {
+    final response = await setOrganizationProfileWithHttpInfo(iamSetProfileInput,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'IamOrganization',) as IamOrganization;
+    
+    }
+    return null;
+  }
+
   /// Changes an organization's display, its defaults and the sign-in rules everyone in it inherits.
   ///
   /// Changes an organization's display, its defaults and the sign-in rules everyone in it inherits. Which organization it is does not change, and neither does when it was created.
@@ -7834,9 +8175,9 @@ class IamApi {
     return null;
   }
 
-  /// Replaces the set of browsers a session covers — signing out the ones you leave off while the session itself stays live.
+  /// Names the browsers a session keeps — signing out the ones you leave off while the session itself stays live.
   ///
-  /// Replaces the set of browsers a session covers — signing out the ones you leave off while the session itself stays live. A session that does not exist is reported as missing rather than created.
+  /// Names the browsers a session keeps — signing out the ones you leave off while the session itself stays live. A session that does not exist is reported as missing rather than created.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -7877,9 +8218,9 @@ class IamApi {
     );
   }
 
-  /// Replaces the set of browsers a session covers — signing out the ones you leave off while the session itself stays live.
+  /// Names the browsers a session keeps — signing out the ones you leave off while the session itself stays live.
   ///
-  /// Replaces the set of browsers a session covers — signing out the ones you leave off while the session itself stays live. A session that does not exist is reported as missing rather than created.
+  /// Names the browsers a session keeps — signing out the ones you leave off while the session itself stays live. A session that does not exist is reported as missing rather than created.
   ///
   /// Parameters:
   ///

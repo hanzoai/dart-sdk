@@ -2122,6 +2122,214 @@ class IntegrationsApi {
     }
   }
 
+  /// Binds the caller's Linear organization to the org and seals the webhook secret.
+  ///
+  /// Binds the caller's Linear organization to the org and seals the webhook secret. The organization is READ from the caller's own key, never taken from the body: a person can only bind an organization they are a member of. An organization another org already holds is refused.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [LinearClaimIn] linearClaimIn (required):
+  Future<Response> postIntegrationsLinearClaimWithHttpInfo(LinearClaimIn linearClaimIn,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/integrations/linear/claim';
+
+    // ignore: prefer_final_locals
+    Object? postBody = linearClaimIn;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Binds the caller's Linear organization to the org and seals the webhook secret.
+  ///
+  /// Binds the caller's Linear organization to the org and seals the webhook secret. The organization is READ from the caller's own key, never taken from the body: a person can only bind an organization they are a member of. An organization another org already holds is refused.
+  ///
+  /// Parameters:
+  ///
+  /// * [LinearClaimIn] linearClaimIn (required):
+  Future<LinearClaimOut?> postIntegrationsLinearClaim(LinearClaimIn linearClaimIn,) async {
+    final response = await postIntegrationsLinearClaimWithHttpInfo(linearClaimIn,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'LinearClaimOut',) as LinearClaimOut;
+    
+    }
+    return null;
+  }
+
+  /// Posts a comment on a Linear issue with the caller's own key, so it carries their name.
+  ///
+  /// Posts a comment on a Linear issue with the caller's own key, so it carries their name. This is the op an agent is offered when it should answer in Linear rather than in chat.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [LinearCommentIn] linearCommentIn (required):
+  Future<Response> postIntegrationsLinearCommentsWithHttpInfo(LinearCommentIn linearCommentIn,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/integrations/linear/comments';
+
+    // ignore: prefer_final_locals
+    Object? postBody = linearCommentIn;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Posts a comment on a Linear issue with the caller's own key, so it carries their name.
+  ///
+  /// Posts a comment on a Linear issue with the caller's own key, so it carries their name. This is the op an agent is offered when it should answer in Linear rather than in chat.
+  ///
+  /// Parameters:
+  ///
+  /// * [LinearCommentIn] linearCommentIn (required):
+  Future<LinearCommentOut?> postIntegrationsLinearComments(LinearCommentIn linearCommentIn,) async {
+    final response = await postIntegrationsLinearCommentsWithHttpInfo(linearCommentIn,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'LinearCommentOut',) as LinearCommentOut;
+    
+    }
+    return null;
+  }
+
+  /// Seeds the native todo with the EXISTING Linear issues the caller's key can see (default state=open); the webhook keeps them live thereafter.
+  ///
+  /// Seeds the native todo with the EXISTING Linear issues the caller's key can see (default state=open); the webhook keeps them live thereafter. Synchronous and bounded, idempotent by ExtRef.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [LinearBackfillIn] linearBackfillIn (required):
+  Future<Response> postIntegrationsLinearIssuesBackfillWithHttpInfo(LinearBackfillIn linearBackfillIn,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/integrations/linear/issues/backfill';
+
+    // ignore: prefer_final_locals
+    Object? postBody = linearBackfillIn;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Seeds the native todo with the EXISTING Linear issues the caller's key can see (default state=open); the webhook keeps them live thereafter.
+  ///
+  /// Seeds the native todo with the EXISTING Linear issues the caller's key can see (default state=open); the webhook keeps them live thereafter. Synchronous and bounded, idempotent by ExtRef.
+  ///
+  /// Parameters:
+  ///
+  /// * [LinearBackfillIn] linearBackfillIn (required):
+  Future<LinearBackfillResult?> postIntegrationsLinearIssuesBackfill(LinearBackfillIn linearBackfillIn,) async {
+    final response = await postIntegrationsLinearIssuesBackfillWithHttpInfo(linearBackfillIn,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'LinearBackfillResult',) as LinearBackfillResult;
+    
+    }
+    return null;
+  }
+
+  /// Linear webhook
+  ///
+  /// The address Linear delivers Issue and Comment events to. An issue event is mirrored into the native todo — idempotently by identifier, so ENG-123 is one row however many times it is edited, moved or closed — and every issue and comment event is handed to the automations engine as a verified trigger, which is how an org runs an agent when an issue is assigned to it or a comment mentions it. A remove is never propagated: the native side is canonical.  It answers a benign 200 for what it does not act on — an unknown organization, other event types — so Linear does not retry-storm. A bad signature and a delivery older than a minute are 401; only a sink failure is 502.  The delivery names its Linear organization; that organization's own webhook secret — sealed at /v1/integrations/linear/claim — verifies the HMAC over the raw body, so the tenant is the organization the signature proves, never a header.  The caller here is the PLATFORM, not a Hanzo tenant, so there is no bearer and no principal. The signature check IS the authentication, and it fails closed. The tenant is never read from the payload either: it is resolved from the verified platform identifier through the connection map, so an event from a workspace nobody connected does nothing. Refusals are written with their own status rather than being flattened to a 500, so a rejected signature reads as 401 and a malformed body as 400.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> postIntegrationsLinearWebhookWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/integrations/linear/webhook';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Linear webhook
+  ///
+  /// The address Linear delivers Issue and Comment events to. An issue event is mirrored into the native todo — idempotently by identifier, so ENG-123 is one row however many times it is edited, moved or closed — and every issue and comment event is handed to the automations engine as a verified trigger, which is how an org runs an agent when an issue is assigned to it or a comment mentions it. A remove is never propagated: the native side is canonical.  It answers a benign 200 for what it does not act on — an unknown organization, other event types — so Linear does not retry-storm. A bad signature and a delivery older than a minute are 401; only a sink failure is 502.  The delivery names its Linear organization; that organization's own webhook secret — sealed at /v1/integrations/linear/claim — verifies the HMAC over the raw body, so the tenant is the organization the signature proves, never a header.  The caller here is the PLATFORM, not a Hanzo tenant, so there is no bearer and no principal. The signature check IS the authentication, and it fails closed. The tenant is never read from the payload either: it is resolved from the verified platform identifier through the connection map, so an event from a workspace nobody connected does nothing. Refusals are written with their own status rather than being flattened to a 500, so a rejected signature reads as 401 and a malformed body as 400.
+  Future<void> postIntegrationsLinearWebhook() async {
+    final response = await postIntegrationsLinearWebhookWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+  }
+
   /// Receive OpenRouter Broadcast traces as usage rows
   ///
   /// OpenRouter's spend is invisible to every Hanzo money lens because those lenses read hanzo.cloud_usage and OpenRouter meters keys of its own. Point a Broadcast destination (Settings ▸ Observability ▸ Webhook) at this endpoint and each generation span becomes ONE row in that same ledger with provider `openrouter`, so one query answers what we spend everywhere. Enable the Cost and Identity field categories: cost is the money and identity carries `openrouter.api_key_name`, which is what says WHICH key spent it — it lands in `account` as openrouter/<key name>.  AUTHENTICATION IS A HANZO KEY. Broadcast signs nothing; its only authentication is the destination's Headers map, so send a key as `Authorization: Bearer pk-…` and it is admitted exactly as /v1/event admits a beacon's: a project key resolves through the project that minted it, an IAM-issued key through IAM. That key names the org every row is filed under; it can write and cannot read. No key, or a key that names no org, is 401 and nothing is stored.  The body is OTLP/JSON — `{resourceSpans:[{scopeSpans:[{spans:[…]}]}]}` — exactly as OpenTelemetry defines it; the model, tokens and cost are read from each span's `gen_ai.*` attributes and the key name from `openrouter.api_key_name`. The answer is `{stored, dropped}`: how many generations became rows, and how many spans named no model. Those are OpenRouter's trace and span parents — they carry no cost to meter. An empty payload stores nothing and answers 200, which is what makes Test Connection pass. A warehouse that cannot take the rows answers 503 so the delivery shows red and can be replayed: a row is keyed by its span id, so a redelivery collapses rather than double-counting.

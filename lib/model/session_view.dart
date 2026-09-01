@@ -204,7 +204,7 @@ class SessionView {
   ///
   String? repo;
 
-  /// Room is the collaborative room this run was started in (HIP-0523), empty when it came from anywhere else — a CLI, a schedule, an API call. It is what lets a workspace view show the runs of one room beside its messages.
+  /// Room is the collaborative room this run was started in (HIP-0523), empty when it came from anywhere else — a CLI, a schedule, an API call. It is what lets a space view show the runs of one room beside its messages.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

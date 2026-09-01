@@ -55,7 +55,7 @@ class GraphNode {
   ///
   String? title;
 
-  /// kb-page | kb-memory | kb-source | kb-connector | unresolved
+  /// kb.page | kb.memory | kb.source | kb.connector | unresolved
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
