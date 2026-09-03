@@ -35,7 +35,7 @@ class FleetMetrics {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? gpuUtil;
+  double? gpuUtil;
 
   /// Load1 is the host's 1-minute load average — runnable processes, not a percentage, so it is read against the unit's core count and can exceed 1.
   ///
@@ -44,7 +44,7 @@ class FleetMetrics {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? load1;
+  double? load1;
 
   /// MemFree is host memory still available, in BYTES. It is what the source reported, not fleetSpec.Memory minus MemUsed.
   ///
@@ -134,8 +134,8 @@ class FleetMetrics {
 
       return FleetMetrics(
         at: mapValueOfType<String>(json, r'at'),
-        gpuUtil: num.parse('${json[r'gpuUtil']}'),
-        load1: num.parse('${json[r'load1']}'),
+        gpuUtil: mapValueOfType<double>(json, r'gpuUtil'),
+        load1: mapValueOfType<double>(json, r'load1'),
         memFree: mapValueOfType<int>(json, r'memFree'),
         memUsed: mapValueOfType<int>(json, r'memUsed'),
       );

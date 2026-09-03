@@ -33,7 +33,7 @@ class CaptableSafe {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? capital;
+  double? capital;
 
   /// DiscountRate is the discount to the next round's price, if any.
   ///
@@ -42,7 +42,7 @@ class CaptableSafe {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? discountRate;
+  double? discountRate;
 
   /// ID is the SAFE id.
   ///
@@ -132,7 +132,7 @@ class CaptableSafe {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? valuationCap;
+  double? valuationCap;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is CaptableSafe &&
@@ -252,8 +252,8 @@ class CaptableSafe {
       }());
 
       return CaptableSafe(
-        capital: num.parse('${json[r'capital']}'),
-        discountRate: num.parse('${json[r'discountRate']}'),
+        capital: mapValueOfType<double>(json, r'capital'),
+        discountRate: mapValueOfType<double>(json, r'discountRate'),
         id: mapValueOfType<String>(json, r'id'),
         issueDate: mapValueOfType<String>(json, r'issueDate'),
         mfn: mapValueOfType<bool>(json, r'mfn'),
@@ -263,7 +263,7 @@ class CaptableSafe {
         stakeholderName: mapValueOfType<String>(json, r'stakeholderName'),
         status: mapValueOfType<String>(json, r'status'),
         type: mapValueOfType<String>(json, r'type'),
-        valuationCap: num.parse('${json[r'valuationCap']}'),
+        valuationCap: mapValueOfType<double>(json, r'valuationCap'),
       );
     }
     return null;

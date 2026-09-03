@@ -102,7 +102,7 @@ class O11yRuleStateHistory {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? value;
+  double? value;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is O11yRuleStateHistory &&
@@ -233,7 +233,7 @@ class O11yRuleStateHistory {
         state: mapValueOfType<Object>(json, r'state'),
         stateChanged: mapValueOfType<bool>(json, r'stateChanged'),
         unixMilli: mapValueOfType<int>(json, r'unixMilli'),
-        value: num.parse('${json[r'value']}'),
+        value: mapValueOfType<double>(json, r'value'),
       );
     }
     return null;

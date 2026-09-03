@@ -37,7 +37,7 @@ class Metrics {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? gpuUtil;
+  double? gpuUtil;
 
   /// Load1 is the machine's own one-minute load average — a count of runnable and uninterruptible tasks, NOT a percentage and NOT already divided by core count, so it is read against Spec.CPUs: 8.0 is idle on 16 cores and swamped on 4. Coerced finite and non-negative on write, so 0 means either genuinely idle or nothing reported.
   ///
@@ -46,7 +46,7 @@ class Metrics {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? load1;
+  double? load1;
 
   /// Load5 is the same figure averaged over five minutes.
   ///
@@ -55,7 +55,7 @@ class Metrics {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? load5;
+  double? load5;
 
   /// Load15 is the same figure over fifteen. The three together are what separate a machine that is busy right now from one that has been busy all along — which is the question a dispatcher is really asking.
   ///
@@ -64,7 +64,7 @@ class Metrics {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? load15;
+  double? load15;
 
   /// bytes
   ///
@@ -168,10 +168,10 @@ class Metrics {
 
       return Metrics(
         at: mapValueOfType<int>(json, r'at'),
-        gpuUtil: num.parse('${json[r'gpuUtil']}'),
-        load1: num.parse('${json[r'load1']}'),
-        load5: num.parse('${json[r'load5']}'),
-        load15: num.parse('${json[r'load15']}'),
+        gpuUtil: mapValueOfType<double>(json, r'gpuUtil'),
+        load1: mapValueOfType<double>(json, r'load1'),
+        load5: mapValueOfType<double>(json, r'load5'),
+        load15: mapValueOfType<double>(json, r'load15'),
         memFree: mapValueOfType<int>(json, r'memFree'),
         memUsed: mapValueOfType<int>(json, r'memUsed'),
       );

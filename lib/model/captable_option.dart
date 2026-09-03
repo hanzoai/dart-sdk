@@ -62,7 +62,7 @@ class CaptableOption {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? exercisePrice;
+  double? exercisePrice;
 
   /// ExpirationDate is the ISO date the grant expires.
   ///
@@ -289,7 +289,7 @@ class CaptableOption {
         cliffYears: mapValueOfType<int>(json, r'cliffYears'),
         equityPlanId: mapValueOfType<String>(json, r'equityPlanId'),
         equityPlanName: mapValueOfType<String>(json, r'equityPlanName'),
-        exercisePrice: num.parse('${json[r'exercisePrice']}'),
+        exercisePrice: mapValueOfType<double>(json, r'exercisePrice'),
         expirationDate: mapValueOfType<String>(json, r'expirationDate'),
         grantId: mapValueOfType<String>(json, r'grantId'),
         id: mapValueOfType<String>(json, r'id'),

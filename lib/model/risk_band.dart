@@ -74,7 +74,7 @@ class RiskBand {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? q10;
+  double? q10;
 
   /// Q50 is the network's median day.
   ///
@@ -83,7 +83,7 @@ class RiskBand {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? q50;
+  double? q50;
 
   /// Q90 is the busy end: a tenth of contributing organisations sit at or above it. It is the highest level published.
   ///
@@ -92,7 +92,7 @@ class RiskBand {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? q90;
+  double? q90;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is RiskBand &&
@@ -189,9 +189,9 @@ class RiskBand {
         kind: mapValueOfType<String>(json, r'kind'),
         n: mapValueOfType<int>(json, r'n'),
         orgs: mapValueOfType<int>(json, r'orgs'),
-        q10: num.parse('${json[r'q10']}'),
-        q50: num.parse('${json[r'q50']}'),
-        q90: num.parse('${json[r'q90']}'),
+        q10: mapValueOfType<double>(json, r'q10'),
+        q50: mapValueOfType<double>(json, r'q50'),
+        q90: mapValueOfType<double>(json, r'q90'),
       );
     }
     return null;

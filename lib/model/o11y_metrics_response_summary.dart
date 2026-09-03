@@ -24,7 +24,7 @@ class O11yMetricsResponseSummary {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? errorRate;
+  double? errorRate;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -40,7 +40,7 @@ class O11yMetricsResponseSummary {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? p95Ms;
+  double? p95Ms;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -112,9 +112,9 @@ class O11yMetricsResponseSummary {
       }());
 
       return O11yMetricsResponseSummary(
-        errorRate: num.parse('${json[r'errorRate']}'),
+        errorRate: mapValueOfType<double>(json, r'errorRate'),
         errors: mapValueOfType<int>(json, r'errors'),
-        p95Ms: num.parse('${json[r'p95Ms']}'),
+        p95Ms: mapValueOfType<double>(json, r'p95Ms'),
         requests: mapValueOfType<int>(json, r'requests'),
       );
     }

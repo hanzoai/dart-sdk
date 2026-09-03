@@ -27,7 +27,7 @@ class RiskTopology {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? blend;
+  double? blend;
 
   /// Depth is how deep each tree is. With Trees it sets how finely the space is partitioned, and therefore how much history it takes to fill.
   ///
@@ -54,7 +54,7 @@ class RiskTopology {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? review;
+  double? review;
 
   /// Trees is how many half-space trees the ensemble holds.
   ///
@@ -150,10 +150,10 @@ class RiskTopology {
       }());
 
       return RiskTopology(
-        blend: num.parse('${json[r'blend']}'),
+        blend: mapValueOfType<double>(json, r'blend'),
         depth: mapValueOfType<int>(json, r'depth'),
         family: mapValueOfType<String>(json, r'family'),
-        review: num.parse('${json[r'review']}'),
+        review: mapValueOfType<double>(json, r'review'),
         trees: mapValueOfType<int>(json, r'trees'),
         window: mapValueOfType<int>(json, r'window'),
       );

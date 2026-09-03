@@ -57,7 +57,7 @@ class Outcome {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? lift;
+  double? lift;
 
   /// two-tailed p vs control
   ///
@@ -66,7 +66,7 @@ class Outcome {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? pValue;
+  double? pValue;
 
   /// converted over exposed
   ///
@@ -75,7 +75,7 @@ class Outcome {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? rate;
+  double? rate;
 
   /// pValue < alpha
   ///
@@ -102,7 +102,7 @@ class Outcome {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? z;
+  double? z;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is Outcome &&
@@ -204,12 +204,12 @@ class Outcome {
         control: mapValueOfType<bool>(json, r'control'),
         converted: mapValueOfType<int>(json, r'converted'),
         exposed: mapValueOfType<int>(json, r'exposed'),
-        lift: num.parse('${json[r'lift']}'),
-        pValue: num.parse('${json[r'pValue']}'),
-        rate: num.parse('${json[r'rate']}'),
+        lift: mapValueOfType<double>(json, r'lift'),
+        pValue: mapValueOfType<double>(json, r'pValue'),
+        rate: mapValueOfType<double>(json, r'rate'),
         significant: mapValueOfType<bool>(json, r'significant'),
         variant: mapValueOfType<String>(json, r'variant'),
-        z: num.parse('${json[r'z']}'),
+        z: mapValueOfType<double>(json, r'z'),
       );
     }
     return null;

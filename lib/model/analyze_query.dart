@@ -26,7 +26,7 @@ class AnalyzeQuery {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? alpha;
+  double? alpha;
 
   /// Days is how far back to read when no start is given: 1 to 365, 30 by default. A value outside that range leaves the default in place.
   ///
@@ -133,7 +133,7 @@ class AnalyzeQuery {
       }());
 
       return AnalyzeQuery(
-        alpha: num.parse('${json[r'alpha']}'),
+        alpha: mapValueOfType<double>(json, r'alpha'),
         days: mapValueOfType<int>(json, r'days'),
         end: mapValueOfType<String>(json, r'end'),
         id: mapValueOfType<String>(json, r'id'),

@@ -31,7 +31,7 @@ class O11yO11yService {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? avgDuration;
+  double? avgDuration;
 
   /// CallRate is calls per second over the window.
   ///
@@ -40,7 +40,7 @@ class O11yO11yService {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? callRate;
+  double? callRate;
 
   /// DataWarning carries the entry-point operations the numbers were computed over.
   ///
@@ -58,7 +58,7 @@ class O11yO11yService {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? errorRate;
+  double? errorRate;
 
   /// FourXXRate is the percentage of calls that answered 4xx.
   ///
@@ -67,7 +67,7 @@ class O11yO11yService {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? fourXXRate;
+  double? fourXXRate;
 
   /// Num4XX is how many of the calls answered 4xx.
   ///
@@ -103,7 +103,7 @@ class O11yO11yService {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? p99;
+  double? p99;
 
   /// ServiceName is the service.
   ///
@@ -218,15 +218,15 @@ class O11yO11yService {
       }());
 
       return O11yO11yService(
-        avgDuration: num.parse('${json[r'avgDuration']}'),
-        callRate: num.parse('${json[r'callRate']}'),
+        avgDuration: mapValueOfType<double>(json, r'avgDuration'),
+        callRate: mapValueOfType<double>(json, r'callRate'),
         dataWarning: O11yO11yServiceWarning.fromJson(json[r'dataWarning']),
-        errorRate: num.parse('${json[r'errorRate']}'),
-        fourXXRate: num.parse('${json[r'fourXXRate']}'),
+        errorRate: mapValueOfType<double>(json, r'errorRate'),
+        fourXXRate: mapValueOfType<double>(json, r'fourXXRate'),
         num4XX: mapValueOfType<int>(json, r'num4XX'),
         numCalls: mapValueOfType<int>(json, r'numCalls'),
         numErrors: mapValueOfType<int>(json, r'numErrors'),
-        p99: num.parse('${json[r'p99']}'),
+        p99: mapValueOfType<double>(json, r'p99'),
         serviceName: mapValueOfType<String>(json, r'serviceName'),
       );
     }

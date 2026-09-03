@@ -52,7 +52,7 @@ class RiskLabelRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? confidence;
+  double? confidence;
 
   /// Disposition is what was concluded, from the closed set: `productive` — the event led somewhere, escalated, reported or charged back; `unproductive` — judged not suspicious; or the empty string for an explicit UNJUDGED, which is a real assertion (\"we looked and could not say\") and not the absence of one.
   ///
@@ -271,7 +271,7 @@ class RiskLabelRecord {
       return RiskLabelRecord(
         at: mapValueOfType<String>(json, r'at'),
         by: mapValueOfType<String>(json, r'by'),
-        confidence: num.parse('${json[r'confidence']}'),
+        confidence: mapValueOfType<double>(json, r'confidence'),
         disposition: mapValueOfType<String>(json, r'disposition'),
         evidence: mapValueOfType<String>(json, r'evidence'),
         hold: mapValueOfType<bool>(json, r'hold'),

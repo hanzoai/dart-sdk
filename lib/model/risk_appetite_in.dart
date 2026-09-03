@@ -33,7 +33,7 @@ class RiskAppetiteIn {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? review;
+  double? review;
 
   /// Sample is the share of below-the-line events retained for review, in [0, 1]. It is the instrument that measures what the model missed; there are no labels, so nothing else can.
   ///
@@ -42,7 +42,7 @@ class RiskAppetiteIn {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? sample;
+  double? sample;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is RiskAppetiteIn &&
@@ -100,8 +100,8 @@ class RiskAppetiteIn {
 
       return RiskAppetiteIn(
         live: mapValueOfType<bool>(json, r'live'),
-        review: num.parse('${json[r'review']}'),
-        sample: num.parse('${json[r'sample']}'),
+        review: mapValueOfType<double>(json, r'review'),
+        sample: mapValueOfType<double>(json, r'sample'),
       );
     }
     return null;

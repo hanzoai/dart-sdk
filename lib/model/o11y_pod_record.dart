@@ -41,7 +41,7 @@ class O11yPodRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? podCPU;
+  double? podCPU;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -49,7 +49,7 @@ class O11yPodRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? podCPULimit;
+  double? podCPULimit;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -57,7 +57,7 @@ class O11yPodRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? podCPURequest;
+  double? podCPURequest;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -73,7 +73,7 @@ class O11yPodRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? podMemory;
+  double? podMemory;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -81,7 +81,7 @@ class O11yPodRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? podMemoryLimit;
+  double? podMemoryLimit;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -89,7 +89,7 @@ class O11yPodRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? podMemoryRequest;
+  double? podMemoryRequest;
 
   Object? podPhase;
 
@@ -210,13 +210,13 @@ class O11yPodRecord {
       return O11yPodRecord(
         meta: mapCastOfType<String, String>(json, r'meta') ?? const {},
         podAge: mapValueOfType<int>(json, r'podAge'),
-        podCPU: num.parse('${json[r'podCPU']}'),
-        podCPULimit: num.parse('${json[r'podCPULimit']}'),
-        podCPURequest: num.parse('${json[r'podCPURequest']}'),
+        podCPU: mapValueOfType<double>(json, r'podCPU'),
+        podCPULimit: mapValueOfType<double>(json, r'podCPULimit'),
+        podCPURequest: mapValueOfType<double>(json, r'podCPURequest'),
         podCountsByPhase: O11yPodCountsByPhase.fromJson(json[r'podCountsByPhase']),
-        podMemory: num.parse('${json[r'podMemory']}'),
-        podMemoryLimit: num.parse('${json[r'podMemoryLimit']}'),
-        podMemoryRequest: num.parse('${json[r'podMemoryRequest']}'),
+        podMemory: mapValueOfType<double>(json, r'podMemory'),
+        podMemoryLimit: mapValueOfType<double>(json, r'podMemoryLimit'),
+        podMemoryRequest: mapValueOfType<double>(json, r'podMemoryRequest'),
         podPhase: mapValueOfType<Object>(json, r'podPhase'),
         podUID: mapValueOfType<String>(json, r'podUID'),
       );

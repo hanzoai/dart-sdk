@@ -10,21 +10,32 @@
 
 part of hanzoai.cloud;
 
-class ZapProcReq {
-  /// Returns a new [ZapProcReq] instance.
-  ZapProcReq({
-    this.description,
+class PublishedView {
+  /// Returns a new [PublishedView] instance.
+  PublishedView({
+    this.dns,
+    this.id,
     this.name,
-    this.project,
   });
+  /// DNS is the name the fabric answers for this service — what a kubeconfig server, or any client on the org's overlay, dials.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? description;
+  String? dns;
 
+  /// ID is the fabric service's id.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? id;
+
+  /// Name is the service's name within the org.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -33,54 +44,46 @@ class ZapProcReq {
   ///
   String? name;
 
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? project;
-
   @override
-  bool operator ==(Object other) => identical(this, other) || other is ZapProcReq &&
-    other.description == description &&
-    other.name == name &&
-    other.project == project;
+  bool operator ==(Object other) => identical(this, other) || other is PublishedView &&
+    other.dns == dns &&
+    other.id == id &&
+    other.name == name;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (description == null ? 0 : description!.hashCode) +
-    (name == null ? 0 : name!.hashCode) +
-    (project == null ? 0 : project!.hashCode);
+    (dns == null ? 0 : dns!.hashCode) +
+    (id == null ? 0 : id!.hashCode) +
+    (name == null ? 0 : name!.hashCode);
 
   @override
-  String toString() => 'ZapProcReq[description=$description, name=$name, project=$project]';
+  String toString() => 'PublishedView[dns=$dns, id=$id, name=$name]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.description != null) {
-      json[r'description'] = this.description;
+    if (this.dns != null) {
+      json[r'dns'] = this.dns;
     } else {
-      json[r'description'] = null;
+      json[r'dns'] = null;
+    }
+    if (this.id != null) {
+      json[r'id'] = this.id;
+    } else {
+      json[r'id'] = null;
     }
     if (this.name != null) {
       json[r'name'] = this.name;
     } else {
       json[r'name'] = null;
     }
-    if (this.project != null) {
-      json[r'project'] = this.project;
-    } else {
-      json[r'project'] = null;
-    }
     return json;
   }
 
-  /// Returns a new [ZapProcReq] instance and imports its values from
+  /// Returns a new [PublishedView] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static ZapProcReq? fromJson(dynamic value) {
+  static PublishedView? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -89,26 +92,26 @@ class ZapProcReq {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "ZapProcReq[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "ZapProcReq[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "PublishedView[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "PublishedView[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return ZapProcReq(
-        description: mapValueOfType<String>(json, r'description'),
+      return PublishedView(
+        dns: mapValueOfType<String>(json, r'dns'),
+        id: mapValueOfType<String>(json, r'id'),
         name: mapValueOfType<String>(json, r'name'),
-        project: mapValueOfType<String>(json, r'project'),
       );
     }
     return null;
   }
 
-  static List<ZapProcReq> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <ZapProcReq>[];
+  static List<PublishedView> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <PublishedView>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = ZapProcReq.fromJson(row);
+        final value = PublishedView.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -117,12 +120,12 @@ class ZapProcReq {
     return result.toList(growable: growable);
   }
 
-  static Map<String, ZapProcReq> mapFromJson(dynamic json) {
-    final map = <String, ZapProcReq>{};
+  static Map<String, PublishedView> mapFromJson(dynamic json) {
+    final map = <String, PublishedView>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = ZapProcReq.fromJson(entry.value);
+        final value = PublishedView.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -131,14 +134,14 @@ class ZapProcReq {
     return map;
   }
 
-  // maps a json object with a list of ZapProcReq-objects as value to a dart map
-  static Map<String, List<ZapProcReq>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<ZapProcReq>>{};
+  // maps a json object with a list of PublishedView-objects as value to a dart map
+  static Map<String, List<PublishedView>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<PublishedView>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = ZapProcReq.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = PublishedView.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

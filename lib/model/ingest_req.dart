@@ -181,7 +181,7 @@ class IngestReq {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? usedPct;
+  double? usedPct;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -409,7 +409,7 @@ class IngestReq {
         samples: ReadingReq.listFromJson(json[r'samples']),
         synthetic: mapValueOfType<bool>(json, r'synthetic'),
         totalTokens: mapValueOfType<int>(json, r'totalTokens'),
-        usedPct: num.parse('${json[r'usedPct']}'),
+        usedPct: mapValueOfType<double>(json, r'usedPct'),
         window: mapValueOfType<String>(json, r'window'),
         windowMinutes: mapValueOfType<int>(json, r'windowMinutes'),
         windowStart: mapValueOfType<String>(json, r'windowStart'),

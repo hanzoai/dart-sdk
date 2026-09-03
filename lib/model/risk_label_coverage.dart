@@ -54,7 +54,7 @@ class RiskLabelCoverage {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? explore;
+  double? explore;
 
   /// Facts is how many assertions the window holds; Events is how many distinct judged events they cover. The two differ by exactly the corroboration and the conflict in the plane.
   ///
@@ -295,7 +295,7 @@ class RiskLabelCoverage {
       return RiskLabelCoverage(
         contested: mapValueOfType<int>(json, r'contested'),
         events: mapValueOfType<int>(json, r'events'),
-        explore: num.parse('${json[r'explore']}'),
+        explore: mapValueOfType<double>(json, r'explore'),
         facts: mapValueOfType<int>(json, r'facts'),
         from: mapValueOfType<String>(json, r'from'),
         horizon: mapValueOfType<int>(json, r'horizon'),

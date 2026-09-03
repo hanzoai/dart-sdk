@@ -17,7 +17,7 @@ class IamFaceId {
     this.imageUrl,
     this.name,
   });
-  List<num> faceIdData;
+  List<double> faceIdData;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -87,7 +87,7 @@ class IamFaceId {
 
       return IamFaceId(
         faceIdData: json[r'faceIdData'] is Iterable
-            ? (json[r'faceIdData'] as Iterable).cast<num>().toList(growable: false)
+            ? (json[r'faceIdData'] as Iterable).cast<double>().toList(growable: false)
             : const [],
         imageUrl: mapValueOfType<String>(json, r'imageUrl'),
         name: mapValueOfType<String>(json, r'name'),

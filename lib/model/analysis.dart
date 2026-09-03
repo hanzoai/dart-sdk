@@ -27,7 +27,7 @@ class Analysis {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? alpha;
+  double? alpha;
 
   /// the experiment that was analysed
   ///
@@ -140,7 +140,7 @@ class Analysis {
       }());
 
       return Analysis(
-        alpha: num.parse('${json[r'alpha']}'),
+        alpha: mapValueOfType<double>(json, r'alpha'),
         experiment: mapValueOfType<String>(json, r'experiment'),
         exposedTotal: mapValueOfType<int>(json, r'exposedTotal'),
         metric: mapValueOfType<String>(json, r'metric'),

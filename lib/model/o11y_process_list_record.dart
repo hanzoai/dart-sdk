@@ -45,7 +45,7 @@ class O11yProcessListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? processCPU;
+  double? processCPU;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -61,7 +61,7 @@ class O11yProcessListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? processMemory;
+  double? processMemory;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -153,9 +153,9 @@ class O11yProcessListRecord {
         meta: mapCastOfType<String, String>(json, r'meta') ?? const {},
         processCMD: mapValueOfType<String>(json, r'processCMD'),
         processCMDLine: mapValueOfType<String>(json, r'processCMDLine'),
-        processCPU: num.parse('${json[r'processCPU']}'),
+        processCPU: mapValueOfType<double>(json, r'processCPU'),
         processID: mapValueOfType<String>(json, r'processID'),
-        processMemory: num.parse('${json[r'processMemory']}'),
+        processMemory: mapValueOfType<double>(json, r'processMemory'),
         processName: mapValueOfType<String>(json, r'processName'),
       );
     }

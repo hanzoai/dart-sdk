@@ -26,7 +26,7 @@ class O11yTraceRow {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? durationMs;
+  double? durationMs;
 
   /// End is the latest span end, RFC3339 with nanoseconds, in UTC.
   ///
@@ -133,7 +133,7 @@ class O11yTraceRow {
       }());
 
       return O11yTraceRow(
-        durationMs: num.parse('${json[r'durationMs']}'),
+        durationMs: mapValueOfType<double>(json, r'durationMs'),
         end: mapValueOfType<String>(json, r'end'),
         numSpans: mapValueOfType<int>(json, r'numSpans'),
         start: mapValueOfType<String>(json, r'start'),

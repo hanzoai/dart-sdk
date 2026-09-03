@@ -27,7 +27,7 @@ class SeoMetric {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? competition;
+  double? competition;
 
   /// CPC is the average cost of one advertising click, in USD. It is a reported statistic about somebody else's auction, not an amount this API moves.
   ///
@@ -36,7 +36,7 @@ class SeoMetric {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? cpc;
+  double? cpc;
 
   /// Difficulty is how hard the first page is to reach organically, 0 to 100. Present on seoIdea, which measures it; absent on seoKeyword, which does not.
   ///
@@ -150,8 +150,8 @@ class SeoMetric {
       }());
 
       return SeoMetric(
-        competition: num.parse('${json[r'competition']}'),
-        cpc: num.parse('${json[r'cpc']}'),
+        competition: mapValueOfType<double>(json, r'competition'),
+        cpc: mapValueOfType<double>(json, r'cpc'),
         difficulty: mapValueOfType<int>(json, r'difficulty'),
         keyword: mapValueOfType<String>(json, r'keyword'),
         level: mapValueOfType<String>(json, r'level'),

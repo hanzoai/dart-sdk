@@ -32,7 +32,7 @@ class CaptableRoundTotals {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? totalRaised;
+  double? totalRaised;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is CaptableRoundTotals &&
@@ -83,7 +83,7 @@ class CaptableRoundTotals {
 
       return CaptableRoundTotals(
         count: mapValueOfType<int>(json, r'count'),
-        totalRaised: num.parse('${json[r'totalRaised']}'),
+        totalRaised: mapValueOfType<double>(json, r'totalRaised'),
       );
     }
     return null;

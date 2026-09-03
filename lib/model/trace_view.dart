@@ -90,7 +90,7 @@ class TraceView {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? latencyMs;
+  double? latencyMs;
 
   /// Model is the model that answered.
   ///
@@ -309,7 +309,7 @@ class TraceView {
         endTime: mapValueOfType<String>(json, r'endTime'),
         id: mapValueOfType<String>(json, r'id'),
         input: mapValueOfType<Object>(json, r'input'),
-        latencyMs: num.parse('${json[r'latencyMs']}'),
+        latencyMs: mapValueOfType<double>(json, r'latencyMs'),
         model: mapValueOfType<String>(json, r'model'),
         name: mapValueOfType<String>(json, r'name'),
         output: mapValueOfType<String>(json, r'output'),

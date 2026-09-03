@@ -52,7 +52,7 @@ class CampaignResults {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? cac;
+  double? cac;
 
   /// CampaignID is the campaign these results are for, echoed from the request.
   ///
@@ -91,7 +91,7 @@ class CampaignResults {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? ctr;
+  double? ctr;
 
   /// CVR is conversions per click, a fraction rounded to 4 places. 0 when there were no clicks.
   ///
@@ -100,7 +100,7 @@ class CampaignResults {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? cvr;
+  double? cvr;
 
   /// End is the window's end, RFC3339 UTC — the read's own clock unless an explicit pair was given. The window is a LOOKBACK, not the campaign's own lifetime.
   ///
@@ -145,7 +145,7 @@ class CampaignResults {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? revenue;
+  double? revenue;
 
   /// ROAS is return on ad spend: revenue per spend DOLLAR, rounded to 2 places (2.5 = $2.50 back per $1). 0 when nothing was spent.
   ///
@@ -154,7 +154,7 @@ class CampaignResults {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? roas;
+  double? roas;
 
   /// Source names the analytics table the funnel was read from, so an operator can see exactly what was counted. Set even when Available is false.
   ///
@@ -373,19 +373,19 @@ class CampaignResults {
       return CampaignResults(
         abTest: mapValueOfType<Object>(json, r'abTest'),
         available: mapValueOfType<bool>(json, r'available'),
-        cac: num.parse('${json[r'cac']}'),
+        cac: mapValueOfType<double>(json, r'cac'),
         campaignId: mapValueOfType<String>(json, r'campaignId'),
         channels: ChannelMetric.listFromJson(json[r'channels']),
         clicks: mapValueOfType<int>(json, r'clicks'),
         conversions: mapValueOfType<int>(json, r'conversions'),
-        ctr: num.parse('${json[r'ctr']}'),
-        cvr: num.parse('${json[r'cvr']}'),
+        ctr: mapValueOfType<double>(json, r'ctr'),
+        cvr: mapValueOfType<double>(json, r'cvr'),
         end: mapValueOfType<String>(json, r'end'),
         impressions: mapValueOfType<int>(json, r'impressions'),
         name: mapValueOfType<String>(json, r'name'),
         range: mapValueOfType<String>(json, r'range'),
-        revenue: num.parse('${json[r'revenue']}'),
-        roas: num.parse('${json[r'roas']}'),
+        revenue: mapValueOfType<double>(json, r'revenue'),
+        roas: mapValueOfType<double>(json, r'roas'),
         source_: mapValueOfType<String>(json, r'source'),
         spendCents: mapValueOfType<int>(json, r'spendCents'),
         start: mapValueOfType<String>(json, r'start'),

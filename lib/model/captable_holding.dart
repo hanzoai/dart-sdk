@@ -54,7 +54,7 @@ class CaptableHolding {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? ownershipPct;
+  double? ownershipPct;
 
   /// Shares is the shares this stakeholder holds by certificate.
   ///
@@ -153,7 +153,7 @@ class CaptableHolding {
         fullyDiluted: mapValueOfType<int>(json, r'fullyDiluted'),
         name: mapValueOfType<String>(json, r'name'),
         options: mapValueOfType<int>(json, r'options'),
-        ownershipPct: num.parse('${json[r'ownershipPct']}'),
+        ownershipPct: mapValueOfType<double>(json, r'ownershipPct'),
         shares: mapValueOfType<int>(json, r'shares'),
         stakeholderId: mapValueOfType<String>(json, r'stakeholderId'),
       );

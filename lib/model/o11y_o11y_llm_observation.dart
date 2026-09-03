@@ -56,7 +56,7 @@ class O11yO11yLLMObservation {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? latencyMs;
+  double? latencyMs;
 
   /// Model is the model that served it.
   ///
@@ -146,7 +146,7 @@ class O11yO11yLLMObservation {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? totalCost;
+  double? totalCost;
 
   /// TotalTokens is the sum of prompt and completion tokens.
   ///
@@ -339,7 +339,7 @@ class O11yO11yLLMObservation {
       return O11yO11yLLMObservation(
         completionTokens: mapValueOfType<int>(json, r'completionTokens'),
         id: mapValueOfType<String>(json, r'id'),
-        latencyMs: num.parse('${json[r'latencyMs']}'),
+        latencyMs: mapValueOfType<double>(json, r'latencyMs'),
         model: mapValueOfType<String>(json, r'model'),
         name: mapValueOfType<String>(json, r'name'),
         parentObservationId: mapValueOfType<String>(json, r'parentObservationId'),
@@ -349,7 +349,7 @@ class O11yO11yLLMObservation {
         sessionId: mapValueOfType<String>(json, r'sessionId'),
         startTime: mapDateTime(json, r'startTime', r''),
         statusCode: mapValueOfType<String>(json, r'statusCode'),
-        totalCost: num.parse('${json[r'totalCost']}'),
+        totalCost: mapValueOfType<double>(json, r'totalCost'),
         totalTokens: mapValueOfType<int>(json, r'totalTokens'),
         traceId: mapValueOfType<String>(json, r'traceId'),
         type: mapValueOfType<String>(json, r'type'),

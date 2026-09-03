@@ -33,7 +33,7 @@ class O11yNodeRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? nodeCPU;
+  double? nodeCPU;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -41,7 +41,7 @@ class O11yNodeRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? nodeCPUAllocatable;
+  double? nodeCPUAllocatable;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -57,7 +57,7 @@ class O11yNodeRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? nodeMemory;
+  double? nodeMemory;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -65,7 +65,7 @@ class O11yNodeRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? nodeMemoryAllocatable;
+  double? nodeMemoryAllocatable;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -178,11 +178,11 @@ class O11yNodeRecord {
       return O11yNodeRecord(
         condition: mapValueOfType<Object>(json, r'condition'),
         meta: mapCastOfType<String, String>(json, r'meta') ?? const {},
-        nodeCPU: num.parse('${json[r'nodeCPU']}'),
-        nodeCPUAllocatable: num.parse('${json[r'nodeCPUAllocatable']}'),
+        nodeCPU: mapValueOfType<double>(json, r'nodeCPU'),
+        nodeCPUAllocatable: mapValueOfType<double>(json, r'nodeCPUAllocatable'),
         nodeCountsByReadiness: O11yNodeCountsByReadiness.fromJson(json[r'nodeCountsByReadiness']),
-        nodeMemory: num.parse('${json[r'nodeMemory']}'),
-        nodeMemoryAllocatable: num.parse('${json[r'nodeMemoryAllocatable']}'),
+        nodeMemory: mapValueOfType<double>(json, r'nodeMemory'),
+        nodeMemoryAllocatable: mapValueOfType<double>(json, r'nodeMemoryAllocatable'),
         nodeName: mapValueOfType<String>(json, r'nodeName'),
         podCountsByPhase: O11yPodCountsByPhase.fromJson(json[r'podCountsByPhase']),
       );

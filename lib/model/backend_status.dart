@@ -37,7 +37,7 @@ class BackendStatus {
   ///
   int? hits;
 
-  /// Name is which leg this reports: \"index\", the lexical store, \"vector\", the semantic one, or \"code\", the org's own repositories. Match.Backend uses the same three names.
+  /// Name is which leg this reports: \"index\", the lexical store, \"vector\", the semantic one, \"code\", the org's own repositories, or \"rerank\", the relevance pass over the fused window. Match.Backend uses the same names.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

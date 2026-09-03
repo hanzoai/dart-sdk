@@ -28,7 +28,7 @@ class O11yGettableRuleStateHistoryStats {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? currentAvgResolutionTime;
+  double? currentAvgResolutionTime;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -52,7 +52,7 @@ class O11yGettableRuleStateHistoryStats {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? pastAvgResolutionTime;
+  double? pastAvgResolutionTime;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -176,10 +176,10 @@ class O11yGettableRuleStateHistoryStats {
       }());
 
       return O11yGettableRuleStateHistoryStats(
-        currentAvgResolutionTime: num.parse('${json[r'currentAvgResolutionTime']}'),
+        currentAvgResolutionTime: mapValueOfType<double>(json, r'currentAvgResolutionTime'),
         currentAvgResolutionTimeSeries: O11yTimeSeries.fromJson(json[r'currentAvgResolutionTimeSeries']),
         currentTriggersSeries: O11yTimeSeries.fromJson(json[r'currentTriggersSeries']),
-        pastAvgResolutionTime: num.parse('${json[r'pastAvgResolutionTime']}'),
+        pastAvgResolutionTime: mapValueOfType<double>(json, r'pastAvgResolutionTime'),
         pastAvgResolutionTimeSeries: O11yTimeSeries.fromJson(json[r'pastAvgResolutionTimeSeries']),
         pastTriggersSeries: O11yTimeSeries.fromJson(json[r'pastTriggersSeries']),
         totalCurrentTriggers: mapValueOfType<int>(json, r'totalCurrentTriggers'),

@@ -14,6 +14,7 @@ class Leased {
   /// Returns a new [Leased] instance.
   Leased({
     this.class_,
+    this.cluster,
     this.id,
     this.runtime,
     this.status,
@@ -27,6 +28,15 @@ class Leased {
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
   String? class_;
+
+  /// Cluster is the attached cluster this sandbox runs on, when one was named. Empty is the home cluster.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? cluster;
 
   /// ID names this computer for every later call — run, read, write, stop and end all take it, and a LeaseIn carrying it resumes THIS sandbox instead of leasing a second one. Minted here; a caller cannot choose it, and a resumed lease that had expired comes back under a new one.
   ///
@@ -67,6 +77,7 @@ class Leased {
   @override
   bool operator ==(Object other) => identical(this, other) || other is Leased &&
     other.class_ == class_ &&
+    other.cluster == cluster &&
     other.id == id &&
     other.runtime == runtime &&
     other.status == status &&
@@ -76,13 +87,14 @@ class Leased {
   int get hashCode =>
     // ignore: unnecessary_parenthesis
     (class_ == null ? 0 : class_!.hashCode) +
+    (cluster == null ? 0 : cluster!.hashCode) +
     (id == null ? 0 : id!.hashCode) +
     (runtime == null ? 0 : runtime!.hashCode) +
     (status == null ? 0 : status!.hashCode) +
     (workdir == null ? 0 : workdir!.hashCode);
 
   @override
-  String toString() => 'Leased[class_=$class_, id=$id, runtime=$runtime, status=$status, workdir=$workdir]';
+  String toString() => 'Leased[class_=$class_, cluster=$cluster, id=$id, runtime=$runtime, status=$status, workdir=$workdir]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -90,6 +102,11 @@ class Leased {
       json[r'class'] = this.class_;
     } else {
       json[r'class'] = null;
+    }
+    if (this.cluster != null) {
+      json[r'cluster'] = this.cluster;
+    } else {
+      json[r'cluster'] = null;
     }
     if (this.id != null) {
       json[r'id'] = this.id;
@@ -134,6 +151,7 @@ class Leased {
 
       return Leased(
         class_: mapValueOfType<String>(json, r'class'),
+        cluster: mapValueOfType<String>(json, r'cluster'),
         id: mapValueOfType<String>(json, r'id'),
         runtime: mapValueOfType<String>(json, r'runtime'),
         status: mapValueOfType<String>(json, r'status'),

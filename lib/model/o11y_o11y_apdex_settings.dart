@@ -62,7 +62,7 @@ class O11yO11yApdexSettings {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? threshold;
+  double? threshold;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is O11yO11yApdexSettings &&
@@ -137,7 +137,7 @@ class O11yO11yApdexSettings {
         id: mapValueOfType<String>(json, r'id'),
         orgId: mapValueOfType<String>(json, r'orgId'),
         serviceName: mapValueOfType<String>(json, r'serviceName'),
-        threshold: num.parse('${json[r'threshold']}'),
+        threshold: mapValueOfType<double>(json, r'threshold'),
       );
     }
     return null;

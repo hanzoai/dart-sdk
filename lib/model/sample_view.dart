@@ -73,7 +73,7 @@ class SampleView {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? gpuUtil;
+  double? gpuUtil;
 
   /// GPUs is how many accelerators the reading covers.
   ///
@@ -109,7 +109,7 @@ class SampleView {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? load1;
+  double? load1;
 
   /// Load5 is the 5-minute load average, the same units as Load1.
   ///
@@ -118,7 +118,7 @@ class SampleView {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? load5;
+  double? load5;
 
   /// Load15 is the 15-minute load average, the same units as Load1.
   ///
@@ -127,7 +127,7 @@ class SampleView {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? load15;
+  double? load15;
 
   /// MemFree is host memory available, in BYTES, as reported rather than derived.
   ///
@@ -324,13 +324,13 @@ class SampleView {
         costCents: mapValueOfType<int>(json, r'costCents'),
         cpus: mapValueOfType<int>(json, r'cpus'),
         gpuModel: mapValueOfType<String>(json, r'gpuModel'),
-        gpuUtil: num.parse('${json[r'gpuUtil']}'),
+        gpuUtil: mapValueOfType<double>(json, r'gpuUtil'),
         gpus: mapValueOfType<int>(json, r'gpus'),
         host: mapValueOfType<String>(json, r'host'),
         kind: mapValueOfType<String>(json, r'kind'),
-        load1: num.parse('${json[r'load1']}'),
-        load5: num.parse('${json[r'load5']}'),
-        load15: num.parse('${json[r'load15']}'),
+        load1: mapValueOfType<double>(json, r'load1'),
+        load5: mapValueOfType<double>(json, r'load5'),
+        load15: mapValueOfType<double>(json, r'load15'),
         memFree: mapValueOfType<int>(json, r'memFree'),
         memUsed: mapValueOfType<int>(json, r'memUsed'),
         memory: mapValueOfType<int>(json, r'memory'),

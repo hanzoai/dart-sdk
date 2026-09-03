@@ -27,7 +27,7 @@ class RiskValue {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? baseline;
+  double? baseline;
 
   /// Blind marks a coordinate that could not be computed and took its neutral value. A model silently reading neutral for a dimension it never has data for is indistinguishable from one reading a genuine absence of risk.
   ///
@@ -54,7 +54,7 @@ class RiskValue {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? observed;
+  double? observed;
 
   /// Unit is how to read Observed.
   ///
@@ -72,7 +72,7 @@ class RiskValue {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? x;
+  double? x;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is RiskValue &&
@@ -150,12 +150,12 @@ class RiskValue {
       }());
 
       return RiskValue(
-        baseline: num.parse('${json[r'baseline']}'),
+        baseline: mapValueOfType<double>(json, r'baseline'),
         blind: mapValueOfType<bool>(json, r'blind'),
         feature: mapValueOfType<String>(json, r'feature'),
-        observed: num.parse('${json[r'observed']}'),
+        observed: mapValueOfType<double>(json, r'observed'),
         unit: mapValueOfType<String>(json, r'unit'),
-        x: num.parse('${json[r'x']}'),
+        x: mapValueOfType<double>(json, r'x'),
       );
     }
     return null;

@@ -34,7 +34,7 @@ class RiskTrial {
   int? alerted;
 
   /// Curve is the realised alert rate over successive tenths of the history — the learning curve, which says whether the shape settled or is still moving.
-  List<num> curve;
+  List<double> curve;
 
   /// Fit ranks the shape, smaller being better: the relative miss of the stated appetite, plus flat penalties for never warming and for saturating, plus the share of coordinates that were blind.
   ///
@@ -43,7 +43,7 @@ class RiskTrial {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? fit;
+  double? fit;
 
   /// Learned is how many events the shape learned from during the replay.
   ///
@@ -61,7 +61,7 @@ class RiskTrial {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? realised;
+  double? realised;
 
   /// Saturated is whether the appetite could not be honoured by any threshold, which is a shape that alerts on nothing and reads like a quiet one.
   ///
@@ -88,7 +88,7 @@ class RiskTrial {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? stated;
+  double? stated;
 
   /// Topology is the shape.
   ///
@@ -210,14 +210,14 @@ class RiskTrial {
       return RiskTrial(
         alerted: mapValueOfType<int>(json, r'alerted'),
         curve: json[r'curve'] is Iterable
-            ? (json[r'curve'] as Iterable).cast<num>().toList(growable: false)
+            ? (json[r'curve'] as Iterable).cast<double>().toList(growable: false)
             : const [],
-        fit: num.parse('${json[r'fit']}'),
+        fit: mapValueOfType<double>(json, r'fit'),
         learned: mapValueOfType<int>(json, r'learned'),
-        realised: num.parse('${json[r'realised']}'),
+        realised: mapValueOfType<double>(json, r'realised'),
         saturated: mapValueOfType<bool>(json, r'saturated'),
         scored: mapValueOfType<int>(json, r'scored'),
-        stated: num.parse('${json[r'stated']}'),
+        stated: mapValueOfType<double>(json, r'stated'),
         topology: RiskTopology.fromJson(json[r'topology']),
         warm: mapValueOfType<bool>(json, r'warm'),
       );

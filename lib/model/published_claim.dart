@@ -63,7 +63,7 @@ class PublishedClaim {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? score;
+  double? score;
 
   /// Source is the citation the row was read from. A claim without one is a number nobody can check, so every write requires it.
   ///
@@ -154,7 +154,7 @@ class PublishedClaim {
         model: mapValueOfType<String>(json, r'model'),
         protocol: mapValueOfType<String>(json, r'protocol'),
         provider: mapValueOfType<String>(json, r'provider'),
-        score: num.parse('${json[r'score']}'),
+        score: mapValueOfType<double>(json, r'score'),
         source_: mapValueOfType<String>(json, r'source'),
       );
     }

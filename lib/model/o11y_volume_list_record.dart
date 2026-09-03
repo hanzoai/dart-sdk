@@ -38,7 +38,7 @@ class O11yVolumeListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? volumeAvailable;
+  double? volumeAvailable;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -46,7 +46,7 @@ class O11yVolumeListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? volumeCapacity;
+  double? volumeCapacity;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -54,7 +54,7 @@ class O11yVolumeListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? volumeInodes;
+  double? volumeInodes;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -62,7 +62,7 @@ class O11yVolumeListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? volumeInodesFree;
+  double? volumeInodesFree;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -70,7 +70,7 @@ class O11yVolumeListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? volumeInodesUsed;
+  double? volumeInodesUsed;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -78,7 +78,7 @@ class O11yVolumeListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? volumeUsage;
+  double? volumeUsage;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is O11yVolumeListRecord &&
@@ -168,12 +168,12 @@ class O11yVolumeListRecord {
       return O11yVolumeListRecord(
         meta: mapCastOfType<String, String>(json, r'meta') ?? const {},
         persistentVolumeClaimName: mapValueOfType<String>(json, r'persistentVolumeClaimName'),
-        volumeAvailable: num.parse('${json[r'volumeAvailable']}'),
-        volumeCapacity: num.parse('${json[r'volumeCapacity']}'),
-        volumeInodes: num.parse('${json[r'volumeInodes']}'),
-        volumeInodesFree: num.parse('${json[r'volumeInodesFree']}'),
-        volumeInodesUsed: num.parse('${json[r'volumeInodesUsed']}'),
-        volumeUsage: num.parse('${json[r'volumeUsage']}'),
+        volumeAvailable: mapValueOfType<double>(json, r'volumeAvailable'),
+        volumeCapacity: mapValueOfType<double>(json, r'volumeCapacity'),
+        volumeInodes: mapValueOfType<double>(json, r'volumeInodes'),
+        volumeInodesFree: mapValueOfType<double>(json, r'volumeInodesFree'),
+        volumeInodesUsed: mapValueOfType<double>(json, r'volumeInodesUsed'),
+        volumeUsage: mapValueOfType<double>(json, r'volumeUsage'),
       );
     }
     return null;

@@ -19,6 +19,7 @@ class Skill {
     this.id,
     this.name,
     this.org,
+    this.source_,
   });
   /// Content is the SKILL.md body, markdown.
   ///
@@ -74,6 +75,15 @@ class Skill {
   ///
   String? org;
 
+  /// Source is the repository the skill was read from, \"<project>/<name>\" or \"<name>\"; empty for a skill written through the API. A push replaces every skill of its source at once, so a skill leaves when its file does.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? source_;
+
   @override
   bool operator ==(Object other) => identical(this, other) || other is Skill &&
     other.content == content &&
@@ -81,7 +91,8 @@ class Skill {
     other.description == description &&
     other.id == id &&
     other.name == name &&
-    other.org == org;
+    other.org == org &&
+    other.source_ == source_;
 
   @override
   int get hashCode =>
@@ -91,10 +102,11 @@ class Skill {
     (description == null ? 0 : description!.hashCode) +
     (id == null ? 0 : id!.hashCode) +
     (name == null ? 0 : name!.hashCode) +
-    (org == null ? 0 : org!.hashCode);
+    (org == null ? 0 : org!.hashCode) +
+    (source_ == null ? 0 : source_!.hashCode);
 
   @override
-  String toString() => 'Skill[content=$content, createdAt=$createdAt, description=$description, id=$id, name=$name, org=$org]';
+  String toString() => 'Skill[content=$content, createdAt=$createdAt, description=$description, id=$id, name=$name, org=$org, source_=$source_]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -128,6 +140,11 @@ class Skill {
     } else {
       json[r'org'] = null;
     }
+    if (this.source_ != null) {
+      json[r'source'] = this.source_;
+    } else {
+      json[r'source'] = null;
+    }
     return json;
   }
 
@@ -156,6 +173,7 @@ class Skill {
         id: mapValueOfType<String>(json, r'id'),
         name: mapValueOfType<String>(json, r'name'),
         org: mapValueOfType<String>(json, r'org'),
+        source_: mapValueOfType<String>(json, r'source'),
       );
     }
     return null;

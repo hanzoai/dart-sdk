@@ -50,7 +50,7 @@ class SeoAuditOut {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? score;
+  double? score;
 
   /// Status is the HTTP status the page answered with.
   ///
@@ -177,7 +177,7 @@ class SeoAuditOut {
         checks: mapCastOfType<String, bool>(json, r'checks') ?? const {},
         cost: mapValueOfType<String>(json, r'cost'),
         description: mapValueOfType<String>(json, r'description'),
-        score: num.parse('${json[r'score']}'),
+        score: mapValueOfType<double>(json, r'score'),
         status: mapValueOfType<int>(json, r'status'),
         title: mapValueOfType<String>(json, r'title'),
         url: mapValueOfType<String>(json, r'url'),

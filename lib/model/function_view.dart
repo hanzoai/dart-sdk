@@ -37,7 +37,7 @@ class FunctionView {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? avgDurationMs;
+  double? avgDurationMs;
 
   /// when it was first published
   ///
@@ -154,7 +154,7 @@ class FunctionView {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? successRate;
+  double? successRate;
 
   /// where it runs: empty for the sandbox, \"fleet\" for the org's GPU fleet
   ///
@@ -320,7 +320,7 @@ class FunctionView {
       }());
 
       return FunctionView(
-        avgDurationMs: num.parse('${json[r'avgDurationMs']}'),
+        avgDurationMs: mapValueOfType<double>(json, r'avgDurationMs'),
         createdAt: mapValueOfType<String>(json, r'createdAt'),
         endpoint: mapValueOfType<String>(json, r'endpoint'),
         envCount: mapValueOfType<int>(json, r'envCount'),
@@ -333,7 +333,7 @@ class FunctionView {
         name: mapValueOfType<String>(json, r'name'),
         namespace: mapValueOfType<String>(json, r'namespace'),
         status: mapValueOfType<String>(json, r'status'),
-        successRate: num.parse('${json[r'successRate']}'),
+        successRate: mapValueOfType<double>(json, r'successRate'),
         target: mapValueOfType<String>(json, r'target'),
         timeoutSec: mapValueOfType<int>(json, r'timeoutSec'),
       );

@@ -100,7 +100,7 @@ class IamOrganization {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? balanceCredit;
+  double? balanceCredit;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -393,7 +393,7 @@ class IamOrganization {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? orgBalance;
+  double? orgBalance;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -485,7 +485,7 @@ class IamOrganization {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? userBalance;
+  double? userBalance;
 
   List<String> userNavItems;
 
@@ -921,7 +921,7 @@ class IamOrganization {
         accountItems: IamAccountItem.listFromJson(json[r'accountItems']),
         accountMenu: mapValueOfType<String>(json, r'accountMenu'),
         avatar: mapValueOfType<String>(json, r'avatar'),
-        balanceCredit: num.parse('${json[r'balanceCredit']}'),
+        balanceCredit: mapValueOfType<double>(json, r'balanceCredit'),
         balanceCurrency: mapValueOfType<String>(json, r'balanceCurrency'),
         countryCodes: json[r'countryCodes'] is Iterable
             ? (json[r'countryCodes'] as Iterable).cast<String>().toList(growable: false)
@@ -969,7 +969,7 @@ class IamOrganization {
         navItems: json[r'navItems'] is Iterable
             ? (json[r'navItems'] as Iterable).cast<String>().toList(growable: false)
             : const [],
-        orgBalance: num.parse('${json[r'orgBalance']}'),
+        orgBalance: mapValueOfType<double>(json, r'orgBalance'),
         owner: mapValueOfType<String>(json, r'owner'),
         passwordExpireDays: mapValueOfType<int>(json, r'passwordExpireDays'),
         passwordObfuscatorKey: mapValueOfType<String>(json, r'passwordObfuscatorKey'),
@@ -986,7 +986,7 @@ class IamOrganization {
         updatedAt: mapDateTime(json, r'updatedAt', r''),
         useEmailAsUsername: mapValueOfType<bool>(json, r'useEmailAsUsername'),
         usePermanentAvatar: mapValueOfType<bool>(json, r'usePermanentAvatar'),
-        userBalance: num.parse('${json[r'userBalance']}'),
+        userBalance: mapValueOfType<double>(json, r'userBalance'),
         userNavItems: json[r'userNavItems'] is Iterable
             ? (json[r'userNavItems'] as Iterable).cast<String>().toList(growable: false)
             : const [],

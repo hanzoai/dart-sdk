@@ -40,7 +40,7 @@ class O11yPodListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? podCPU;
+  double? podCPU;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -48,7 +48,7 @@ class O11yPodListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? podCPULimit;
+  double? podCPULimit;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -56,7 +56,7 @@ class O11yPodListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? podCPURequest;
+  double? podCPURequest;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -64,7 +64,7 @@ class O11yPodListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? podMemory;
+  double? podMemory;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -72,7 +72,7 @@ class O11yPodListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? podMemoryLimit;
+  double? podMemoryLimit;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -80,7 +80,7 @@ class O11yPodListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? podMemoryRequest;
+  double? podMemoryRequest;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -200,12 +200,12 @@ class O11yPodListRecord {
       return O11yPodListRecord(
         countByPhase: O11yPodCountByPhase.fromJson(json[r'countByPhase']),
         meta: mapCastOfType<String, String>(json, r'meta') ?? const {},
-        podCPU: num.parse('${json[r'podCPU']}'),
-        podCPULimit: num.parse('${json[r'podCPULimit']}'),
-        podCPURequest: num.parse('${json[r'podCPURequest']}'),
-        podMemory: num.parse('${json[r'podMemory']}'),
-        podMemoryLimit: num.parse('${json[r'podMemoryLimit']}'),
-        podMemoryRequest: num.parse('${json[r'podMemoryRequest']}'),
+        podCPU: mapValueOfType<double>(json, r'podCPU'),
+        podCPULimit: mapValueOfType<double>(json, r'podCPULimit'),
+        podCPURequest: mapValueOfType<double>(json, r'podCPURequest'),
+        podMemory: mapValueOfType<double>(json, r'podMemory'),
+        podMemoryLimit: mapValueOfType<double>(json, r'podMemoryLimit'),
+        podMemoryRequest: mapValueOfType<double>(json, r'podMemoryRequest'),
         podUID: mapValueOfType<String>(json, r'podUID'),
         restartCount: mapValueOfType<int>(json, r'restartCount'),
       );

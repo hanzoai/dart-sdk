@@ -57,7 +57,7 @@ class O11yStatefulSetRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? statefulSetCPU;
+  double? statefulSetCPU;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -65,7 +65,7 @@ class O11yStatefulSetRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? statefulSetCPULimit;
+  double? statefulSetCPULimit;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -73,7 +73,7 @@ class O11yStatefulSetRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? statefulSetCPURequest;
+  double? statefulSetCPURequest;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -81,7 +81,7 @@ class O11yStatefulSetRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? statefulSetMemory;
+  double? statefulSetMemory;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -89,7 +89,7 @@ class O11yStatefulSetRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? statefulSetMemoryLimit;
+  double? statefulSetMemoryLimit;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -97,7 +97,7 @@ class O11yStatefulSetRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? statefulSetMemoryRequest;
+  double? statefulSetMemoryRequest;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -218,12 +218,12 @@ class O11yStatefulSetRecord {
         desiredPods: mapValueOfType<int>(json, r'desiredPods'),
         meta: mapCastOfType<String, String>(json, r'meta') ?? const {},
         podCountsByPhase: O11yPodCountsByPhase.fromJson(json[r'podCountsByPhase']),
-        statefulSetCPU: num.parse('${json[r'statefulSetCPU']}'),
-        statefulSetCPULimit: num.parse('${json[r'statefulSetCPULimit']}'),
-        statefulSetCPURequest: num.parse('${json[r'statefulSetCPURequest']}'),
-        statefulSetMemory: num.parse('${json[r'statefulSetMemory']}'),
-        statefulSetMemoryLimit: num.parse('${json[r'statefulSetMemoryLimit']}'),
-        statefulSetMemoryRequest: num.parse('${json[r'statefulSetMemoryRequest']}'),
+        statefulSetCPU: mapValueOfType<double>(json, r'statefulSetCPU'),
+        statefulSetCPULimit: mapValueOfType<double>(json, r'statefulSetCPULimit'),
+        statefulSetCPURequest: mapValueOfType<double>(json, r'statefulSetCPURequest'),
+        statefulSetMemory: mapValueOfType<double>(json, r'statefulSetMemory'),
+        statefulSetMemoryLimit: mapValueOfType<double>(json, r'statefulSetMemoryLimit'),
+        statefulSetMemoryRequest: mapValueOfType<double>(json, r'statefulSetMemoryRequest'),
         statefulSetName: mapValueOfType<String>(json, r'statefulSetName'),
       );
     }

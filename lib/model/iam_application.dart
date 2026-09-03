@@ -369,7 +369,7 @@ class IamApplication {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? expireInHours;
+  double? expireInHours;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -593,7 +593,7 @@ class IamApplication {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? refreshExpireInHours;
+  double? refreshExpireInHours;
 
   List<IamSamlItem> samlAttributes;
 
@@ -1392,7 +1392,7 @@ class IamApplication {
         enableSigninSession: mapValueOfType<bool>(json, r'enableSigninSession'),
         enableWebAuthn: mapValueOfType<bool>(json, r'enableWebAuthn'),
         environment: mapValueOfType<String>(json, r'environment'),
-        expireInHours: num.parse('${json[r'expireInHours']}'),
+        expireInHours: mapValueOfType<double>(json, r'expireInHours'),
         failedSigninFrozenTime: mapValueOfType<int>(json, r'failedSigninFrozenTime'),
         failedSigninLimit: mapValueOfType<int>(json, r'failedSigninLimit'),
         favicon: mapValueOfType<String>(json, r'favicon'),
@@ -1429,7 +1429,7 @@ class IamApplication {
         redirectUris: json[r'redirectUris'] is Iterable
             ? (json[r'redirectUris'] as Iterable).cast<String>().toList(growable: false)
             : const [],
-        refreshExpireInHours: num.parse('${json[r'refreshExpireInHours']}'),
+        refreshExpireInHours: mapValueOfType<double>(json, r'refreshExpireInHours'),
         samlAttributes: IamSamlItem.listFromJson(json[r'samlAttributes']),
         samlHashAlgorithm: mapValueOfType<String>(json, r'samlHashAlgorithm'),
         samlReplyUrl: mapValueOfType<String>(json, r'samlReplyUrl'),

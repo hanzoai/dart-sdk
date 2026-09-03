@@ -33,7 +33,7 @@ class O11yO11yLLMPricingCacheCosts {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? read;
+  double? read;
 
   /// Write is the cost per unit of cache-write tokens.
   ///
@@ -42,7 +42,7 @@ class O11yO11yLLMPricingCacheCosts {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? write;
+  double? write;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is O11yO11yLLMPricingCacheCosts &&
@@ -100,8 +100,8 @@ class O11yO11yLLMPricingCacheCosts {
 
       return O11yO11yLLMPricingCacheCosts(
         mode: mapValueOfType<String>(json, r'mode'),
-        read: num.parse('${json[r'read']}'),
-        write: num.parse('${json[r'write']}'),
+        read: mapValueOfType<double>(json, r'read'),
+        write: mapValueOfType<double>(json, r'write'),
       );
     }
     return null;

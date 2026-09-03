@@ -59,7 +59,7 @@ class RouteCandidate {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? headroomPct;
+  double? headroomPct;
 
   /// Host is that machine's hostname label.
   ///
@@ -238,7 +238,7 @@ class RouteCandidate {
         account: mapValueOfType<String>(json, r'account'),
         available: mapValueOfType<bool>(json, r'available'),
         billing: mapValueOfType<String>(json, r'billing'),
-        headroomPct: num.parse('${json[r'headroomPct']}'),
+        headroomPct: mapValueOfType<double>(json, r'headroomPct'),
         host: mapValueOfType<String>(json, r'host'),
         kind: mapValueOfType<String>(json, r'kind'),
         linkId: mapValueOfType<String>(json, r'linkId'),

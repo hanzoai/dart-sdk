@@ -26,7 +26,6 @@ class CodingStartIn {
     this.timeoutSeconds,
     this.tool,
   });
-  /// After names a previous run's session, and starts this one from where that one stopped instead of from the repository's default. It is how a follow-up instruction — \"now add tests for it\" — builds on work already done rather than beginning again on a fresh clone.  It sets the base and nothing else, so this run still writes its OWN branch. One run, one branch: a run that wrote back onto an earlier run's branch would break the rule the forge's ref policy is built on, and would leave two turns of work with one name to review.  A caller who already knows the branch may pass Base directly; this exists because the branch is derived from a session id and nobody should have to know how. Base wins if both are given.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -35,7 +34,6 @@ class CodingStartIn {
   ///
   String? after;
 
-  /// AgentRef names a configured agent to run as, which is how an org pins a harness, a model and a prompt to a name. Empty runs the default agent.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -44,7 +42,6 @@ class CodingStartIn {
   ///
   String? agentRef;
 
-  /// Base is the branch to start from. Empty takes the repository's default. The run never writes here — it writes the agent branch it answers with.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -53,7 +50,6 @@ class CodingStartIn {
   ///
   String? base_;
 
-  /// Desktop asks for a run with a SCREEN — an image carrying an X server — for a task that has to drive a browser or another windowed program. False, the default, is a headless checkout, which is what writing code needs.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -62,7 +58,6 @@ class CodingStartIn {
   ///
   bool? desktop;
 
-  /// Project scopes the run to one board's work when the org keeps more than one. Empty is the org's default.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -71,7 +66,6 @@ class CodingStartIn {
   ///
   String? project;
 
-  /// Prompt is the task, in the words you would use with a colleague who has the checkout open. It is the whole instruction: there is no second field for context, and a prompt that names files and the outcome it wants gets a run that does not have to guess either.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -80,7 +74,6 @@ class CodingStartIn {
   ///
   String? prompt;
 
-  /// ReplyChannel / ReplyThread are WHERE THE RUN NARRATES ITSELF, when the surface that started it has somewhere for it to talk. Empty means nobody is listening and the run simply does not narrate — which is the app surface's case, because /v1/agents/coding hands back a session id and the session stream is a better progress feed than any message could be.  It is an ADDRESS and not a token: the engine says \"put this text there\", and the process that owns the workspace's bot credential is the one that actually posts. So a run reports into a Slack thread without the engine ever holding the token that could post anywhere else in that workspace.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -89,7 +82,6 @@ class CodingStartIn {
   ///
   String? replyChannel;
 
-  /// ReplyThread narrows that address to one THREAD inside the channel: on Slack it is the parent message's ts, the same value a reply carries as thread_ts. Empty puts the run's status line at the top level of the channel instead.  The channel is what decides whether a run narrates at all, so this on its own addresses nothing — a thread with no ReplyChannel is a run nobody hears.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -98,7 +90,6 @@ class CodingStartIn {
   ///
   String? replyThread;
 
-  /// Repo is what to work on, as `owner/name` in the caller's own org. The engine resolves the clone URL and the push credential from the org itself, so this says WHICH repository and never how to reach it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -107,7 +98,6 @@ class CodingStartIn {
   ///
   String? repo;
 
-  /// TargetID routes the run to a registered machine the org has claimed instead of to a sandbox in our cluster. Empty runs it here, which is the usual case.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -116,7 +106,6 @@ class CodingStartIn {
   ///
   String? targetId;
 
-  /// TimeoutSeconds bounds the whole run. Unset takes the default budget; a run that hits the bound is stopped and reports what it had done by then.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -125,7 +114,6 @@ class CodingStartIn {
   ///
   int? timeoutSeconds;
 
-  /// Tool is which harness runs the prompt — dev | claude | codex | python | node — and Desktop is whether the run needs a screen. Both are empty by default, which is `dev` with no screen, and that default is what every caller gets until it says otherwise.  They are two fields because they are two questions. The harness decides what argv starts; the screen decides which image carries an X server. A caller may want claude WITH a browser it can see, and a single enum would have made that combination unsayable.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

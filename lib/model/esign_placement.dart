@@ -34,7 +34,7 @@ class EsignPlacement {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? page;
+  double? page;
 
   /// RecipientID is who must fill it.
   ///
@@ -117,7 +117,7 @@ class EsignPlacement {
 
       return EsignPlacement(
         id: mapValueOfType<String>(json, r'id'),
-        page: num.parse('${json[r'page']}'),
+        page: mapValueOfType<double>(json, r'page'),
         recipientId: mapValueOfType<String>(json, r'recipientId'),
         type: mapValueOfType<String>(json, r'type'),
       );

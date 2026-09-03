@@ -34,7 +34,7 @@ class O11yClusterListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? cpuAllocatable;
+  double? cpuAllocatable;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -42,7 +42,7 @@ class O11yClusterListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? cpuUsage;
+  double? cpuUsage;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -50,7 +50,7 @@ class O11yClusterListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? memoryAllocatable;
+  double? memoryAllocatable;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -58,7 +58,7 @@ class O11yClusterListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? memoryUsage;
+  double? memoryUsage;
 
   Map<String, String> meta;
 
@@ -135,10 +135,10 @@ class O11yClusterListRecord {
 
       return O11yClusterListRecord(
         clusterUID: mapValueOfType<String>(json, r'clusterUID'),
-        cpuAllocatable: num.parse('${json[r'cpuAllocatable']}'),
-        cpuUsage: num.parse('${json[r'cpuUsage']}'),
-        memoryAllocatable: num.parse('${json[r'memoryAllocatable']}'),
-        memoryUsage: num.parse('${json[r'memoryUsage']}'),
+        cpuAllocatable: mapValueOfType<double>(json, r'cpuAllocatable'),
+        cpuUsage: mapValueOfType<double>(json, r'cpuUsage'),
+        memoryAllocatable: mapValueOfType<double>(json, r'memoryAllocatable'),
+        memoryUsage: mapValueOfType<double>(json, r'memoryUsage'),
         meta: mapCastOfType<String, String>(json, r'meta') ?? const {},
       );
     }

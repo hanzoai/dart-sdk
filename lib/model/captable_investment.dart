@@ -29,7 +29,7 @@ class CaptableInvestment {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? amount;
+  double? amount;
 
   /// Date is the ISO date of the investment.
   ///
@@ -184,7 +184,7 @@ class CaptableInvestment {
       }());
 
       return CaptableInvestment(
-        amount: num.parse('${json[r'amount']}'),
+        amount: mapValueOfType<double>(json, r'amount'),
         date: mapValueOfType<String>(json, r'date'),
         id: mapValueOfType<String>(json, r'id'),
         roundId: mapValueOfType<String>(json, r'roundId'),

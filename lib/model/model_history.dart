@@ -36,7 +36,7 @@ class ModelHistory {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? trend;
+  double? trend;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is ModelHistory &&
@@ -91,7 +91,7 @@ class ModelHistory {
       return ModelHistory(
         model: mapValueOfType<String>(json, r'model'),
         points: RunPoint.listFromJson(json[r'points']),
-        trend: num.parse('${json[r'trend']}'),
+        trend: mapValueOfType<double>(json, r'trend'),
       );
     }
     return null;

@@ -34,7 +34,7 @@ class LatencyStat {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? p50Ms;
+  double? p50Ms;
 
   /// 95th-percentile latency
   ///
@@ -43,7 +43,7 @@ class LatencyStat {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? p95Ms;
+  double? p95Ms;
 
   /// 99th-percentile latency
   ///
@@ -52,7 +52,7 @@ class LatencyStat {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? p99Ms;
+  double? p99Ms;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is LatencyStat &&
@@ -117,9 +117,9 @@ class LatencyStat {
 
       return LatencyStat(
         available: mapValueOfType<bool>(json, r'available'),
-        p50Ms: num.parse('${json[r'p50Ms']}'),
-        p95Ms: num.parse('${json[r'p95Ms']}'),
-        p99Ms: num.parse('${json[r'p99Ms']}'),
+        p50Ms: mapValueOfType<double>(json, r'p50Ms'),
+        p95Ms: mapValueOfType<double>(json, r'p95Ms'),
+        p99Ms: mapValueOfType<double>(json, r'p99Ms'),
       );
     }
     return null;

@@ -38,7 +38,7 @@ class O11yHostRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? cpu;
+  double? cpu;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -46,7 +46,7 @@ class O11yHostRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? diskUsage;
+  double? diskUsage;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -70,7 +70,7 @@ class O11yHostRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? load15;
+  double? load15;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -78,7 +78,7 @@ class O11yHostRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? memory;
+  double? memory;
 
   Map<String, String> meta;
 
@@ -90,7 +90,7 @@ class O11yHostRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? wait;
+  double? wait;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is O11yHostRecord &&
@@ -193,15 +193,15 @@ class O11yHostRecord {
 
       return O11yHostRecord(
         activeHostCount: mapValueOfType<int>(json, r'activeHostCount'),
-        cpu: num.parse('${json[r'cpu']}'),
-        diskUsage: num.parse('${json[r'diskUsage']}'),
+        cpu: mapValueOfType<double>(json, r'cpu'),
+        diskUsage: mapValueOfType<double>(json, r'diskUsage'),
         hostName: mapValueOfType<String>(json, r'hostName'),
         inactiveHostCount: mapValueOfType<int>(json, r'inactiveHostCount'),
-        load15: num.parse('${json[r'load15']}'),
-        memory: num.parse('${json[r'memory']}'),
+        load15: mapValueOfType<double>(json, r'load15'),
+        memory: mapValueOfType<double>(json, r'memory'),
         meta: mapCastOfType<String, String>(json, r'meta') ?? const {},
         status: mapValueOfType<Object>(json, r'status'),
-        wait: num.parse('${json[r'wait']}'),
+        wait: mapValueOfType<double>(json, r'wait'),
       );
     }
     return null;

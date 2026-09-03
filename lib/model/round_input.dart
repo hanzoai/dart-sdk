@@ -36,7 +36,7 @@ class RoundInput {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? preMoneyValuation;
+  double? preMoneyValuation;
 
   /// PricePerShare is the per-share price of a priced round.
   ///
@@ -45,7 +45,7 @@ class RoundInput {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? pricePerShare;
+  double? pricePerShare;
 
   /// RoundType is PRICED, SAFE or CONVERTIBLE_NOTE. Defaults to PRICED.
   ///
@@ -72,7 +72,7 @@ class RoundInput {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? targetAmount;
+  double? targetAmount;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is RoundInput &&
@@ -151,11 +151,11 @@ class RoundInput {
 
       return RoundInput(
         name: mapValueOfType<String>(json, r'name'),
-        preMoneyValuation: num.parse('${json[r'preMoneyValuation']}'),
-        pricePerShare: num.parse('${json[r'pricePerShare']}'),
+        preMoneyValuation: mapValueOfType<double>(json, r'preMoneyValuation'),
+        pricePerShare: mapValueOfType<double>(json, r'pricePerShare'),
         roundType: mapValueOfType<String>(json, r'roundType'),
         shareClassId: mapValueOfType<String>(json, r'shareClassId'),
-        targetAmount: num.parse('${json[r'targetAmount']}'),
+        targetAmount: mapValueOfType<double>(json, r'targetAmount'),
       );
     }
     return null;

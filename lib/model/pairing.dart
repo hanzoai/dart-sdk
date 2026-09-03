@@ -76,7 +76,7 @@ class Pairing {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? mcnemarP;
+  double? mcnemarP;
 
   /// NCommon is how many items BOTH arms completed. It is the denominator, and the reason this comparison is valid where a raw accuracy difference is not.
   ///
@@ -223,7 +223,7 @@ class Pairing {
         b: mapValueOfType<String>(json, r'b'),
         bCorrect: mapValueOfType<int>(json, r'b_correct'),
         benchmark: mapValueOfType<String>(json, r'benchmark'),
-        mcnemarP: num.parse('${json[r'mcnemar_p']}'),
+        mcnemarP: mapValueOfType<double>(json, r'mcnemar_p'),
         nCommon: mapValueOfType<int>(json, r'n_common'),
         netAMinusB: mapValueOfType<int>(json, r'net_a_minus_b'),
         rescueAOverB: mapValueOfType<int>(json, r'rescue_a_over_b'),

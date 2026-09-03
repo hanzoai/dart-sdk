@@ -49,7 +49,7 @@ class IamCartItem {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? price;
+  double? price;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -131,7 +131,7 @@ class IamCartItem {
         displayName: mapValueOfType<String>(json, r'displayName'),
         name: mapValueOfType<String>(json, r'name'),
         owner: mapValueOfType<String>(json, r'owner'),
-        price: num.parse('${json[r'price']}'),
+        price: mapValueOfType<double>(json, r'price'),
         quantity: mapValueOfType<int>(json, r'quantity'),
       );
     }

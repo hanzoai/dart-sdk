@@ -85,7 +85,7 @@ class Span {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? score;
+  double? score;
 
   /// Snippet is the code itself: a bounded excerpt on /search, the whole chunk on /context — which is why the same type serves both and why a /context span is the one an agent pastes into its window.
   ///
@@ -224,7 +224,7 @@ class Span {
         line: mapValueOfType<int>(json, r'line'),
         repo: mapValueOfType<String>(json, r'repo'),
         role: mapValueOfType<String>(json, r'role'),
-        score: num.parse('${json[r'score']}'),
+        score: mapValueOfType<double>(json, r'score'),
         snippet: mapValueOfType<String>(json, r'snippet'),
         symbol: mapValueOfType<String>(json, r'symbol'),
         tier: mapValueOfType<String>(json, r'tier'),

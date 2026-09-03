@@ -89,7 +89,7 @@ class CaptableShareClass {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? liquidationPreferenceMultiple;
+  double? liquidationPreferenceMultiple;
 
   /// Name is the class name, e.g. \"Common\" or \"Series A Preferred\".
   ///
@@ -107,7 +107,7 @@ class CaptableShareClass {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? parValue;
+  double? parValue;
 
   /// ParticipationCapMultiple caps participation on liquidation; 0 is uncapped.
   ///
@@ -116,7 +116,7 @@ class CaptableShareClass {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? participationCapMultiple;
+  double? participationCapMultiple;
 
   /// Prefix is the certificate prefix, CS for common and PS for preferred.
   ///
@@ -134,7 +134,7 @@ class CaptableShareClass {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? pricePerShare;
+  double? pricePerShare;
 
   /// Seniority orders classes in a liquidation waterfall; higher is more senior.
   ///
@@ -292,12 +292,12 @@ class CaptableShareClass {
         id: mapValueOfType<String>(json, r'id'),
         idx: mapValueOfType<int>(json, r'idx'),
         initialSharesAuthorized: mapValueOfType<int>(json, r'initialSharesAuthorized'),
-        liquidationPreferenceMultiple: num.parse('${json[r'liquidationPreferenceMultiple']}'),
+        liquidationPreferenceMultiple: mapValueOfType<double>(json, r'liquidationPreferenceMultiple'),
         name: mapValueOfType<String>(json, r'name'),
-        parValue: num.parse('${json[r'parValue']}'),
-        participationCapMultiple: num.parse('${json[r'participationCapMultiple']}'),
+        parValue: mapValueOfType<double>(json, r'parValue'),
+        participationCapMultiple: mapValueOfType<double>(json, r'participationCapMultiple'),
         prefix: mapValueOfType<String>(json, r'prefix'),
-        pricePerShare: num.parse('${json[r'pricePerShare']}'),
+        pricePerShare: mapValueOfType<double>(json, r'pricePerShare'),
         seniority: mapValueOfType<int>(json, r'seniority'),
         votesPerShare: mapValueOfType<int>(json, r'votesPerShare'),
       );

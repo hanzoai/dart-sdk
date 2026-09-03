@@ -68,7 +68,7 @@ class CaptableRound {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? preMoneyValuation;
+  double? preMoneyValuation;
 
   /// PricePerShare is the price per share, for a priced round.
   ///
@@ -77,7 +77,7 @@ class CaptableRound {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? pricePerShare;
+  double? pricePerShare;
 
   /// RaisedAmount is how much has been invested so far.
   ///
@@ -86,7 +86,7 @@ class CaptableRound {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? raisedAmount;
+  double? raisedAmount;
 
   /// RoundType is PRICED, SAFE or CONVERTIBLE_NOTE.
   ///
@@ -122,7 +122,7 @@ class CaptableRound {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? targetAmount;
+  double? targetAmount;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is CaptableRound &&
@@ -239,13 +239,13 @@ class CaptableRound {
         createdAt: mapValueOfType<int>(json, r'createdAt'),
         id: mapValueOfType<String>(json, r'id'),
         name: mapValueOfType<String>(json, r'name'),
-        preMoneyValuation: num.parse('${json[r'preMoneyValuation']}'),
-        pricePerShare: num.parse('${json[r'pricePerShare']}'),
-        raisedAmount: num.parse('${json[r'raisedAmount']}'),
+        preMoneyValuation: mapValueOfType<double>(json, r'preMoneyValuation'),
+        pricePerShare: mapValueOfType<double>(json, r'pricePerShare'),
+        raisedAmount: mapValueOfType<double>(json, r'raisedAmount'),
         roundType: mapValueOfType<String>(json, r'roundType'),
         shareClassId: mapValueOfType<String>(json, r'shareClassId'),
         status: mapValueOfType<String>(json, r'status'),
-        targetAmount: num.parse('${json[r'targetAmount']}'),
+        targetAmount: mapValueOfType<double>(json, r'targetAmount'),
       );
     }
     return null;

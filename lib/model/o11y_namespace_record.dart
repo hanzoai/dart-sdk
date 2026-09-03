@@ -27,7 +27,7 @@ class O11yNamespaceRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? namespaceCPU;
+  double? namespaceCPU;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -35,7 +35,7 @@ class O11yNamespaceRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? namespaceMemory;
+  double? namespaceMemory;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -119,8 +119,8 @@ class O11yNamespaceRecord {
 
       return O11yNamespaceRecord(
         meta: mapCastOfType<String, String>(json, r'meta') ?? const {},
-        namespaceCPU: num.parse('${json[r'namespaceCPU']}'),
-        namespaceMemory: num.parse('${json[r'namespaceMemory']}'),
+        namespaceCPU: mapValueOfType<double>(json, r'namespaceCPU'),
+        namespaceMemory: mapValueOfType<double>(json, r'namespaceMemory'),
         namespaceName: mapValueOfType<String>(json, r'namespaceName'),
         podCountsByPhase: O11yPodCountsByPhase.fromJson(json[r'podCountsByPhase']),
       );

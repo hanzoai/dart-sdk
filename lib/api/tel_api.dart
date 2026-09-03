@@ -58,19 +58,11 @@ class TelApi {
   /// Parameters:
   ///
   /// * [String] id (required):
-  Future<Object?> deleteTelCallsById(String id,) async {
+  Future<void> deleteTelCallsById(String id,) async {
     final response = await deleteTelCallsByIdWithHttpInfo(id,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Object',) as Object;
-    
-    }
-    return null;
   }
 
   /// Checks the holding is THIS org's before it reaches the carrier.
@@ -115,19 +107,11 @@ class TelApi {
   /// Parameters:
   ///
   /// * [String] id (required):
-  Future<Object?> deleteTelNumbersById(String id,) async {
+  Future<void> deleteTelNumbersById(String id,) async {
     final response = await deleteTelNumbersByIdWithHttpInfo(id,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
-    // When a remote server returns no body with a status of 204, we shall not decode it.
-    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
-    // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Object',) as Object;
-    
-    }
-    return null;
   }
 
   /// Lists the calls this org has placed or received, newest first.

@@ -32,7 +32,7 @@ class CaptableNote {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? capital;
+  double? capital;
 
   /// ConversionCap is the valuation cap on conversion, if any.
   ///
@@ -41,7 +41,7 @@ class CaptableNote {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? conversionCap;
+  double? conversionCap;
 
   /// DiscountRate is the discount to the next round's price, if any.
   ///
@@ -50,7 +50,7 @@ class CaptableNote {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? discountRate;
+  double? discountRate;
 
   /// ID is the note id.
   ///
@@ -68,7 +68,7 @@ class CaptableNote {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? interestRate;
+  double? interestRate;
 
   /// IssueDate is the ISO date the note was signed.
   ///
@@ -235,11 +235,11 @@ class CaptableNote {
       }());
 
       return CaptableNote(
-        capital: num.parse('${json[r'capital']}'),
-        conversionCap: num.parse('${json[r'conversionCap']}'),
-        discountRate: num.parse('${json[r'discountRate']}'),
+        capital: mapValueOfType<double>(json, r'capital'),
+        conversionCap: mapValueOfType<double>(json, r'conversionCap'),
+        discountRate: mapValueOfType<double>(json, r'discountRate'),
         id: mapValueOfType<String>(json, r'id'),
-        interestRate: num.parse('${json[r'interestRate']}'),
+        interestRate: mapValueOfType<double>(json, r'interestRate'),
         issueDate: mapValueOfType<String>(json, r'issueDate'),
         publicId: mapValueOfType<String>(json, r'publicId'),
         stakeholderId: mapValueOfType<String>(json, r'stakeholderId'),

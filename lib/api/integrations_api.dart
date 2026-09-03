@@ -2466,6 +2466,54 @@ class IntegrationsApi {
     }
   }
 
+  /// Joins every public channel in the caller org's workspace.
+  ///
+  /// Joins every public channel in the caller org's workspace.  Org admin, because it changes what the whole workspace sees: after it the agent is a member of every public room and answers in all of them.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> postIntegrationsSlackJoinWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/integrations/slack/join';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Joins every public channel in the caller org's workspace.
+  ///
+  /// Joins every public channel in the caller org's workspace.  Org admin, because it changes what the whole workspace sees: after it the agent is a member of every public room and answers in all of them.
+  Future<SlackJoinOut?> postIntegrationsSlackJoin() async {
+    final response = await postIntegrationsSlackJoinWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'SlackJoinOut',) as SlackJoinOut;
+    
+    }
+    return null;
+  }
+
   /// Microsoft Teams Bot Framework webhook
   ///
   /// The messaging endpoint for the Teams bot. A message activity is routed to an agent turn and answered proactively through the Bot Connection; anything that is not a message with text is acknowledged and ignored.  Authentication is the Bot Framework's RS256 JWT, verified against its published keys and bound BOTH to this deployment's app id and to the activity's own service URL. The service-URL binding is the part that matters: without it a token valid for one activity could point the outbound reply somewhere else.  The caller here is the PLATFORM, not a Hanzo tenant, so there is no bearer and no principal. The signature check IS the authentication, and it fails closed. The tenant is never read from the payload either: it is resolved from the verified platform identifier through the connection map, so an event from a workspace nobody connected does nothing. Refusals are written with their own status rather than being flattened to a 500, so a rejected signature reads as 401 and a malformed body as 400.  The answer is acknowledged immediately and the work happens afterwards, because every one of these platforms times out a slow webhook. Duplicate deliveries are absorbed durably, so a platform retry of an event that already ran never runs it a second time or bills for it twice. When the agent pool is full nothing at all is recorded and the delivery is refused as retriable, so the message is re-delivered later rather than being lost or half-processed.

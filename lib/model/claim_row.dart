@@ -93,7 +93,7 @@ class ClaimRow {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? score;
+  double? score;
 
   /// Source is the citation the row was read from.
   ///
@@ -208,7 +208,7 @@ class ClaimRow {
         origin: mapValueOfType<String>(json, r'origin'),
         protocol: mapValueOfType<String>(json, r'protocol'),
         provider: mapValueOfType<String>(json, r'provider'),
-        score: num.parse('${json[r'score']}'),
+        score: mapValueOfType<double>(json, r'score'),
         source_: mapValueOfType<String>(json, r'source'),
       );
     }

@@ -53,7 +53,7 @@ class ItemResult {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? score;
+  double? score;
 
   /// TraceID is the model call this result came from.
   ///
@@ -136,7 +136,7 @@ class ItemResult {
         error: mapValueOfType<String>(json, r'error'),
         itemId: mapValueOfType<String>(json, r'itemId'),
         output: mapValueOfType<String>(json, r'output'),
-        score: num.parse('${json[r'score']}'),
+        score: mapValueOfType<double>(json, r'score'),
         traceId: mapValueOfType<String>(json, r'traceId'),
       );
     }

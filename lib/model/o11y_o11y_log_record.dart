@@ -31,7 +31,7 @@ class O11yO11yLogRecord {
   Map<String, bool> attributesBool;
 
   /// AttributesFloat are the record's float attributes.
-  Map<String, num> attributesFloat;
+  Map<String, double> attributesFloat;
 
   /// AttributesInt are the record's integer attributes.
   Map<String, int> attributesInt;
@@ -220,7 +220,7 @@ class O11yO11yLogRecord {
 
       return O11yO11yLogRecord(
         attributesBool: mapCastOfType<String, bool>(json, r'attributes_bool') ?? const {},
-        attributesFloat: mapCastOfType<String, num>(json, r'attributes_float') ?? const {},
+        attributesFloat: mapCastOfType<String, double>(json, r'attributes_float') ?? const {},
         attributesInt: mapCastOfType<String, int>(json, r'attributes_int') ?? const {},
         attributesString: mapCastOfType<String, String>(json, r'attributes_string') ?? const {},
         body: mapValueOfType<String>(json, r'body'),

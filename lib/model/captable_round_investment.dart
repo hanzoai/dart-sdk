@@ -28,7 +28,7 @@ class CaptableRoundInvestment {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? amount;
+  double? amount;
 
   /// Comments is the note recorded with the cheque, if any.
   ///
@@ -167,7 +167,7 @@ class CaptableRoundInvestment {
       }());
 
       return CaptableRoundInvestment(
-        amount: num.parse('${json[r'amount']}'),
+        amount: mapValueOfType<double>(json, r'amount'),
         comments: mapValueOfType<String>(json, r'comments'),
         date: mapValueOfType<String>(json, r'date'),
         id: mapValueOfType<String>(json, r'id'),

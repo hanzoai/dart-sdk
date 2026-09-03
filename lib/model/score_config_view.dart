@@ -49,7 +49,7 @@ class ScoreConfigView {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? maxValue;
+  double? maxValue;
 
   /// MinValue is the inclusive floor a NUMERIC score must clear, absent when unbounded.
   ///
@@ -58,7 +58,7 @@ class ScoreConfigView {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? minValue;
+  double? minValue;
 
   /// Name is the score name this rubric governs.
   ///
@@ -162,8 +162,8 @@ class ScoreConfigView {
             : const [],
         createdAt: mapValueOfType<String>(json, r'createdAt'),
         dataType: mapValueOfType<String>(json, r'dataType'),
-        maxValue: num.parse('${json[r'maxValue']}'),
-        minValue: num.parse('${json[r'minValue']}'),
+        maxValue: mapValueOfType<double>(json, r'maxValue'),
+        minValue: mapValueOfType<double>(json, r'minValue'),
         name: mapValueOfType<String>(json, r'name'),
         updatedAt: mapValueOfType<String>(json, r'updatedAt'),
       );

@@ -92,7 +92,7 @@ class StarterKit {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? rating;
+  double? rating;
 
   /// the kit's identity — lowercase alphanumeric with dashes, max 40
   ///
@@ -275,7 +275,7 @@ class StarterKit {
         framework: mapValueOfType<String>(json, r'framework'),
         org: mapValueOfType<String>(json, r'org'),
         preview: mapValueOfType<String>(json, r'preview'),
-        rating: num.parse('${json[r'rating']}'),
+        rating: mapValueOfType<double>(json, r'rating'),
         slug: mapValueOfType<String>(json, r'slug'),
         source_: mapValueOfType<String>(json, r'source'),
         tier: mapValueOfType<int>(json, r'tier'),

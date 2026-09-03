@@ -39,7 +39,7 @@ class O11yDaemonSetRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? daemonSetCPU;
+  double? daemonSetCPU;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -47,7 +47,7 @@ class O11yDaemonSetRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? daemonSetCPULimit;
+  double? daemonSetCPULimit;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -55,7 +55,7 @@ class O11yDaemonSetRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? daemonSetCPURequest;
+  double? daemonSetCPURequest;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -63,7 +63,7 @@ class O11yDaemonSetRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? daemonSetMemory;
+  double? daemonSetMemory;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -71,7 +71,7 @@ class O11yDaemonSetRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? daemonSetMemoryLimit;
+  double? daemonSetMemoryLimit;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -79,7 +79,7 @@ class O11yDaemonSetRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? daemonSetMemoryRequest;
+  double? daemonSetMemoryRequest;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -215,12 +215,12 @@ class O11yDaemonSetRecord {
 
       return O11yDaemonSetRecord(
         currentNodes: mapValueOfType<int>(json, r'currentNodes'),
-        daemonSetCPU: num.parse('${json[r'daemonSetCPU']}'),
-        daemonSetCPULimit: num.parse('${json[r'daemonSetCPULimit']}'),
-        daemonSetCPURequest: num.parse('${json[r'daemonSetCPURequest']}'),
-        daemonSetMemory: num.parse('${json[r'daemonSetMemory']}'),
-        daemonSetMemoryLimit: num.parse('${json[r'daemonSetMemoryLimit']}'),
-        daemonSetMemoryRequest: num.parse('${json[r'daemonSetMemoryRequest']}'),
+        daemonSetCPU: mapValueOfType<double>(json, r'daemonSetCPU'),
+        daemonSetCPULimit: mapValueOfType<double>(json, r'daemonSetCPULimit'),
+        daemonSetCPURequest: mapValueOfType<double>(json, r'daemonSetCPURequest'),
+        daemonSetMemory: mapValueOfType<double>(json, r'daemonSetMemory'),
+        daemonSetMemoryLimit: mapValueOfType<double>(json, r'daemonSetMemoryLimit'),
+        daemonSetMemoryRequest: mapValueOfType<double>(json, r'daemonSetMemoryRequest'),
         daemonSetName: mapValueOfType<String>(json, r'daemonSetName'),
         desiredNodes: mapValueOfType<int>(json, r'desiredNodes'),
         meta: mapCastOfType<String, String>(json, r'meta') ?? const {},

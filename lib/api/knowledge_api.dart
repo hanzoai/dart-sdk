@@ -478,6 +478,54 @@ class KnowledgeApi {
     }
   }
 
+  /// Rebuilds the caller org's retrieval from its documents: the vector collection is dropped and created again at the configured embedding size and every page, memory and source is embedded into it; the lexical index is reconciled to the same set.
+  ///
+  /// Rebuilds the caller org's retrieval from its documents: the vector collection is dropped and created again at the configured embedding size and every page, memory and source is embedded into it; the lexical index is reconciled to the same set. It is what an operator runs after the embedding model or its dimension changes, and what puts an org's retrieval right after a vector outage. It requires ORG ADMIN and runs inline: an org's knowledge is a few thousand documents, and the answer is the count.  The request has no body. Response: {\"vectors\": 412, \"lexical\": 412, \"removed\": 3, \"failed\": 0}
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> postKnowledgeReindexWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/knowledge/reindex';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Rebuilds the caller org's retrieval from its documents: the vector collection is dropped and created again at the configured embedding size and every page, memory and source is embedded into it; the lexical index is reconciled to the same set.
+  ///
+  /// Rebuilds the caller org's retrieval from its documents: the vector collection is dropped and created again at the configured embedding size and every page, memory and source is embedded into it; the lexical index is reconciled to the same set. It is what an operator runs after the embedding model or its dimension changes, and what puts an org's retrieval right after a vector outage. It requires ORG ADMIN and runs inline: an org's knowledge is a few thousand documents, and the answer is the count.  The request has no body. Response: {\"vectors\": 412, \"lexical\": 412, \"removed\": 3, \"failed\": 0}
+  Future<ReindexOut?> postKnowledgeReindex() async {
+    final response = await postKnowledgeReindexWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'ReindexOut',) as ReindexOut;
+    
+    }
+    return null;
+  }
+
   /// Runs a semantic search over the caller org's own knowledge — its wiki pages, its agent memories and everything its connectors have synced — and returns the matching passages.
   ///
   /// Runs a semantic search over the caller org's own knowledge — its wiki pages, its agent memories and everything its connectors have synced — and returns the matching passages. This is the RAG entry point: an agent asks \"what does this org know about X\" and the org's OWN vector namespace answers. The org comes from the validated principal, and both the collection and the payload filter are pinned to it, so cross-tenant retrieval is impossible. An unreachable index returns an honest empty result set with degraded=true, never a 5xx.

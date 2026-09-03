@@ -50,7 +50,7 @@ class LLMOverview {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? errorRate;
+  double? errorRate;
 
   /// Errors is how many of Requests failed.
   ///
@@ -237,7 +237,7 @@ class LLMOverview {
       return LLMOverview(
         available: mapValueOfType<bool>(json, r'available'),
         completionTokens: mapValueOfType<int>(json, r'completionTokens'),
-        errorRate: num.parse('${json[r'errorRate']}'),
+        errorRate: mapValueOfType<double>(json, r'errorRate'),
         errors: mapValueOfType<int>(json, r'errors'),
         models: mapValueOfType<int>(json, r'models'),
         promptTokens: mapValueOfType<int>(json, r'promptTokens'),

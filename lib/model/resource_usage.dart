@@ -25,7 +25,7 @@ class ResourceUsage {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? costCents;
+  double? costCents;
 
   /// CPUVcpuHours would be vCPU-hours over the window. Always null: this store holds agent definitions and run I/O, and nothing here meters a CPU. Null is the honest answer and 0 would be a claim.
   ///
@@ -34,7 +34,7 @@ class ResourceUsage {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? cpuVcpuHours;
+  double? cpuVcpuHours;
 
   /// MemGbHours would be gigabyte-hours of memory. Always null, same reason.
   ///
@@ -43,7 +43,7 @@ class ResourceUsage {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? memGbHours;
+  double? memGbHours;
 
   /// StorageIoBytes would be bytes moved to and from storage. Always null, same reason.
   ///
@@ -52,7 +52,7 @@ class ResourceUsage {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? storageIoBytes;
+  double? storageIoBytes;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is ResourceUsage &&
@@ -116,10 +116,10 @@ class ResourceUsage {
       }());
 
       return ResourceUsage(
-        costCents: num.parse('${json[r'costCents']}'),
-        cpuVcpuHours: num.parse('${json[r'cpuVcpuHours']}'),
-        memGbHours: num.parse('${json[r'memGbHours']}'),
-        storageIoBytes: num.parse('${json[r'storageIoBytes']}'),
+        costCents: mapValueOfType<double>(json, r'costCents'),
+        cpuVcpuHours: mapValueOfType<double>(json, r'cpuVcpuHours'),
+        memGbHours: mapValueOfType<double>(json, r'memGbHours'),
+        storageIoBytes: mapValueOfType<double>(json, r'storageIoBytes'),
       );
     }
     return null;

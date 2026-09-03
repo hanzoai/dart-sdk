@@ -57,7 +57,7 @@ class O11yJobRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? jobCPU;
+  double? jobCPU;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -65,7 +65,7 @@ class O11yJobRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? jobCPULimit;
+  double? jobCPULimit;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -73,7 +73,7 @@ class O11yJobRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? jobCPURequest;
+  double? jobCPURequest;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -81,7 +81,7 @@ class O11yJobRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? jobMemory;
+  double? jobMemory;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -89,7 +89,7 @@ class O11yJobRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? jobMemoryLimit;
+  double? jobMemoryLimit;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -97,7 +97,7 @@ class O11yJobRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? jobMemoryRequest;
+  double? jobMemoryRequest;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -249,12 +249,12 @@ class O11yJobRecord {
         activePods: mapValueOfType<int>(json, r'activePods'),
         desiredSuccessfulPods: mapValueOfType<int>(json, r'desiredSuccessfulPods'),
         failedPods: mapValueOfType<int>(json, r'failedPods'),
-        jobCPU: num.parse('${json[r'jobCPU']}'),
-        jobCPULimit: num.parse('${json[r'jobCPULimit']}'),
-        jobCPURequest: num.parse('${json[r'jobCPURequest']}'),
-        jobMemory: num.parse('${json[r'jobMemory']}'),
-        jobMemoryLimit: num.parse('${json[r'jobMemoryLimit']}'),
-        jobMemoryRequest: num.parse('${json[r'jobMemoryRequest']}'),
+        jobCPU: mapValueOfType<double>(json, r'jobCPU'),
+        jobCPULimit: mapValueOfType<double>(json, r'jobCPULimit'),
+        jobCPURequest: mapValueOfType<double>(json, r'jobCPURequest'),
+        jobMemory: mapValueOfType<double>(json, r'jobMemory'),
+        jobMemoryLimit: mapValueOfType<double>(json, r'jobMemoryLimit'),
+        jobMemoryRequest: mapValueOfType<double>(json, r'jobMemoryRequest'),
         jobName: mapValueOfType<String>(json, r'jobName'),
         meta: mapCastOfType<String, String>(json, r'meta') ?? const {},
         podCountsByPhase: O11yPodCountsByPhase.fromJson(json[r'podCountsByPhase']),

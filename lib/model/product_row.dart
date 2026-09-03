@@ -43,7 +43,7 @@ class ProductRow {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? revenue;
+  double? revenue;
 
   /// Units is the summed quantity sold.
   ///
@@ -118,7 +118,7 @@ class ProductRow {
       return ProductRow(
         orders: mapValueOfType<int>(json, r'orders'),
         productId: mapValueOfType<String>(json, r'productId'),
-        revenue: num.parse('${json[r'revenue']}'),
+        revenue: mapValueOfType<double>(json, r'revenue'),
         units: mapValueOfType<int>(json, r'units'),
       );
     }

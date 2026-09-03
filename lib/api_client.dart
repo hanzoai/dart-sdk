@@ -1237,6 +1237,8 @@ class ApiClient {
           return Enrollment.fromJson(value);
         case 'EnrollmentList':
           return EnrollmentList.fromJson(value);
+        case 'EnrollmentView':
+          return EnrollmentView.fromJson(value);
         case 'Enrolment':
           return Enrolment.fromJson(value);
         case 'EntitlementsView':
@@ -1315,8 +1317,6 @@ class ApiClient {
           return EvaluatorReq.fromJson(value);
         case 'EvaluatorView':
           return EvaluatorView.fromJson(value);
-        case 'Event':
-          return Event.fromJson(value);
         case 'EventIn':
           return EventIn.fromJson(value);
         case 'EventList':
@@ -1865,6 +1865,12 @@ class ApiClient {
           return IamWorkspacesInput.fromJson(value);
         case 'IamWorkspacesListOutput':
           return IamWorkspacesListOutput.fromJson(value);
+        case 'IdentityIn':
+          return IdentityIn.fromJson(value);
+        case 'IdentityList':
+          return IdentityList.fromJson(value);
+        case 'IdentityView':
+          return IdentityView.fromJson(value);
         case 'ImageOrigin':
           return ImageOrigin.fromJson(value);
         case 'ImageView':
@@ -1989,6 +1995,8 @@ class ApiClient {
           return JobCanceled.fromJson(value);
         case 'JobList':
           return JobList.fromJson(value);
+        case 'JoinFailure':
+          return JoinFailure.fromJson(value);
         case 'JourneyStep':
           return JourneyStep.fromJson(value);
         case 'JudgeSpec':
@@ -2131,6 +2139,8 @@ class ApiClient {
           return LinkView.fromJson(value);
         case 'ListOut':
           return ListOut.fromJson(value);
+        case 'Listed':
+          return Listed.fromJson(value);
         case 'Listing':
           return Listing.fromJson(value);
         case 'ListingPage':
@@ -4267,6 +4277,8 @@ class ApiClient {
           return ProvisionedResource.fromJson(value);
         case 'ProvisionedSummary':
           return ProvisionedSummary.fromJson(value);
+        case 'PublicRooms':
+          return PublicRooms.fromJson(value);
         case 'PublishInput':
           return PublishInput.fromJson(value);
         case 'PublishKitIn':
@@ -4277,6 +4289,8 @@ class ApiClient {
           return PublishResult.fromJson(value);
         case 'PublishedClaim':
           return PublishedClaim.fromJson(value);
+        case 'PublishedView':
+          return PublishedView.fromJson(value);
         case 'PullList':
           return PullList.fromJson(value);
         case 'PullView':
@@ -4425,6 +4439,8 @@ class ApiClient {
           return RegistryTagList.fromJson(value);
         case 'RegistryToken':
           return RegistryToken.fromJson(value);
+        case 'ReindexOut':
+          return ReindexOut.fromJson(value);
         case 'ReleaseBoard':
           return ReleaseBoard.fromJson(value);
         case 'ReleaseRow':
@@ -4793,6 +4809,8 @@ class ApiClient {
           return Service.fromJson(value);
         case 'ServiceDetail':
           return ServiceDetail.fromJson(value);
+        case 'ServiceIn':
+          return ServiceIn.fromJson(value);
         case 'ServicePort':
           return ServicePort.fromJson(value);
         case 'Session':
@@ -4843,6 +4861,8 @@ class ApiClient {
           return SkillIn.fromJson(value);
         case 'SkillWritten':
           return SkillWritten.fromJson(value);
+        case 'SlackJoinOut':
+          return SlackJoinOut.fromJson(value);
         case 'SlotView':
           return SlotView.fromJson(value);
         case 'SocialAccount':
@@ -5307,8 +5327,6 @@ class ApiClient {
           return Written.fromJson(value);
         case 'Wrote':
           return Wrote.fromJson(value);
-        case 'ZapProcReq':
-          return ZapProcReq.fromJson(value);
         default:
           dynamic match;
           if (value is List && (match = _regList.firstMatch(targetType)?.group(1)) != null) {

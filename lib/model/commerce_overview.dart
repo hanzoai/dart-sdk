@@ -27,7 +27,7 @@ class CommerceOverview {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? aov;
+  double? aov;
 
   /// Available is false when the product-event table could not be read — the lens is reported missing rather than as zeros that look like no sales.
   ///
@@ -63,7 +63,7 @@ class CommerceOverview {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? revenue;
+  double? revenue;
 
   /// Source is the warehouse table the lens read.
   ///
@@ -150,11 +150,11 @@ class CommerceOverview {
       }());
 
       return CommerceOverview(
-        aov: num.parse('${json[r'aov']}'),
+        aov: mapValueOfType<double>(json, r'aov'),
         available: mapValueOfType<bool>(json, r'available'),
         orders: mapValueOfType<int>(json, r'orders'),
         reason: mapValueOfType<String>(json, r'reason'),
-        revenue: num.parse('${json[r'revenue']}'),
+        revenue: mapValueOfType<double>(json, r'revenue'),
         source_: mapValueOfType<String>(json, r'source'),
       );
     }

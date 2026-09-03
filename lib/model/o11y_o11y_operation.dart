@@ -54,7 +54,7 @@ class O11yO11yOperation {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? p50;
+  double? p50;
 
   /// P95 is its p95 latency, nanoseconds.
   ///
@@ -63,7 +63,7 @@ class O11yO11yOperation {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? p95;
+  double? p95;
 
   /// P99 is its p99 latency, nanoseconds.
   ///
@@ -72,7 +72,7 @@ class O11yO11yOperation {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? p99;
+  double? p99;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is O11yO11yOperation &&
@@ -153,9 +153,9 @@ class O11yO11yOperation {
         errorCount: mapValueOfType<int>(json, r'errorCount'),
         name: mapValueOfType<String>(json, r'name'),
         numCalls: mapValueOfType<int>(json, r'numCalls'),
-        p50: num.parse('${json[r'p50']}'),
-        p95: num.parse('${json[r'p95']}'),
-        p99: num.parse('${json[r'p99']}'),
+        p50: mapValueOfType<double>(json, r'p50'),
+        p95: mapValueOfType<double>(json, r'p95'),
+        p99: mapValueOfType<double>(json, r'p99'),
       );
     }
     return null;

@@ -42,7 +42,7 @@ class Appearance {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? type;
+  double? type;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is Appearance &&
@@ -101,7 +101,7 @@ class Appearance {
       return Appearance(
         accent: mapValueOfType<String>(json, r'accent'),
         density: mapValueOfType<String>(json, r'density'),
-        type: num.parse('${json[r'type']}'),
+        type: mapValueOfType<double>(json, r'type'),
       );
     }
     return null;

@@ -28,7 +28,7 @@ class O11yClusterRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? clusterCPU;
+  double? clusterCPU;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -36,7 +36,7 @@ class O11yClusterRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? clusterCPUAllocatable;
+  double? clusterCPUAllocatable;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -44,7 +44,7 @@ class O11yClusterRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? clusterMemory;
+  double? clusterMemory;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -52,7 +52,7 @@ class O11yClusterRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? clusterMemoryAllocatable;
+  double? clusterMemoryAllocatable;
 
   /// TODO(nikhilmantri0902): once the underlying attr key is migrated to k8s.cluster.uid (see ClusterNameAttrKey), surface ClusterUID alongside (or replace) ClusterName.
   ///
@@ -167,10 +167,10 @@ class O11yClusterRecord {
       }());
 
       return O11yClusterRecord(
-        clusterCPU: num.parse('${json[r'clusterCPU']}'),
-        clusterCPUAllocatable: num.parse('${json[r'clusterCPUAllocatable']}'),
-        clusterMemory: num.parse('${json[r'clusterMemory']}'),
-        clusterMemoryAllocatable: num.parse('${json[r'clusterMemoryAllocatable']}'),
+        clusterCPU: mapValueOfType<double>(json, r'clusterCPU'),
+        clusterCPUAllocatable: mapValueOfType<double>(json, r'clusterCPUAllocatable'),
+        clusterMemory: mapValueOfType<double>(json, r'clusterMemory'),
+        clusterMemoryAllocatable: mapValueOfType<double>(json, r'clusterMemoryAllocatable'),
         clusterName: mapValueOfType<String>(json, r'clusterName'),
         meta: mapCastOfType<String, String>(json, r'meta') ?? const {},
         nodeCountsByReadiness: O11yNodeCountsByReadiness.fromJson(json[r'nodeCountsByReadiness']),

@@ -54,7 +54,7 @@ class RiskPolicyVersion {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? review;
+  double? review;
 
   /// Sample is the share of below-the-line events the regime retains for review.
   ///
@@ -63,7 +63,7 @@ class RiskPolicyVersion {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? sample;
+  double? sample;
 
   /// Version names this regime in this organisation's history.
   ///
@@ -153,8 +153,8 @@ class RiskPolicyVersion {
         at: mapValueOfType<String>(json, r'at'),
         by: mapValueOfType<String>(json, r'by'),
         live: mapValueOfType<bool>(json, r'live'),
-        review: num.parse('${json[r'review']}'),
-        sample: num.parse('${json[r'sample']}'),
+        review: mapValueOfType<double>(json, r'review'),
+        sample: mapValueOfType<double>(json, r'sample'),
         version: mapValueOfType<int>(json, r'version'),
       );
     }

@@ -19,7 +19,6 @@ class CodingStarted {
     this.sessionId,
     this.targetId,
   });
-  /// Branch is the ref the run will push its work to, and the ONLY ref it is permitted to write. It exists before the work does, so it is safe to tell somebody where to look while the run is still going.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -28,7 +27,6 @@ class CodingStarted {
   ///
   String? branch;
 
-  /// Repo is the repository the run was admitted against, echoed back as the engine resolved it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -37,7 +35,6 @@ class CodingStarted {
   ///
   String? repo;
 
-  /// Routed says the run went to one of the org's own registered machines rather than to a sandbox in our cluster. False is the ordinary case.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -46,7 +43,6 @@ class CodingStarted {
   ///
   bool? routed;
 
-  /// SessionID is the run's handle: its durable record, and the id its live progress streams under at /v1/agents/sessions/{sessionId}/stream. Every later question about this run is asked with it.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -55,7 +51,6 @@ class CodingStarted {
   ///
   String? sessionId;
 
-  /// TargetID names that machine when Routed is true, and is empty otherwise.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated

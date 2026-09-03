@@ -33,7 +33,7 @@ class O11yO11yLLMRulePricing {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? input;
+  double? input;
 
   /// Output is the cost per unit of output tokens.
   ///
@@ -42,7 +42,7 @@ class O11yO11yLLMRulePricing {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? output;
+  double? output;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is O11yO11yLLMRulePricing &&
@@ -100,8 +100,8 @@ class O11yO11yLLMRulePricing {
 
       return O11yO11yLLMRulePricing(
         cache: O11yO11yLLMPricingCacheCosts.fromJson(json[r'cache']),
-        input: num.parse('${json[r'input']}'),
-        output: num.parse('${json[r'output']}'),
+        input: mapValueOfType<double>(json, r'input'),
+        output: mapValueOfType<double>(json, r'output'),
       );
     }
     return null;

@@ -38,7 +38,7 @@ class ScoreConfigReq {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? maxValue;
+  double? maxValue;
 
   /// MinValue is the inclusive floor a NUMERIC score must clear. It must be finite and must not exceed MaxValue.
   ///
@@ -47,7 +47,7 @@ class ScoreConfigReq {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? minValue;
+  double? minValue;
 
   /// Name is the score name this rubric governs, matching ^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$. The name is the key, so re-posting one replaces its rules.
   String name;
@@ -117,8 +117,8 @@ class ScoreConfigReq {
             ? (json[r'categories'] as Iterable).cast<String>().toList(growable: false)
             : const [],
         dataType: mapValueOfType<String>(json, r'dataType'),
-        maxValue: num.parse('${json[r'maxValue']}'),
-        minValue: num.parse('${json[r'minValue']}'),
+        maxValue: mapValueOfType<double>(json, r'maxValue'),
+        minValue: mapValueOfType<double>(json, r'minValue'),
         name: mapValueOfType<String>(json, r'name')!,
       );
     }

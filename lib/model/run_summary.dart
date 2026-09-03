@@ -29,7 +29,7 @@ class RunSummary {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? avgScore;
+  double? avgScore;
 
   /// Dataset is the set that was scored.
   ///
@@ -174,7 +174,7 @@ class RunSummary {
       }());
 
       return RunSummary(
-        avgScore: num.parse('${json[r'avgScore']}'),
+        avgScore: mapValueOfType<double>(json, r'avgScore'),
         dataset: mapValueOfType<String>(json, r'dataset'),
         items: mapValueOfType<int>(json, r'items'),
         judgeModel: mapValueOfType<String>(json, r'judgeModel'),

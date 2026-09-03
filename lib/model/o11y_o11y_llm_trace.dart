@@ -49,7 +49,7 @@ class O11yO11yLLMTrace {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? latencyMs;
+  double? latencyMs;
 
   /// Observations is how many observations the trace holds.
   ///
@@ -94,7 +94,7 @@ class O11yO11yLLMTrace {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? totalCost;
+  double? totalCost;
 
   /// TotalTokens is the trace's total tokens.
   ///
@@ -220,12 +220,12 @@ class O11yO11yLLMTrace {
       return O11yO11yLLMTrace(
         completionTokens: mapValueOfType<int>(json, r'completionTokens'),
         id: mapValueOfType<String>(json, r'id'),
-        latencyMs: num.parse('${json[r'latencyMs']}'),
+        latencyMs: mapValueOfType<double>(json, r'latencyMs'),
         observations: mapValueOfType<int>(json, r'observations'),
         promptTokens: mapValueOfType<int>(json, r'promptTokens'),
         serviceName: mapValueOfType<String>(json, r'serviceName'),
         sessionId: mapValueOfType<String>(json, r'sessionId'),
-        totalCost: num.parse('${json[r'totalCost']}'),
+        totalCost: mapValueOfType<double>(json, r'totalCost'),
         totalTokens: mapValueOfType<int>(json, r'totalTokens'),
         userId: mapValueOfType<String>(json, r'userId'),
       );

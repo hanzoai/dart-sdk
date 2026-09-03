@@ -20,7 +20,7 @@ class O11yTelemetryFieldValues {
   });
   List<bool> boolValues;
 
-  List<num> numberValues;
+  List<double> numberValues;
 
   List<String> relatedValues;
 
@@ -76,7 +76,7 @@ class O11yTelemetryFieldValues {
             ? (json[r'boolValues'] as Iterable).cast<bool>().toList(growable: false)
             : const [],
         numberValues: json[r'numberValues'] is Iterable
-            ? (json[r'numberValues'] as Iterable).cast<num>().toList(growable: false)
+            ? (json[r'numberValues'] as Iterable).cast<double>().toList(growable: false)
             : const [],
         relatedValues: json[r'relatedValues'] is Iterable
             ? (json[r'relatedValues'] as Iterable).cast<String>().toList(growable: false)

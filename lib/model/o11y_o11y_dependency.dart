@@ -40,7 +40,7 @@ class O11yO11yDependency {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? callRate;
+  double? callRate;
 
   /// Child is the called service.
   ///
@@ -58,7 +58,7 @@ class O11yO11yDependency {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? errorRate;
+  double? errorRate;
 
   /// P50 is the median call duration, in nanoseconds.
   ///
@@ -67,7 +67,7 @@ class O11yO11yDependency {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? p50;
+  double? p50;
 
   /// P75 is the 75th-percentile call duration, in nanoseconds.
   ///
@@ -76,7 +76,7 @@ class O11yO11yDependency {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? p75;
+  double? p75;
 
   /// P90 is the 90th-percentile call duration, in nanoseconds.
   ///
@@ -85,7 +85,7 @@ class O11yO11yDependency {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? p90;
+  double? p90;
 
   /// P95 is the 95th-percentile call duration, in nanoseconds.
   ///
@@ -94,7 +94,7 @@ class O11yO11yDependency {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? p95;
+  double? p95;
 
   /// P99 is the 99th-percentile call duration, in nanoseconds.
   ///
@@ -103,7 +103,7 @@ class O11yO11yDependency {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? p99;
+  double? p99;
 
   /// Parent is the calling service.
   ///
@@ -219,14 +219,14 @@ class O11yO11yDependency {
 
       return O11yO11yDependency(
         callCount: mapValueOfType<int>(json, r'callCount'),
-        callRate: num.parse('${json[r'callRate']}'),
+        callRate: mapValueOfType<double>(json, r'callRate'),
         child: mapValueOfType<String>(json, r'child'),
-        errorRate: num.parse('${json[r'errorRate']}'),
-        p50: num.parse('${json[r'p50']}'),
-        p75: num.parse('${json[r'p75']}'),
-        p90: num.parse('${json[r'p90']}'),
-        p95: num.parse('${json[r'p95']}'),
-        p99: num.parse('${json[r'p99']}'),
+        errorRate: mapValueOfType<double>(json, r'errorRate'),
+        p50: mapValueOfType<double>(json, r'p50'),
+        p75: mapValueOfType<double>(json, r'p75'),
+        p90: mapValueOfType<double>(json, r'p90'),
+        p95: mapValueOfType<double>(json, r'p95'),
+        p99: mapValueOfType<double>(json, r'p99'),
         parent: mapValueOfType<String>(json, r'parent'),
       );
     }

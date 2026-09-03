@@ -38,7 +38,7 @@ class RiskLabelFact {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? confidence;
+  double? confidence;
 
   /// Disposition is productive, unproductive, or empty for an explicit unjudged — the AML engine's own vocabulary, verbatim.
   ///
@@ -185,7 +185,7 @@ class RiskLabelFact {
 
       return RiskLabelFact(
         at: mapValueOfType<String>(json, r'at'),
-        confidence: num.parse('${json[r'confidence']}'),
+        confidence: mapValueOfType<double>(json, r'confidence'),
         disposition: mapValueOfType<String>(json, r'disposition'),
         evidence: mapValueOfType<String>(json, r'evidence'),
         kind: mapValueOfType<String>(json, r'kind'),

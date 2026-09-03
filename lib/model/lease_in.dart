@@ -14,6 +14,7 @@ class LeaseIn {
   /// Returns a new [LeaseIn] instance.
   LeaseIn({
     this.class_,
+    this.cluster,
     this.image,
     this.project,
     this.runtime,
@@ -27,6 +28,15 @@ class LeaseIn {
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
   String? class_;
+
+  /// Cluster names one of the org's attached clusters to run the sandbox on — the fleet-local name it was registered under. Empty runs on the home cluster. The named cluster must carry the sandbox namespace and the gvisor runtime class; a name the org has not attached is 404.
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? cluster;
 
   /// Image overrides the image the class would pick. Honoured only for a caller the policy admits, and the sandbox that comes back names the image it GOT.
   ///
@@ -67,6 +77,7 @@ class LeaseIn {
   @override
   bool operator ==(Object other) => identical(this, other) || other is LeaseIn &&
     other.class_ == class_ &&
+    other.cluster == cluster &&
     other.image == image &&
     other.project == project &&
     other.runtime == runtime &&
@@ -76,13 +87,14 @@ class LeaseIn {
   int get hashCode =>
     // ignore: unnecessary_parenthesis
     (class_ == null ? 0 : class_!.hashCode) +
+    (cluster == null ? 0 : cluster!.hashCode) +
     (image == null ? 0 : image!.hashCode) +
     (project == null ? 0 : project!.hashCode) +
     (runtime == null ? 0 : runtime!.hashCode) +
     (ttlSec == null ? 0 : ttlSec!.hashCode);
 
   @override
-  String toString() => 'LeaseIn[class_=$class_, image=$image, project=$project, runtime=$runtime, ttlSec=$ttlSec]';
+  String toString() => 'LeaseIn[class_=$class_, cluster=$cluster, image=$image, project=$project, runtime=$runtime, ttlSec=$ttlSec]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -90,6 +102,11 @@ class LeaseIn {
       json[r'class'] = this.class_;
     } else {
       json[r'class'] = null;
+    }
+    if (this.cluster != null) {
+      json[r'cluster'] = this.cluster;
+    } else {
+      json[r'cluster'] = null;
     }
     if (this.image != null) {
       json[r'image'] = this.image;
@@ -134,6 +151,7 @@ class LeaseIn {
 
       return LeaseIn(
         class_: mapValueOfType<String>(json, r'class'),
+        cluster: mapValueOfType<String>(json, r'cluster'),
         image: mapValueOfType<String>(json, r'image'),
         project: mapValueOfType<String>(json, r'project'),
         runtime: mapValueOfType<String>(json, r'runtime'),

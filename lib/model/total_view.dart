@@ -94,7 +94,7 @@ class TotalView {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? usedPct;
+  double? usedPct;
 
   /// Window is the window class the row totals, on the account side.
   ///
@@ -225,7 +225,7 @@ class TotalView {
         scope: mapValueOfType<String>(json, r'scope'),
         source_: mapValueOfType<String>(json, r'source'),
         tokens: mapValueOfType<int>(json, r'tokens'),
-        usedPct: num.parse('${json[r'usedPct']}'),
+        usedPct: mapValueOfType<double>(json, r'usedPct'),
         window: mapValueOfType<String>(json, r'window'),
         windows: mapValueOfType<int>(json, r'windows'),
       );

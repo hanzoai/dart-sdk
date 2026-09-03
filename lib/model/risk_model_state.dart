@@ -51,7 +51,7 @@ class RiskModelState {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? cut;
+  double? cut;
 
   /// Descends is the published value the working model grew out of: the newest one whose mass count it has reached or passed. Empty when nothing has been published yet.  It is DERIVED from the count and never stored, so an instant rollback is right for free — adopting an older value moves the count backward and this answers with that older value, where a stored pointer would be a second fact to keep in step. Read with Learned it is also the DRIFT: this model is Descends plus however many events the two counts differ by.
   ///
@@ -105,7 +105,7 @@ class RiskModelState {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? realised;
+  double? realised;
 
   /// Refused counts events the model would not score, by reason. None of them was examined; a refusal is counted, never silent.
   Map<String, int> refused;
@@ -117,7 +117,7 @@ class RiskModelState {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? sample;
+  double? sample;
 
   /// Saturated means no threshold can honour the stated appetite because too much of the stream scores in the top bucket, so the model is alerting on nothing — the one state that must never be mistaken for quiet.
   ///
@@ -144,7 +144,7 @@ class RiskModelState {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? stated;
+  double? stated;
 
   /// Surface reports what of the tenant's OWN event surface has been folded in.
   ///
@@ -326,18 +326,18 @@ class RiskModelState {
       return RiskModelState(
         aggregates: RiskAggregates.fromJson(json[r'aggregates']),
         blind: mapCastOfType<String, int>(json, r'blind') ?? const {},
-        cut: num.parse('${json[r'cut']}'),
+        cut: mapValueOfType<double>(json, r'cut'),
         descends: mapValueOfType<String>(json, r'descends'),
         disposed: mapValueOfType<int>(json, r'disposed'),
         learned: mapValueOfType<int>(json, r'learned'),
         live: mapValueOfType<bool>(json, r'live'),
         policy: mapValueOfType<int>(json, r'policy'),
-        realised: num.parse('${json[r'realised']}'),
+        realised: mapValueOfType<double>(json, r'realised'),
         refused: mapCastOfType<String, int>(json, r'refused') ?? const {},
-        sample: num.parse('${json[r'sample']}'),
+        sample: mapValueOfType<double>(json, r'sample'),
         saturated: mapValueOfType<bool>(json, r'saturated'),
         shape: mapValueOfType<String>(json, r'shape'),
-        stated: num.parse('${json[r'stated']}'),
+        stated: mapValueOfType<double>(json, r'stated'),
         surface: RiskSurface.fromJson(json[r'surface']),
         tenant: mapValueOfType<String>(json, r'tenant'),
         values: RiskModelValue.listFromJson(json[r'values']),

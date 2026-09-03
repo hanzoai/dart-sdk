@@ -37,7 +37,7 @@ class SampleIngest {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? gpuUtil;
+  double? gpuUtil;
 
   /// GPUs is how many accelerators this reading covers.
   ///
@@ -168,7 +168,7 @@ class SampleIngest {
 
       return SampleIngest(
         gpuModel: mapValueOfType<String>(json, r'gpuModel'),
-        gpuUtil: num.parse('${json[r'gpuUtil']}'),
+        gpuUtil: mapValueOfType<double>(json, r'gpuUtil'),
         gpus: mapValueOfType<int>(json, r'gpus'),
         host: mapValueOfType<String>(json, r'host'),
         memFree: mapValueOfType<int>(json, r'memFree'),

@@ -34,7 +34,7 @@ class CaptableShare {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? capitalContribution;
+  double? capitalContribution;
 
   /// CertificateID is the certificate number, unique within the company.
   ///
@@ -73,7 +73,7 @@ class CaptableShare {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? pricePerShare;
+  double? pricePerShare;
 
   /// Quantity is how many shares the certificate covers.
   ///
@@ -259,14 +259,14 @@ class CaptableShare {
       }());
 
       return CaptableShare(
-        capitalContribution: num.parse('${json[r'capitalContribution']}'),
+        capitalContribution: mapValueOfType<double>(json, r'capitalContribution'),
         certificateId: mapValueOfType<String>(json, r'certificateId'),
         companyLegends: json[r'companyLegends'] is Iterable
             ? (json[r'companyLegends'] as Iterable).cast<String>().toList(growable: false)
             : const [],
         id: mapValueOfType<String>(json, r'id'),
         issueDate: mapValueOfType<String>(json, r'issueDate'),
-        pricePerShare: num.parse('${json[r'pricePerShare']}'),
+        pricePerShare: mapValueOfType<double>(json, r'pricePerShare'),
         quantity: mapValueOfType<int>(json, r'quantity'),
         shareClassId: mapValueOfType<String>(json, r'shareClassId'),
         shareClassName: mapValueOfType<String>(json, r'shareClassName'),

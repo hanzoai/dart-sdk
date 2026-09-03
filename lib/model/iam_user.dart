@@ -332,7 +332,7 @@ class IamUser {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? balance;
+  double? balance;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -340,7 +340,7 @@ class IamUser {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? balanceCredit;
+  double? balanceCredit;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -2903,8 +2903,8 @@ class IamUser {
         azuread: mapValueOfType<String>(json, r'azuread'),
         azureadb2c: mapValueOfType<String>(json, r'azureadb2c'),
         baidu: mapValueOfType<String>(json, r'baidu'),
-        balance: num.parse('${json[r'balance']}'),
-        balanceCredit: num.parse('${json[r'balanceCredit']}'),
+        balance: mapValueOfType<double>(json, r'balance'),
+        balanceCredit: mapValueOfType<double>(json, r'balanceCredit'),
         balanceCurrency: mapValueOfType<String>(json, r'balanceCurrency'),
         battlenet: mapValueOfType<String>(json, r'battlenet'),
         bilibili: mapValueOfType<String>(json, r'bilibili'),

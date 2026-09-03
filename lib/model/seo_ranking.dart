@@ -54,7 +54,7 @@ class SeoRanking {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? traffic;
+  double? traffic;
 
   /// URL is the page of the target that placed.
   ///
@@ -153,7 +153,7 @@ class SeoRanking {
         keyword: mapValueOfType<String>(json, r'keyword'),
         position: mapValueOfType<int>(json, r'position'),
         title: mapValueOfType<String>(json, r'title'),
-        traffic: num.parse('${json[r'traffic']}'),
+        traffic: mapValueOfType<double>(json, r'traffic'),
         url: mapValueOfType<String>(json, r'url'),
         volume: mapValueOfType<int>(json, r'volume'),
       );

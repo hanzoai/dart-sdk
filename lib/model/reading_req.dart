@@ -195,7 +195,7 @@ class ReadingReq {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? usedPct;
+  double? usedPct;
 
   /// Window is the window class, one of 6h, day, week, month; anything else is refused rather than silently reclassified.
   ///
@@ -422,7 +422,7 @@ class ReadingReq {
         resetsAt: mapValueOfType<String>(json, r'resetsAt'),
         synthetic: mapValueOfType<bool>(json, r'synthetic'),
         totalTokens: mapValueOfType<int>(json, r'totalTokens'),
-        usedPct: num.parse('${json[r'usedPct']}'),
+        usedPct: mapValueOfType<double>(json, r'usedPct'),
         window: mapValueOfType<String>(json, r'window'),
         windowMinutes: mapValueOfType<int>(json, r'windowMinutes'),
         windowStart: mapValueOfType<String>(json, r'windowStart'),

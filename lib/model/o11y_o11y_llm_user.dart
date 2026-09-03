@@ -74,7 +74,7 @@ class O11yO11yLLMUser {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? totalCost;
+  double? totalCost;
 
   /// TotalTokens is their total tokens.
   ///
@@ -189,7 +189,7 @@ class O11yO11yLLMUser {
         observations: mapValueOfType<int>(json, r'observations'),
         promptTokens: mapValueOfType<int>(json, r'promptTokens'),
         sessions: mapValueOfType<int>(json, r'sessions'),
-        totalCost: num.parse('${json[r'totalCost']}'),
+        totalCost: mapValueOfType<double>(json, r'totalCost'),
         totalTokens: mapValueOfType<int>(json, r'totalTokens'),
         traces: mapValueOfType<int>(json, r'traces'),
       );

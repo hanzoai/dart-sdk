@@ -43,7 +43,7 @@ class BreakdownRow {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? pct;
+  double? pct;
 
   /// Visitors is how many distinct people they came from.
   ///
@@ -118,7 +118,7 @@ class BreakdownRow {
       return BreakdownRow(
         key: mapValueOfType<String>(json, r'key'),
         pageviews: mapValueOfType<int>(json, r'pageviews'),
-        pct: num.parse('${json[r'pct']}'),
+        pct: mapValueOfType<double>(json, r'pct'),
         visitors: mapValueOfType<int>(json, r'visitors'),
       );
     }

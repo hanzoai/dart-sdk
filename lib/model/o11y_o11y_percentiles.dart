@@ -24,7 +24,7 @@ class O11yO11yPercentiles {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? p50;
+  double? p50;
 
   /// P90 is the 90th percentile.
   ///
@@ -33,7 +33,7 @@ class O11yO11yPercentiles {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? p90;
+  double? p90;
 
   /// P99 is the 99th percentile.
   ///
@@ -42,7 +42,7 @@ class O11yO11yPercentiles {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? p99;
+  double? p99;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is O11yO11yPercentiles &&
@@ -99,9 +99,9 @@ class O11yO11yPercentiles {
       }());
 
       return O11yO11yPercentiles(
-        p50: num.parse('${json[r'p50']}'),
-        p90: num.parse('${json[r'p90']}'),
-        p99: num.parse('${json[r'p99']}'),
+        p50: mapValueOfType<double>(json, r'p50'),
+        p90: mapValueOfType<double>(json, r'p90'),
+        p99: mapValueOfType<double>(json, r'p99'),
       );
     }
     return null;

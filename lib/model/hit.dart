@@ -64,7 +64,7 @@ class Hit {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? score;
+  double? score;
 
   /// Title is the document's title as it was indexed. Empty for a document saved without one; it is a label to show, never the id (that is Name).
   ///
@@ -171,7 +171,7 @@ class Hit {
         name: mapValueOfType<String>(json, r'name'),
         project: mapValueOfType<String>(json, r'project'),
         provider: mapValueOfType<String>(json, r'provider'),
-        score: num.parse('${json[r'score']}'),
+        score: mapValueOfType<double>(json, r'score'),
         title: mapValueOfType<String>(json, r'title'),
         url: mapValueOfType<String>(json, r'url'),
       );

@@ -43,7 +43,7 @@ class RiskScoreOut {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? cut;
+  double? cut;
 
   /// Policy is the version of your organisation's decision regime this verdict was reached under, from its own policy history (GET /v1/risk/policy). Cut is derived from the appetite that version states, so it is the record that makes this decision reconstructible after the appetite is restated. Zero means no regime has ever been stated and the default posture — shadow — was in force.
   ///
@@ -70,7 +70,7 @@ class RiskScoreOut {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? score;
+  double? score;
 
   /// Scored is false when the model declined, and Refusal says which refusal it was: warming, unusable or unidentified. None of them is a clean bill of health, which is why the refusal is stated rather than rendered as a score of zero.
   ///
@@ -200,10 +200,10 @@ class RiskScoreOut {
       return RiskScoreOut(
         alert: mapValueOfType<bool>(json, r'alert'),
         causes: RiskCause.listFromJson(json[r'causes']),
-        cut: num.parse('${json[r'cut']}'),
+        cut: mapValueOfType<double>(json, r'cut'),
         policy: mapValueOfType<int>(json, r'policy'),
         refusal: mapValueOfType<String>(json, r'refusal'),
-        score: num.parse('${json[r'score']}'),
+        score: mapValueOfType<double>(json, r'score'),
         scored: mapValueOfType<bool>(json, r'scored'),
         shadow: mapValueOfType<bool>(json, r'shadow'),
         shape: mapValueOfType<String>(json, r'shape'),

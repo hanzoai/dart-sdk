@@ -44,7 +44,7 @@ class SeoDomain {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? position;
+  double? position;
 
   /// Traffic is the estimated monthly visits those placements earn.
   ///
@@ -53,7 +53,7 @@ class SeoDomain {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? traffic;
+  double? traffic;
 
   /// Visibility is its share of the possible attention across those phrases.
   ///
@@ -62,7 +62,7 @@ class SeoDomain {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? visibility;
+  double? visibility;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is SeoDomain &&
@@ -135,9 +135,9 @@ class SeoDomain {
       return SeoDomain(
         domain: mapValueOfType<String>(json, r'domain'),
         keywords: mapValueOfType<int>(json, r'keywords'),
-        position: num.parse('${json[r'position']}'),
-        traffic: num.parse('${json[r'traffic']}'),
-        visibility: num.parse('${json[r'visibility']}'),
+        position: mapValueOfType<double>(json, r'position'),
+        traffic: mapValueOfType<double>(json, r'traffic'),
+        visibility: mapValueOfType<double>(json, r'visibility'),
       );
     }
     return null;

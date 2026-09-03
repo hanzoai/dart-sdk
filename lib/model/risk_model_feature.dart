@@ -66,7 +66,7 @@ class RiskModelFeature {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? neutral;
+  double? neutral;
 
   /// Severity is how much weight an alert on it carries.
   ///
@@ -205,7 +205,7 @@ class RiskModelFeature {
         citation: mapValueOfType<String>(json, r'citation'),
         indicator: mapValueOfType<String>(json, r'indicator'),
         name: mapValueOfType<String>(json, r'name'),
-        neutral: num.parse('${json[r'neutral']}'),
+        neutral: mapValueOfType<double>(json, r'neutral'),
         severity: mapValueOfType<String>(json, r'severity'),
         typology: mapValueOfType<String>(json, r'typology'),
         unit: mapValueOfType<String>(json, r'unit'),

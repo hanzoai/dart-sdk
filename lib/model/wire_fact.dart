@@ -51,7 +51,7 @@ class WireFact {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? confidence;
+  double? confidence;
 
   /// Entity is the thing described, in the organization's own namespace.
   ///
@@ -254,7 +254,7 @@ class WireFact {
       return WireFact(
         at: mapValueOfType<String>(json, r'at'),
         by: mapValueOfType<String>(json, r'by'),
-        confidence: num.parse('${json[r'confidence']}'),
+        confidence: mapValueOfType<double>(json, r'confidence'),
         entity: mapValueOfType<String>(json, r'entity'),
         evidence: mapValueOfType<String>(json, r'evidence'),
         id: mapValueOfType<String>(json, r'id'),

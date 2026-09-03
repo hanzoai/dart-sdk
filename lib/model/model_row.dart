@@ -36,7 +36,7 @@ class ModelRow {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? pct;
+  double? pct;
 
   /// Provider is who served it.
   ///
@@ -151,7 +151,7 @@ class ModelRow {
 
       return ModelRow(
         model: mapValueOfType<String>(json, r'model'),
-        pct: num.parse('${json[r'pct']}'),
+        pct: mapValueOfType<double>(json, r'pct'),
         provider: mapValueOfType<String>(json, r'provider'),
         requests: mapValueOfType<int>(json, r'requests'),
         spendCents: mapValueOfType<int>(json, r'spendCents'),

@@ -39,7 +39,7 @@ class O11yDaemonSetListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? cpuLimit;
+  double? cpuLimit;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -47,7 +47,7 @@ class O11yDaemonSetListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? cpuRequest;
+  double? cpuRequest;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -55,7 +55,7 @@ class O11yDaemonSetListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? cpuUsage;
+  double? cpuUsage;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -79,7 +79,7 @@ class O11yDaemonSetListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? memoryLimit;
+  double? memoryLimit;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -87,7 +87,7 @@ class O11yDaemonSetListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? memoryRequest;
+  double? memoryRequest;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -95,7 +95,7 @@ class O11yDaemonSetListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? memoryUsage;
+  double? memoryUsage;
 
   Map<String, String> meta;
 
@@ -215,14 +215,14 @@ class O11yDaemonSetListRecord {
 
       return O11yDaemonSetListRecord(
         availableNodes: mapValueOfType<int>(json, r'availableNodes'),
-        cpuLimit: num.parse('${json[r'cpuLimit']}'),
-        cpuRequest: num.parse('${json[r'cpuRequest']}'),
-        cpuUsage: num.parse('${json[r'cpuUsage']}'),
+        cpuLimit: mapValueOfType<double>(json, r'cpuLimit'),
+        cpuRequest: mapValueOfType<double>(json, r'cpuRequest'),
+        cpuUsage: mapValueOfType<double>(json, r'cpuUsage'),
         daemonSetName: mapValueOfType<String>(json, r'daemonSetName'),
         desiredNodes: mapValueOfType<int>(json, r'desiredNodes'),
-        memoryLimit: num.parse('${json[r'memoryLimit']}'),
-        memoryRequest: num.parse('${json[r'memoryRequest']}'),
-        memoryUsage: num.parse('${json[r'memoryUsage']}'),
+        memoryLimit: mapValueOfType<double>(json, r'memoryLimit'),
+        memoryRequest: mapValueOfType<double>(json, r'memoryRequest'),
+        memoryUsage: mapValueOfType<double>(json, r'memoryUsage'),
         meta: mapCastOfType<String, String>(json, r'meta') ?? const {},
         restarts: mapValueOfType<int>(json, r'restarts'),
       );

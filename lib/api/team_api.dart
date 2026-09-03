@@ -527,6 +527,86 @@ class TeamApi {
     return null;
   }
 
+  /// Lists the rooms orgs have published, across every org.
+  ///
+  /// Lists the rooms orgs have published, across every org.  It is NOT part of GET /rooms, and the separation is the point: that address answers the CALLER'S rooms, so folding these in would put strangers' channels in somebody's own sidebar.  It reads the directory and never a tenant's store. Every field it can answer with is one an org published by making a room public, so there is nothing here to scope by org — a directory only its own org can read is not a directory. An authenticated principal is still required, because an anonymous crawler is not who this is for.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [String] q:
+  ///   Q matches a room's name or its topic.
+  ///
+  /// * [String] org:
+  ///   Org narrows to one org's published rooms.
+  ///
+  /// * [int] limit:
+  ///   Limit caps the page, 50 when unstated and 200 at most. An unparseable value reads as unstated rather than as zero — zero pages is not an answer anybody asked for.
+  Future<Response> getTeamPublicWithHttpInfo({ String? q, String? org, int? limit, }) async {
+    // ignore: prefer_const_declarations
+    final path = r'/v1/team/public';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    if (q != null) {
+      queryParams.addAll(_queryParams('', 'q', q));
+    }
+    if (org != null) {
+      queryParams.addAll(_queryParams('', 'org', org));
+    }
+    if (limit != null) {
+      queryParams.addAll(_queryParams('', 'limit', limit));
+    }
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Lists the rooms orgs have published, across every org.
+  ///
+  /// Lists the rooms orgs have published, across every org.  It is NOT part of GET /rooms, and the separation is the point: that address answers the CALLER'S rooms, so folding these in would put strangers' channels in somebody's own sidebar.  It reads the directory and never a tenant's store. Every field it can answer with is one an org published by making a room public, so there is nothing here to scope by org — a directory only its own org can read is not a directory. An authenticated principal is still required, because an anonymous crawler is not who this is for.
+  ///
+  /// Parameters:
+  ///
+  /// * [String] q:
+  ///   Q matches a room's name or its topic.
+  ///
+  /// * [String] org:
+  ///   Org narrows to one org's published rooms.
+  ///
+  /// * [int] limit:
+  ///   Limit caps the page, 50 when unstated and 200 at most. An unparseable value reads as unstated rather than as zero — zero pages is not an answer anybody asked for.
+  Future<PublicRooms?> getTeamPublic({ String? q, String? org, int? limit, }) async {
+    final response = await getTeamPublicWithHttpInfo( q: q, org: org, limit: limit, );
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'PublicRooms',) as PublicRooms;
+    
+    }
+    return null;
+  }
+
   /// Returns every room of the caller's org, across the spaces it owns, with the work facet each carries.
   ///
   /// Returns every room of the caller's org, across the spaces it owns, with the work facet each carries.  It reads the SAME Chunter documents the transactor serves, so a room opened in the Team client appears here with no sync, and a facet written here is read by anything holding the document. Direct messages are included: a room between two people is a room with no name, not a different kind of thing.

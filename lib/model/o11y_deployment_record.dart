@@ -39,7 +39,7 @@ class O11yDeploymentRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? deploymentCPU;
+  double? deploymentCPU;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -47,7 +47,7 @@ class O11yDeploymentRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? deploymentCPULimit;
+  double? deploymentCPULimit;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -55,7 +55,7 @@ class O11yDeploymentRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? deploymentCPURequest;
+  double? deploymentCPURequest;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -63,7 +63,7 @@ class O11yDeploymentRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? deploymentMemory;
+  double? deploymentMemory;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -71,7 +71,7 @@ class O11yDeploymentRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? deploymentMemoryLimit;
+  double? deploymentMemoryLimit;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -79,7 +79,7 @@ class O11yDeploymentRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? deploymentMemoryRequest;
+  double? deploymentMemoryRequest;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -215,12 +215,12 @@ class O11yDeploymentRecord {
 
       return O11yDeploymentRecord(
         availablePods: mapValueOfType<int>(json, r'availablePods'),
-        deploymentCPU: num.parse('${json[r'deploymentCPU']}'),
-        deploymentCPULimit: num.parse('${json[r'deploymentCPULimit']}'),
-        deploymentCPURequest: num.parse('${json[r'deploymentCPURequest']}'),
-        deploymentMemory: num.parse('${json[r'deploymentMemory']}'),
-        deploymentMemoryLimit: num.parse('${json[r'deploymentMemoryLimit']}'),
-        deploymentMemoryRequest: num.parse('${json[r'deploymentMemoryRequest']}'),
+        deploymentCPU: mapValueOfType<double>(json, r'deploymentCPU'),
+        deploymentCPULimit: mapValueOfType<double>(json, r'deploymentCPULimit'),
+        deploymentCPURequest: mapValueOfType<double>(json, r'deploymentCPURequest'),
+        deploymentMemory: mapValueOfType<double>(json, r'deploymentMemory'),
+        deploymentMemoryLimit: mapValueOfType<double>(json, r'deploymentMemoryLimit'),
+        deploymentMemoryRequest: mapValueOfType<double>(json, r'deploymentMemoryRequest'),
         deploymentName: mapValueOfType<String>(json, r'deploymentName'),
         desiredPods: mapValueOfType<int>(json, r'desiredPods'),
         meta: mapCastOfType<String, String>(json, r'meta') ?? const {},

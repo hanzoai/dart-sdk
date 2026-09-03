@@ -53,7 +53,7 @@ class ModelStat {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? costPct;
+  double? costPct;
 
   /// share of its calls that failed, 0..1
   ///
@@ -62,7 +62,7 @@ class ModelStat {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? errorRate;
+  double? errorRate;
 
   /// calls to it that did not succeed
   ///
@@ -98,7 +98,7 @@ class ModelStat {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? p50Ms;
+  double? p50Ms;
 
   /// 95th-percentile latency, null when unknown
   ///
@@ -107,7 +107,7 @@ class ModelStat {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? p95Ms;
+  double? p95Ms;
 
   /// 99th-percentile latency, null when unknown
   ///
@@ -116,7 +116,7 @@ class ModelStat {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? p99Ms;
+  double? p99Ms;
 
   /// tokens sent to it
   ///
@@ -288,14 +288,14 @@ class ModelStat {
       return ModelStat(
         completionTokens: mapValueOfType<int>(json, r'completionTokens'),
         costCents: mapValueOfType<int>(json, r'costCents'),
-        costPct: num.parse('${json[r'costPct']}'),
-        errorRate: num.parse('${json[r'errorRate']}'),
+        costPct: mapValueOfType<double>(json, r'costPct'),
+        errorRate: mapValueOfType<double>(json, r'errorRate'),
         errors: mapValueOfType<int>(json, r'errors'),
         model: mapValueOfType<String>(json, r'model'),
         modelCount: mapValueOfType<int>(json, r'modelCount'),
-        p50Ms: num.parse('${json[r'p50Ms']}'),
-        p95Ms: num.parse('${json[r'p95Ms']}'),
-        p99Ms: num.parse('${json[r'p99Ms']}'),
+        p50Ms: mapValueOfType<double>(json, r'p50Ms'),
+        p95Ms: mapValueOfType<double>(json, r'p95Ms'),
+        p99Ms: mapValueOfType<double>(json, r'p99Ms'),
         promptTokens: mapValueOfType<int>(json, r'promptTokens'),
         provider: mapValueOfType<String>(json, r'provider'),
         requests: mapValueOfType<int>(json, r'requests'),

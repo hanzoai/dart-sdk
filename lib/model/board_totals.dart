@@ -84,7 +84,7 @@ class BoardTotals {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? successRate;
+  double? successRate;
 
   /// prompt plus completion
   ///
@@ -207,7 +207,7 @@ class BoardTotals {
         generations: mapValueOfType<int>(json, r'generations'),
         models: mapValueOfType<int>(json, r'models'),
         promptTokens: mapValueOfType<int>(json, r'promptTokens'),
-        successRate: num.parse('${json[r'successRate']}'),
+        successRate: mapValueOfType<double>(json, r'successRate'),
         totalTokens: mapValueOfType<int>(json, r'totalTokens'),
         users: mapValueOfType<int>(json, r'users'),
       );

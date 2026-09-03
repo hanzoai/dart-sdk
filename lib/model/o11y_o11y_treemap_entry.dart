@@ -33,7 +33,7 @@ class O11yO11yTreemapEntry {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? percentage;
+  double? percentage;
 
   /// TotalValue is the metric's absolute count.
   ///
@@ -100,7 +100,7 @@ class O11yO11yTreemapEntry {
 
       return O11yO11yTreemapEntry(
         metricName: mapValueOfType<String>(json, r'metricName'),
-        percentage: num.parse('${json[r'percentage']}'),
+        percentage: mapValueOfType<double>(json, r'percentage'),
         totalValue: mapValueOfType<int>(json, r'totalValue'),
       );
     }

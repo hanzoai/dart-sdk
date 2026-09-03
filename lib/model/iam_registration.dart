@@ -75,7 +75,7 @@ class IamRegistration {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? expireInHours;
+  double? expireInHours;
 
   List<String> grantTypes;
 
@@ -121,7 +121,7 @@ class IamRegistration {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? refreshExpireInHours;
+  double? refreshExpireInHours;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is IamRegistration &&
@@ -245,7 +245,7 @@ class IamRegistration {
         clientSecret: mapValueOfType<String>(json, r'clientSecret'),
         displayName: mapValueOfType<String>(json, r'displayName'),
         enableCodeSignin: mapValueOfType<bool>(json, r'enableCodeSignin'),
-        expireInHours: num.parse('${json[r'expireInHours']}'),
+        expireInHours: mapValueOfType<double>(json, r'expireInHours'),
         grantTypes: json[r'grantTypes'] is Iterable
             ? (json[r'grantTypes'] as Iterable).cast<String>().toList(growable: false)
             : const [],
@@ -256,7 +256,7 @@ class IamRegistration {
         redirectUris: json[r'redirectUris'] is Iterable
             ? (json[r'redirectUris'] as Iterable).cast<String>().toList(growable: false)
             : const [],
-        refreshExpireInHours: num.parse('${json[r'refreshExpireInHours']}'),
+        refreshExpireInHours: mapValueOfType<double>(json, r'refreshExpireInHours'),
       );
     }
     return null;

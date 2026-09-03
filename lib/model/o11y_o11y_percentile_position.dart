@@ -32,7 +32,7 @@ class O11yO11yPercentilePosition {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? percentile;
+  double? percentile;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is O11yO11yPercentilePosition &&
@@ -83,7 +83,7 @@ class O11yO11yPercentilePosition {
 
       return O11yO11yPercentilePosition(
         description: mapValueOfType<String>(json, r'description'),
-        percentile: num.parse('${json[r'percentile']}'),
+        percentile: mapValueOfType<double>(json, r'percentile'),
       );
     }
     return null;

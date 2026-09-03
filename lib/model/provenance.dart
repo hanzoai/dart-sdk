@@ -17,7 +17,7 @@ class Provenance {
     this.rank,
     this.score,
   });
-  /// Backend is the leg that contributed this match: \"index\" (lexical), \"vector\" (semantic) or \"code\" (the org's repositories). It is the same name that leg reports itself under in Fusion.Backends, so a hit can be traced to a status.
+  /// Backend is the leg that contributed this match: \"index\" (lexical), \"vector\" (semantic), \"code\" (the org's repositories) or \"rerank\" (the cross-encoder pass, whose Score is the relevance it assigned). It is the same name that leg reports itself under in Fusion.Backends, so a hit can be traced to a status.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
@@ -42,7 +42,7 @@ class Provenance {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? score;
+  double? score;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is Provenance &&
@@ -101,7 +101,7 @@ class Provenance {
       return Provenance(
         backend: mapValueOfType<String>(json, r'backend'),
         rank: mapValueOfType<int>(json, r'rank'),
-        score: num.parse('${json[r'score']}'),
+        score: mapValueOfType<double>(json, r'score'),
       );
     }
     return null;

@@ -55,7 +55,7 @@ class Funnel {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? revenue;
+  double? revenue;
 
   /// Signups counts completed signups in the window, the step where an anonymous visitor becomes somebody with an account.
   ///
@@ -170,7 +170,7 @@ class Funnel {
         available: mapValueOfType<bool>(json, r'available'),
         orders: mapValueOfType<int>(json, r'orders'),
         pageviews: mapValueOfType<int>(json, r'pageviews'),
-        revenue: num.parse('${json[r'revenue']}'),
+        revenue: mapValueOfType<double>(json, r'revenue'),
         signups: mapValueOfType<int>(json, r'signups'),
         visitors: mapValueOfType<int>(json, r'visitors'),
         windowDays: mapValueOfType<int>(json, r'windowDays'),

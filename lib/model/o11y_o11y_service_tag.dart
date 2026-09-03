@@ -33,7 +33,7 @@ class O11yO11yServiceTag {
   String? key;
 
   /// NumberValues are the numeric operands, when the attribute is a number.
-  List<num> numberValues;
+  List<double> numberValues;
 
   /// Operator is how to test it, e.g. in, not_in.
   ///
@@ -125,7 +125,7 @@ class O11yO11yServiceTag {
             : const [],
         key: mapValueOfType<String>(json, r'Key'),
         numberValues: json[r'NumberValues'] is Iterable
-            ? (json[r'NumberValues'] as Iterable).cast<num>().toList(growable: false)
+            ? (json[r'NumberValues'] as Iterable).cast<double>().toList(growable: false)
             : const [],
         operator_: mapValueOfType<String>(json, r'Operator'),
         stringValues: json[r'StringValues'] is Iterable

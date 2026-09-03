@@ -97,7 +97,7 @@ class ReferenceAnswer {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? score;
+  double? score;
 
   /// Set is the set consulted.
   ///
@@ -266,7 +266,7 @@ class ReferenceAnswer {
         key: mapValueOfType<String>(json, r'key'),
         matched: mapValueOfType<String>(json, r'matched'),
         refusal: mapValueOfType<String>(json, r'refusal'),
-        score: num.parse('${json[r'score']}'),
+        score: mapValueOfType<double>(json, r'score'),
         set_: mapValueOfType<String>(json, r'set'),
         stale: mapValueOfType<bool>(json, r'stale'),
         value: mapCastOfType<String, String>(json, r'value') ?? const {},

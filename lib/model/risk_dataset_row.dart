@@ -48,7 +48,7 @@ class RiskDatasetRow {
   String? kind;
 
   /// Point is the coordinates, in the order the version's spec names its dims.
-  List<num> point;
+  List<double> point;
 
   /// Split is train, val or test.
   ///
@@ -144,7 +144,7 @@ class RiskDatasetRow {
         id: mapValueOfType<String>(json, r'id'),
         kind: mapValueOfType<String>(json, r'kind'),
         point: json[r'point'] is Iterable
-            ? (json[r'point'] as Iterable).cast<num>().toList(growable: false)
+            ? (json[r'point'] as Iterable).cast<double>().toList(growable: false)
             : const [],
         split: mapValueOfType<String>(json, r'split'),
         subject: mapValueOfType<String>(json, r'subject'),

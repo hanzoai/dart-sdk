@@ -31,7 +31,7 @@ class RiskCause {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? baseline;
+  double? baseline;
 
   /// Citation is where those words come from, so the claim is checkable rather than asserted — which is what a chargeback network or a regulator asks for.
   ///
@@ -67,7 +67,7 @@ class RiskCause {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? observed;
+  double? observed;
 
   /// Severity is how much weight this dimension carries.
   ///
@@ -85,7 +85,7 @@ class RiskCause {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? share;
+  double? share;
 
   /// Typology is the laundering or abuse pattern this dimension detects.
   ///
@@ -112,7 +112,7 @@ class RiskCause {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? without;
+  double? without;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is RiskCause &&
@@ -218,16 +218,16 @@ class RiskCause {
       }());
 
       return RiskCause(
-        baseline: num.parse('${json[r'baseline']}'),
+        baseline: mapValueOfType<double>(json, r'baseline'),
         citation: mapValueOfType<String>(json, r'citation'),
         feature: mapValueOfType<String>(json, r'feature'),
         indicator: mapValueOfType<String>(json, r'indicator'),
-        observed: num.parse('${json[r'observed']}'),
+        observed: mapValueOfType<double>(json, r'observed'),
         severity: mapValueOfType<String>(json, r'severity'),
-        share: num.parse('${json[r'share']}'),
+        share: mapValueOfType<double>(json, r'share'),
         typology: mapValueOfType<String>(json, r'typology'),
         unit: mapValueOfType<String>(json, r'unit'),
-        without: num.parse('${json[r'without']}'),
+        without: mapValueOfType<double>(json, r'without'),
       );
     }
     return null;

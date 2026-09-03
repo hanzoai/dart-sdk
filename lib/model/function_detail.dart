@@ -39,7 +39,7 @@ class FunctionDetail {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? avgDurationMs;
+  double? avgDurationMs;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -149,7 +149,7 @@ class FunctionDetail {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? successRate;
+  double? successRate;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -325,7 +325,7 @@ class FunctionDetail {
       }());
 
       return FunctionDetail(
-        avgDurationMs: num.parse('${json[r'avgDurationMs']}'),
+        avgDurationMs: mapValueOfType<double>(json, r'avgDurationMs'),
         createdAt: mapValueOfType<String>(json, r'createdAt'),
         endpoint: mapValueOfType<String>(json, r'endpoint'),
         envCount: mapValueOfType<int>(json, r'envCount'),
@@ -342,7 +342,7 @@ class FunctionDetail {
             ? (json[r'secrets'] as Iterable).cast<String>().toList(growable: false)
             : const [],
         status: mapValueOfType<String>(json, r'status'),
-        successRate: num.parse('${json[r'successRate']}'),
+        successRate: mapValueOfType<double>(json, r'successRate'),
         target: mapValueOfType<String>(json, r'target'),
         timeoutSec: mapValueOfType<int>(json, r'timeoutSec'),
         triggers: TriggerView.listFromJson(json[r'triggers']),

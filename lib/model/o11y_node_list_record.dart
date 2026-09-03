@@ -37,7 +37,7 @@ class O11yNodeListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? nodeCPUAllocatable;
+  double? nodeCPUAllocatable;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -45,7 +45,7 @@ class O11yNodeListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? nodeCPUUsage;
+  double? nodeCPUUsage;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -53,7 +53,7 @@ class O11yNodeListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? nodeMemoryAllocatable;
+  double? nodeMemoryAllocatable;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -61,7 +61,7 @@ class O11yNodeListRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? nodeMemoryUsage;
+  double? nodeMemoryUsage;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -152,10 +152,10 @@ class O11yNodeListRecord {
       return O11yNodeListRecord(
         countByCondition: O11yNodeCountByCondition.fromJson(json[r'countByCondition']),
         meta: mapCastOfType<String, String>(json, r'meta') ?? const {},
-        nodeCPUAllocatable: num.parse('${json[r'nodeCPUAllocatable']}'),
-        nodeCPUUsage: num.parse('${json[r'nodeCPUUsage']}'),
-        nodeMemoryAllocatable: num.parse('${json[r'nodeMemoryAllocatable']}'),
-        nodeMemoryUsage: num.parse('${json[r'nodeMemoryUsage']}'),
+        nodeCPUAllocatable: mapValueOfType<double>(json, r'nodeCPUAllocatable'),
+        nodeCPUUsage: mapValueOfType<double>(json, r'nodeCPUUsage'),
+        nodeMemoryAllocatable: mapValueOfType<double>(json, r'nodeMemoryAllocatable'),
+        nodeMemoryUsage: mapValueOfType<double>(json, r'nodeMemoryUsage'),
         nodeUID: mapValueOfType<String>(json, r'nodeUID'),
       );
     }

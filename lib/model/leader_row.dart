@@ -34,7 +34,7 @@ class LeaderRow {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? ciHigh;
+  double? ciHigh;
 
   /// CILow and CIHigh are the 95% Wilson interval on Measured, in percent. They are what makes the score comparable: at n=198 a 98% carries roughly ±2 points, so most differences at the top of a board are not distinguishable and a bare number implies a precision it does not have. Absent when there is no measurement.
   ///
@@ -43,7 +43,7 @@ class LeaderRow {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? ciLow;
+  double? ciLow;
 
   /// Claims is how many independent claims exist for this model on this benchmark. More than one means several sources reported it.
   ///
@@ -61,7 +61,7 @@ class LeaderRow {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? gap;
+  double? gap;
 
   /// Mean is the unweighted average of every claim, which answers a different question from Published: what the field says on average, rather than what the vendor says about itself. With one claim the two are equal.
   ///
@@ -70,7 +70,7 @@ class LeaderRow {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? mean;
+  double? mean;
 
   /// hanzo-measured accuracy % (nil if unrun)
   ///
@@ -79,7 +79,7 @@ class LeaderRow {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? measured;
+  double? measured;
 
   /// MeasuredAt is when the run behind Measured was recorded.
   ///
@@ -124,7 +124,7 @@ class LeaderRow {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? published;
+  double? published;
 
   /// Run names the measurement Measured came from, and MeasuredAt is when it ran. A score with no date is not a fact about a model, it is a fact about a model on a day — and models change, so the date is what makes the number checkable rather than merely quoted.
   ///
@@ -142,7 +142,7 @@ class LeaderRow {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? spread;
+  double? spread;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is LeaderRow &&
@@ -269,19 +269,19 @@ class LeaderRow {
       }());
 
       return LeaderRow(
-        ciHigh: num.parse('${json[r'ciHigh']}'),
-        ciLow: num.parse('${json[r'ciLow']}'),
+        ciHigh: mapValueOfType<double>(json, r'ciHigh'),
+        ciLow: mapValueOfType<double>(json, r'ciLow'),
         claims: mapValueOfType<int>(json, r'claims'),
-        gap: num.parse('${json[r'gap']}'),
-        mean: num.parse('${json[r'mean']}'),
-        measured: num.parse('${json[r'measured']}'),
+        gap: mapValueOfType<double>(json, r'gap'),
+        mean: mapValueOfType<double>(json, r'mean'),
+        measured: mapValueOfType<double>(json, r'measured'),
         measuredAt: mapDateTime(json, r'measuredAt', r''),
         model: mapValueOfType<String>(json, r'model'),
         n: mapValueOfType<int>(json, r'n'),
         protocol: mapValueOfType<String>(json, r'protocol'),
-        published: num.parse('${json[r'published']}'),
+        published: mapValueOfType<double>(json, r'published'),
         run: mapValueOfType<String>(json, r'run'),
-        spread: num.parse('${json[r'spread']}'),
+        spread: mapValueOfType<double>(json, r'spread'),
       );
     }
     return null;

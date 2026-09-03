@@ -60,7 +60,7 @@ class RiskResolved {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? confidence;
+  double? confidence;
 
   /// Conflicts is every other visible assertion, strongest first, whole. They are kept and returned rather than dropped, so an adverse action can show that the plane knew of a contrary claim and say why it lost. They are horizon-filtered exactly like the winner: an assertion that was not knowable yet cannot even be named here, because naming it would leak its existence into a past decision.
   List<RiskLabelRecord> conflicts;
@@ -245,7 +245,7 @@ class RiskResolved {
         asOf: mapValueOfType<String>(json, r'asOf'),
         at: mapValueOfType<String>(json, r'at'),
         by: mapValueOfType<String>(json, r'by'),
-        confidence: num.parse('${json[r'confidence']}'),
+        confidence: mapValueOfType<double>(json, r'confidence'),
         conflicts: RiskLabelRecord.listFromJson(json[r'conflicts']),
         contested: mapValueOfType<bool>(json, r'contested'),
         disposition: mapValueOfType<String>(json, r'disposition'),

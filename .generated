@@ -655,6 +655,7 @@ lib/model/enroll_req.dart
 lib/model/enroll_result.dart
 lib/model/enrollment.dart
 lib/model/enrollment_list.dart
+lib/model/enrollment_view.dart
 lib/model/enrolment.dart
 lib/model/entitlements_view.dart
 lib/model/entry.dart
@@ -694,7 +695,6 @@ lib/model/evaluate_in.dart
 lib/model/evaluator_list.dart
 lib/model/evaluator_req.dart
 lib/model/evaluator_view.dart
-lib/model/event.dart
 lib/model/event_in.dart
 lib/model/event_list.dart
 lib/model/event_view.dart
@@ -969,6 +969,9 @@ lib/model/iam_workspace.dart
 lib/model/iam_workspaces_delete_output.dart
 lib/model/iam_workspaces_input.dart
 lib/model/iam_workspaces_list_output.dart
+lib/model/identity_in.dart
+lib/model/identity_list.dart
+lib/model/identity_view.dart
 lib/model/image_origin.dart
 lib/model/image_view.dart
 lib/model/import_cap_table_in.dart
@@ -1031,6 +1034,7 @@ lib/model/item_view.dart
 lib/model/job_cancel.dart
 lib/model/job_canceled.dart
 lib/model/job_list.dart
+lib/model/join_failure.dart
 lib/model/journey_step.dart
 lib/model/judge_spec.dart
 lib/model/kb_authorize_out.dart
@@ -1100,6 +1104,7 @@ lib/model/link_list.dart
 lib/model/link_mint.dart
 lib/model/link_view.dart
 lib/model/list_out.dart
+lib/model/listed.dart
 lib/model/listing.dart
 lib/model/listing_page.dart
 lib/model/liveness.dart
@@ -2170,11 +2175,13 @@ lib/model/provision_request.dart
 lib/model/provision_result.dart
 lib/model/provisioned_resource.dart
 lib/model/provisioned_summary.dart
+lib/model/public_rooms.dart
 lib/model/publish_input.dart
 lib/model/publish_kit_in.dart
 lib/model/publish_req.dart
 lib/model/publish_result.dart
 lib/model/published_claim.dart
+lib/model/published_view.dart
 lib/model/pull_list.dart
 lib/model/pull_view.dart
 lib/model/purge.dart
@@ -2249,6 +2256,7 @@ lib/model/registry_project_list.dart
 lib/model/registry_status.dart
 lib/model/registry_tag_list.dart
 lib/model/registry_token.dart
+lib/model/reindex_out.dart
 lib/model/release_board.dart
 lib/model/release_row.dart
 lib/model/remark.dart
@@ -2432,6 +2440,7 @@ lib/model/series_line.dart
 lib/model/series_point.dart
 lib/model/service.dart
 lib/model/service_detail.dart
+lib/model/service_in.dart
 lib/model/service_port.dart
 lib/model/session.dart
 lib/model/session_detail.dart
@@ -2457,6 +2466,7 @@ lib/model/skill.dart
 lib/model/skill_deleted.dart
 lib/model/skill_in.dart
 lib/model/skill_written.dart
+lib/model/slack_join_out.dart
 lib/model/slot_view.dart
 lib/model/sms.dart
 lib/model/social_account.dart
@@ -2690,4 +2700,3 @@ lib/model/world_wire.dart
 lib/model/write_in.dart
 lib/model/written.dart
 lib/model/wrote.dart
-lib/model/zap_proc_req.dart

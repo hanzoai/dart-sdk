@@ -39,7 +39,7 @@ class GraphFact {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? confidence;
+  double? confidence;
 
   /// Entity is the thing being described, in the organization's own namespace. It is not created: an entity exists because something was asserted about it. Required, 512 bytes at most.
   ///
@@ -202,7 +202,7 @@ class GraphFact {
 
       return GraphFact(
         at: mapValueOfType<String>(json, r'at'),
-        confidence: num.parse('${json[r'confidence']}'),
+        confidence: mapValueOfType<double>(json, r'confidence'),
         entity: mapValueOfType<String>(json, r'entity'),
         evidence: mapValueOfType<String>(json, r'evidence'),
         names: mapValueOfType<bool>(json, r'names'),

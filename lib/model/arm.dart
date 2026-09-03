@@ -45,7 +45,7 @@ class Arm {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? weight;
+  double? weight;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is Arm &&
@@ -112,7 +112,7 @@ class Arm {
         control: mapValueOfType<bool>(json, r'control'),
         key: mapValueOfType<String>(json, r'key'),
         payload: mapValueOfType<Object>(json, r'payload'),
-        weight: num.parse('${json[r'weight']}'),
+        weight: mapValueOfType<double>(json, r'weight'),
       );
     }
     return null;

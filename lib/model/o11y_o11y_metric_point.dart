@@ -43,10 +43,10 @@ class O11yO11yMetricPoint {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? value;
+  double? value;
 
   /// Values carries the bucket values of a heatmap point.
-  List<num> values;
+  List<double> values;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is O11yO11yMetricPoint &&
@@ -108,9 +108,9 @@ class O11yO11yMetricPoint {
       return O11yO11yMetricPoint(
         partial: mapValueOfType<bool>(json, r'partial'),
         timestamp: mapValueOfType<int>(json, r'timestamp'),
-        value: num.parse('${json[r'value']}'),
+        value: mapValueOfType<double>(json, r'value'),
         values: json[r'values'] is Iterable
-            ? (json[r'values'] as Iterable).cast<num>().toList(growable: false)
+            ? (json[r'values'] as Iterable).cast<double>().toList(growable: false)
             : const [],
       );
     }

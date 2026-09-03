@@ -103,7 +103,7 @@ class EsignRecipient {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? signingOrder;
+  double? signingOrder;
 
   /// SigningStatus is NOT_SIGNED, SIGNED or REJECTED. A CC recipient is SIGNED from the moment they are added, because they are never asked.
   ///
@@ -226,7 +226,7 @@ class EsignRecipient {
         role: mapValueOfType<String>(json, r'role'),
         sendStatus: mapValueOfType<String>(json, r'sendStatus'),
         signedAt: mapValueOfType<int>(json, r'signedAt'),
-        signingOrder: num.parse('${json[r'signingOrder']}'),
+        signingOrder: mapValueOfType<double>(json, r'signingOrder'),
         signingStatus: mapValueOfType<String>(json, r'signingStatus'),
       );
     }

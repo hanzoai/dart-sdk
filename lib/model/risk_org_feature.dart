@@ -47,7 +47,7 @@ class RiskOrgFeature {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? max;
+  double? max;
 
   /// Mean is the dimension's average where it was present.
   ///
@@ -56,7 +56,7 @@ class RiskOrgFeature {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? mean;
+  double? mean;
 
   /// Name is the dimension as this API publishes it.
   ///
@@ -186,8 +186,8 @@ class RiskOrgFeature {
       return RiskOrgFeature(
         blind: mapValueOfType<bool>(json, r'blind'),
         buckets: mapValueOfType<int>(json, r'buckets'),
-        max: num.parse('${json[r'max']}'),
-        mean: num.parse('${json[r'mean']}'),
+        max: mapValueOfType<double>(json, r'max'),
+        mean: mapValueOfType<double>(json, r'mean'),
         name: mapValueOfType<String>(json, r'name'),
         present: mapValueOfType<int>(json, r'present'),
         source_: mapValueOfType<String>(json, r'source'),

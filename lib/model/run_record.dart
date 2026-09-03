@@ -30,7 +30,7 @@ class RunRecord {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? avgScore;
+  double? avgScore;
 
   /// CreatedAt is when the run first landed.
   ///
@@ -201,7 +201,7 @@ class RunRecord {
       }());
 
       return RunRecord(
-        avgScore: num.parse('${json[r'avgScore']}'),
+        avgScore: mapValueOfType<double>(json, r'avgScore'),
         createdAt: mapValueOfType<String>(json, r'createdAt'),
         dataset: mapValueOfType<String>(json, r'dataset'),
         items: mapValueOfType<int>(json, r'items'),

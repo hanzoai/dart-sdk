@@ -32,7 +32,7 @@ class O11yPoint {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? v;
+  double? v;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is O11yPoint &&
@@ -83,7 +83,7 @@ class O11yPoint {
 
       return O11yPoint(
         t: mapValueOfType<String>(json, r't'),
-        v: num.parse('${json[r'v']}'),
+        v: mapValueOfType<double>(json, r'v'),
       );
     }
     return null;

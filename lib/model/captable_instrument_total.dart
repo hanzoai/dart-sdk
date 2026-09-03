@@ -23,7 +23,7 @@ class CaptableInstrumentTotal {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? capital;
+  double? capital;
 
   /// Count is how many instruments there are.
   ///
@@ -82,7 +82,7 @@ class CaptableInstrumentTotal {
       }());
 
       return CaptableInstrumentTotal(
-        capital: num.parse('${json[r'capital']}'),
+        capital: mapValueOfType<double>(json, r'capital'),
         count: mapValueOfType<int>(json, r'count'),
       );
     }

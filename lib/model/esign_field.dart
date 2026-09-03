@@ -43,7 +43,7 @@ class EsignField {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? height;
+  double? height;
 
   /// ID is the field id.
   ///
@@ -70,7 +70,7 @@ class EsignField {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? page;
+  double? page;
 
   /// PositionX is the field's horizontal position on that page.
   ///
@@ -79,7 +79,7 @@ class EsignField {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? positionX;
+  double? positionX;
 
   /// PositionY is the field's vertical position on that page.
   ///
@@ -88,7 +88,7 @@ class EsignField {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? positionY;
+  double? positionY;
 
   /// RecipientID is who must fill this field. It is absent on a signer's own view of a document, where every field returned is already theirs.
   ///
@@ -115,7 +115,7 @@ class EsignField {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? width;
+  double? width;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is EsignField &&
@@ -230,15 +230,15 @@ class EsignField {
       return EsignField(
         customText: mapValueOfType<String>(json, r'customText'),
         fieldMeta: mapValueOfType<Object>(json, r'fieldMeta'),
-        height: num.parse('${json[r'height']}'),
+        height: mapValueOfType<double>(json, r'height'),
         id: mapValueOfType<String>(json, r'id'),
         inserted: mapValueOfType<bool>(json, r'inserted'),
-        page: num.parse('${json[r'page']}'),
-        positionX: num.parse('${json[r'positionX']}'),
-        positionY: num.parse('${json[r'positionY']}'),
+        page: mapValueOfType<double>(json, r'page'),
+        positionX: mapValueOfType<double>(json, r'positionX'),
+        positionY: mapValueOfType<double>(json, r'positionY'),
         recipientId: mapValueOfType<String>(json, r'recipientId'),
         type: mapValueOfType<String>(json, r'type'),
-        width: num.parse('${json[r'width']}'),
+        width: mapValueOfType<double>(json, r'width'),
       );
     }
     return null;

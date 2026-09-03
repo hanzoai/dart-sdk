@@ -33,7 +33,7 @@ class O11yO11yTagQuery {
   String? key;
 
   /// NumberValues are the numeric values to test against.
-  List<num> numberValues;
+  List<double> numberValues;
 
   /// Operator is the comparison, e.g. in, nin, contains, exists.
   ///
@@ -125,7 +125,7 @@ class O11yO11yTagQuery {
             : const [],
         key: mapValueOfType<String>(json, r'key'),
         numberValues: json[r'numberValues'] is Iterable
-            ? (json[r'numberValues'] as Iterable).cast<num>().toList(growable: false)
+            ? (json[r'numberValues'] as Iterable).cast<double>().toList(growable: false)
             : const [],
         operator_: mapValueOfType<String>(json, r'operator'),
         stringValues: json[r'stringValues'] is Iterable

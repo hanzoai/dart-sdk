@@ -35,7 +35,7 @@ class RunPoint {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? delta;
+  double? delta;
 
   /// N is how many items the run covered. Two runs are only comparable at the same n, which is why it travels with every point rather than being assumed.
   ///
@@ -62,7 +62,7 @@ class RunPoint {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? score;
+  double? score;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is RunPoint &&
@@ -134,10 +134,10 @@ class RunPoint {
 
       return RunPoint(
         at: mapDateTime(json, r'at', r''),
-        delta: num.parse('${json[r'delta']}'),
+        delta: mapValueOfType<double>(json, r'delta'),
         n: mapValueOfType<int>(json, r'n'),
         run: mapValueOfType<String>(json, r'run'),
-        score: num.parse('${json[r'score']}'),
+        score: mapValueOfType<double>(json, r'score'),
       );
     }
     return null;

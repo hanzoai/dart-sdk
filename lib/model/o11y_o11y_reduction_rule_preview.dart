@@ -61,7 +61,7 @@ class O11yO11yReductionRulePreview {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? reductionPercent;
+  double? reductionPercent;
 
   /// RetainedSeries is how many would survive with the candidate rule.
   ///
@@ -154,7 +154,7 @@ class O11yO11yReductionRulePreview {
             : const [],
         effectiveFrom: mapDateTime(json, r'effectiveFrom', r''),
         ingestedSeries: mapValueOfType<int>(json, r'ingestedSeries'),
-        reductionPercent: num.parse('${json[r'reductionPercent']}'),
+        reductionPercent: mapValueOfType<double>(json, r'reductionPercent'),
         retainedSeries: mapValueOfType<int>(json, r'retainedSeries'),
       );
     }

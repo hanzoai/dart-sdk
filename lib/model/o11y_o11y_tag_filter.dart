@@ -33,7 +33,7 @@ class O11yO11yTagFilter {
   String? key;
 
   /// NumberValues are the values matched when the tag holds numbers.
-  List<num> numberValues;
+  List<double> numberValues;
 
   /// Operator is the comparison to apply — in, not_in, equals, contains and the other operators the trace filter grammar names.
   ///
@@ -125,7 +125,7 @@ class O11yO11yTagFilter {
             : const [],
         key: mapValueOfType<String>(json, r'key'),
         numberValues: json[r'numberValues'] is Iterable
-            ? (json[r'numberValues'] as Iterable).cast<num>().toList(growable: false)
+            ? (json[r'numberValues'] as Iterable).cast<double>().toList(growable: false)
             : const [],
         operator_: mapValueOfType<String>(json, r'operator'),
         stringValues: json[r'stringValues'] is Iterable

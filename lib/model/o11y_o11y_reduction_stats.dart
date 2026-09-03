@@ -26,7 +26,7 @@ class O11yO11yReductionStats {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  num? estimatedMonthlySavingsUsd;
+  double? estimatedMonthlySavingsUsd;
 
   /// IngestedSamples is how many samples arrived across all rules.
   ///
@@ -133,7 +133,7 @@ class O11yO11yReductionStats {
       }());
 
       return O11yO11yReductionStats(
-        estimatedMonthlySavingsUsd: num.parse('${json[r'estimatedMonthlySavingsUsd']}'),
+        estimatedMonthlySavingsUsd: mapValueOfType<double>(json, r'estimatedMonthlySavingsUsd'),
         ingestedSamples: mapValueOfType<int>(json, r'ingestedSamples'),
         ingestedSeries: mapValueOfType<int>(json, r'ingestedSeries'),
         retainedSamples: mapValueOfType<int>(json, r'retainedSamples'),
