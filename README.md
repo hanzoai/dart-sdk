@@ -1,5 +1,7 @@
 # @hanzo dart-sdk
 
+[![Open in Hanzo](https://hanzo.app/badges/open-in-hanzo.svg)](https://hanzo.app/dev/open?repo=github.com/hanzoai/dart-sdk&ref=main&action=open) [![Edit with Hanzo](https://hanzo.app/badges/edit-with-hanzo.svg)](https://hanzo.app/dev/open?repo=github.com/hanzoai/dart-sdk&ref=main&action=edit)
+
 Landing page for the **Hanzo Dart/Flutter SDKs**. This is the thin wrapper in the
 Hanzo umbrella org — the real code lives in its language org.
 
